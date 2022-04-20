@@ -1,0 +1,39 @@
+{
+  "name": "crashing-dev-back",
+  "version": "1.0.0",
+  "description": "개발뽀개기 팀 back",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --setupFiles dotenv/config",
+    "start" : "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "김다현, 박수정, 박지수",
+  "license": "ISC",
+  "dependencies": {
+    "@sindresorhus/is": "^4.2.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "jest": "^27.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.1",
+    "supertest": "^6.1.6",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "modulePathIgnorePatterns": [
+      "__config__"
+    ]
+  }
+
+}
