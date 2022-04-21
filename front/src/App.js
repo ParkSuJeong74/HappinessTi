@@ -33,10 +33,10 @@ function App() {
       const currentUser = res.data
 
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
-      /* dispatch({
+      dispatch({
         type: "LOGIN_SUCCESS",
         payload: currentUser,
-      }) */
+      })
 
       console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;")
     } catch {
