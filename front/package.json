@@ -17,6 +17,7 @@
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.3.4",
+    "vanilla-tilt": "^1.7.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
