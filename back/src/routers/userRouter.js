@@ -44,15 +44,10 @@ userAuthRouter.post("/login", async function (req, res, next) {
 
 userAuthRouter.get("/current", login_required, async function (req, res, next) {
   try {
-    // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
-    const user_id = req.currentUserId
+    const userId = req.currentUserId
     const currentUserInfo = await userAuthService.getUserInfo({
-      user_id,
+      userId,
     })
-
-    if (currentUserInfo.errorMessage) {
-      throw new Error(currentUserInfo.errorMessage)
-    }
 
     res.status(200).send(currentUserInfo)
   } catch (error) {
@@ -62,22 +57,14 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
 
 userAuthRouter.put("/:id", login_required, async function (req, res, next) {
   try {
-    // URI로부터 사용자 id를 추출함.
     const userId = req.params.id
-    // body data 로부터 업데이트할 사용자 정보를 추출함.
-    const name = req.body.name ?? null
-    const email = req.body.email ?? null
-    const password = req.body.password ?? null
-    const description = req.body.description ?? null
-
-    const toUpdate = { name, email, password, description }
-
-    // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-    const updatedUser = await userAuthService.setUser({ userId, toUpdate })
-
-    if (updatedUser.errorMessage) {
-      throw new Error(updatedUser.errorMessage)
+    if (userId != req.currentUserId) {
+      throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.")
     }
+    const { nickname, description } = req.body
+    const toUpdate = { nickname, description }
+
+    const updatedUser = await userAuthService.setUser({ userId, toUpdate })
 
     res.status(200).json(updatedUser)
   } catch (error) {
