@@ -55,8 +55,9 @@ function App() {
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
         <GlobalStyles />
-        <Header />
+        
         <Router>
+          <Header />
           <Routes>
             <Route path="/" exact element={<Home />} />
           </Routes>

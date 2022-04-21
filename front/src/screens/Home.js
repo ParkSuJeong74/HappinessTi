@@ -1,6 +1,6 @@
 function Home() {
     return (
-        <div>안녕</div>
+        <div>메인페이지</div>
     )
 }
 export default Home
