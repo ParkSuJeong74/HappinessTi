@@ -8,6 +8,7 @@ import Header from "./components/Header"
 import Home from "./screens/Home"
 import Footer from "./components/Footer"
 import { GlobalStyles } from "./srcAssets/style/GlobalStyle"
+import { MainWrapper } from "./srcAssets/style/MainWrapper"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -57,12 +58,15 @@ function App() {
         <GlobalStyles />
         
         <Router>
-          <Header />
-          <Routes>
-            <Route path="/" exact element={<Home />} />
-          </Routes>
+          <MainWrapper>
+            <Header />
+            <Routes>
+              <Route path="/" exact element={<Home />} />
+            </Routes>
+            <Footer />
+          </MainWrapper>
         </Router>
-        <Footer />
+        
       </UserStateContext.Provider>
     </DispatchContext.Provider>
   )
