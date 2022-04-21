@@ -8,20 +8,21 @@ function Header() {
   return (
     <HeaderNavBar>
       <Link to="/" className={Style.headerTitle}>
-      <HeaderLogo>
-        
+        <HeaderLogo>
+          
           <LogoImg src={logoImg}/>
           <HeaderTitle>Happy-TI</HeaderTitle>
-        
-      </HeaderLogo>
+          
+        </HeaderLogo>
       </Link>
       
       <HeaderNav>
-        <Link to="/" className={Style.headerLink}>Team</Link>
 
-        <Link to="/" className={Style.headerLink}>LogIn</Link>
+        <Link to="/teampage" className={Style.headerLink}>Team</Link>
 
-        <Link to="/" className={Style.headerLink}>Logout</Link>
+        <Link to="/login" className={Style.headerLink}>LogIn</Link>
+
+        <Link to="" className={Style.headerLink}>Logout</Link>
 
       </HeaderNav>
     </HeaderNavBar>
@@ -36,7 +37,7 @@ const HeaderNavBar = styled.div`
   height: 10vh;
   padding: 4px 50px;
   border: 1px solid black;
-  box-shadow: 0 4px 4px -2px lightgray;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,5 +58,6 @@ const HeaderTitle = styled.span`
   text-transform: uppercase;
   font-size: 3rem;
 `;
+
 const HeaderNav = styled.div`
 `;

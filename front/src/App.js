@@ -9,6 +9,9 @@ import Home from "./screens/Home"
 import Footer from "./components/Footer"
 import { GlobalStyles } from "./srcAssets/style/GlobalStyle"
 import { MainWrapper } from "./srcAssets/style/MainWrapper"
+import Team from "./screens/Team"
+import Question from "./screens/Question"
+import Login from "./screens/Login"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -56,17 +59,21 @@ function App() {
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
         <GlobalStyles />
-        
-        <Router>
-          <MainWrapper>
-            <Header />
-            <Routes>
-              <Route path="/" exact element={<Home />} />
-            </Routes>
-            <Footer />
-          </MainWrapper>
-        </Router>
-        
+
+          <Router>
+            <MainWrapper>
+              <Header />
+                <Routes>
+                  <Route path="/" exact element={<Home />} />
+                  <Route path="/teampage" element={<Team/>} />
+                  <Route path="/question" element={<Question />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="*" element={<Home />} />
+                </Routes>
+              <Footer />
+            </MainWrapper>
+          </Router>
+          
       </UserStateContext.Provider>
     </DispatchContext.Provider>
   )
