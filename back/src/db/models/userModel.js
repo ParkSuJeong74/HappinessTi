@@ -21,13 +21,18 @@ const userModel = {
     return users
   },
 
-  update: async ({ userId, fieldToUpdate, newValue }) => {
+  update: async ({ userId, newValue }) => {
     const filter = { id: userId }
-    const update = { [fieldToUpdate]: newValue }
+    const update = { $set: newValue }
     const option = { returnOriginal: false }
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option)
     return updatedUser
+  },
+
+  delete: async ({ userId }) => {
+    await userModel.deleteOne({ id: userId })
+    return "삭제완료"
   },
 }
 
