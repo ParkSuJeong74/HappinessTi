@@ -2,6 +2,7 @@ const { userModel } = require("../db")
 const bcrypt = require("bcrypt")
 const { v4: uuidv4 } = require("uuid")
 const jwt = require("jsonwebtoken")
+const SetUtil = require("../common/SetUtil")
 
 const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
