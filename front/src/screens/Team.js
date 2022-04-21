@@ -1,13 +1,16 @@
-import bgGradientImg from '../srcAssets/img/bg_gradient3.png'
+import bgGradientImg from '../srcAssets/img/bg_gradient.png'
 import teamSJ from '../srcAssets/img/teamSJ.png'
 import teamJS from '../srcAssets/img/teamJS.png'
 import teamJM from '../srcAssets/img/teamJM.png'
-import teamKJ from '../srcAssets/img/teamKJ.jpg'
+import teamDH from '../srcAssets/img/teamDH.png'
+import teamKJ from '../srcAssets/img/teamKJ.png'
+import teamJA from '../srcAssets/img/teamJA.png'
 import styled from "styled-components";
 
 import { Grid, Container, Typography, Box } from '@mui/material';
 import VanillaTilt from 'vanilla-tilt';
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
+import { UserStateContext } from '../App'
 
 function Tilt({options, ...rest}){
     const tilt = useRef(null);
@@ -20,6 +23,8 @@ function Tilt({options, ...rest}){
 }
 
 function Team(){
+    const userState = useContext(UserStateContext)
+    console.log(userState)
 
     const options = {
         scale: 1.1,
@@ -70,7 +75,7 @@ function Team(){
                     <Grid item md={4} xs={6}>
                         <Tilt options={options}>
                             <Card>
-                                <MemberImg src={teamSJ} alt="다현님"/>
+                                <MemberImg src={teamDH} alt="다현님"/>
                                 <MemberDes1>김다현</MemberDes1>
                                 <MemberDes2>역할: 백엔드, 데이터분석</MemberDes2>
                             </Card>
@@ -88,7 +93,7 @@ function Team(){
                     <Grid item md={4} xs={6}>
                         <Tilt options={options}>
                             <Card>
-                                <MemberImg src={teamSJ} alt="주안님"/>
+                                <MemberImg src={teamJA} alt="주안님"/>
                                 <MemberDes1>이주안</MemberDes1>
                                 <MemberDes2>역할: 프론트엔드, 데이터분석</MemberDes2>
                             </Card>
