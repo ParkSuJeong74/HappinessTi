@@ -1,9 +1,22 @@
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
+import { DispatchContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
 import Style from '../srcAssets/style/Header.module.css'
 
 function Header() {
+  const dispatch = useContext(DispatchContext)
+  const navigate = useNavigate()
+
+  function logoutHandler(){
+    sessionStorage.removeItem("userToken")
+    dispatch({
+      type: 'LOGOUT'      
+    })
+    alert("로그아웃됐습니다!")
+    navigate("/")
+  }
 
   return (
     <HeaderNavBar>
@@ -22,7 +35,7 @@ function Header() {
 
         <Link to="/login" className={Style.headerLink}>LogIn</Link>
 
-        <Link to="" className={Style.headerLink}>Logout</Link>
+        <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>
 
       </HeaderNav>
     </HeaderNavBar>
@@ -60,4 +73,8 @@ const HeaderTitle = styled.span`
 `;
 
 const HeaderNav = styled.div`
+`;
+
+const LogoutButton = styled.span`
+  cursor: pointer;
 `;
