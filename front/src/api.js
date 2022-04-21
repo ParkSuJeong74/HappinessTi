@@ -1,16 +1,21 @@
 import axios from "axios"
 
-const backendPortNumber = "5001"
+const BACKEND_PORT_NUMBER = "5000";
 const serverUrl =
-  "http://" + window.location.hostname + ":" + backendPortNumber + "/"
+  "http://" + window.location.hostname + ":" + BACKEND_PORT_NUMBER + "/"
+
+// 어느 요청이나 공통인 baseUrl이므로 구성 기본값으로 설정.
+axios.defaults.baseURL = serverUrl
 
 async function get(endpoint, params = "") {
   console.log(
     `%cGET 요청 ${serverUrl + endpoint + "/" + params}`,
     "color: #a25cd1;"
   )
+    
+  console.log(sessionStorage.getItem("userToken"))
 
-  return axios.get(serverUrl + endpoint + "/" + params, {
+  return axios.get(endpoint + "/" + params, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
@@ -25,7 +30,7 @@ async function post(endpoint, data) {
   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;")
   console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;")
 
-  return axios.post(serverUrl + endpoint, bodyData, {
+  return axios.post(endpoint, bodyData, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
@@ -40,7 +45,7 @@ async function put(endpoint, data) {
   console.log(`%cPUT 요청: ${serverUrl + endpoint}`, "color: #059c4b;")
   console.log(`%cPUT 요청 데이터: ${bodyData}`, "color: #059c4b;")
 
-  return axios.put(serverUrl + endpoint, bodyData, {
+  return axios.put(endpoint, bodyData, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
@@ -52,7 +57,7 @@ async function put(endpoint, data) {
 // 여기서는 우선 delete 대신 del로 쓰고 아래 export 시에 delete로 alias 함.
 async function del(endpoint, params = "") {
   console.log(`DELETE 요청 ${serverUrl + endpoint + "/" + params}`)
-  return axios.delete(serverUrl + endpoint + "/" + params, {
+  return axios.delete(endpoint + "/" + params, {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
