@@ -12,19 +12,16 @@ userAuthRouter.post("/register", async function (req, res, next) {
         "headers의 Content-Type을 application/json으로 설정해주세요"
       )
     }
-    // req (request) 에서 데이터 가져오기
+
     const nickname = req.body.nickname
     const email = req.body.email
     const password = req.body.password
 
-    // 위 데이터를 유저 db에 추가하기
     const newUser = await userAuthService.addUser({
       nickname,
       email,
       password,
     })
-
-    console.log(newUser)
 
     res.status(201).json(newUser)
   } catch (error) {
@@ -34,24 +31,12 @@ userAuthRouter.post("/register", async function (req, res, next) {
 
 userAuthRouter.post("/login", async function (req, res, next) {
   try {
-    // req (request) 에서 데이터 가져오기
     const email = req.body.email
     const password = req.body.password
 
-    // 위 데이터를 이용하여 유저 db에서 유저 찾기
     const user = await userAuthService.getUser({ email, password })
 
     res.status(200).send(user)
-  } catch (error) {
-    next(error)
-  }
-})
-
-userAuthRouter.get("/lists", login_required, async function (req, res, next) {
-  try {
-    // 전체 사용자 목록을 얻음
-    const users = await userAuthService.getUsers()
-    res.status(200).send(users)
   } catch (error) {
     next(error)
   }
@@ -100,28 +85,41 @@ userAuthRouter.put("/:id", login_required, async function (req, res, next) {
   }
 })
 
+/**
+ * @swagger
+ *  /users/{id}:
+ *    get:
+ *      tags:
+ *      - user
+ *      description: 유저 등록
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *      - name: id
+ *        in: path
+ *        required: true
+ *        schema:
+ *          type: string
+ *          description: 유저 고유 id
+ *        examples:
+ *          Sample:
+ *            value: 1616
+ *            summary: A Sample Id
+ *      responses:
+ *        200:
+ *          description: 한 유저의 정보 조회
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ */
 userAuthRouter.get("/:id", login_required, async function (req, res, next) {
   try {
     const userId = req.params.id
     const currentUserInfo = await userAuthService.getUserInfo({ userId })
 
-    if (currentUserInfo.errorMessage) {
-      throw new Error(currentUserInfo.errorMessage)
-    }
-
     res.status(200).send(currentUserInfo)
   } catch (error) {
     next(error)
   }
-})
-
-// jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
-  res
-    .status(200)
-    .send(
-      `안녕하세요 ${req.currentUserId}님, jwt 웹 토큰 기능 정상 작동 중입니다.`
-    )
 })
 
 module.exports = { userAuthRouter }

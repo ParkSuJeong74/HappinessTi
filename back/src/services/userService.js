@@ -105,7 +105,7 @@ const userAuthService = {
     return user
   },
 
-  getUserInfo: async ({ user_id }) => {
+  getUserInfo: async ({ userId }) => {
     const user = await userModel.findById({ userId })
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
