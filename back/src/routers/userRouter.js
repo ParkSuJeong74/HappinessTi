@@ -13,9 +13,7 @@ userAuthRouter.post("/register", async function (req, res, next) {
       )
     }
 
-    const nickname = req.body.nickname
-    const email = req.body.email
-    const password = req.body.password
+    const { nickname, email, password } = req.body
 
     const newUser = await userAuthService.addUser({
       nickname,
@@ -31,8 +29,7 @@ userAuthRouter.post("/register", async function (req, res, next) {
 
 userAuthRouter.post("/login", async function (req, res, next) {
   try {
-    const email = req.body.email
-    const password = req.body.password
+    const { email, password } = req.body
 
     const user = await userAuthService.getUser({ email, password })
 
