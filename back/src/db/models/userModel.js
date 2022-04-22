@@ -31,7 +31,6 @@ const userModel = {
     const option = { returnOriginal: false }
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option)
-    console.log(updatedUser)
     return updatedUser
   },
 }

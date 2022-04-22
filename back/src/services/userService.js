@@ -85,9 +85,7 @@ const userAuthService = {
     }
 
     const updateObject = SetUtil.compareValues(toUpdate, user)
-    console.log(updateObject)
     user = await userModel.update({ userId, updateObject })
-    console.log(user)
     return user
   },
 

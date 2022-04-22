@@ -103,7 +103,7 @@ userAuthRouter.post("/login", async function (req, res, next) {
 /**
  * @swagger
  * path:
- * /users/{id}:
+ * /users/current:
  *   get:
  *     tags: [User]
  *     description: 현재 로그인한 유저 정보 조회

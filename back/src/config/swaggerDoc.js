@@ -5,9 +5,9 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Test API",
+      title: "CrashingDev team API Docs",
       version: "1.0.0",
-      description: "Test API with express",
+      description: "Elice 4th 14team crashing dev",
     },
     components: {
       securitySchemes: {
