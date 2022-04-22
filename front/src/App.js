@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer, createContext } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 import * as Api from "./api"
+import './srcAssets/style/fonts.module.css'
 import { loginReducer } from "./reducer"
 
 import Header from "./components/Header"
@@ -62,6 +63,7 @@ function App() {
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
         <GlobalStyles />
+        
 
           <Router>
             <MainWrapper>
