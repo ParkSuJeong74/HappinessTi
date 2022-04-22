@@ -15,6 +15,10 @@ const userModel = {
     const user = await User.findOne({ id: userId })
     return user
   },
+  findByNickname: async ({ nickname }) => {
+    const user = await User.findOne({ nickname })
+    return user
+  },
 
   findAll: async () => {
     const users = await User.find({})

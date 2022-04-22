@@ -3,10 +3,18 @@ const express = require("express")
 const { userAuthRouter } = require("./routers/userRouter")
 const { errorMiddleware } = require("./middlewares/errorMiddleware")
 
+const { swaggerUi, specs } = require("./config/swaggerDoc")
+
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+)
 
 // 기본
 app.get("/", (req, res) => {
