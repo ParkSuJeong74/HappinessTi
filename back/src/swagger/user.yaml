@@ -1,0 +1,22 @@
+components:
+  schemas:
+    User: 
+      properties: 
+        id: 
+          type: string 
+          description: 유저 고유 번호 
+        email:
+          type: string 
+          description: 유저 아이디 겸 이메일
+        nickname:
+          type: string 
+          description: 유저 닉네임
+        password:
+          type: string 
+          description: 유저 비밀번호
+        description:
+          type: string 
+          description: 유저 정보
+        profileImgUrl:
+          type: string 
+          description: 유저 프로필 사진
