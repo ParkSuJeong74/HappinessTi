@@ -130,6 +130,8 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
   }
 })
 
+// Todo : user profile 사진 업로드 기능
+
 /**
  * @swagger
  * path:
