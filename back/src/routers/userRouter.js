@@ -5,6 +5,41 @@ const { userAuthService } = require("../services/userService")
 
 const userAuthRouter = Router()
 
+/**
+ *  @swagger
+ *  tags:
+ *    name: User
+ *    description: API to manage users
+ */
+
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *     tags: [User]
+ *     description: 유저 등록
+ *     produces:
+ *     - "application/json"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               nickname:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: "회원가입 완료"
+ *         content:
+ *           application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ */
 userAuthRouter.post("/register", async function (req, res, next) {
   try {
     if (is.emptyObject(req.body)) {
@@ -27,6 +62,32 @@ userAuthRouter.post("/register", async function (req, res, next) {
   }
 })
 
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     tags: [User]
+ *     description: 유저 로그인
+ *     produces:
+ *     - "application/json"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: "로그인 완료"
+ *         content:
+ *           application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ */
 userAuthRouter.post("/login", async function (req, res, next) {
   try {
     const { email, password } = req.body
@@ -71,18 +132,22 @@ userAuthRouter.put("/:id", login_required, async function (req, res, next) {
 
 /**
  * @swagger
+ * path:
  * /users/{id}:
  *   get:
- *     description: 유저 등록
+ *     tags: [User]
+ *     description: 해당 id의 유저 정보 조회
  *     produces:
  *     - "application/json"
  *     parameters:
  *     - name: "id"
  *       in: "path"
  *       required: true
+ *     security:
+ *      - Authorization: []
  *     responses:
  *       '200':
- *         description: "한 유저의 정보 조회"
+ *         description: "한 유저의 정보 조회 완료"
  *         schema:
  *           $ref: '#/components/schemas/User'
  */
