@@ -51,7 +51,6 @@ export default Header
 const HeaderNavBar = styled.div`
   height: 10vh;
   padding: 4px 50px;
-  border: 1px solid black;
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;

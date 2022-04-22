@@ -30,6 +30,8 @@ function Login(){
 
             const userdata = await Api.get(`users/${user.id}`)
             console.log(userdata)
+
+
         
         } catch (error) {
             alert(error.response.data)
