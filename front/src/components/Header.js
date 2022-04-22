@@ -1,46 +1,80 @@
-//import React, { useContext } from "react"
-// import { useNavigate, useLocation } from "react-router-dom"
-// //import Nav from "react-bootstrap/Nav"
-// import { UserStateContext, DispatchContext } from "../App"
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components'
+import { DispatchContext } from '../App';
+import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
+import Style from '../srcAssets/style/Header.module.css'
 
-// function Header() {
-//   const navigate = useNavigate()
-//   const location = useLocation()
+function Header() {
+  const dispatch = useContext(DispatchContext)
+  const navigate = useNavigate()
 
-//   const userState = useContext(UserStateContext)
-//   const dispatch = useContext(DispatchContext)
+  function logoutHandler(){
+    sessionStorage.removeItem("userToken")
+    dispatch({
+      type: 'LOGOUT'      
+    })
+    alert("로그아웃됐습니다!")
+    navigate("/")
+  }
 
-//   // 전역상태에서 user가 null이 아니라면 로그인 성공 상태임.
-//   const isLogin = !!userState.user
+  return (
+    <HeaderNavBar>
+      <Link to="/" className={Style.headerTitle}>
+        <HeaderLogo>
+          
+          <LogoImg src={logoImg}/>
+          <HeaderTitle>Happy-TI</HeaderTitle>
+          
+        </HeaderLogo>
+      </Link>
+      
+      <HeaderNav>
 
-//   // 로그아웃 클릭 시 실행되는 함수
-//   const logout = () => {
-//     // sessionStorage 에 저장했던 JWT 토큰을 삭제함.
-//     sessionStorage.removeItem("userToken")
-//     // dispatch 함수를 이용해 로그아웃함.
-//     dispatch({ type: "LOGOUT" })
-//     // 기본 페이지로 돌아감.
-//     navigate("/")
-//   }
+        <Link to="/teampage" className={Style.headerLink}>Team</Link>
 
-//   return (
-//     <Nav activeKey={location.pathname}>
-//       <Nav.Item className="me-auto mb-5">
-//         <Nav.Link disabled>안녕하세요, 포트폴리오 공유 서비스입니다.</Nav.Link>
-//       </Nav.Item>
-//       <Nav.Item>
-//         <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
-//       </Nav.Item>
-//       <Nav.Item>
-//         <Nav.Link onClick={() => navigate("/network")}>네트워크</Nav.Link>
-//       </Nav.Item>
-//       {isLogin && (
-//         <Nav.Item>
-//           <Nav.Link onClick={logout}>로그아웃</Nav.Link>
-//         </Nav.Item>
-//       )}
-//     </Nav>
-//   )
-// }
+        <Link to="/login" className={Style.headerLink}>LogIn</Link>
 
-//export default Header
+        <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>
+
+      </HeaderNav>
+    </HeaderNavBar>
+
+  )
+
+}
+
+export default Header
+
+const HeaderNavBar = styled.div`
+  height: 10vh;
+  padding: 4px 50px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const LogoImg = styled.img`
+  width: 130px;
+  cursor: pointer;
+`;
+
+const HeaderLogo=styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+const HeaderTitle = styled.span`
+  color: #000;
+  text-transform: uppercase;
+  font-size: 3rem;
+`;
+
+const HeaderNav = styled.div`
+`;
+
+const LogoutButton = styled.span`
+  cursor: pointer;
+`;
