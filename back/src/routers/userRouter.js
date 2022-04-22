@@ -1,16 +1,16 @@
-const is = require("@sindresorhus/is")
-const { Router } = require("express")
-const { login_required } = require("../middlewares/login_required")
-const { userAuthService } = require("../services/userService")
-
-const userAuthRouter = Router()
-
 /**
  *  @swagger
  *  tags:
  *    name: User
  *    description: API to manage users
  */
+
+const is = require("@sindresorhus/is")
+const { Router } = require("express")
+const { login_required } = require("../middlewares/login_required")
+const { userAuthService } = require("../services/userService")
+
+const userAuthRouter = Router()
 
 /**
  * @swagger
@@ -100,6 +100,23 @@ userAuthRouter.post("/login", async function (req, res, next) {
   }
 })
 
+/**
+ * @swagger
+ * path:
+ * /users/{id}:
+ *   get:
+ *     tags: [User]
+ *     description: 현재 로그인한 유저 정보 조회
+ *     produces:
+ *     - "application/json"
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "현재 로그인한 유저의 정보 조회 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
 userAuthRouter.get("/current", login_required, async function (req, res, next) {
   try {
     const userId = req.currentUserId
@@ -113,6 +130,37 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
   }
 })
 
+/**
+ * @swagger
+ * path:
+ * /users/{id}:
+ *   put:
+ *     tags: [User]
+ *     description: 해당 id의 유저 정보 수정
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       required: true
+ *     security:
+ *      - Authorization: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               nickname:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 정보 수정 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
 userAuthRouter.put("/:id", login_required, async function (req, res, next) {
   try {
     const userId = req.params.id
