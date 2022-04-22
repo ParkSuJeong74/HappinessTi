@@ -2,7 +2,7 @@ const { userModel } = require("../db")
 const bcrypt = require("bcrypt")
 const { v4: uuidv4 } = require("uuid")
 const jwt = require("jsonwebtoken")
-const SetUtil = require("../common/SetUtil")
+const { SetUtil } = require("../common/SetUtil")
 
 const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
@@ -85,8 +85,9 @@ const userAuthService = {
     }
 
     const updateObject = SetUtil.compareValues(toUpdate, user)
-    user = await User.update({ userId, updateObject })
-
+    console.log(updateObject)
+    user = await userModel.update({ userId, updateObject })
+    console.log(user)
     return user
   },
 
