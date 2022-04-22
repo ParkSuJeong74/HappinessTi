@@ -71,29 +71,20 @@ userAuthRouter.put("/:id", login_required, async function (req, res, next) {
 
 /**
  * @swagger
- *  /users/{id}:
- *    get:
- *      tags:
- *      - user
- *      description: 유저 등록
- *      produces:
- *      - application/json
- *      parameters:
- *      - name: id
- *        in: path
- *        required: true
- *        schema:
- *          type: string
- *          description: 유저 고유 id
- *        examples:
- *          Sample:
- *            value: 1616
- *            summary: A Sample Id
- *      responses:
- *        200:
- *          description: 한 유저의 정보 조회
- *          schema:
- *            $ref: '#/components/schemas/User'
+ * /users/{id}:
+ *   get:
+ *     description: 유저 등록
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       required: true
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 정보 조회"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
  */
 userAuthRouter.get("/:id", login_required, async function (req, res, next) {
   try {

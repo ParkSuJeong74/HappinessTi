@@ -17,3 +17,6 @@ components:
         description:
           type: string 
           description: 유저 정보
+        profileImgUrl:
+          type: string 
+          description: 유저 프로필 사진
