@@ -13,6 +13,7 @@ import Team from "./screens/Team"
 import Question from "./screens/Question"
 import Login from "./screens/Login"
 import Register from "./screens/Register"
+import Mypage from "./screens/Mypage"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -71,6 +72,7 @@ function App() {
                   <Route path="/question" element={<Question />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  <Route path="/mypage" element={<Mypage />} />
                   <Route path="*" element={<Home />} />
                 </Routes>
               <Footer />

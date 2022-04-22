@@ -35,6 +35,8 @@ function Header() {
 
         <Link to="/login" className={Style.headerLink}>LogIn</Link>
 
+        <Link to="/mypage" className={Style.headerLink}>Mypage</Link>
+
         <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>
 
       </HeaderNav>
