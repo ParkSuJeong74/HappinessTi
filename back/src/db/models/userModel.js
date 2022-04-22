@@ -31,8 +31,9 @@ const userModel = {
   },
 
   delete: async ({ userId }) => {
-    await userModel.deleteOne({ id: userId })
-    return "삭제완료"
+    const deleteone = await User.deleteOne({ id: userId })
+    const allremove = deleteone.deletedCount === 1
+    return allremove
   },
 }
 

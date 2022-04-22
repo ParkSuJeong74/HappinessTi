@@ -116,7 +116,7 @@ userAuthRouter.get("/:id", login_required, async function (req, res, next) {
 })
 
 // user 탈퇴기능
-userAuthRouter.delete("/user/:id", async (req, res, next) => {
+userAuthRouter.delete("/:id", async (req, res, next) => {
   try {
     const userId = req.params.id
     const deletedUser = await userAuthService.deleteUser({ userId })
