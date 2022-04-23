@@ -2,21 +2,30 @@ import { Button, Grid, IconButton, Stack, Typography } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 import styled from 'styled-components';
 import smile from '../../srcAssets/img/smile2.png'
+import defaultCrashImg from '../../srcAssets/img/defaultCrashingdev.png'
 import ProfileEdit from'./ProfileEdit.js'
 import norway from '../../srcAssets/img/norway.png'
 
 function Profile({editOpen, setEditOpen, user, setUser}){
+  console.log(user)
+  console.log(smile) //{'/static/media/smile2.ca5418679920d8480273.png'}
+  
   return (
   <CardBox>
       <UpperBox>
         <IconButton onClick={() => setEditOpen((prev) => !prev)} sx={{transform: 'translate(865px, 0)'}} size="large">
-          <EditIcon fontSize="inherit" sx={{fontSize: '1.2em', color: 'lightgray'}}/>
+          <EditIcon fontSize="inherit" sx={{fontSize: '1.2em', color: '#eee'}}/>
         </IconButton>
         
         {/* 프로필 편집폼이 열리면 이미지 안보이게 함 */}
         {!editOpen && (
           <ImageBox>
-            <ProfileImage src={smile}/>
+            <ProfileImage 
+              src={
+                user?.profileImgUrl === '../../image/crashingdevlogo.png'
+                  ? defaultCrashImg
+                  : smile
+              }/>
           </ImageBox>
         )}
           

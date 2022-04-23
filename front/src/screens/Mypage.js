@@ -41,7 +41,7 @@ function Mypage(){
     }
     getUserLogs() */
       
-  }, [])
+  }, [loginUserId])
 
   return (
     <Container sx={{py: 7}}>
