@@ -1,4 +1,3 @@
-#<app.py>
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
@@ -15,7 +14,7 @@ def home():
         return redirect('/')
     
     # 과일 리스트를 매개변수로 넘겨주세요.
-    return render_template("index.html",fruit_list=fruit_list)
+    return render_template("greet.html",fruit_list=fruit_list)
 
 
 if __name__ == "__main__":
