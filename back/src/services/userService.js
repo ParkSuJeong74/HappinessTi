@@ -56,7 +56,6 @@ const userAuthService = {
       email,
       name,
       description,
-      errorMessage: null,
     }
 
     return loginUser

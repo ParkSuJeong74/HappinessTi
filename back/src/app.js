@@ -10,7 +10,6 @@ const { errorMiddleware } = require("./middlewares/errorMiddleware")
 // })
 
 const { swaggerUi, specs } = require("./config/swaggerDoc")
-
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -20,6 +19,13 @@ app.use(
   "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
+)
+process.env.GOOGLE_APPLICATION_CREDENTIALS =
+  `${process.cwd()}/src/` + process.env.GCS_KEYFILE
+
+console.log(
+  "google authentication installed at",
+  process.env["GOOGLE_APPLICATION_CREDENTIALS"]
 )
 
 // 기본
