@@ -33,4 +33,10 @@ export const userModel = {
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
   },
+
+  delete: async ({ userId }) => {
+    const deleteUser = await User.deleteOne({ id: userId });
+    const isDeleted = deleteUser.deletedCount === 1;
+    return isDeleted; // True or False
+  },
 };

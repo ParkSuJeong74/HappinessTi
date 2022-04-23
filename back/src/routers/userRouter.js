@@ -234,3 +234,39 @@ userAuthRouter.get("/:id", login_required, async function (req, res, next) {
     next(error);
   }
 });
+
+/**
+ * @swagger
+ * path:
+ * /users/{id}:
+ *   delete:
+ *     tags: [User]
+ *     description: 해당 id의 유저 삭제
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       required: true
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 정보 조회 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
+userAuthRouter.delete("/:id", login_required, async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const currnetId = req.currentUserId;
+    if (userId !== currnetId) {
+      throw new Error("당신은 이 유저의 정보를 삭제할 수 없습니다.");
+    }
+    const deletedUser = await userAuthService.deleteUser({ userId });
+
+    res.status(200).send(deletedUser);
+  } catch (error) {
+    next(error);
+  }
+});

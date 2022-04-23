@@ -90,6 +90,15 @@ export const userAuthService = {
     return user;
   },
 
+  deleteUser: async ({ userId }) => {
+    const isDeleted = await userModel.delete({ userId });
+
+    if (!isDeleted) {
+      throw new Error("삭제가 되지 않았습니다.");
+    }
+    return { status: "Ok" };
+  },
+
   getUserInfo: async ({ userId }) => {
     const user = await userModel.findById({ userId });
 
