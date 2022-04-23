@@ -21,7 +21,7 @@ const rows = [
 
 function Userlog(){
     return(
-        <Accordion>
+        <Accordion sx={{p: 2}}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"

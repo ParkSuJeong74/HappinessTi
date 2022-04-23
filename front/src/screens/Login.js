@@ -13,26 +13,23 @@ function Login(){
         e.preventDefault()
 
         try {
+            //TODO: user 로그인 api 호출!
             const res = await Api.post("users/login", {
                 email,
                 password,
             })
-            console.log(res.data)
             const user = res.data
+
             const jwtToken = user.token
             sessionStorage.setItem("userToken", jwtToken)
-            alert("성공! 유저토큰 설정 완료!")
+            alert("로그인이 성공하였습니다!")
+            navigate('/')
 
             dispatch({
                 type: "LOGIN_SUCCESS",
                 payload: user,
             });
 
-            const userdata = await Api.get(`users/${user.id}`)
-            console.log(userdata)
-
-
-        
         } catch (error) {
             alert(error.response.data)
         }

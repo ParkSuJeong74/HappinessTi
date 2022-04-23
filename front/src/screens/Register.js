@@ -1,7 +1,9 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import * as Api from '../api.js'
 
 function Register(){
+    const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [nickname, setNickname] = useState("")
     const [password, setPassword] = useState("")
@@ -10,16 +12,17 @@ function Register(){
         e.preventDefault()
 
         try {
+            //TODO: user 회원가입 api 호출
             await Api.post("users/register", {
                 email,
                 password,
                 nickname,
             })
-            alert("회원가입 성공")
+            alert("회원가입이 성공하였습니다!")
+            navigate("/login")
         
         } catch (error) {
             console.log(error)
-            
         }
     }
     return (
