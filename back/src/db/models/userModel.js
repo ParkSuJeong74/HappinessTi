@@ -25,9 +25,9 @@ const userModel = {
     return users
   },
 
-  update: async ({ userId, newValue }) => {
+  update: async ({ userId,updateObject, newValue }) => {
     const filter = { id: userId }
-    const update = { $set: newValue }
+    const update = { $set: updateObject }
     const option = { returnOriginal: false }
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option)
