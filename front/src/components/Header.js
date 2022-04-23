@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
-import { DispatchContext } from '../App';
+import { DispatchContext, UserStateContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
 import Style from '../srcAssets/style/Header.module.css'
 
 function Header() {
   const dispatch = useContext(DispatchContext)
+  const userState = useContext(UserStateContext)
   const navigate = useNavigate()
 
   function logoutHandler(){
@@ -33,7 +34,9 @@ function Header() {
 
         <Link to="/teampage" className={Style.headerLink}>Team</Link>
 
-        <Link to="/login" className={Style.headerLink}>LogIn</Link>
+        {!userState.user 
+          && 
+        <Link to="/login" className={Style.headerLink}>LogIn</Link>}
 
         <Link to="/mypage" className={Style.headerLink}>Mypage</Link>
 
