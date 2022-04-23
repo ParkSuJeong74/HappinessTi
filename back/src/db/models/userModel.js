@@ -31,10 +31,10 @@ const userModel = {
   },
 
   delete: async ({ userId }) => {
-    const deleteone = await User.deleteOne({ id: userId })
-    const allremove = deleteone.deletedCount === 1
-    return allremove
-  },
-}
+    await User.deleteOne({ id: userId })
+ 
+    return "삭제완료"
+   },
+ } 
 
 module.exports = { userModel }
