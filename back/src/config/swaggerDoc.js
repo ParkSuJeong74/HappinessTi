@@ -1,5 +1,7 @@
-const swaggerUi = require("swagger-ui-express")
-const swaggerJSDoc = require("swagger-jsdoc")
+import swaggerJSDoc from "swagger-jsdoc";
+import path from "path";
+const __dirname = path.resolve();
+console.log(__dirname);
 
 const options = {
   definition: {
@@ -23,9 +25,7 @@ const options = {
   },
   swagger: "2.0",
   basePath: "/",
-  apis: [__dirname + "/../routers/*.js", __dirname + "/../swagger/*"],
-}
+  apis: [__dirname + "/src/routers/*.js", __dirname + "/src/swagger/*"],
+};
 
-const specs = swaggerJSDoc(options)
-
-module.exports = { swaggerUi, specs }
+export const specs = swaggerJSDoc(options);

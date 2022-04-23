@@ -5,12 +5,15 @@
  *    description: API to manage users
  */
 
-const is = require("@sindresorhus/is")
-const { Router } = require("express")
-const { login_required } = require("../middlewares/login_required")
-const { userAuthService } = require("../services/userService")
+import is from "@sindresorhus/is";
+import { Router } from "express";
+import { login_required } from "../middlewares/login_required.js";
+import { userAuthService } from "../services/userService.js";
 
-const userAuthRouter = Router()
+// const { uploadImage } = require("../middlewares/uploadImage");
+// const { multer } = require("../config/multer");
+
+export const userAuthRouter = Router();
 
 /**
  * @swagger
@@ -45,22 +48,22 @@ userAuthRouter.post("/register", async function (req, res, next) {
     if (is.emptyObject(req.body)) {
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
-      )
+      );
     }
 
-    const { nickname, email, password } = req.body
+    const { nickname, email, password } = req.body;
 
     const newUser = await userAuthService.addUser({
       nickname,
       email,
       password,
-    })
+    });
 
-    res.status(201).json(newUser)
+    res.status(201).json(newUser);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 /**
  * @swagger
@@ -90,15 +93,15 @@ userAuthRouter.post("/register", async function (req, res, next) {
  */
 userAuthRouter.post("/login", async function (req, res, next) {
   try {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
-    const user = await userAuthService.getUser({ email, password })
+    const user = await userAuthService.getUser({ email, password });
 
-    res.status(200).send(user)
+    res.status(200).send(user);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 /**
  * @swagger
@@ -119,18 +122,38 @@ userAuthRouter.post("/login", async function (req, res, next) {
  */
 userAuthRouter.get("/current", login_required, async function (req, res, next) {
   try {
-    const userId = req.currentUserId
+    const userId = req.currentUserId;
     const currentUserInfo = await userAuthService.getUserInfo({
       userId,
-    })
+    });
 
-    res.status(200).send(currentUserInfo)
+    res.status(200).send(currentUserInfo);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 // Todo : user profile 사진 업로드 기능
+userAuthRouter.put(
+  "/:id/profile-img",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const userId = req.params.id;
+      if (userId != req.currentUserId) {
+        throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
+      }
+      // const { nickname, description } = req.body
+      // const toUpdate = { nickname, description }
+
+      // const updatedUser = await userAuthService.setUser({ userId, toUpdate })
+
+      // res.status(200).json(updatedUser)
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 /**
  * @swagger
@@ -165,20 +188,20 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
  */
 userAuthRouter.put("/:id", login_required, async function (req, res, next) {
   try {
-    const userId = req.params.id
+    const userId = req.params.id;
     if (userId != req.currentUserId) {
-      throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.")
+      throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
     }
-    const { nickname, description } = req.body
-    const toUpdate = { nickname, description }
+    const { nickname, description } = req.body;
+    const toUpdate = { nickname, description };
 
-    const updatedUser = await userAuthService.setUser({ userId, toUpdate })
+    const updatedUser = await userAuthService.setUser({ userId, toUpdate });
 
-    res.status(200).json(updatedUser)
+    res.status(200).json(updatedUser);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 /**
  * @swagger
@@ -203,13 +226,11 @@ userAuthRouter.put("/:id", login_required, async function (req, res, next) {
  */
 userAuthRouter.get("/:id", login_required, async function (req, res, next) {
   try {
-    const userId = req.params.id
-    const currentUserInfo = await userAuthService.getUserInfo({ userId })
+    const userId = req.params.id;
+    const currentUserInfo = await userAuthService.getUserInfo({ userId });
 
-    res.status(200).send(currentUserInfo)
+    res.status(200).send(currentUserInfo);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
-
-module.exports = { userAuthRouter }
+});
