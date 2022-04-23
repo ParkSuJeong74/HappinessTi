@@ -25,7 +25,7 @@ const userModel = {
     return users
   },
 
-  update: async ({ userId, updateObject, newValue }) => {
+  update: async ({ userId,updateObject, newValue }) => {
     const filter = { id: userId }
     const update = { $set: updateObject }
     const option = { returnOriginal: false }
@@ -33,6 +33,12 @@ const userModel = {
     const updatedUser = await User.findOneAndUpdate(filter, update, option)
     return updatedUser
   },
-}
+
+  delete: async ({ userId }) => {
+    await User.deleteOne({ id: userId })
+ 
+    return "삭제완료"
+   },
+ } 
 
 module.exports = { userModel }

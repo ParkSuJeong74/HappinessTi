@@ -89,6 +89,11 @@ const userAuthService = {
     return user
   },
 
+  deleteUser: async ({ userId }) => {
+    const res = await userModel.delete({ userId })
+    return res
+  },
+
   getUserInfo: async ({ userId }) => {
     const user = await userModel.findById({ userId })
 

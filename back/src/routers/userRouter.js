@@ -212,4 +212,20 @@ userAuthRouter.get("/:id", login_required, async function (req, res, next) {
   }
 })
 
+// user 탈퇴기능
+userAuthRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const deletedUser = await userAuthService.deleteUser({ userId })
+
+    if (deletedUser.errorMessage) {
+      throw new Error(deletedUser.errorMessage)
+    }
+
+    res.status(200).send(deletedUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = { userAuthRouter }
