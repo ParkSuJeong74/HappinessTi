@@ -17,32 +17,38 @@ function Mypage(){
   const [userLog, setUserlogs] = useState(null)
   const [editOpen, setEditOpen] = useState(false)
 
+
   //loginUserId가 변경될 때마다 user api 호출 다시 하기
   useEffect(() => {
-    if(!loginUserId){
-      alert("반갑습니다~! 로그인을 먼저 해주세요!")
-      navigate("/login", { replace: true })
-      return
-    }
-      
-    //{id, name, description, userlog}
-    //userlog: {type, happinessScore, freedom, GDP,...}
+    
     //TODO: user정보 호출하기 (login_required)
     async function getUserData(){
+      console.log("??")
         const res = await Api.get("users", loginUserId)
+        console.log(res.data)
         setUser(res.data)
     }
     getUserData()
     
     //TODO: user의 행복-TI 로그정보 호출하기 (예정!)
+    //userlog: {type, happinessScore, freedom, GDP,...}
     /* async function getUserLogs(){
         const res = await Api.get("...")
         setUserlogs(res.data)
     }
     getUserLogs() */
-      
-  }, [loginUserId])
 
+    
+    /* alert("반갑습니다! 로그인해주실래요?") */
+
+  }, [navigate, loginUserId])
+
+  if(!userState.user){
+    alert("로그인하지 않았군요! 비회원인가요?")
+    navigate("/login", { replace: true })
+    return
+  }
+  else{
   return (
     <Container sx={{py: 7}}>
       <Profile user={user} setUser={setUser}editOpen={editOpen} setEditOpen={setEditOpen}/>
@@ -55,5 +61,6 @@ function Mypage(){
       <ProfileInfo />
     </Container>
   )
+  }
 }
 export default Mypage
