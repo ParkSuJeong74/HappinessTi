@@ -1,10 +1,10 @@
-import bgGradientImg from '../srcAssets/img/bg_gradient.png'
-import teamSJ from '../srcAssets/img/teamSJ.png'
-import teamJS from '../srcAssets/img/teamJS.png'
-import teamJM from '../srcAssets/img/teamJM.png'
-import teamDH from '../srcAssets/img/teamDH.png'
-import teamKJ from '../srcAssets/img/teamKJ.png'
-import teamJA from '../srcAssets/img/teamJA.png'
+import bgGradientImg from '../srcAssets/img/team/bg_gradient.png'
+import teamSJ from '../srcAssets/img/team/teamSJ.png'
+import teamJS from '../srcAssets/img/team/teamJS.png'
+import teamJM from '../srcAssets/img/team/teamJM.png'
+import teamDH from '../srcAssets/img/team/teamDH.png'
+import teamKJ from '../srcAssets/img/team/teamKJ.png'
+import teamJA from '../srcAssets/img/team/teamJA.png'
 import styled from "styled-components";
 
 import { Grid, Container, Typography, Box } from '@mui/material';
