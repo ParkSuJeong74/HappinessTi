@@ -1,19 +1,20 @@
 import { useContext, useState } from "react"
 import { UserStateContext } from "../../App.js"
 import * as Api from '../../api'
-import { Box, Button, Grid, Stack } from "@mui/material"
+import { Box, Button, Grid, Stack, Typography } from "@mui/material"
 import TextField from "@material-ui/core/TextField";
 import {withStyles} from "@material-ui/core/styles";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 const CssTextField = withStyles({
     root: {
       '& label.Mui-focused': {
-        color: 'pink',
+        color: '#6587FF',
       },
       '& .MuiInput-underline:after': {
-        borderBottomColor: 'pink',
+        borderBottomColor: '#6587FF',
       }, 
-      width: '300px'
+      width: '280px'
     },
 })(TextField);
 
@@ -47,7 +48,7 @@ function ProfileEditForm({setEditOpen}){
                 <Stack
                     direction="column"
                     spacing={2}
-                    sx={{ mt: 3, alignItems:'center',justifyContent: "center"}}
+                    sx={{ mt: 0.5, alignItems:'center',justifyContent: "center"}}
                 >
                     <CssTextField
                         id="Nickname"
@@ -61,8 +62,22 @@ function ProfileEditForm({setEditOpen}){
                         label="Description 수정"
                         placeholder="원래설명"
                         multiline
+                        row={3}
                         onChange={(e) => setDescription(e.target.value)}
                     />
+
+                    <Stack
+                        direction="column"
+                        spacing={1}
+                        sx={UploadBox}
+                    >
+                        <UploadFileIcon sx={{alignItems: 'center', color:'gray'}}/>
+                        <Typography sx={{opacity: 1}}>
+                            Image Upload Button!
+                        </Typography>
+                        <Button>Upload</Button>
+                    </Stack>
+
                 </Stack>
 
                 <Stack
@@ -92,4 +107,11 @@ function ProfileEditForm({setEditOpen}){
 export default ProfileEditForm
 
 
-  
+const UploadBox = {
+    border: '1px dashed gray', 
+    bgcolor: 'rgba(0, 0, 0, 0.05)',
+    width: '280px',
+    alignItems:'center',
+    justifyContent: "center",
+    p:1
+}
