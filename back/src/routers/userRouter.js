@@ -10,10 +10,16 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
 import { userAuthService } from "../services/userService.js";
 
-// const { uploadImage } = require("../middlewares/uploadImage");
-// const { multer } = require("../config/multer");
+import * as Multer from "multer";
 
 export const userAuthRouter = Router();
+
+const multer = Multer({
+  storage: Multer.memoryStorage(),
+  limits: {
+    fileSize: 2 * 1024 * 1024, // no larger than 2mb, you can change as needed.
+  },
+});
 
 /**
  * @swagger
@@ -137,18 +143,20 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
 userAuthRouter.put(
   "/:id/profile-img",
   login_required,
+  multer.single("profileImage"),
   async function (req, res, next) {
     try {
       const userId = req.params.id;
       if (userId != req.currentUserId) {
         throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
       }
-      // const { nickname, description } = req.body
-      // const toUpdate = { nickname, description }
 
-      // const updatedUser = await userAuthService.setUser({ userId, toUpdate })
+      // service
+      if (!req.file) {
+        throw new Error("업로드할 이미지가 없습니다.");
+      }
 
-      // res.status(200).json(updatedUser)
+      res.json("upload?");
     } catch (error) {
       next(error);
     }
