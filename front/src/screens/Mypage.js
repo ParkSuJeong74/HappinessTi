@@ -1,6 +1,5 @@
-import { Box, Button, Container, Grid, IconButton, Paper, Typography } from "@mui/material"
+import { Box, Button, Container, Grid, IconButton, Paper, Stack, Typography } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
-import SettingsIcon from '@mui/icons-material/Settings';
 import EditIcon from '@mui/icons-material/Edit';
 import styled from 'styled-components';
 import * as Api from '../api';
@@ -8,6 +7,9 @@ import { UserStateContext } from "../App"
 import smile from '../srcAssets/img/smile2.png'
 import { useNavigate } from "react-router-dom";
 import ProfileEdit from "../components/Mypage/ProfileEdit";
+import norway from '../srcAssets/img/norway.png'
+import ProfileInfo from "../components/Mypage/ProfileInfo";
+
 
 function Mypage(){
     const navigate = useNavigate()
@@ -39,18 +41,19 @@ function Mypage(){
     }, [])
 
     return (
-            <Box sx={container}>
-            <CardBox >
+        <>
+        <Container sx={{py: 7}}>
+            <CardBox>
                 <UpperBox>
                     {/* 컴포넌트로 바꿔야함 */}
-                    <IconButton onClick={() => setEditOpen((prev) => !prev)} sx={{transform: 'translate(940px, 0)'}} size="large">
+                    <IconButton onClick={() => setEditOpen((prev) => !prev)} sx={{transform: 'translate(865px, 0)'}} size="large">
                         <EditIcon fontSize="inherit" sx={{fontSize: '1.2em'}}/>
                     </IconButton>
                     
                     {/* 프로필 편집폼이 열리면 이미지 안보이게 함 */}
                     {!editOpen && (
                         <ImageBox>
-                            <Image src={smile}/>
+                            <ProfileImage src={smile}/>
                         </ImageBox>
                     )}
                     
@@ -76,44 +79,48 @@ function Mypage(){
                         
 
                         <Grid item xs={7} sx={{marginTop: '3em'}}>
-                            <Typography variant="h5" sx={{fontSize: '30px'}} component="div">
+                            <Typography variant="h5" sx={{fontSize: '30px', textAlign: 'center'}} component="div">
                                 Brandon님의 행복지수는
                                 <Button variant="contained" sx={{background: '#6587FF',marginLeft: '15px', verticalAlign: 'top'}}>
                                     다시 하러 가기
                                 </Button>
                                 {/* {user.nickname} */}
                             </Typography>
-                            <Typography variant="h2" sx={{marginTop: '70px',textAlign:'center',color: '#FC8694'}} component="div">
-                                노르웨이 형
-                                {/* {userlog.type?} */}
-                            </Typography>
+
+                            <Stack direction="row" sx={{ mt:9, justifyContent: "center" }}>
+                                <NationFlag src={norway}/>
+
+                                <Typography variant="h2" sx={{color: '#FC8694'}} component="span">
+                                    노르웨이 형
+                                    {/* {userlog.type?} */}
+                                </Typography>
+                            </Stack>
+                            
                         </Grid>
                         
                     </Grid>
-                </LowerBox>
-                
+                </LowerBox>                
             </CardBox>
-            </Box>
-            
-        
+
+            <Typography variant="h3" component="div" sx={{fontSize: '35px',mt: 4, mb:1}}>
+                회원 정보
+            </Typography>
+            <ProfileInfo />
+        </Container>
+        </>
     )
 }
 export default Mypage
 
-const container = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '50px'
-}
 const CardBox = styled.div`
-    width: 1000px;
-    height: 500px;
+    margin: 0 auto;
+    width: 80%;
+    height: 470px;
     border: 1px solid #E4E4E4;
 `;
 
 const UpperBox = styled.div`
-    height: 200px;
+    height: 150px;
     background: #6587FF;
 `;
 
@@ -127,12 +134,17 @@ const ImageBox = styled.div`
     border-radius: 50%;
     padding: 8px;
     background: white;
-    transform: translate(100px, 50px);
+    transform: translate(100px, -10px);
 `;
 
-const Image = styled.img`
+const ProfileImage = styled.img`
     width: 200px;
     height: 200px;
     border-radius: 50%;
 `; 
+
+const NationFlag = styled.img`
+    width: 100px;
+    margin-right: 20px;
+`;
 
