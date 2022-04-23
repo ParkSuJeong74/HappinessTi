@@ -85,10 +85,13 @@ const userAuthService = {
     }
 
     const updateObject = SetUtil.compareValues(toUpdate, user)
-    console.log(updateObject)
     user = await userModel.update({ userId, updateObject })
-    console.log(user)
     return user
+  },
+
+  deleteUser: async ({ userId }) => {
+    const res = await userModel.delete({ userId })
+    return res
   },
 
   getUserInfo: async ({ userId }) => {

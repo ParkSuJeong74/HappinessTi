@@ -103,7 +103,7 @@ userAuthRouter.post("/login", async function (req, res, next) {
 /**
  * @swagger
  * path:
- * /users/{id}:
+ * /users/current:
  *   get:
  *     tags: [User]
  *     description: 현재 로그인한 유저 정보 조회
@@ -129,6 +129,8 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
     next(error)
   }
 })
+
+// Todo : user profile 사진 업로드 기능
 
 /**
  * @swagger
@@ -205,6 +207,22 @@ userAuthRouter.get("/:id", login_required, async function (req, res, next) {
     const currentUserInfo = await userAuthService.getUserInfo({ userId })
 
     res.status(200).send(currentUserInfo)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// user 탈퇴기능
+userAuthRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const deletedUser = await userAuthService.deleteUser({ userId })
+
+    if (deletedUser.errorMessage) {
+      throw new Error(deletedUser.errorMessage)
+    }
+
+    res.status(200).send(deletedUser)
   } catch (error) {
     next(error)
   }
