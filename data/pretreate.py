@@ -1,101 +1,43 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# get_ipython().system('pip install missingno --quiet')
+# get_ipython().system('pip install folium')
+# get_ipython().system('pip install pycountry_convert')
+# get_ipython().system('pip install geocoder')
+# get_ipython().system('pip install plotly')
+# get_ipython().system('pip install pycountry_convert --quiet')
+# get_ipython().system('pip install plotly_express')
+# get_ipython().system('pip install plotly --quiet')
 
-
-#from google.colab import drive
-#drive.mount('/content/drive')
-
-
-# In[ ]:
-
-
-#!pip install mpl_toolkits
-get_ipython().system('pip install missingno --quiet')
-get_ipython().system('pip install folium')
-get_ipython().system('pip install pycountry_convert')
-get_ipython().system('pip install geocoder')
-get_ipython().system('pip install plotly')
-get_ipython().system('pip install pycountry_convert --quiet')
-get_ipython().system('pip install plotly_express')
-get_ipython().system('pip install plotly --quiet')
-
-
-# In[ ]:
-
-
-#from mpl_toolkits.basemap import Basemap
 import pandas as pd
 import numpy as np
+from collections import Counter
+
+import pycountry_convert as pc
+import missingno as msno
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 import plotly_express as px
 import pycountry
-from collections import Counter
 
-get_ipython().run_line_magic('matplotlib', 'inline')
-plt.style.use('fivethirtyeight')
-
-import pycountry_convert as pc
-import warnings
-warnings.filterwarnings('ignore')
-
-import os
-for dirname, _, filenames in os.walk('/kaggle/input'):
-    for filename in filenames:
-        print(os.path.join(dirname, filename))
-
-# Special Library
-import pycountry_convert as pc
-import missingno as msno
-
-# Seaborn Style
-sns.set(color_codes = True)
-sns.set_style("white")
-
-
-# In[ ]:
-
-
-df = pd.read_csv('/content/drive/Shareddrives/elice/2022_google_csv.csv')
-df.head()
-
-
-# #데이터 전처리
-
-# In[ ]:
-
-
+df = pd.read_csv('./file/2022_google_csv.csv')
 df = df.dropna(axis=1)
 
+print(df.head())
+print(df.shape)
 
-# In[ ]:
-
-
-df.shape
-
-
-# In[ ]:
-
-
-# Let's inspect the missing values 🐢
+# 전처리
 data_info= pd.DataFrame()
 data_info['Column Names']= df.columns
 data_info['Datatype'] = df.dtypes.to_list()
 data_info['num_NA']= data_info['Column Names'].apply(lambda x: df[x].isna().sum())
 data_info['%_NA']= data_info['Column Names'].apply(lambda x: df[x].isna().mean())
-data_info
+print(data_info)
 
-
-# In[ ]:
-
-
-df.describe()
-
-
-# In[ ]:
+print(df.describe())
 
 
 #이상치 제거 함수를 불러온다.
@@ -116,9 +58,6 @@ def detect_outliers(df, n, features):
     return multiple_outliers
 
 
-# In[ ]:
-
-
 col=[i for i in df.columns]
 Outliers_to_drop = detect_outliers(df, 2,['Happiness score',
  'Dystopia (1.83) + residual',
@@ -129,31 +68,16 @@ Outliers_to_drop = detect_outliers(df, 2,['Happiness score',
  'Explained by: Generosity',
  'Explained by: Perceptions of corruption'])
 
-
-# In[ ]:
-
-
 df.loc[Outliers_to_drop]
 
-# 이상치가 발견된 행을 확인합니다.
-
-
-# In[ ]:
-
-
 df = df.drop(Outliers_to_drop, axis = 0).reset_index(drop=True)
-df.shape
+print(df.shape)
 
-
-# In[ ]:
-
-
+# Seaborn Style
+sns.set(color_codes = True)
+sns.set_style("white")
 msno.matrix(df,color=(0.3, 0.5, 0.8))
 plt.show()
-
-
-# In[ ]:
-
 
 # Let's inspect if there are any duplicate values 💣
 data_info= pd.DataFrame()
@@ -162,26 +86,31 @@ data_info['Datatype'] = df.dtypes.to_list()
 data_info['Duplicate']= data_info['Column Names'].apply(lambda x: df[x].duplicated().sum())
 data_info
 
+# 이상치가 발견된 행을 확인합니다.
+print(data_info)
+
 #counry는 하나도 안겹친다.
-
-
-# In[ ]:
-
-
 df["Country"] = df["Country"].str.replace("*","")
-# Now, data is clean 🐠
-
-
-# In[ ]:
-
-
 df["Country"].replace("Palestinian Territories","Palestine",inplace = True)
 df["Country"].replace("Hong Kong S.A.R. of China","Hong Kong",inplace = True)
 df["Country"].replace("Russia","Russian Federation",inplace = True)
 df["Country"].replace("Taiwan Province of China","Taiwan",inplace = True)
 
 
-# In[ ]:
+
+# get_ipython().run_line_magic('matplotlib', 'inline')
+# plt.style.use('fivethirtyeight')
+# import warnings
+
+# warnings.filterwarnings('ignore')
+
+# import os
+# for dirname, _, filenames in os.walk('/kaggle/input'):
+#     for filename in filenames:
+#         print(os.path.join(dirname, filename))
+
+# Special Library
+
 
 
 # Adding a column with country codes 🧭
@@ -195,10 +124,6 @@ def countryCode (country_name):
 if __name__ == "__main__":
     df['Country code']= df.apply(lambda x: countryCode(x.Country), axis = 1)
 
-
-# In[ ]:
-
-
 # Adding a column with continent 🌡️
 def continent(country_code):
     try:
@@ -209,10 +134,6 @@ def continent(country_code):
 if __name__ == "__main__":
     df['Continent']= df["Country code"].apply(lambda x: continent(x))
 
-
-# In[ ]:
-
-
 # Let's inspect the missing values 🐢
 data_info= pd.DataFrame()
 data_info['Column Names']= df.columns
@@ -222,8 +143,6 @@ data_info['%_NA']= data_info['Column Names'].apply(lambda x: df[x].isna().mean()
 data_info
 
 
-# In[ ]:
-
 
 df.dropna(inplace = True)
 
@@ -231,8 +150,6 @@ df.dropna(inplace = True)
 # #EDA
 
 # 데이터들의 왜도와 척도보기
-
-# In[ ]:
 
 
 #피처들의 Skewness (비대칭도) 확인
