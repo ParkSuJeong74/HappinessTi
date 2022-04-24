@@ -4,22 +4,15 @@
  *    name: User
  *    description: API to manage users
  */
-
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
 import { userAuthService } from "../services/userService.js";
-
-import * as Multer from "multer";
-
+import { Buffer } from "buffer";
+import { format } from "util";
+import { multer } from "../middlewares/multer.js";
+import { gcsBucket } from "../config/gcs.js";
 export const userAuthRouter = Router();
-
-const multer = Multer({
-  storage: Multer.memoryStorage(),
-  limits: {
-    fileSize: 2 * 1024 * 1024, // no larger than 2mb, you can change as needed.
-  },
-});
 
 /**
  * @swagger
@@ -139,24 +132,79 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
   }
 });
 
-// Todo : user profile 사진 업로드 기능
-userAuthRouter.put(
+// Todo: gcp 연결 test
+
+/**
+ * @swagger
+ * /users/{id}/profile-img:
+ *   post:
+ *     tags: [User]
+ *     description: 유저 프로필 사진 업로드
+ *     produces:
+ *     - "application/json"
+ *     consumes:
+ *     - multipart/form-data
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       required: true
+ *     - name: profileImgUrl
+ *       in: formData
+ *       type: file
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "프로필 사진 업로드 완료"
+ *         content:
+ *           application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ */
+
+userAuthRouter.post(
   "/:id/profile-img",
   login_required,
-  multer.single("profileImage"),
+  multer.single("profileImgUrl"),
   async function (req, res, next) {
     try {
+      const file = req.file;
       const userId = req.params.id;
+
+      if (!file) {
+        throw new Error("업로드할 이미지가 없습니다.");
+      }
+
       if (userId != req.currentUserId) {
         throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
       }
 
-      // service
-      if (!req.file) {
-        throw new Error("업로드할 이미지가 없습니다.");
-      }
+      const blob = gcsBucket.file(
+        `ProfileImg/${Date.now()}-${req.file.originalname}`
+      );
+      const blobStream = blob.createWriteStream({
+        resumable: false,
+        public: true,
+      });
+      // 에러 핸들링
+      blobStream.on("error", (err) => {
+        throw new Error("업로드 중 오류가 발생했습니다.");
+      });
 
-      res.json("upload?");
+      // 종료 처리
+      blobStream.on("finish", () => {
+        const publicUrl = format(
+          `https://storage.googleapis.com/${gcsBucket.name}/${blob.name}`
+        );
+
+        // 최종적으로 업로드 프로세스가 완료되는 시점
+        res.status(200).json({
+          profileImgUrl: publicUrl,
+        });
+      });
+
+      // 업로드 스트림 실행
+      blobStream.end(req.file.buffer);
     } catch (error) {
       next(error);
     }
