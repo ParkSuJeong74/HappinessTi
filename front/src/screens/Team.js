@@ -9,8 +9,7 @@ import styled from "styled-components";
 
 import { Grid, Container, Typography, Box } from '@mui/material';
 import VanillaTilt from 'vanilla-tilt';
-import { useContext, useEffect, useRef } from 'react';
-import { UserStateContext } from '../App'
+import { useEffect, useRef } from 'react';
 
 function Tilt({options, ...rest}){
     const tilt = useRef(null);
@@ -23,9 +22,6 @@ function Tilt({options, ...rest}){
 }
 
 function Team(){
-    const userState = useContext(UserStateContext)
-    console.log(userState)
-
     const options = {
         scale: 1.1,
         speed: 1000,

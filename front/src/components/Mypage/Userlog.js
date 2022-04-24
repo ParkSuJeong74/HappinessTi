@@ -27,11 +27,11 @@ function Userlog(){
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-            <Typography variant="h5">HAPPY-TI 로그</Typography>
+            <Typography variant="h5" >HAPPY-TI 로그</Typography>
             </AccordionSummary>
 
             <AccordionDetails>
-                <div style={{ height: 300, width: '85%', margin: '0 auto' }}>
+                <div style={{ height: 300, width: '85%', margin: '0 auto'}}>
                     <DataGrid
                         rows={rows}
                         columns={columns}

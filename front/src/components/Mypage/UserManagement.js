@@ -39,7 +39,7 @@ function UserManagement(){
                 aria-controls="panel2a-content"
                 id="panel2a-header"
             >
-            <Typography variant="h5">회원 관리</Typography>
+            <Typography variant="h5" >회원 관리</Typography>
             </AccordionSummary>
 
             <AccordionDetails>

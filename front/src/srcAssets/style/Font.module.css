@@ -10,3 +10,7 @@
 * {
     font-family: "Elice Digital Baeum", sans-serif;
 }
+
+[class^=swal2] {
+    font-family: "Elice Digital Baeum", sans-serif;
+}
