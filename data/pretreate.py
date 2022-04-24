@@ -26,8 +26,6 @@ import pycountry
 df = pd.read_csv('./file/2022_google_csv.csv')
 df = df.dropna(axis=1)
 
-print(df.head())
-print(df.shape)
 
 # 전처리
 data_info= pd.DataFrame()
@@ -35,9 +33,7 @@ data_info['Column Names']= df.columns
 data_info['Datatype'] = df.dtypes.to_list()
 data_info['num_NA']= data_info['Column Names'].apply(lambda x: df[x].isna().sum())
 data_info['%_NA']= data_info['Column Names'].apply(lambda x: df[x].isna().mean())
-print(data_info)
 
-print(df.describe())
 
 
 #이상치 제거 함수를 불러온다.
@@ -76,18 +72,13 @@ print(df.shape)
 # Seaborn Style
 sns.set(color_codes = True)
 sns.set_style("white")
-msno.matrix(df,color=(0.3, 0.5, 0.8))
-plt.show()
+#msno.matrix(df,color=(0.3, 0.5, 0.8))
+#plt.show()
 
-# Let's inspect if there are any duplicate values 💣
-data_info= pd.DataFrame()
-data_info['Column Names']= df.columns
-data_info['Datatype'] = df.dtypes.to_list()
-data_info['Duplicate']= data_info['Column Names'].apply(lambda x: df[x].duplicated().sum())
-data_info
+
 
 # 이상치가 발견된 행을 확인합니다.
-print(data_info)
+#print(data_info)
 
 #counry는 하나도 안겹친다.
 df["Country"] = df["Country"].str.replace("*","")
@@ -95,23 +86,6 @@ df["Country"].replace("Palestinian Territories","Palestine",inplace = True)
 df["Country"].replace("Hong Kong S.A.R. of China","Hong Kong",inplace = True)
 df["Country"].replace("Russia","Russian Federation",inplace = True)
 df["Country"].replace("Taiwan Province of China","Taiwan",inplace = True)
-
-
-
-# get_ipython().run_line_magic('matplotlib', 'inline')
-# plt.style.use('fivethirtyeight')
-# import warnings
-
-# warnings.filterwarnings('ignore')
-
-# import os
-# for dirname, _, filenames in os.walk('/kaggle/input'):
-#     for filename in filenames:
-#         print(os.path.join(dirname, filename))
-
-# Special Library
-
-
 
 # Adding a column with country codes 🧭
 
@@ -134,20 +108,13 @@ def continent(country_code):
 if __name__ == "__main__":
     df['Continent']= df["Country code"].apply(lambda x: continent(x))
 
-# Let's inspect the missing values 🐢
-data_info= pd.DataFrame()
-data_info['Column Names']= df.columns
-data_info['Datatype'] = df.dtypes.to_list()
-data_info['num_NA']= data_info['Column Names'].apply(lambda x: df[x].isna().sum())
-data_info['%_NA']= data_info['Column Names'].apply(lambda x: df[x].isna().mean())
-data_info
 
 
 
 df.dropna(inplace = True)
 
 
-# #EDA
+# EDA
 
 # 데이터들의 왜도와 척도보기
 
@@ -180,7 +147,7 @@ g = g.legend(loc = "best")
 
 print("Skewness: %f" % df["Happiness score"].skew())
 print("Kurtosis: %f" % df["Happiness score"].kurt())
-
+plt.savefig('target_Skewness', dpi=300)
 # Target Feature인 Happiness score의 비대칭도와 첨도를 확인합니다. 
 # 그래프와 수치를 확인하면 정상적으로 분포되지 않는것을 확인할 수 있습니다. 
 # 예측의 정확도를 높히기 위해 로그 변환을 수행합니다.
@@ -224,7 +191,7 @@ spearman_cormatrix
 
 fig, ax = plt.subplots(figsize=(14, 12))
 sns.heatmap(spearman_cormatrix,vmin=-1, vmax=1,center=0, cmap=plt.cm.PuBu, annot=True)
-
+plt.savefig('target_Skewness', dpi=300)
 
 # (GDP , Social Support, life expectancy , Freedom)가 happiniess score와 연관이 깊다.
 # 
@@ -241,7 +208,7 @@ sns.pairplot(df_t[[
  'Explained by: Freedom to make life choices',
  'Explained by: Generosity',
  'Explained by: Perceptions of corruption','target']], hue='target')
-
+plt.savefig('pairplot', dpi=300)
 
 # 각 속성별로 TOP 10 국가들
 
@@ -257,7 +224,7 @@ sns.barplot(x='Explained by: Social support' ,y='Country',data=df.nlargest(10,'E
 sns.barplot(x='Explained by: Healthy life expectancy' ,y='Country',data=df.nlargest(10,'Explained by: Healthy life expectancy'),ax=axes[1,0],palette='OrRd')
 
 sns.barplot(x='Explained by: Freedom to make life choices' ,y='Country',data=df.nlargest(10,'Explained by: Freedom to make life choices'),ax=axes[1,1],palette='YlOrBr')
-
+plt.savefig('barplot10-1', dpi=300)
 
 # In[ ]:
 
@@ -266,7 +233,7 @@ fig, axes = plt.subplots(nrows=1, ncols=2,constrained_layout=True,figsize=(10,4)
 
 sns.barplot(x='Explained by: Generosity' ,y='Country',data=df.nlargest(10,'Explained by: Generosity'),ax=axes[0],palette='Spectral')
 sns.barplot(x='Explained by: Perceptions of corruption' ,y='Country',data=df.nlargest(10,'Explained by: Perceptions of corruption'),ax=axes[1],palette='RdYlGn')
-
+plt.savefig('barplot10-2', dpi=300)
 
 # Social Support vs GDP per capita vs Healthy life expectancy
 
@@ -296,7 +263,7 @@ sns.barplot(x = data["Country"], y = data["Happiness score"], data = data, palet
 
 
 fig.show()
-plt.show()
+plt.savefig('barplot10-2', dpi=300)
 
 
 # In[ ]:
@@ -314,7 +281,7 @@ plt.title("Top 10 Asian Countries Happiness Ranking")
 sns.barplot(x = data["Country"], y = data["Happiness score"], data = data, palette='magma', edgecolor='black')
 
 fig.show()
-plt.show()
+plt.savefig('asia-map', dpi=300)
 
 
 # In[ ]:
@@ -332,7 +299,7 @@ plt.title("Top 10 Europian Countries Happiness Ranking")
 sns.barplot(x = data["Country"], y = data["Happiness score"], data = data, palette='viridis', edgecolor='black')
 
 fig.show()
-plt.show()
+plt.savefig('europian-map', dpi=300)
 
 
 # In[ ]:
@@ -351,7 +318,7 @@ plt.title("Top 10 African Countries Happiness Ranking")
 sns.barplot(x = data["Country"], y = data["Happiness score"], data = data, palette='magma', edgecolor='black')
 
 fig.show()
-plt.show()
+plt.savefig('africa-map', dpi=300)
 
 
 # In[ ]:
@@ -370,7 +337,7 @@ plt.title("Top 10 North American Countries Happiness Ranking")
 sns.barplot(x = data["Country"], y = data["Happiness score"], data = data, palette='viridis', edgecolor='black')
 
 fig.show()
-plt.show()
+plt.savefig('north-american-map', dpi=300)
 
 
 # In[ ]:
@@ -389,7 +356,7 @@ plt.title("Top 10 South American Countries Happiness Ranking")
 sns.barplot(x = data["Country"], y = data["Happiness score"], data = data, palette='magma', edgecolor='black')
 
 fig.show()
-plt.show()
+plt.savefig('south-american-map', dpi=300)
 
 
 # 대륙별로 grouping하기
@@ -415,7 +382,7 @@ pd.DataFrame(happAvg)
 plt.title("Average Happiness Score", fontdict={'fontsize':15})
 plt.ylabel("Happiness Score")
 sns.barplot(x = happAvg.index, y = happAvg.values, palette = "viridis")
-plt.show()
+plt.savefig('score per continent', dpi=300)
 
 
 # ---------------------------------------
@@ -434,7 +401,7 @@ x = df.sort_values('Happiness score', ascending=False).tail(10)
 plt.barh(y='Country', width='Happiness score', data=x, color='violet')
 plt.xlim(xmin=2.8, xmax=4.0)
 plt.title('10 Countries with the Lowest Happiness -2022')
-plt.show()
+plt.savefig('highest vs lowest', dpi=300)
 
 
 # #HIERARCHICAL CLUSTERING 
@@ -442,125 +409,9 @@ plt.show()
 # In[ ]:
 
 
-c_df=df[[
- 'Happiness score',
- 'Dystopia (1.83) + residual',
- 'Explained by: GDP per capita',
- 'Explained by: Social support',
- 'Explained by: Healthy life expectancy',
- 'Explained by: Freedom to make life choices',
- 'Explained by: Generosity',
- 'Explained by: Perceptions of corruption']]
-c_df
 
 
-# 그러나 계층적 군집을 적용하기 전에 각 변수의 크기가 동일하도록 데이터를 정규화해야 합니다. 왜 이것이 중요할까요? 변수의 크기가 같지 않으면 모형이 더 큰 크기의 변수에 치우칠 수 있습니다.
-
-# In[ ]:
-
-
-nums=['Happiness score','Dystopia (1.83) + residual','Explained by: GDP per capita','Explained by: Social support','Explained by: Healthy life expectancy','Explained by: Freedom to make life choices','Explained by: Generosity','Explained by: Perceptions of corruption']
-from sklearn.preprocessing import normalize
-data_scaled = normalize(df[nums])
-data_scaled = pd.DataFrame(data_scaled, columns=nums)
-datasc=data_scaled.copy()
-data_scaled.head()
-
-
-# In[ ]:
-
-
-df.columns
-
-
-# In[ ]:
-
-
-df.drop(columns=nums, inplace=True)
-print(df)
-
-
-# In[ ]:
-
-
-###df 모든 칼럼들을 살리고 표준화만 바꾸기..
-
-
-# 덴드로그램을 그려보자
-
-# In[ ]:
-
-
-import scipy.cluster.hierarchy as shc
-plt.figure(figsize=(10, 7))  
-plt.title("Dendrograms")  
-dend = shc.dendrogram(shc.linkage(data_scaled, method='ward'))
-plt.axhline(y=0.23, color='r', linestyle='--')
-
-
-# In[ ]:
-
-
-from sklearn.cluster import AgglomerativeClustering
-cluster = AgglomerativeClustering(n_clusters=18, affinity='euclidean', linkage='ward')  
-data_scaled['group']=list(cluster.fit_predict(data_scaled))
-
-
-# In[ ]:
-
-
-data_scaled.groupby('group').size()
-
-
-# In[ ]:
-
-
-#각 그룹별 빈도
-plt.subplot(211)
-sns.countplot(data = data_scaled ,x='group')
-plt.show()
-
-
-# 군집별로 grouping하기
-
-# In[ ]:
-
-
-data_scaled['group']=list(cluster.fit_predict(data_scaled))
-# Grouping data on basis of groups 🐾
-contData = data_scaled.groupby("group")
-
-
-# In[ ]:
-
-
-col=['Happiness score','Dystopia (1.83) + residual','Explained by: GDP per capita','Explained by: Social support','Explained by: Healthy life expectancy','Explained by: Freedom to make life choices','Explained by: Generosity','Explained by: Perceptions of corruption']
-for i in col:
-  plt.title(f'Average {i}', fontdict={'fontsize':15})
-  plt.ylabel(f'{i}')
-  sns.barplot(x = contData[i].mean().index, y = sorted(contData[i].mean(i).values,reverse=True), palette = "viridis")
-  plt.show()
-
-
-# In[ ]:
-
-
-df=pd.concat([data_scaled, df],axis=1)
-
-
-# In[ ]:
-
-
-for j in range(0,18):
-  print(f'what is group {j} include?')
-  print(df[df['group']==j]['Country'].values)
-  print("="*30)
-
-
-# https://brunch.co.kr/@wikiviki/325
-# 
-# 의미없는 결과....
-
+#--------  여기까지 수정함----------#
 # 년도별 데이터셋을 추가해서 년도별로 어떻게 변하나 보기
 
 # In[ ]:
