@@ -1,13 +1,18 @@
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import styled from 'styled-components'
-import { DispatchContext } from '../App';
+import { DispatchContext, UserStateContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
 import Style from '../srcAssets/style/Header.module.css'
 
 function Header() {
   const dispatch = useContext(DispatchContext)
+  const userState = useContext(UserStateContext)
   const navigate = useNavigate()
+  const sampleLocation = useLocation();
+  if (sampleLocation.pathname === '/login' || sampleLocation.pathname === '/signin' || sampleLocation.pathname === '/password'){
+    return null;
+  }
 
   function logoutHandler(){
     sessionStorage.removeItem("userToken")
@@ -33,7 +38,10 @@ function Header() {
 
         <Link to="/teampage" className={Style.headerLink}>Team</Link>
 
-        <Link to="/login" className={Style.headerLink}>LogIn</Link>
+        {!userState.user && 
+        <Link to="/login" className={Style.headerLink}>LogIn</Link>}
+
+        <Link to="/mypage" className={Style.headerLink}>Mypage</Link>
 
         <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>
 
@@ -49,7 +57,6 @@ export default Header
 const HeaderNavBar = styled.div`
   height: 10vh;
   padding: 4px 50px;
-  border: 1px solid black;
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;

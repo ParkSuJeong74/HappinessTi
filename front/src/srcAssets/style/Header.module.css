@@ -24,3 +24,7 @@
 .headerLink:hover::after{
     width: 100%;
 }
+
+.headerLink:click::after{
+    width: 100%;
+}
