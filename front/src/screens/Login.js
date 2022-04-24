@@ -13,12 +13,14 @@ import { useNavigate } from "react-router-dom"
 import * as Api from '../api.js'
 import { DispatchContext } from "../App.js";
 
+
 function Login() {
     const navigate = useNavigate()
     const dispatch = useContext(DispatchContext);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    console.log(email)
+    console.log(password)
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -58,8 +60,7 @@ function Login() {
     })(TextField);
  
     return(
-
-        <LoginBody>
+        <LoginBody onSubmit={handleSubmit}>
             <LoginBodyUpper>
                 <Box>
                     <LogoImg src={logoImg}/>
@@ -80,6 +81,8 @@ function Login() {
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </Box>
             <Box class={login.inputPassword}>
@@ -92,11 +95,13 @@ function Login() {
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
             </Box>
 
             <div class={login.loginButtonbox}>
-                <button type='button' class={login.loginButton}>LOG IN</button>
+                <button type='submit' class={login.loginButton}>LOG IN</button>
 
                 <Box class={login.otherButtonbox}>
                     <Link to="/signin" class={login.createaccountButton}>Create Account</Link>
@@ -112,7 +117,7 @@ function Login() {
 
 export default Login;
 
-const LoginBody = styled.div`
+const LoginBody = styled.form`
 `;
 
 const LoginBodyUpper = styled.div`

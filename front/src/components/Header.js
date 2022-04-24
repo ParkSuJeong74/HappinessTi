@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import styled from 'styled-components'
 import { DispatchContext, UserStateContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
@@ -9,6 +9,10 @@ function Header() {
   const dispatch = useContext(DispatchContext)
   const userState = useContext(UserStateContext)
   const navigate = useNavigate()
+  const sampleLocation = useLocation();
+  if (sampleLocation.pathname === '/login' || sampleLocation.pathname === '/signin' || sampleLocation.pathname === '/password'){
+    return null;
+  }
 
   function logoutHandler(){
     sessionStorage.removeItem("userToken")
