@@ -5,8 +5,6 @@ import { DispatchContext, UserStateContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
 import Style from '../srcAssets/style/Header.module.css'
 
-import { useLocation } from "react-router-dom"  
-
 function Header() {
   const dispatch = useContext(DispatchContext)
   const userState = useContext(UserStateContext)
@@ -19,13 +17,6 @@ function Header() {
     })
     alert("로그아웃됐습니다!")
     navigate("/")
-  }
-
-  
-  const sampleLocation = useLocation();
-  console.log(sampleLocation)
-  if(sampleLocation.pathname === '/login' || sampleLocation.pathname === '/register'){
-    return null
   }
 
   return (

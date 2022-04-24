@@ -17,6 +17,8 @@ import Mypage from "./screens/Mypage"
 import './srcAssets/style/Font.module.css'
 
 import { MuiThemeProvider, createTheme} from '@material-ui/core/styles';
+import Signin from "./screens/Signin"
+import Password from "./screens/Password"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -79,8 +81,9 @@ function App() {
                   <Route path="/teampage" element={<Team/>} />
                   <Route path="/question" element={<Question />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
                   <Route path="/mypage" element={<Mypage />} />
+                  <Route path="/signin" element={<Signin />} />
+                  <Route path="/password" element={<Password />} />
                   <Route path="*" element={<Home />} />
                 </Routes>
               <Footer />
