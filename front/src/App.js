@@ -12,6 +12,8 @@ import { MainWrapper } from "./srcAssets/style/MainWrapper"
 import Team from "./screens/Team"
 import Question from "./screens/Question"
 import Login from "./screens/Login"
+import Signin from "./screens/Signin"
+import Password from "./screens/Password"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -68,6 +70,8 @@ function App() {
                   <Route path="/teampage" element={<Team/>} />
                   <Route path="/question" element={<Question />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/signin" element={<Signin />} />
+                  <Route path="/password" element={<Password />} />
                   <Route path="*" element={<Home />} />
                 </Routes>
               <Footer />

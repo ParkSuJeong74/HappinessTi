@@ -1,11 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import styled from 'styled-components'
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
 import Style from '../srcAssets/style/Header.module.css'
 
 function Header() {
+  const sampleLocation = useLocation();
+  if (sampleLocation.pathname === '/login' || sampleLocation.pathname === '/signin' || sampleLocation.pathname === '/password'){
+    return null;
+  }
 
-  return (
+
+  return (    
     <HeaderNavBar>
       <Link to="/" className={Style.headerTitle}>
         <HeaderLogo>

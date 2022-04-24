@@ -1,0 +1,46 @@
+.inputEmail {
+    margin-top: 15vh;
+    text-align: center;
+}
+.inputPassword {
+    margin-top: 5vh;
+    text-align: center;
+}
+
+
+
+.loginButtonbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+}
+
+.loginButton {
+    width: 30vw;
+    border-radius: 50px;
+    border: none;
+    background-color: #FFB7C0;
+    color: white;
+    padding: 5px;
+    font-size: x-large;
+}
+
+.loginButton:active {
+    background-color: red;
+}
+
+
+.otherButtonbox {
+    width: 45vw;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.createaccountButton,
+.forgotpasswordButton {
+    color: #FFB7C0;
+    text-decoration: none;
+}
