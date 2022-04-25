@@ -132,8 +132,6 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
   }
 });
 
-// Todo: gcp 연결 test
-
 /**
  * @swagger
  * /users/{id}/profile-img:
@@ -142,15 +140,20 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
  *     description: 유저 프로필 사진 업로드
  *     produces:
  *     - "application/json"
- *     consumes:
- *     - multipart/form-data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               profileImgUrl:
+ *                 type: string
+ *                 format: binary
  *     parameters:
  *     - name: "id"
  *       in: "path"
  *       required: true
- *     - name: profileImgUrl
- *       in: formData
- *       type: file
  *     security:
  *      - Authorization: []
  *     responses:
@@ -161,11 +164,11 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
  *            schema:
  *              $ref: '#/components/schemas/User'
  */
-
 userAuthRouter.post(
   "/:id/profile-img",
   login_required,
   multer.single("profileImgUrl"),
+
   async function (req, res, next) {
     try {
       const file = req.file;
@@ -179,9 +182,20 @@ userAuthRouter.post(
         throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
       }
 
-      const blob = gcsBucket.file(
-        `ProfileImg/${Date.now()}-${req.file.originalname}`
-      );
+      const user = await userAuthService.getUserInfo({
+        userId,
+      });
+
+      const filename = req.file.originalname.replace(" ", "-");
+      const savefile = `${Date.now()}-${filename}`;
+      const blob = gcsBucket.file(`ProfileImg/${savefile}`);
+      if (user.profileImgUrl !== "crashingdevlogo.png") {
+        gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
+      }
+      // db에 변경
+      const toUpdate = { profileImgUrl: savefile };
+      const updatedUser = await userAuthService.setUser({ userId, toUpdate });
+
       const blobStream = blob.createWriteStream({
         resumable: false,
         public: true,
@@ -200,9 +214,9 @@ userAuthRouter.post(
         // 최종적으로 업로드 프로세스가 완료되는 시점
         res.status(200).json({
           profileImgUrl: publicUrl,
+          updatedUser,
         });
       });
-
       // 업로드 스트림 실행
       blobStream.end(req.file.buffer);
     } catch (error) {
@@ -210,6 +224,77 @@ userAuthRouter.post(
     }
   }
 );
+
+/**
+ * @swagger
+ * path:
+ * /users/{id}/profile-img:
+ *   get:
+ *     tags: [User]
+ *     description: 해당 id의 유저 프로필사진 조회
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       required: true
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 프로필사진 조회 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
+userAuthRouter.get(
+  "/:id/profile-img",
+  login_required,
+  multer.single("profileImgUrl"),
+  async function (req, res, next) {
+    try {
+      const userId = req.params.id;
+      const user = await userAuthService.getUserInfo({
+        userId,
+      });
+      const url = `https://storage.googleapis.com/${gcsBucket.name}/ProfileImg/${user.profileImgUrl}`;
+      res.status(200).send({ profileImgUrl: url });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/**
+ * @swagger
+ * path:
+ * /users/{id}:
+ *   get:
+ *     tags: [User]
+ *     description: 해당 id의 유저 정보 조회
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       required: true
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 정보 조회 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
+userAuthRouter.get("/:id", login_required, async function (req, res, next) {
+  try {
+    const userId = req.params.id;
+    const currentUserInfo = await userAuthService.getUserInfo({ userId });
+
+    res.status(200).send(currentUserInfo);
+  } catch (error) {
+    next(error);
+  }
+});
 
 /**
  * @swagger
@@ -254,38 +339,6 @@ userAuthRouter.put("/:id", login_required, async function (req, res, next) {
     const updatedUser = await userAuthService.setUser({ userId, toUpdate });
 
     res.status(200).json(updatedUser);
-  } catch (error) {
-    next(error);
-  }
-});
-
-/**
- * @swagger
- * path:
- * /users/{id}:
- *   get:
- *     tags: [User]
- *     description: 해당 id의 유저 정보 조회
- *     produces:
- *     - "application/json"
- *     parameters:
- *     - name: "id"
- *       in: "path"
- *       required: true
- *     security:
- *      - Authorization: []
- *     responses:
- *       '200':
- *         description: "한 유저의 정보 조회 완료"
- *         schema:
- *           $ref: '#/components/schemas/User'
- */
-userAuthRouter.get("/:id", login_required, async function (req, res, next) {
-  try {
-    const userId = req.params.id;
-    const currentUserInfo = await userAuthService.getUserInfo({ userId });
-
-    res.status(200).send(currentUserInfo);
   } catch (error) {
     next(error);
   }
