@@ -37,9 +37,9 @@ app.get("/", (req, res) => {
   res.send("기본");
 });
 
-// // router | userAuthRouter는 맨 위
+// router | userAuthRouter는 맨 위
 app.use("/users", userAuthRouter);
-
+app.use("/totalhappies", totalhappyRouter);
 app.use(errorMiddleware);
 
 export default app;
