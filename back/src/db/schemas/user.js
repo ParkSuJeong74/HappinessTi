@@ -27,7 +27,7 @@ const UserSchema = new Schema(
     profileImgUrl: {
       type: String,
       required: false,
-      default: "ProfileImg/crashingdevlogo.png",
+      default: "crashingdevlogo.png",
     },
   },
   {

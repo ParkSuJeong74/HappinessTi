@@ -140,15 +140,20 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
  *     description: 유저 프로필 사진 업로드
  *     produces:
  *     - "application/json"
- *     consumes:
- *     - multipart/form-data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               profileImgUrl:
+ *                 type: string
+ *                 format: binary
  *     parameters:
  *     - name: "id"
  *       in: "path"
  *       required: true
- *     - name: profileImgUrl
- *       in: formData
- *       type: file
  *     security:
  *      - Authorization: []
  *     responses:
@@ -159,11 +164,6 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
  *            schema:
  *              $ref: '#/components/schemas/User'
  */
-
-// img 등록 요청 -> 해당 유저 검색 -> if 기본 이미지이면 삭제 안함, 다른 이미지일 경우 버킷에서 삭제
-// gcs에 img 업로드
-// db에 img url 변경
-
 userAuthRouter.post(
   "/:id/profile-img",
   login_required,
@@ -182,21 +182,20 @@ userAuthRouter.post(
         throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
       }
 
-      // const user = await userAuthService.getUserInfo({
-      //   userId,
-      // });
-
-      // if (user.profileImgUrl !== "ProfileImg/crashingdevlogo.png") {
-      //   // delete
-
-      //   // db에 변경
-      //   const toUpdate = { profileImgUrl: blob.name };
-
-      //   const updatedUser = await userAuthService.setUser({ userId, toUpdate });
-      // }
+      const user = await userAuthService.getUserInfo({
+        userId,
+      });
 
       const filename = req.file.originalname.replace(" ", "-");
-      const blob = gcsBucket.file(`ProfileImg/${Date.now()}-${filename}`);
+      const savefile = `${Date.now()}-${filename}`;
+      const blob = gcsBucket.file(`ProfileImg/${savefile}`);
+      if (user.profileImgUrl !== "crashingdevlogo.png") {
+        gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
+      }
+      // db에 변경
+      const toUpdate = { profileImgUrl: savefile };
+      const updatedUser = await userAuthService.setUser({ userId, toUpdate });
+
       const blobStream = blob.createWriteStream({
         resumable: false,
         public: true,
@@ -215,9 +214,9 @@ userAuthRouter.post(
         // 최종적으로 업로드 프로세스가 완료되는 시점
         res.status(200).json({
           profileImgUrl: publicUrl,
+          updatedUser,
         });
       });
-
       // 업로드 스트림 실행
       blobStream.end(req.file.buffer);
     } catch (error) {
@@ -257,7 +256,7 @@ userAuthRouter.get(
       const user = await userAuthService.getUserInfo({
         userId,
       });
-      const url = `https://storage.googleapis.com/${gcsBucket.name}/${user.profileImgUrl}`;
+      const url = `https://storage.googleapis.com/${gcsBucket.name}/ProfileImg/${user.profileImgUrl}`;
       res.status(200).send({ profileImgUrl: url });
     } catch (error) {
       next(error);
