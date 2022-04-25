@@ -3,12 +3,13 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import {withStyles} from "@material-ui/core/styles";
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png';
 import signin from '../srcAssets/style/Signin.module.css';
 
 function Signin() {
+    const navigate = useNavigate()
     const CssTextField = withStyles({
         root: {
           '& label.Mui-focused': {
@@ -26,7 +27,7 @@ function Signin() {
         <SigninBody>
             <SigninBodyUpper>
                 <Box>
-                    <LogoImg src={logoImg}/>
+                    <LogoImg src={logoImg} onClick={() => navigate("/")}/>
                 </Box>
                 <Box>
                     <SigninTitle>Sign In</SigninTitle>
@@ -120,4 +121,6 @@ const SigninTitle2 = styled.div`
 
 const LogoImg = styled.img`
     width: 100px;
+    cursor: pointer;
+
 `;

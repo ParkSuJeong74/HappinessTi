@@ -22,10 +22,13 @@ function Mypage(){
     
     //TODO: user정보 호출하기 (login_required)
     async function getUserData(){
-      console.log("??")
+      try{
         const res = await Api.get("users", loginUserId)
-        console.log(res.data)
         setUser(res.data)
+      } catch(err){
+        console.log(err)
+      }
+      
     }
     getUserData()
     
@@ -44,9 +47,8 @@ function Mypage(){
 
   }, [navigate, loginUserId])
 
-  
-
   return (
+
     <Container sx={{py: 7, fontFamily: '"Elice Digital Baeum", sans-serif'}}>
       <Profile user={user} setUser={setUser} editOpen={editOpen} setEditOpen={setEditOpen}/>
 
@@ -57,7 +59,9 @@ function Mypage(){
 
       <ProfileInfo />
     </Container>
+
   )
 
 }
 export default Mypage
+

@@ -1,13 +1,15 @@
 import { useContext } from 'react';
 import { Link, useNavigate,useLocation } from 'react-router-dom';
 import styled from 'styled-components'
-import { DispatchContext, UserStateContext } from '../App';
+import { DispatchContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
 import Style from '../srcAssets/style/Header.module.css'
 
+
 function Header() {
   const dispatch = useContext(DispatchContext)
-  const userState = useContext(UserStateContext)
+  const isLoggedin = sessionStorage.getItem("userToken")
+
   const navigate = useNavigate()
   const sampleLocation = useLocation();
   if (sampleLocation.pathname === '/login' || sampleLocation.pathname === '/signin' || sampleLocation.pathname === '/password'){
@@ -24,6 +26,7 @@ function Header() {
   }
 
   return (
+    <>
     <HeaderNavBar>
       <Link to="/" className={Style.headerTitle}>
         <HeaderLogo>
@@ -38,7 +41,7 @@ function Header() {
 
         <Link to="/teampage" className={Style.headerLink}>Team</Link>
 
-        {!userState.user && 
+        {!isLoggedin && 
         <Link to="/login" className={Style.headerLink}>LogIn</Link>}
 
         <Link to="/mypage" className={Style.headerLink}>Mypage</Link>
@@ -47,7 +50,7 @@ function Header() {
 
       </HeaderNav>
     </HeaderNavBar>
-
+    </>
   )
 
 }

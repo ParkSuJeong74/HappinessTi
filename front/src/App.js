@@ -5,7 +5,7 @@ import * as Api from "./api"
 import { loginReducer } from "./reducer"
 
 import Header from "./components/Header"
-import Home from "./screens/Home"
+import MainPage from "./screens/MainPage.jsx"
 import Footer from "./components/Footer"
 import { GlobalStyles } from "./srcAssets/style/GlobalStyle"
 import { MainWrapper } from "./srcAssets/style/MainWrapper"
@@ -77,14 +77,14 @@ function App() {
             <MainWrapper>
               <Header />
                 <Routes>
-                  <Route path="/" exact element={<Home />} />
+                  <Route path="/" exact element={<MainPage />} />
                   <Route path="/teampage" element={<Team/>} />
                   <Route path="/question" element={<Question />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/mypage" element={<Mypage />} />
                   <Route path="/signin" element={<Register />} />
                   <Route path="/password" element={<Password />} />
-                  <Route path="*" element={<Home />} />
+                  <Route path="*" element={<MainPage />} />
                 </Routes>
               <Footer />
             </MainWrapper>

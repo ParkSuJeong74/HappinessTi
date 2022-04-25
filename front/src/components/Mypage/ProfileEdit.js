@@ -30,8 +30,8 @@ function ProfileEdit({setEditOpen, setUser, user}){
     try {
         //TODO: user 수정 api 호출!
         const res = await Api.put(`users/${loginUserId}`, {
-            nickname,
-            description,
+          nickname,
+          description,
         })
         setUser(res.data)
         alert("회원정보가 정상적으로 변경되었습니다!")

@@ -13,14 +13,23 @@ import { useNavigate } from "react-router-dom"
 import * as Api from '../api.js'
 import { DispatchContext } from "../App.js";
 
+const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: 'pink',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'pink',
+      }, 
+    },
+})(TextField);
 
 function Login() {
     const navigate = useNavigate()
     const dispatch = useContext(DispatchContext);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    console.log(email)
-    console.log(password)
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -47,23 +56,13 @@ function Login() {
         }
     }
 
-    const CssTextField = withStyles({
-        root: {
-          '& label.Mui-focused': {
-            color: 'pink',
-          },
-          '& .MuiInput-underline:after': {
-            borderBottomColor: 'pink',
-          }, 
-          width: '300px'
-        },
-    })(TextField);
+    
  
     return(
         <LoginBody onSubmit={handleSubmit}>
             <LoginBodyUpper>
                 <Box>
-                    <LogoImg src={logoImg}/>
+                    <LogoImg src={logoImg} onClick={() => navigate("/")}/>
                 </Box>
                 <Box>
                     <LoginTitle>Log In</LoginTitle>
@@ -72,20 +71,22 @@ function Login() {
             </LoginBodyUpper>
             
             <Box class={login.inputEmail}>
+
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="email" 
                     label="Email" 
                     placeholder='Email'
                     variant="standard"
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    required   
+                    onChange={(e) => setEmail(e.target.value) }                 
                 />
             </Box>
             <Box class={login.inputPassword}>
+
                 <CssTextField
                     style = {{width: '30%'}}
                     id="standard-basic"
@@ -95,7 +96,7 @@ function Login() {
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
-                    value={password}
+                    required
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </Box>
@@ -109,7 +110,6 @@ function Login() {
                 </Box>
                 
             </div>
-
             
         </LoginBody>
     )
@@ -137,4 +137,5 @@ const LoginTitle2 = styled.div`
 
 const LogoImg = styled.img`
     width: 100px;
+    cursor: pointer;
 `;
