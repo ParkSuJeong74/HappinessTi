@@ -1,4 +1,5 @@
-const { Schema, model } = require("mongoose")
+import pkg from "mongoose";
+const { Schema, model } = pkg;
 
 const UserSchema = new Schema(
   {
@@ -32,8 +33,6 @@ const UserSchema = new Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const User = model("User", UserSchema)
-
-module.exports = { User }
+export const User = model("User", UserSchema);
