@@ -132,8 +132,6 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
   }
 });
 
-// Todo: gcp 연결 test
-
 /**
  * @swagger
  * /users/{id}/profile-img:
@@ -162,10 +160,15 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
  *              $ref: '#/components/schemas/User'
  */
 
+// img 등록 요청 -> 해당 유저 검색 -> if 기본 이미지이면 삭제 안함, 다른 이미지일 경우 버킷에서 삭제
+// gcs에 img 업로드
+// db에 img url 변경
+
 userAuthRouter.post(
   "/:id/profile-img",
   login_required,
   multer.single("profileImgUrl"),
+
   async function (req, res, next) {
     try {
       const file = req.file;
@@ -179,9 +182,21 @@ userAuthRouter.post(
         throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
       }
 
-      const blob = gcsBucket.file(
-        `ProfileImg/${Date.now()}-${req.file.originalname}`
-      );
+      // const user = await userAuthService.getUserInfo({
+      //   userId,
+      // });
+
+      // if (user.profileImgUrl !== "ProfileImg/crashingdevlogo.png") {
+      //   // delete
+
+      //   // db에 변경
+      //   const toUpdate = { profileImgUrl: blob.name };
+
+      //   const updatedUser = await userAuthService.setUser({ userId, toUpdate });
+      // }
+
+      const filename = req.file.originalname.replace(" ", "-");
+      const blob = gcsBucket.file(`ProfileImg/${Date.now()}-${filename}`);
       const blobStream = blob.createWriteStream({
         resumable: false,
         public: true,
@@ -210,6 +225,77 @@ userAuthRouter.post(
     }
   }
 );
+
+/**
+ * @swagger
+ * path:
+ * /users/{id}/profile-img:
+ *   get:
+ *     tags: [User]
+ *     description: 해당 id의 유저 프로필사진 조회
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       required: true
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 프로필사진 조회 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
+userAuthRouter.get(
+  "/:id/profile-img",
+  login_required,
+  multer.single("profileImgUrl"),
+  async function (req, res, next) {
+    try {
+      const userId = req.params.id;
+      const user = await userAuthService.getUserInfo({
+        userId,
+      });
+      const url = `https://storage.googleapis.com/${gcsBucket.name}/${user.profileImgUrl}`;
+      res.status(200).send({ profileImgUrl: url });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/**
+ * @swagger
+ * path:
+ * /users/{id}:
+ *   get:
+ *     tags: [User]
+ *     description: 해당 id의 유저 정보 조회
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       required: true
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 정보 조회 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
+userAuthRouter.get("/:id", login_required, async function (req, res, next) {
+  try {
+    const userId = req.params.id;
+    const currentUserInfo = await userAuthService.getUserInfo({ userId });
+
+    res.status(200).send(currentUserInfo);
+  } catch (error) {
+    next(error);
+  }
+});
 
 /**
  * @swagger
@@ -254,38 +340,6 @@ userAuthRouter.put("/:id", login_required, async function (req, res, next) {
     const updatedUser = await userAuthService.setUser({ userId, toUpdate });
 
     res.status(200).json(updatedUser);
-  } catch (error) {
-    next(error);
-  }
-});
-
-/**
- * @swagger
- * path:
- * /users/{id}:
- *   get:
- *     tags: [User]
- *     description: 해당 id의 유저 정보 조회
- *     produces:
- *     - "application/json"
- *     parameters:
- *     - name: "id"
- *       in: "path"
- *       required: true
- *     security:
- *      - Authorization: []
- *     responses:
- *       '200':
- *         description: "한 유저의 정보 조회 완료"
- *         schema:
- *           $ref: '#/components/schemas/User'
- */
-userAuthRouter.get("/:id", login_required, async function (req, res, next) {
-  try {
-    const userId = req.params.id;
-    const currentUserInfo = await userAuthService.getUserInfo({ userId });
-
-    res.status(200).send(currentUserInfo);
   } catch (error) {
     next(error);
   }
