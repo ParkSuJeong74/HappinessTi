@@ -2,6 +2,7 @@ import { Box, Container } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import mainpage from '../../srcAssets/style/Mainpage.module.css'
 import Chart from "./Chart";
+import ChartMap from "./ChartMap";
 
 function Intro() {
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ function Intro() {
                 </h2>
             
                 <div class={mainpage.chart2}>
-
+                    <ChartMap></ChartMap>
                 </div>
             </Box>
 

@@ -89,9 +89,9 @@ function Login() {
 
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="password"
+                    id="standard-basic"
                     label="Password" 
-                    type="password"
+                    type='password'
                     placeholder='Password'
                     variant="standard" 
                     InputLabelProps={{
