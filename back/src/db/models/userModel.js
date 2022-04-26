@@ -5,6 +5,7 @@ export const userModel = {
     const createdNewUser = await User.create(newUser);
     return createdNewUser;
   },
+
   isNicknameExist: async ({ nickname }) => {
     const isNicknameExist = await User.find({ nickname });
     if (isNicknameExist) {

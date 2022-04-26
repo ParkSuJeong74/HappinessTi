@@ -7,7 +7,7 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 export const app = express();
 
 import { userAuthRouter } from "./routers/userRouter.js";
-import { totalHappinessRouter } from "./routers/totalHappinessRouter.js";
+// import { totalHappinessRouter } from "./routers/totalHappinessRouter.js";
 import { resultRouter } from "./routers/resultRouter.js";
 
 app.use(cors());
@@ -20,14 +20,6 @@ app.use(
   swaggerUi.setup(specs, { explorer: true })
 );
 
-// process.env.GOOGLE_APPLICATION_CREDENTIALS =
-//   `${process.cwd()}/src/secure/` + process.env.GCS_KEYFILE;
-
-// console.log(
-//   "google authentication installed at",
-//   process.env["GOOGLE_APPLICATION_CREDENTIALS"]
-// );
-
 // 기본
 app.get("/", (req, res) => {
   res.send("기본");
@@ -35,7 +27,7 @@ app.get("/", (req, res) => {
 
 // router | userAuthRouter는 맨 위
 app.use("/users", userAuthRouter);
-app.use("/total-happiness", totalHappinessRouter);
+// app.use("/total-happiness", totalHappinessRouter);
 app.use("/result", resultRouter);
 
 app.use(errorMiddleware);

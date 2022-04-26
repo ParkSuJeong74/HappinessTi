@@ -8,7 +8,7 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
 import { totalHappinessService } from "../services/totalHappinessService.js";
-export const totalHappinessRouter = Router();
+export const happinessRouter = Router();
 
 /**
  * @swagger
@@ -27,19 +27,15 @@ export const totalHappinessRouter = Router();
  *         schema:
 //  *           $ref: '#/components/schemas/Happiness'
  */
-totalHappinessRouter.get(
-  "/lists",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const totalHappylist = await totalHappinessService.getHappyLists();
+happinessRouter.get("/lists", login_required, async function (req, res, next) {
+  try {
+    const totalHappylist = await totalHappinessService.getHappyLists();
 
-      res.status(200).send(totalHappylist);
-    } catch (error) {
-      next(error);
-    }
+    res.status(200).send(totalHappylist);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 // 검색 결과 출력
 /**
@@ -67,21 +63,17 @@ totalHappinessRouter.get(
  *         schema:
 //  *           $ref: '#/components/schemas/Happiness'
  */
-totalHappinessRouter.get(
-  "/search",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const { country } = req.body;
-      const searchCountry = await totalHappinessService.getSearchCountry({
-        country,
-      });
+happinessRouter.get("/search", login_required, async function (req, res, next) {
+  try {
+    const { country } = req.body;
+    const searchCountry = await totalHappinessService.getSearchCountry({
+      country,
+    });
 
-      res.status(200).send(searchCountry);
-    } catch (error) {
-      next(error);
-    }
+    res.status(200).send(searchCountry);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 // Todo: analysis 페이지 api

@@ -2,7 +2,8 @@ import { userModel } from "../db/index.js";
 import jwt from "jsonwebtoken";
 import { SetUtil } from "../common/setUtil.js";
 import validator from "validator";
-import { Authenticate } from "../common/authenticate.js";
+import { v4 as uuidv4 } from "uuid";
+import bcrypt from "bcrypt";
 
 export const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
@@ -19,8 +20,8 @@ export const userAuthService = {
     if (isEmailExist) {
       throw error;
     }
-    const { hashedPassword, id } = Authenticate.hashedPassword(password);
-
+    const hashedPassword = bcrypt.hash(password, 10);
+    const id = uuidv4();
     // 비밀번호 해쉬화
     const newUser = {
       id,
@@ -116,7 +117,6 @@ export const userAuthService = {
   getUserInfo: async ({ userId }) => {
     const user = await userModel.findById({ userId });
 
-    // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
       throw new Error(
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
@@ -126,3 +126,6 @@ export const userAuthService = {
     return user;
   },
 };
+
+/*이걸 loginUser DTO로 access token까지 보내는거 보다는
+const response = { user: user, accessToken: accessToken, expiryTS: ... }; 이런식으로 한번더 wrapping해서 보내는게 어떨까요?*/
