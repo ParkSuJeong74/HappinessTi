@@ -3,7 +3,6 @@ import bgImg from '../../srcAssets/img/main-Img.png'
 import mainpage from '../../srcAssets/style/Mainpage.module.css'
 import Typed from 'typed.js'
 import { useEffect, useRef } from 'react'
-import Chart from './Chart.jsx'
 import bgVideo from '../video/bgVideo.mp4'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Intro from './Intro.jsx'
@@ -49,7 +48,6 @@ function MainPage() {
       <KeyboardArrowDownIcon fontSize="inherit" className={mainpage.scrollIcon2}/>
     </div>
 
-    {/* <Chart></Chart> */}
     <Intro></Intro>
     </>
   )

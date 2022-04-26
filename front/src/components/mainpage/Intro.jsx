@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import mainpage from '../../srcAssets/style/Mainpage.module.css'
+import Chart from "./Chart";
 
 function Intro() {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Intro() {
                 <p className={mainpage.introContent3}>설문지내용을 통해 행복도까지 예측해보세요!</p>
 
                 <div class={mainpage.chart1}>
-
+                    <Chart></Chart>
                 </div>
             </Box>
 
@@ -40,7 +41,7 @@ function Intro() {
                 <input 
                     class={mainpage.GotoQuestionButton} 
                     type="checkbox"
-                    onChange={(e) => e.target.checked ? alert("체크됨! 설문조사페이지 이동하기") : ''}
+                    onChange={(e) => e.target.checked ? navigate("/question") : ''}
                 />
             </Box>
         </Container>
