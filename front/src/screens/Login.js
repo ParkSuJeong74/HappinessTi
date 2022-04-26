@@ -13,6 +13,17 @@ import { useNavigate } from "react-router-dom"
 import * as Api from '../api.js'
 import { DispatchContext } from "../App.js";
 
+const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: 'pink',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: 'pink',
+      }, 
+      width: '300px'
+    },
+})(TextField);
 
 function Login() {
     const navigate = useNavigate()
@@ -46,18 +57,6 @@ function Login() {
             alert(error.response.data)
         }
     }
-
-    const CssTextField = withStyles({
-        root: {
-          '& label.Mui-focused': {
-            color: 'pink',
-          },
-          '& .MuiInput-underline:after': {
-            borderBottomColor: 'pink',
-          }, 
-          width: '300px'
-        },
-    })(TextField);
  
     return(
         <LoginBody onSubmit={handleSubmit}>

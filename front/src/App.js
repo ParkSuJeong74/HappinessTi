@@ -82,7 +82,7 @@ function App() {
                   <Route path="/question" element={<Question />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/mypage" element={<Mypage />} />
-                  <Route path="/signin" element={<Register />} />
+                  <Route path="/signin" element={<Signin />} />
                   <Route path="/password" element={<Password />} />
                   <Route path="*" element={<Home />} />
                 </Routes>
