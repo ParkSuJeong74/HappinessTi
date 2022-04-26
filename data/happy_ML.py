@@ -16,21 +16,21 @@ app = Flask(__name__)
 ##    return render_template('home.html')
 
 
-# gdp는 usd 기준 kw로 입력 받고 환율 계산 kw를 'a'로 입력 받음
-# life_expectancy = 'b'
-# social = 'c'
-# generosity = 'd'
-@app.route('/predict', methods=['POST'])
+# gdp는 usd 기준 kw로 입력 받고 환율 계산 kw를 'kw'로 입력 받음
+# life_expectancy = 'life_expectancy'
+# social = 'social_support'
+# generosity = 'generosity'
+@app.route('/predict', methods=['GET'])
 def home():
-    kw = request.form['a']
+    kw = request.form['kw']
     gdp = 8 / float(kw)
     
-    life_expectancy = request.form['b'] 
+    life_expectancy = request.form['life_expectancy'] 
   
-    social_num = request.form['c']
+    social_num = request.form['social_support']
     social_support = float(social_num) / 100
     
-    generosity_num = request.form['d'] 
+    generosity_num = request.form['generosity'] 
     generosity = float(generosity_num) / 100
     
     new_country = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [life_expectancy] ,"SOCIAL_SUPPORT": [social_support] \
