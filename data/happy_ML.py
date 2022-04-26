@@ -20,7 +20,7 @@ app = Flask(__name__)
 # life_expectancy = 'b'
 # social = 'c'
 # generosity = 'd'
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET'])
 def home():
     kw = request.form['a']
     gdp = 8 / float(kw)
