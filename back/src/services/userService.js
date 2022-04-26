@@ -1,34 +1,47 @@
 import { userModel } from "../db/index.js";
-import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
-import { SetUtil } from "../common/SetUtil.js";
+import { SetUtil } from "../common/setUtil.js";
+import validator from "validator";
+import { Authenticate } from "../common/authenticate.js";
 
 export const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
-    const user = await userModel.findByEmail({ email });
-    if (user) {
-      throw new Error(
-        "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요."
-      );
+    let error = new Error("이메일 형식이 올바르지 않습니다.");
+    error.status = 400;
+    if (!validator.isEmail(email)) {
+      throw error;
     }
 
+    const isEmailExist = await userModel.isEmailExist({ email });
+    error = new Error(
+      "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요."
+    );
+    if (isEmailExist) {
+      throw error;
+    }
+    const { hashedPassword, id } = Authenticate.hashedPassword(password);
+
     // 비밀번호 해쉬화
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const id = uuidv4();
-    const newUser = { id, nickname, email, password: hashedPassword };
+    const newUser = {
+      id,
+      nickname,
+      email,
+      password: hashedPassword,
+    };
 
     const createdNewUser = await userModel.create({ newUser });
-
     return createdNewUser;
   },
 
   getUser: async ({ email, password }) => {
-    const user = await userModel.findByEmail({ email });
+    const user = await userModel.isEmailExist({ email });
+
+    const error = new Error(
+      "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+    );
+    error.status = 400;
     if (!user) {
-      throw new Error(
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
-      );
+      throw error;
     }
 
     // 비밀번호 일치 여부 확인
@@ -75,11 +88,12 @@ export const userAuthService = {
       throw new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
     }
 
-    const findByNicknameUser = await userModel.findByNickname({
+    const isNicknameExist = await userModel.isNicknameExist({
       nickname: toUpdate.nickname,
     });
 
-    if (findByNicknameUser && findByNicknameUser.id != userId) {
+    //Object.assign(user, toUpdate)
+    if (isNicknameExist) {
       throw new Error(
         "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요."
       );
@@ -90,7 +104,7 @@ export const userAuthService = {
     return user;
   },
 
-  deleteUser: async ({ userId }) => {
+  deleteById: async ({ userId }) => {
     const isDeleted = await userModel.delete({ userId });
 
     if (!isDeleted) {

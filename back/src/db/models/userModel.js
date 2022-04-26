@@ -5,6 +5,21 @@ export const userModel = {
     const createdNewUser = await User.create(newUser);
     return createdNewUser;
   },
+  isNicknameExist: async ({ nickname }) => {
+    const isNicknameExist = await User.find({ nickname });
+    if (isNicknameExist) {
+      return false;
+    }
+    return true;
+  },
+
+  isEmailExist: async ({ email }) => {
+    const isEmailExist = await User.find({ email });
+    if (isEmailExist) {
+      return false;
+    }
+    return true;
+  },
 
   findByEmail: async ({ email }) => {
     const user = await User.findOne({ email });

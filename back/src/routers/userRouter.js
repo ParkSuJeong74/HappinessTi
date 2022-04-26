@@ -8,7 +8,6 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
 import { userAuthService } from "../services/userService.js";
-import { Buffer } from "buffer";
 import { format } from "util";
 import { multer } from "../middlewares/multer.js";
 import { gcsBucket } from "../config/gcs.js";
@@ -93,7 +92,7 @@ userAuthRouter.post("/register", async function (req, res, next) {
 userAuthRouter.post("/login", async function (req, res, next) {
   try {
     const { email, password } = req.body;
-
+    console.log(email, password);
     const user = await userAuthService.getUser({ email, password });
 
     res.status(200).send(user);
