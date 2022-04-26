@@ -1,13 +1,12 @@
 import { Button, Grid, IconButton, Stack, Typography } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 import styled from 'styled-components';
-import smile from '../../srcAssets/img/smile2.png' //{'/static/media/smile2.ca5418679920d8480273.png'}
-import defaultCrashImg from '../../srcAssets/img/defaultCrashingdev.png'
+
 import ProfileEdit from'./ProfileEdit.js'
 import norway from '../../srcAssets/img/norway.png'
 
 function Profile({editOpen, setEditOpen, user, setUser}){
-  
+
   return (
   <CardBox>
       <UpperBox>
@@ -19,11 +18,7 @@ function Profile({editOpen, setEditOpen, user, setUser}){
         {!editOpen && (
           <ImageBox>
             <ProfileImage 
-              src={
-                user?.profileImgUrl === '../../image/crashingdevlogo.png'
-                  ? defaultCrashImg
-                  : smile
-              }/>
+              src={`https://storage.googleapis.com/crashingdevstorage/ProfileImg/${user?.profileImgUrl}`}/>
           </ImageBox>
         )}
           
@@ -41,6 +36,7 @@ function Profile({editOpen, setEditOpen, user, setUser}){
 
               <Typography variant="h6" sx={{marginTop: '20px'}} component="div">
                   {user?.description}
+                  {/* {user?.description!=="" ? user?.description :"설명이 아직 없습니다. 추가해 주세요."} */}
               </Typography>
             </Grid>
           )}
