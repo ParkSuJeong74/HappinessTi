@@ -37,7 +37,7 @@ function Header() {
         </HeaderLogo>
       </Link>
       
-      <HeaderNav>
+      <div>
 
         <Link to="/teampage" className={Style.headerLink}>Team</Link>
 
@@ -48,7 +48,7 @@ function Header() {
 
         <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>
 
-      </HeaderNav>
+      </div>
     </HeaderNavBar>
     </>
   )
@@ -58,12 +58,16 @@ function Header() {
 export default Header
 
 const HeaderNavBar = styled.div`
+  width: 94.2%;
   height: 10vh;
   padding: 4px 50px;
-  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0,0,0, 0.7);
+  backdrop-filter: blur(8px)
 `;
 
 const LogoImg = styled.img`
@@ -77,12 +81,9 @@ const HeaderLogo=styled.div`
   justify-content: center;
 `
 const HeaderTitle = styled.span`
-  color: #000;
   text-transform: uppercase;
   font-size: 3rem;
-`;
-
-const HeaderNav = styled.div`
+  color: #fff;
 `;
 
 const LogoutButton = styled.span`

@@ -21,11 +21,13 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "recharts": "^2.1.9",
     "recoil": "^0.7.2",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.3.4",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.4.9",
+    "typed.js": "^2.0.12",
     "vanilla-tilt": "^1.7.2",
     "web-vitals": "^2.1.4"
   },

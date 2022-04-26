@@ -1,0 +1,138 @@
+.bgVideo {
+    position: relative;
+}
+
+.greetingContainer {
+    position: absolute;
+    left: 45%;
+    bottom: 35%;
+}
+
+.greetingWord1, .greetingWord2 {
+    color: #fff;
+    font-size: 6em;
+}
+
+.greetingWord2 {
+    color: #F4C3CD;
+    display: inline;
+}
+
+.decoration {
+    height: 10px;
+    width: 38vw;
+    background-color: #F4C3CD;
+    position: absolute;
+    left: 60%;
+    bottom: 25%;
+}
+
+.scrollIcon1, .scrollIcon2, .scrollIcon3 {
+    animation: blink 2s linear forwards;
+    animation-iteration-count: infinite;
+    color: #fff;
+}
+
+@keyframes blink{
+    0%{
+        opacity: 0;
+    }
+    25%{
+        opcaity: 0.3;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    75%{
+        opacity: 0.8;
+    }
+    100% {
+        opcaity: 1;
+        color:#F4C3CD;
+    }
+}
+
+.scrollIcon1 {
+    position: absolute;
+    left: 50%;
+    bottom: -5%;
+}
+
+.scrollIcon2 {
+    position: absolute;
+    left: 50%;
+    bottom: -8.5%;
+}
+
+.title{
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 2em
+}
+.coloring {
+    color: #F4C3CD;
+}
+
+.subtitle {
+    font-size: 2em;
+    margin-bottom: 1.5em;
+}
+
+.introContent1, .introContent2, .introContent3{
+    font-size: 1.1em;
+}
+
+.introContent2{
+    margin-top: 1em;
+}
+.introContent3{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.chart1, .chart2{
+    margin: 0 auto;
+}
+
+.chart1 {
+    width: 40em;
+    height: 30em;
+    background-color: rgb(117, 112, 112);
+}
+
+.chart2 {
+    width: 50em;
+    height: 25em;
+    background-color: rgb(117, 112, 112);
+}
+
+.guide{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center; 
+    justify-content: center;
+}
+
+.guide input{
+    width: 0;
+    height: 0;
+}
+
+.guide input::before {
+    content: '나의 행복도 찾기 Go!';
+    font-size: 40px;
+    width: 800px;
+    transform: translateX(-400px);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    cursor: pointer;
+    background: #F4C3CD;
+    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                0px 12px 10px -10px rgba(0,0,0, 0.05);
+}

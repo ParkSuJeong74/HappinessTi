@@ -5,20 +5,20 @@ import * as Api from "./api"
 import { loginReducer } from "./reducer"
 
 import Header from "./components/Header"
-import MainPage from "./screens/MainPage.jsx"
+import MainPage from "./components/mainpage/MainPage.jsx"
 import Footer from "./components/Footer"
 import { GlobalStyles } from "./srcAssets/style/GlobalStyle"
 import { MainWrapper } from "./srcAssets/style/MainWrapper"
-import Team from "./screens/Team"
-import Question from "./screens/Question"
-import Login from "./screens/Login"
-import Register from "./screens/Register"
-import Mypage from "./screens/Mypage"
+import Team from "./components/team/Team"
+import Question from "./components/question/Question"
+import Login from "./components/user/Login"
+import Register from "./components/user/Register"
+import Mypage from "./components/mypage/Mypage"
 import './srcAssets/style/Font.module.css'
 
 import { MuiThemeProvider, createTheme} from '@material-ui/core/styles';
-import Signin from "./screens/Signin"
-import Password from "./screens/Password"
+import Signin from "./components/user/Signin"
+import Password from "./components/user/Password"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
