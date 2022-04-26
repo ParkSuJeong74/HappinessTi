@@ -9,9 +9,8 @@ import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
 import signin from '../../srcAssets/style/Signin.module.css';
 
 import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import * as Api from '../api.js'
-import { DispatchContext } from "../App.js";
+import * as Api from '../../api'
+import { DispatchContext } from "../../App";
 
 const CssTextField = withStyles({
     root: {
@@ -27,17 +26,7 @@ const CssTextField = withStyles({
 
 function Signin() {
     const navigate = useNavigate()
-    const CssTextField = withStyles({
-        root: {
-          '& label.Mui-focused': {
-            color: 'pink',
-          },
-          '& .MuiInput-underline:after': {
-            borderBottomColor: 'pink',
-          }, 
-          width: '300px'
-        },
-    })(TextField);
+   
 
     const dispatch = useContext(DispatchContext);
     
