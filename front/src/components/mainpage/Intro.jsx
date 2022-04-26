@@ -38,8 +38,7 @@ function Intro() {
 
             <Box className={mainpage.guide}>
                 <h1>지금 당신과 같은 행복을 가지고 있는 사람들이 궁금하신가요?</h1>
-                <input 
-                    class={mainpage.GotoQuestionButton} 
+                <input  
                     type="checkbox"
                     onChange={(e) => e.target.checked ? navigate("/question") : ''}
                 />
