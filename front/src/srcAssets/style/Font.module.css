@@ -1,0 +1,16 @@
+@import url(//font.elice.io/EliceDigitalBaeum.css);
+
+@font-face {
+    font-family: 'SANGJUDajungdagam';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/SANGJUDajungdagam.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: "Elice Digital Baeum", sans-serif;
+}
+
+[class^=swal2] {
+    font-family: "Elice Digital Baeum", sans-serif;
+}

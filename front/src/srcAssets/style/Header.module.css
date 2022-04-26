@@ -1,0 +1,30 @@
+.headerTitle{
+    text-decoration: none;
+}
+.headerLink{
+    color: #000;
+    font-size: 1.3rem;
+    margin: 0 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.headerLink::after{
+    content: '';
+    height: 5px;
+    width: 0;
+    background: #F4C3CD;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.4s;
+}
+
+.headerLink:hover::after{
+    width: 100%;
+}
+
+.headerLink:click::after{
+    width: 100%;
+}
