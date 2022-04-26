@@ -1,4 +1,4 @@
-import { Happiness } from "../schemas/user.js";
+import { Happiness } from "../schemas/happiness.js";
 
 export const happyModel = {
   create: async ({ newUser }) => {

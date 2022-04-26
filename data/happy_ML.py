@@ -2,36 +2,30 @@ from flask import Flask, render_template, request, jsonify
 import numpy as np
 import pandas as pd
 import joblib
-##경로 lgb1.pkl = ml 모델
-##     happy.csv = 전처리 파일
+
 model = joblib.load('./file/lgb1.pkl')
 df = pd.read_csv("./file/happy.csv")
 
 app = Flask(__name__)
 
+@app.route('/')
+def man():
+    return render_template('home.html')
 
-
-##@app.route('/')
-##def man():
-##    return render_template('home.html')
-
-
-# gdp는 usd 기준 kw로 입력 받고 환율 계산 kw를 'kw'로 입력 받음
-# life_expectancy = 'life_expectancy'
-# social = 'social_support'
-# generosity = 'generosity'
-@app.route('/predict', methods=['GET'])
+@app.route('/predict', methods=['POST'])
 def home():
-    kw = request.form['kw']
-    gdp = 8 / float(kw)
+    params = request.get_json()
     
-    life_expectancy = request.form['life_expectancy'] 
+    kw = params["kw"]
+    gdp = kw * 8
+    
+    life_expectancy = params["life_expectancy"]
   
-    social_num = request.form['social_support']
-    social_support = float(social_num) / 100
+    social_num = params["social"]
+    social_support = social_num / 100
     
-    generosity_num = request.form['generosity'] 
-    generosity = float(generosity_num) / 100
+    generosity_num = params["generosity"]
+    generosity = generosity_num / 100
     
     new_country = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [life_expectancy] ,"SOCIAL_SUPPORT": [social_support] \
               ,"GENEROSITY": [generosity]}
@@ -72,10 +66,9 @@ def home():
     found_data = find_nearest_country(gdp, hle, scl)
     
     ### probability_data = 어떤 타입의 행복일지에 확률(float) , happy_data = 어떠한 타입인지 1 = 평범/ 2 = 행복/ 3 = 불행 ,country_data = 나라 추천
-    return jsonify({"probability_data" : probability, "country_data" : format(found_data[0]), "happy_data" : happy_type })
+    return jsonify({"probability" : probability, "country" : format(found_data[0]), "happy" : happy_type })
 
     #return render_template('after.html', probability_data= probability, country_data = format(found_data[0]),happy_data = happy_type )
-
 
 if __name__ == "__main__":
     app.run(debug=True)

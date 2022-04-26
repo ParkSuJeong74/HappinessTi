@@ -1,7 +1,7 @@
 import { Storage } from "@google-cloud/storage";
 
 const gc = new Storage({
-  keyFilename: "src/secure/" + process.env.GCS_KEYFILE,
+  keyFilename: `src/secure/${process.env.GCS_KEYFILE}`,
   projectId: process.env.GCLOUD_PROJECT_ID,
 });
 

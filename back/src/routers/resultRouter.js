@@ -7,25 +7,20 @@
 // python에서 분석한 후 DB 접근 : data json 저장
 // node가 DB 접근 -> 분석 결과 가져오기
 
-import is from "@sindresorhus/is";
 import { Router } from "express";
+import axios from "axios";
 import { login_required } from "../middlewares/login_required.js";
 // import { userAuthService } from "../services/userService.js";
-import { Buffer } from "buffer";
-import { format } from "util";
-import { multer } from "../middlewares/multer.js";
-import { gcsBucket } from "../config/gcs.js";
 export const resultRouter = Router();
 
-// Todo: get 요청시 result 데이터 전달 및 DB에 로그 저장
-resultRouter.get("/current", login_required, async function (req, res, next) {
+// get 요청시 result 데이터 전달 및 DB에 로그 저장
+resultRouter.get("/predict", async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
-    const currentUserInfo = await userAuthService.getUserInfo({
-      userId,
-    });
-
-    res.status(200).send(currentUserInfo);
+    const response = await axios.post(
+      "http://localhost:5000/predict",
+      req.body
+    );
+    res.status(200).send(response.data);
   } catch (error) {
     next(error);
   }

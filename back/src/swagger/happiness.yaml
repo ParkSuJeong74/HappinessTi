@@ -1,0 +1,37 @@
+components:
+  schemas:
+    Happiness: 
+      properties: 
+        id: 
+          type: string 
+          description: 행복 데이터 고유 번호 
+        RANK:
+          type: number 
+          description: 나라별 행복도 랭킹
+        country:
+          type: string 
+          description: 나라 이름
+        happinessScore:
+          type: number 
+          description: 나라별 행복 스코어
+        dystopia:
+          type: number 
+          description: 자아 실현 지수
+        gdp:
+          type: number 
+          description: 경제 지수
+        socialSupport:
+          type: number 
+          description: 사회적 지지 지수
+        health:
+          type: number 
+          description: 건강 지수
+        freedom:
+          type: number 
+          description: 자유 지수
+        generosity:
+          type: number 
+          description: 관용 지수
+        corruptionPerceptions:
+          type: number 
+          description: 사회 부패 인식 지수

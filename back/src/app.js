@@ -7,12 +7,8 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 export const app = express();
 
 import { userAuthRouter } from "./routers/userRouter.js";
-// const multer = require("multer")
-// const MulterGoogleCloudStorage = require("multer-google-storage")
-
-// const uploadHandler = multer({
-//   storage: multerGoogleStorage.storageEngine(),
-// })
+import { totalHappinessRouter } from "./routers/totalHappinessRouter.js";
+import { resultRouter } from "./routers/resultRouter.js";
 
 app.use(cors());
 app.use(express.json());
@@ -39,7 +35,9 @@ app.get("/", (req, res) => {
 
 // router | userAuthRouter는 맨 위
 app.use("/users", userAuthRouter);
-app.use("/totalhappies", totalhappyRouter);
+app.use("/total-happiness", totalHappinessRouter);
+app.use("/result", resultRouter);
+
 app.use(errorMiddleware);
 
 export default app;
