@@ -41,13 +41,17 @@ function Header() {
 
         <Link to="/teampage" className={Style.headerLink}>Team</Link>
 
+        <Link to="/datalogs" className={Style.headerLink}>Data</Link>
+
         {!isLoggedin && 
         <Link to="/login" className={Style.headerLink}>LogIn</Link>}
 
-        <Link to="/mypage" className={Style.headerLink}>Mypage</Link>
+        {isLoggedin && 
+        <Link to="/mypage" className={Style.headerLink}>Mypage</Link>}
 
-        <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>
-
+        {isLoggedin &&
+        <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>}
+        
       </div>
     </HeaderNavBar>
     </>

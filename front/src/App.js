@@ -19,6 +19,8 @@ import { MainWrapper } from "./srcAssets/style/MainWrapper"
 import './srcAssets/style/Font.module.css'
 
 import { MuiThemeProvider, createTheme} from '@material-ui/core/styles';
+import DataLog from "./components/datalogs/DataLog"
+import Result from "./components/result/Result"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -38,7 +40,7 @@ function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
-        
+
         <MuiThemeProvider theme={themeMuiCore}>
 
           <Router>
@@ -48,6 +50,8 @@ function App() {
                   <Route path="/" exact element={<MainPage />} />
                   <Route path="/teampage" element={<Team/>} />
                   <Route path="/question" element={<Question />} />
+                  <Route path="/question/result" element={<Result />} />
+                  <Route path="/datalogs" element={<DataLog />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/mypage" element={<Mypage />} />
                   <Route path="/signin" element={<Register />} />

@@ -1,10 +1,10 @@
 import { Container } from "@mui/material"
 
-function Question(){
+function Result(){
     return (
         <Container sx={{py: 7, mt: 12}}>
-            <h1>여기!</h1>
+            <h1>설문조사 결과 페이지!</h1>
         </Container>
     )
 }
-export default Question
+export default Result
