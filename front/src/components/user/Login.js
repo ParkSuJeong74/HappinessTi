@@ -21,6 +21,8 @@ const CssTextField = withStyles({
       '& .MuiInput-underline:after': {
         borderBottomColor: 'pink',
       }, 
+
+      width: '300px'
     },
 })(TextField);
 
@@ -55,8 +57,6 @@ function Login() {
             alert(error.response.data)
         }
     }
-
-    
  
     return(
         <LoginBody onSubmit={handleSubmit}>
