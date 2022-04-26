@@ -26,7 +26,6 @@ function ProfileEdit({setEditOpen, setUser, user}){
   const [description, setDescription] = useState(user?.description)
   const [imageInfo, setImageInfo] = useState(null)
 
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     

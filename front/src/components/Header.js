@@ -8,6 +8,7 @@ import Style from '../srcAssets/style/Header.module.css'
 
 function Header() {
   const dispatch = useContext(DispatchContext)
+
   const isLoggedin = sessionStorage.getItem("userToken")
 
   const navigate = useNavigate()
@@ -43,8 +44,8 @@ function Header() {
 
         <Link to="/datalogs" className={Style.headerLink}>Data</Link>
 
-        {!isLoggedin && 
-        <Link to="/login" className={Style.headerLink}>LogIn</Link>}
+        {!isLoggedin && (
+        <Link to="/login" className={Style.headerLink}>LogIn</Link>)}
 
         {isLoggedin && 
         <Link to="/mypage" className={Style.headerLink}>Mypage</Link>}

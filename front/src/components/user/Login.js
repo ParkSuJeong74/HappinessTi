@@ -89,7 +89,7 @@ function Login() {
 
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic"
+                    id="password"
                     label="Password" 
                     type="password"
                     placeholder='Password'
