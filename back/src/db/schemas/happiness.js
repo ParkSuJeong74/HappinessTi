@@ -4,7 +4,7 @@ const { Schema, model } = pkg;
 // 데이터셋 칼럼
 const HappinessSchema = new Schema(
   {
-    id: {
+    _id: {
       type: String,
       required: true,
     },

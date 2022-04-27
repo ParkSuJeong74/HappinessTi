@@ -3,12 +3,6 @@ const { Schema, model } = pkg;
 
 const UserSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-      index: true,
-    },
     email: {
       type: String,
       required: true,
@@ -21,7 +15,7 @@ const UserSchema = new Schema(
       unique: true,
       index: true,
     },
-    password: {
+    hashedPassword: {
       type: String,
       required: true,
     },

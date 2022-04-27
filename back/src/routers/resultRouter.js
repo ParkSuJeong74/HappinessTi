@@ -17,15 +17,19 @@ export const resultRouter = Router();
  *     description: 머신러닝 행복도 예측
  *     produces:
  *     - "application/json"
+ *     security:
+ *      - Authorization: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             properties:
+ *               myCountry:
+ *                 type: string
  *               kw:
  *                 type: number
- *               life_expectancy:
+ *               lifeExpectancy:
  *                 type: number
  *               social:
  *                 type: number
@@ -46,3 +50,9 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
     next(error);
   }
 });
+
+// 사진 그래프
+// flask에서 호출한 api
+// 버킷에 사진 저장(gcs)
+// 서버에 사진 삭제(fs)
+// 버킷 링크 전달(front)

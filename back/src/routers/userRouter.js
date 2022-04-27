@@ -2,17 +2,16 @@
  *  @swagger
  *  tags:
  *    name: User
- *    description: API to manage users
+ *    description: API to manage User
  */
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
 import { userAuthService } from "../services/userService.js";
-import { format } from "util";
 import { multer } from "../middlewares/multer.js";
 import { gcsBucket } from "../config/gcs.js";
+
 export const userAuthRouter = Router();
-// /:id/profile/image
 
 /**
  * @swagger
@@ -93,10 +92,11 @@ userAuthRouter.post("/register", async function (req, res, next) {
 userAuthRouter.post("/login", async function (req, res, next) {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
-    const user = await userAuthService.getUser({ email, password });
-
-    res.status(200).send(user);
+    const loginResponse = await userAuthService.authenticate({
+      email,
+      password,
+    });
+    res.status(200).send(loginResponse.user);
   } catch (error) {
     next(error);
   }
@@ -134,7 +134,7 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
 
 /**
  * @swagger
- * /users/{id}/profile-img:
+ * /users/{id}/profile/image:
  *   post:
  *     tags: [User]
  *     description: 유저 프로필 사진 업로드
@@ -165,60 +165,38 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
  *              $ref: '#/components/schemas/User'
  */
 userAuthRouter.post(
-  "/:id/profile-img",
+  "/:id/profile/image",
   login_required,
   multer.single("profileImgUrl"),
-
   async function (req, res, next) {
     try {
       const file = req.file;
       const userId = req.params.id;
 
-      if (!file) {
-        throw new Error("업로드할 이미지가 없습니다.");
-      }
-
+      let error = new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
+      error.status = 401;
       if (userId != req.currentUserId) {
-        throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
+        throw error;
       }
 
       const user = await userAuthService.getUserInfo({
         userId,
       });
 
-      const filename = req.file.originalname.replace(" ", "-");
-      const savefile = `${Date.now()}-${filename}`;
-      const blob = gcsBucket.file(`ProfileImg/${savefile}`);
-      if (user.profileImgUrl !== "crashingdevlogo.png") {
-        gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
-      }
-      // db에 변경
+      // GCS 업로드
+      const { publicUrl, savefile } = await userAuthService.SetGcsBucket({
+        user,
+        file,
+      });
+
+      // db에서 profileImgUrl 변경
       const toUpdate = { profileImgUrl: savefile };
       const updatedUser = await userAuthService.setUser({ userId, toUpdate });
 
-      const blobStream = blob.createWriteStream({
-        resumable: false,
-        public: true,
+      res.status(200).json({
+        publicUrl,
+        updatedUser,
       });
-      // 에러 핸들링
-      blobStream.on("error", (err) => {
-        throw new Error("업로드 중 오류가 발생했습니다.");
-      });
-
-      // 종료 처리
-      blobStream.on("finish", () => {
-        const publicUrl = format(
-          `https://storage.googleapis.com/${gcsBucket.name}/${blob.name}`
-        );
-
-        // 최종적으로 업로드 프로세스가 완료되는 시점
-        res.status(200).json({
-          profileImgUrl: publicUrl,
-          updatedUser,
-        });
-      });
-      // 업로드 스트림 실행
-      blobStream.end(req.file.buffer);
     } catch (error) {
       next(error);
     }
@@ -228,7 +206,7 @@ userAuthRouter.post(
 /**
  * @swagger
  * path:
- * /users/{id}/profile-img:
+ * /users/{id}/profile/image
  *   get:
  *     tags: [User]
  *     description: 해당 id의 유저 프로필사진 조회
@@ -247,7 +225,7 @@ userAuthRouter.post(
  *           $ref: '#/components/schemas/User'
  */
 userAuthRouter.get(
-  "/:id/profile-img",
+  "/:id/profile/image",
   login_required,
   multer.single("profileImgUrl"),
   async function (req, res, next) {

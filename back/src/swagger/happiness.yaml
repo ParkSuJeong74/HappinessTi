@@ -2,7 +2,7 @@ components:
   schemas:
     Happiness: 
       properties: 
-        id: 
+        _id: 
           type: string 
           description: 행복 데이터 고유 번호 
         RANK:

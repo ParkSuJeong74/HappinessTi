@@ -2,13 +2,15 @@ import { userModel } from "../db/index.js";
 import jwt from "jsonwebtoken";
 import { SetUtil } from "../common/setUtil.js";
 import validator from "validator";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
+// import * as timeDelta from 'time-delta';
+import { gcsBucket } from "../config/gcs.js";
+import { format } from "util";
 
 export const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
     let error = new Error("이메일 형식이 올바르지 않습니다.");
-    error.status = 400;
     if (!validator.isEmail(email)) {
       throw error;
     }
@@ -17,55 +19,62 @@ export const userAuthService = {
     error = new Error(
       "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요."
     );
-    if (isEmailExist) {
+    if (!isEmailExist) {
       throw error;
     }
-    const hashedPassword = bcrypt.hash(password, 10);
-    const id = uuidv4();
-    // 비밀번호 해쉬화
+
+    const isNicknameExist = await userModel.isNicknameExist({ nickname });
+    error = new Error(
+      "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요."
+    );
+    if (!isNicknameExist) {
+      throw error;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = {
-      id,
       nickname,
       email,
-      password: hashedPassword,
+      hashedPassword,
     };
 
     const createdNewUser = await userModel.create({ newUser });
     return createdNewUser;
   },
 
-  getUser: async ({ email, password }) => {
-    const user = await userModel.isEmailExist({ email });
-
-    const error = new Error(
+  authenticate: async ({ email, password }) => {
+    const user = await userModel.findByEmail({ email });
+    let error = new Error(
       "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
     );
-    error.status = 400;
+
     if (!user) {
       throw error;
     }
 
     // 비밀번호 일치 여부 확인
-    const correctPasswordHash = user.password;
+    const correctPasswordHash = user.hashedPassword;
     const isPasswordCorrect = await bcrypt.compare(
       password,
       correctPasswordHash
     );
+
+    error = new Error(
+      "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
+    );
+
     if (!isPasswordCorrect) {
-      throw new Error(
-        "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
-      );
+      throw error();
     }
 
     // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-    const token = jwt.sign(
-      { userId: user.id, exp: datetime.utcnow() + timedelta((weeks = 3)) },
-      secretKey
-    );
+    const token = jwt.sign({ userId: user._id }, secretKey, {
+      expiresIn: "1week",
+    });
 
     // 반환할 loginuser 객체를 위한 변수 설정
-    const id = user.id;
+    const id = user._id;
     const name = user.name;
     const description = user.description;
 
@@ -76,12 +85,12 @@ export const userAuthService = {
       name,
       description,
     };
-    /*const loginResponse = {
-user: { .. },
-accessToken: {token}
-expiryTS: 3343243
-}*/
-    return loginUser;
+    const loginResponse = {
+      user: { loginUser },
+      accessToken: { token },
+      expiryTS: 3343243,
+    };
+    return loginResponse;
   },
 
   getUsers: async () => {
@@ -89,23 +98,59 @@ expiryTS: 3343243
     return users;
   },
 
-  setUser: async ({ userId, toUpdate }) => {
-    let user = await userModel.findById({ userId });
-
-    if (!user) {
-      throw new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
+  SetGcsBucket: async ({ user, file }) => {
+    let error = new Error("업로드할 이미지가 없습니다.");
+    if (!file) {
+      throw error;
     }
 
-    const isNicknameExist = await userModel.isNicknameExist({
+    const filename = file.originalname.replace(" ", "-");
+    const savefile = `${Date.now()}-${filename}`;
+    const blob = gcsBucket.file(`ProfileImg/${savefile}`);
+
+    // gcs 파일 업로드
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      public: true,
+    });
+    // 에러 핸들링
+    error = new Error("업로드 중 오류가 발생했습니다.");
+    blobStream.on("error", (err) => {
+      throw error;
+    });
+
+    if (user.profileImgUrl !== "crashingdevlogo.png") {
+      gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
+    }
+    const publicUrl = format(
+      `https://storage.googleapis.com/${gcsBucket.name}/${blob.name}`
+    );
+    // 종료 처리
+    blobStream.on("finish", () => {});
+
+    // 업로드 스트림 실행
+    blobStream.end(file.buffer);
+    return { publicUrl, savefile };
+  },
+
+  setUser: async ({ userId, toUpdate }) => {
+    let user = await userModel.findById({ userId });
+    let error = new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
+
+    if (!user) {
+      throw error();
+    }
+
+    const findByNicknameUser = await userModel.findByNickname({
       nickname: toUpdate.nickname,
     });
 
-    //Object.assign(user, toUpdate)
-    //기존 user데이터에 toUpdate 부분 데이터를 서로 합치는게 목적인건가요?
-    if (isNicknameExist) {
-      throw new Error(
-        "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요."
-      );
+    error = new Error(
+      "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요."
+    );
+
+    if (findByNicknameUser && findByNicknameUser.id != userId) {
+      throw error;
     }
 
     const updateObject = SetUtil.compareValues(toUpdate, user);
@@ -124,16 +169,14 @@ expiryTS: 3343243
 
   getUserInfo: async ({ userId }) => {
     const user = await userModel.findById({ userId });
+    let error = new Error(
+      "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+    );
 
     if (!user) {
-      throw new Error(
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
-      );
+      throw error;
     }
 
     return user;
   },
 };
-
-/*이걸 loginUser DTO로 access token까지 보내는거 보다는
-const response = { user: user, accessToken: accessToken, expiryTS: ... }; 이런식으로 한번더 wrapping해서 보내는게 어떨까요?*/

@@ -7,7 +7,7 @@ export const userModel = {
   },
 
   isNicknameExist: async ({ nickname }) => {
-    const isNicknameExist = await User.find({ nickname });
+    const isNicknameExist = await User.findOne({ nickname });
     if (isNicknameExist) {
       return false;
     }
@@ -15,7 +15,7 @@ export const userModel = {
   },
 
   isEmailExist: async ({ email }) => {
-    const isEmailExist = await User.find({ email });
+    const isEmailExist = await User.findOne({ email });
     if (isEmailExist) {
       return false;
     }
@@ -28,7 +28,7 @@ export const userModel = {
   },
 
   findById: async ({ userId }) => {
-    const user = await User.findOne({ id: userId });
+    const user = await User.findOne({ _id: userId });
     return user;
   },
   findByNickname: async ({ nickname }) => {
@@ -42,7 +42,7 @@ export const userModel = {
   },
 
   update: async ({ userId, updateObject, newValue }) => {
-    const filter = { id: userId };
+    const filter = { _id: userId };
     const update = { $set: updateObject };
     const option = { returnOriginal: false };
 
