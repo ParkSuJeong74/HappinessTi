@@ -59,7 +59,10 @@ export const userAuthService = {
 
     // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-    const token = jwt.sign({ userId: user.id }, secretKey);
+    const token = jwt.sign(
+      { userId: user.id, exp: datetime.utcnow() + timedelta((weeks = 3)) },
+      secretKey
+    );
 
     // 반환할 loginuser 객체를 위한 변수 설정
     const id = user.id;
@@ -73,7 +76,11 @@ export const userAuthService = {
       name,
       description,
     };
-
+    /*const loginResponse = {
+user: { .. },
+accessToken: {token}
+expiryTS: 3343243
+}*/
     return loginUser;
   },
 
@@ -94,6 +101,7 @@ export const userAuthService = {
     });
 
     //Object.assign(user, toUpdate)
+    //기존 user데이터에 toUpdate 부분 데이터를 서로 합치는게 목적인건가요?
     if (isNicknameExist) {
       throw new Error(
         "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요."

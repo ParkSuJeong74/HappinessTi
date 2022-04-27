@@ -12,6 +12,7 @@ import { format } from "util";
 import { multer } from "../middlewares/multer.js";
 import { gcsBucket } from "../config/gcs.js";
 export const userAuthRouter = Router();
+// /:id/profile/image
 
 /**
  * @swagger

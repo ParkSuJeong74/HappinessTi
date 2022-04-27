@@ -63,6 +63,8 @@ happinessRouter.get("/lists", login_required, async function (req, res, next) {
  *         schema:
 //  *           $ref: '#/components/schemas/Happiness'
  */
+
+// /happiness/:countryId
 happinessRouter.get("/search", login_required, async function (req, res, next) {
   try {
     const { country } = req.body;

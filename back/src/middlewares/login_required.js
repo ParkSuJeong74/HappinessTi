@@ -25,4 +25,7 @@ export function login_required(req, res, next) {
 여러가지 방식의 로그인을 지원 할 경우도 있고
 또한 lookup value들과 같이 frontend에서 아직 로그인 전에도 api를 호출할 경우도 있을텐데 이리 강제 하는게 맞나 싶어요
 물론 해도 상관은 없는데 그렇다 하더라도 middleware보다는 passport를 통하여 auth는 핸들하도록 바꾸시고
-또 global filter에 추가하더라도 passport로 바꾼후 추가하는게 좋을듯 합니다.*/
+또 global filter에 추가하더라도 passport로 바꾼후 추가하는게 좋을듯 합니다.
+*/
+
+/*1. jwt token관련해서 access와 refresh를 알고 계시는지, 모르신다면 이번기회에 사용해보시는게 좋을것 같습니다*/
