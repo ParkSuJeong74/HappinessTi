@@ -63,9 +63,9 @@ function Header() {
 export default Header
 
 const HeaderNavBar = styled.div`
-  width: 94.2%;
+  width: 100%;
   height: 10vh;
-  padding: 4px 50px;
+  padding: 45px 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
