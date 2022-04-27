@@ -18,9 +18,6 @@ import Result from "./components/result/Result"
 import { MainWrapper } from "./srcAssets/style/MainWrapper"
 import './srcAssets/style/Font.module.css'
 
-import { MuiThemeProvider, createTheme} from '@material-ui/core/styles';
-
-
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
 
@@ -30,12 +27,37 @@ function App() {
     user: null,
   })
 
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false)
+
+  const fetchCurrentUser = () => {
+
+    const isLoggedin = sessionStorage.getItem("userToken")
+    const currentUserId = sessionStorage.getItem("userId")
+
+    if(isLoggedin){
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: currentUserId,
+      });
+      console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;")
+    }
+    else{
+      console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;")
+    }
+    setIsFetchCompleted(true)
+  }
+
+  useEffect(() => {
+      fetchCurrentUser()
+  }, [])
+
+  if (!isFetchCompleted) {
+      return "loading..."
+  }
 
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
-
-        
 
           <Router>
             <MainWrapper>

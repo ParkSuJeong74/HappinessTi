@@ -16,8 +16,9 @@ function Mypage(){
   const [user, setUser] = useState(null)
   const [userLog, setUserlogs] = useState(null)
   const [editOpen, setEditOpen] = useState(false)
-  const isLoggedin = sessionStorage.getItem("userToken")
 
+  // const isLoggedin = sessionStorage.getItem("userToken")
+  const isLoggedin = userState.user?.id
   console.log('mypage의 user', user)
 
   //loginUserId가 변경될 때마다 user api 호출 다시 하기
@@ -44,6 +45,7 @@ function Mypage(){
     getUserLogs() */
 
     if(!isLoggedin){
+      alert("반가워요! 먼저 로그인을 해주세요!")
       navigate("/login", { replace: true })
     }
 
@@ -66,4 +68,3 @@ function Mypage(){
 
 }
 export default Mypage
-

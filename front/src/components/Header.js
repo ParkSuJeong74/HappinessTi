@@ -1,15 +1,17 @@
 import { useContext } from 'react';
 import { Link, useNavigate,useLocation } from 'react-router-dom';
 import styled from 'styled-components'
-import { DispatchContext } from '../App';
+import { DispatchContext, UserStateContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
 import Style from '../srcAssets/style/Header.module.css'
 
 
 function Header() {
   const dispatch = useContext(DispatchContext)
+  const userState = useContext(UserStateContext)
 
-  const isLoggedin = sessionStorage.getItem("userToken")
+  // const isLoggedin = sessionStorage.getItem("userToken")
+  const isLoggedin = userState.user
 
   const navigate = useNavigate()
   const sampleLocation = useLocation();
@@ -19,6 +21,7 @@ function Header() {
 
   function logoutHandler(){
     sessionStorage.removeItem("userToken")
+    sessionStorage.removeItem("userId")
     dispatch({
       type: 'LOGOUT'      
     })

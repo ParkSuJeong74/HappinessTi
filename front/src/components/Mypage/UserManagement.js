@@ -9,6 +9,7 @@ import { UserStateContext } from '../../App';
 function UserManagement(){
     const navigate = useNavigate()
     const userState = useContext(UserStateContext)
+    const loginUserId = userState.user?.id
 
     function withDrawlHandler(){
         Swal.fire({
@@ -24,9 +25,10 @@ function UserManagement(){
         }).then(async function(result) {
             if(result.isConfirmed){
                 //TODO: user 계정 삭제 api 호출하기!
-                await Api.delete("users", userState.user?.id)
+                await Api.delete("users", loginUserId)
                 alert("탈퇴완료")
                 sessionStorage.removeItem("userToken")
+                sessionStorage.removeItem("userId")
                 navigate('/')
             }
             
