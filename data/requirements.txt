@@ -24,3 +24,4 @@ scipy==1.8.0
 seaborn==0.11.2
 statsmodels==0.13.2
 bubbly==1.0.2
+pymongo==4.1.1
