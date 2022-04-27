@@ -17,25 +17,25 @@ def home():
     
     params = request.get_json()
     
-    my_country = params["my_country"]
+    myCountry = params["myCountry"]
     
     kw = params["kw"]
     gdp = kw * 8
     
-    life_expectancy = params["life_expectancy"]
+    lifeExpectancy = params["lifeExpectancy"]
   
-    social_num = params["social"]
-    social_support = social_num / 100
+    socialNum = params["social"]
+    socialSupport = socialNum / 100
     
     generosity_num = params["generosity"]
     generosity = generosity_num / 100
     
-    new_country = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [life_expectancy] ,"SOCIAL_SUPPORT": [social_support] \
+    newCountry = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [lifeExpectancy] ,"SOCIAL_SUPPORT": [socialSupport] \
               ,"GENEROSITY": [generosity]}
     
-    new_country = pd.DataFrame(new_country)
+    newCountry = pd.DataFrame(newCountry)
 
-    y_prob = model.predict_proba(new_country)
+    y_prob = model.predict_proba(newCountry)
     
     happy = list(y_prob[:,0])[0]
     normal = list(y_prob[:,1])[0]
@@ -43,13 +43,13 @@ def home():
     
     if (normal > happy and normal > unhappy):
         probability = round(normal*100, 2)
-        happy_type = 1
+        happyType = 1
     elif (happy > normal and happy > unhappy):
         probability = round(happy*100, 2)
-        happy_type = 2
+        happyType = 2
     else:
         probability = round(unhappy*100, 2)
-        happy_type = 3
+        happyType = 3
         
     def find_nearest_country(gdp, hle, scl):
         def calculate_distance(x, gdp, hle, scl):
@@ -64,24 +64,24 @@ def home():
         found = data1.iloc[index, :]    
         return found
     
-    hle = life_expectancy      
-    scl = social_support  
+    hle = lifeExpectancy      
+    scl = socialSupport  
     found_data = find_nearest_country(gdp, hle, scl)
-    rec_country_flag = 'https://countryflagsapi.com/png/' + format(found_data[0])
-    my_country_flag = 'https://countryflagsapi.com/png/' + my_country
+    reCountry_flag = 'https://countryflagsapi.com/png/' + format(found_data[0])
+    myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry
     
     ###
-    ### my_country = 현재 나의 나라
-    ### my_country_flag = 나의 나라 국기
-    ### probability = 현재 내(입력값 ex : 돈, 사회적지지, 관용)가 어떠한 행복(happy_type)일지의 확률 ,어떤 타입의 행복일지에 확률(float) 
-    ### happy_type = 어떠한 타입인지 1 = 평범/ 2 = 행복/ 3 = 불행 
-    ### rec_country = 나라 추천
-    ### rec_country_flag = 추천된 나라의 국기
+    ### myCountry = 현재 나의 나라
+    ### myCountryFlag = 나의 나라 국기
+    ### probability = 현재 내(입력값 ex : 돈, 사회적지지, 관용)가 어떠한 행복(happyType)일지의 확률 ,어떤 타입의 행복일지에 확률(float) 
+    ### happyType = 어떠한 타입인지 1 = 평범/ 2 = 행복/ 3 = 불행 
+    ### reCountry = 나라 추천
+    ### reCountry_flag = 추천된 나라의 국기
     ###
     
-    return jsonify({"my_country" : my_country, "my_country_flag" : my_country_flag, "probability" : probability, "happy_type" : happy_type, "rec_country" : format(found_data[0]), "rec_country_flag" : rec_country_flag})
+    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag, "probability" : probability, "happyType" : happyType, "reCountry" : format(found_data[0]), "reCountry_flag" : reCountry_flag})
 
-    #return render_template('after.html', probability_data= probability, country_data = format(found_data[0]),happy_data = happy_type )
+    #return render_template('after.html', probability_data= probability, country_data = format(found_data[0]),happy_data = happyType )
 
 if __name__ == "__main__":
     app.run(debug=True)
