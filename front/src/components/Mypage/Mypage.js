@@ -16,6 +16,9 @@ function Mypage(){
   const [user, setUser] = useState(null)
   const [userLog, setUserlogs] = useState(null)
   const [editOpen, setEditOpen] = useState(false)
+  const isLoggedin = sessionStorage.getItem("userToken")
+
+  console.log('mypage의 user', user)
 
   //loginUserId가 변경될 때마다 user api 호출 다시 하기
   useEffect(() => {
@@ -25,7 +28,6 @@ function Mypage(){
       try{
         const res = await Api.get("users", loginUserId)
         setUser(res.data)
-        console.log(res.data)
       } catch(err){
         console.log(err)
       }
@@ -41,10 +43,9 @@ function Mypage(){
     }
     getUserLogs() */
 
-    if(!userState.user){
+    if(!isLoggedin){
       navigate("/login", { replace: true })
     }
-    /* alert("반갑습니다! 로그인해주실래요?") */
 
   }, [navigate, loginUserId])
 
