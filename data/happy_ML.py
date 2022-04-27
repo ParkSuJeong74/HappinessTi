@@ -17,6 +17,8 @@ def home():
     
     params = request.get_json()
     
+    my_country = params["my_country"]
+    
     kw = params["kw"]
     gdp = kw * 8
     
@@ -65,9 +67,19 @@ def home():
     hle = life_expectancy      
     scl = social_support  
     found_data = find_nearest_country(gdp, hle, scl)
+    rec_country_flag = 'https://countryflagsapi.com/png/' + format(found_data[0])
+    my_country_flag = 'https://countryflagsapi.com/png/' + my_country
     
-    ### probability_data = 어떤 타입의 행복일지에 확률(float) , happy_data = 어떠한 타입인지 1 = 평범/ 2 = 행복/ 3 = 불행 ,country_data = 나라 추천
-    return jsonify({"probability" : probability, "country" : format(found_data[0]), "happy" : happy_type })
+    ###
+    ### my_country = 현재 나의 나라
+    ### my_country_flag = 나의 나라 국기
+    ### probability = 현재 내(입력값 ex : 돈, 사회적지지, 관용)가 어떠한 행복(happy_type)일지의 확률 ,어떤 타입의 행복일지에 확률(float) 
+    ### happy_type = 어떠한 타입인지 1 = 평범/ 2 = 행복/ 3 = 불행 
+    ### rec_country = 나라 추천
+    ### rec_country_flag = 추천된 나라의 국기
+    ###
+    
+    return jsonify({"my_country" : my_country, "my_country_flag" : my_country_flag, "probability" : probability, "happy_type" : happy_type, "rec_country" : format(found_data[0]), "rec_country_flag" : rec_country_flag})
 
     #return render_template('after.html', probability_data= probability, country_data = format(found_data[0]),happy_data = happy_type )
 
