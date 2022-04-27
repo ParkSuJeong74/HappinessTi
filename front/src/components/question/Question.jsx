@@ -1,18 +1,46 @@
 import { Box, Container } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import question from '../../srcAssets/style/Question.module.css'
-import questHeaderImg from '../../srcAssets/img/questionHeaderImg.png'
+import QuestionContent from "./QuestionContent"
+import QuestionHeader from "./QuestionHeader"
 
 function Question(){
+
+    const datas = [
+        {
+            id: 1,
+            question: '당신의 나라를 입력해주세요! (ex. korea)',
+        },
+        {
+            id: 2,
+            question: '당신의 평균 연봉을 입력해주세요! (만 원 단위) '
+        },
+        {
+            id: 3,
+            question: '우리가 기대하는 평균 수명을 입력해주세요 '
+        },
+        {
+            id: 4,
+            question: '만약 문제가 생겼을 때  당신이 의지할 수 있는 가족이나 친구가 있습니까?'
+        },
+        {
+            id: 5,
+            question: '지난 몇달 동안 자선단체에 혹은 다양한 곳에 기부를 한 경험이 있나요?'
+        },
+    ]
 
     return (
         <Container sx={{py: 7, mt: 12}}>
 
-            <Box className={question.header}>
-                <img src={questHeaderImg} className={question.questionHeaderImg} alt="설문조사 헤더 이미지"/>
-                <h1>이 검사는 kaggle 데이터를 기반으로 만든 독자적인 설문조사 입니다. 재미로만 이용해주세요.</h1>
-            </Box>
-            
+            <QuestionHeader></QuestionHeader>
+
+            {datas.map((data) => 
+                <QuestionContent
+                    key={data.id}
+                    data={data}
+                />
+            )}
+
         </Container>
     )
 }

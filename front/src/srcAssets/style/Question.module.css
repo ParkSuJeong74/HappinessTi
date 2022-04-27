@@ -35,3 +35,23 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.questionHeaderImg{
+    width: 100px;
+    height: 100px;
+}
+
+.questBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.questButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
