@@ -49,7 +49,11 @@
     margin-top: 50px;
 }
 
-.questButtons{
+.slider {
+    width: 200px; 
+}
+
+.buttons{
     display: flex;
     flex-direction: row;
     align-items: center;
