@@ -205,11 +205,10 @@ userAuthRouter.post(
 
 /**
  * @swagger
- * path:
- * /users/{id}/profile/image
+ * /users/{id}/profile/image:
  *   get:
  *     tags: [User]
- *     description: 해당 id의 유저 프로필사진 조회
+ *     description: 유저 프로필 사진 조회
  *     produces:
  *     - "application/json"
  *     parameters:
@@ -220,14 +219,15 @@ userAuthRouter.post(
  *      - Authorization: []
  *     responses:
  *       '200':
- *         description: "한 유저의 프로필사진 조회 완료"
- *         schema:
- *           $ref: '#/components/schemas/User'
+ *         description: "유저 프로필 사진 조회 완료"
+ *         content:
+ *           application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
  */
 userAuthRouter.get(
   "/:id/profile/image",
   login_required,
-  multer.single("profileImgUrl"),
   async function (req, res, next) {
     try {
       const userId = req.params.id;
@@ -308,9 +308,12 @@ userAuthRouter.get("/:id", login_required, async function (req, res, next) {
 userAuthRouter.put("/:id", login_required, async function (req, res, next) {
   try {
     const userId = req.params.id;
+    let error = new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
+    error.status = 401;
     if (userId != req.currentUserId) {
-      throw new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
+      throw error;
     }
+
     const { nickname, description } = req.body;
     const toUpdate = { nickname, description };
 
@@ -339,18 +342,21 @@ userAuthRouter.put("/:id", login_required, async function (req, res, next) {
  *      - Authorization: []
  *     responses:
  *       '200':
- *         description: "한 유저의 정보 조회 완료"
+ *         description: "한 유저의 정보 삭제 완료"
  *         schema:
  *           $ref: '#/components/schemas/User'
  */
 userAuthRouter.delete("/:id", login_required, async (req, res, next) => {
   try {
     const userId = req.params.id;
-    const currnetId = req.currentUserId;
-    if (userId !== currnetId) {
-      throw new Error("당신은 이 유저의 정보를 삭제할 수 없습니다.");
+    let error = new Error("당신은 이 유저의 정보를 삭제할 수 없습니다.");
+    error.status = 401;
+
+    if (userId != req.currentUserId) {
+      throw error;
     }
-    const deletedUser = await userAuthService.deleteUser({ userId });
+
+    const deletedUser = await userAuthService.deleteById({ userId });
 
     res.status(200).send(deletedUser);
   } catch (error) {

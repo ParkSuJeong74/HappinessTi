@@ -1,35 +1,33 @@
 /**
  *  @swagger
  *  tags:
- *    name: TotalHappiness
- *    description: API to manage TotalHappiness
+ *    name: Happiness
+ *    description: API to manage Happiness
  */
 
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
-import { totalHappinessService } from "../services/totalHappinessService.js";
+import { happinessService } from "../services/happinessService.js";
 export const happinessRouter = Router();
 
 /**
  * @swagger
  * path:
- * /total-happiness/lists:
+ * /happiness/lists:
  *   get:
- *     tags: [TotalHappiness]
+ *     tags: [Happiness]
  *     description: 전체 행복도 리스트 조회
  *     produces:
  *     - "application/json"
- *     security:
- *      - Authorization: []
  *     responses:
  *       '200':
  *         description: "전체 행복도 리스트 조회 완료"
  *         schema:
-//  *           $ref: '#/components/schemas/Happiness'
+ *           $ref: '#/components/schemas/Happiness'
  */
-happinessRouter.get("/lists", login_required, async function (req, res, next) {
+happinessRouter.get("/lists", async function (req, res, next) {
   try {
-    const totalHappylist = await totalHappinessService.getHappyLists();
+    const totalHappylist = await happinessService.getHappyLists();
 
     res.status(200).send(totalHappylist);
   } catch (error) {
@@ -41,9 +39,9 @@ happinessRouter.get("/lists", login_required, async function (req, res, next) {
 /**
  * @swagger
  * path:
- * /total-happiness/search:
+ * /happiness/search:
  *   get:
- *     tags: [TotalHappiness]
+ *     tags: [Happiness]
  *     description: 전체 행복도 리스트 조회
  *     produces:
  *     - "application/json"
@@ -61,14 +59,13 @@ happinessRouter.get("/lists", login_required, async function (req, res, next) {
  *       '200':
  *         description: "전체 행복도 리스트 조회 완료"
  *         schema:
-//  *           $ref: '#/components/schemas/Happiness'
+ *           $ref: '#/components/schemas/Happiness'
  */
 
-// /happiness/:countryId
 happinessRouter.get("/search", login_required, async function (req, res, next) {
   try {
     const { country } = req.body;
-    const searchCountry = await totalHappinessService.getSearchCountry({
+    const searchCountry = await happinessService.getSearchCountry({
       country,
     });
 
@@ -79,3 +76,15 @@ happinessRouter.get("/search", login_required, async function (req, res, next) {
 });
 
 // Todo: analysis 페이지 api
+happinessRouter.get("/:id", login_required, async function (req, res, next) {
+  try {
+    const { country } = req.body;
+    const searchCountry = await happinessService.getSearchCountry({
+      country,
+    });
+
+    res.status(200).send(searchCountry);
+  } catch (error) {
+    next(error);
+  }
+});

@@ -4,17 +4,17 @@ const { Schema, model } = pkg;
 // 데이터셋 칼럼
 const HappinessSchema = new Schema(
   {
-    _id: {
-      type: String,
-      required: true,
-    },
     RANK: {
       type: Number,
       required: true,
+      unique: true,
+      index: true,
     },
     country: {
       type: String,
       required: true,
+      unique: true,
+      index: true,
     },
     happinessScore: {
       type: Number,

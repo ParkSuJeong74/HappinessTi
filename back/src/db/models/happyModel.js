@@ -5,4 +5,8 @@ export const happyModel = {
     const createdNewUser = await Happiness.create(newUser);
     return createdNewUser;
   },
+  findAll: async ({}) => {
+    const list = await Happiness.find({});
+    return list;
+  },
 };

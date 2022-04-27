@@ -3,10 +3,6 @@ const { Schema, model } = pkg;
 
 const TestlogSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -2,9 +2,7 @@ import { userModel } from "../db/index.js";
 import jwt from "jsonwebtoken";
 import { SetUtil } from "../common/setUtil.js";
 import validator from "validator";
-// import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
-// import * as timeDelta from 'time-delta';
 import { gcsBucket } from "../config/gcs.js";
 import { format } from "util";
 
@@ -149,6 +147,7 @@ export const userAuthService = {
       "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요."
     );
 
+    // 현재 유저의 닉네임도 찾기 때문에
     if (findByNicknameUser && findByNicknameUser.id != userId) {
       throw error;
     }
@@ -160,10 +159,12 @@ export const userAuthService = {
 
   deleteById: async ({ userId }) => {
     const isDeleted = await userModel.delete({ userId });
+    let error = new Error("삭제가 되지 않았습니다.");
 
     if (!isDeleted) {
-      throw new Error("삭제가 되지 않았습니다.");
+      throw error;
     }
+
     return { status: "Ok" };
   },
 

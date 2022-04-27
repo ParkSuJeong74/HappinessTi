@@ -51,7 +51,7 @@ export const userModel = {
   },
 
   delete: async ({ userId }) => {
-    const deleteUser = await User.deleteOne({ id: userId });
+    const deleteUser = await User.deleteOne({ _id: userId });
     const isDeleted = deleteUser.deletedCount === 1;
     return isDeleted; // True or False
   },
