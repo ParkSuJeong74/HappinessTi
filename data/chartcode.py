@@ -168,35 +168,54 @@ for i in range(0,len(df)):
     result=eval(json.dumps(test))
     map_data.append(result)
 print(map_data)
-#---여기까지 json형태로 보내기 수정함----#
 
 ##----대륙별로 시각화----##
 ##찾아보니 nivo에서 zoom을 조절할 수 있는것같습니다##
 ##projectionScale로 확대해주시고
 ##projection Translation으로 위치를 조정해주셔서 대륙별로 보여주세요!!#
 
+
 ##---score per continent.png----#
 # Grouping data on basis of continents 🐾
 contData = df.groupby("Continent")
-
-
 # Average happinessScore per Continent 🦨
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
 
-print(happAvg.index)
-print(happAvg.values)
+group_data=[]
+for i in range(0,len(happAvg.index)):
+    test={
+      'Continent':happAvg.index[i],
+      'happinessScore':happAvg.values[i],
+    }
+    result=eval(json.dumps(test))
+    group_data.append(result)
+print(group_data)
 
 # highest vs lowest.png #
 #highest
 x = df.sort_values('happinessScore', ascending=True).tail(10)
-print(x['happinessScore'])
-print(x['country'])
+high_data=[]
+for i in range(0,len(x)):
+    test={
+      'happinessScore':x['happinessScore'][i],
+      'country':x['happinessScore'][i],
+    }
+    result=eval(json.dumps(test))
+    high_data.append(result)
+print(high_data)
 
 #lowest
 z = df.sort_values('happinessScore', ascending=False).tail(10)
-print(z['happinessScore'])
-print(z['country'])
+low_data=[]
+for i in range(0,len(z)):
+    test={
+      'happinessScore':z['happinessScore'].to_list()[i],
+      'country':z['happinessScore'].to_list()[i],
+    }
+    result=eval(json.dumps(test))
+    low_data.append(result)
+print(low_data)
 
 
 
