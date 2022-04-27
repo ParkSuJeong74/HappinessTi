@@ -1,21 +1,15 @@
-from flask import Flask, render_template, request, redirect
-
-app = Flask(__name__)
-
-fruit_list = ['수박']
-
-
-@app.route("/", methods=["GET", "POST"])
-def home():
-    if request.method == 'POST':
-        input_fruit = request.form['fruit']
-        # 입력받은 과일을 fruit_list에 저장하세요.
-        fruit_list.append(input_fruit)
-        return redirect('/')
-    
-    # 과일 리스트를 매개변수로 넘겨주세요.
-    return render_template("greet.html",fruit_list=fruit_list)
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+import joblib
+from pymongo import MongoClient
+import datetime
+import pandas as pd
+import numpy as np
+import json
+db='mongodb+srv://crackingdevs:elice1234@crackingdevs.guuao.mongodb.net/crackingdevs'
+collection=db.my_collection
+df=pd.read_csv('2022_google_csv.csv')
+test={
+    'name':df[df['country']=='South Korea']['country'].to_list(),
+    'Happiness score':df[df['country']=='South Korea']['Happiness Score'].to_list(),
+}
+result=json.dumps(test)
+collection.insert_one(result)
