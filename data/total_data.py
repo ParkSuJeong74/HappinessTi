@@ -165,7 +165,7 @@ sns.barplot(x = data["Country"], y = data["happinessScore"], data = data, palett
 
 
 fig.show()
-plt.savefig('barplot10-2', dpi=300)
+plt.savefig('totalmap', dpi=300)
 
 #---대륙별로 시각화------#
 
