@@ -21,7 +21,7 @@ function Header() {
 
   function logoutHandler(){
     sessionStorage.removeItem("userToken")
-    sessionStorage.removeItem("userId")
+
     dispatch({
       type: 'LOGOUT'      
     })

@@ -17,6 +17,7 @@ import Result from "./components/result/Result"
 
 import { MainWrapper } from "./srcAssets/style/MainWrapper"
 import './srcAssets/style/Font.module.css'
+import * as Api from './api'
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -27,33 +28,33 @@ function App() {
     user: null,
   })
 
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false)
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
 
-  const fetchCurrentUser = () => {
+    const fetchCurrentUser = async () => {
+        try {
+            const res = await Api.get("users/current")
+            const currentUser = res.data;
 
-    const isLoggedin = sessionStorage.getItem("userToken")
-    const currentUserId = sessionStorage.getItem("userId")
+            dispatch({
+                type: "LOGIN_SUCCESS",
+                payload: currentUser,
+            });
 
-    if(isLoggedin){
-      dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: currentUserId,
-      });
-      console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;")
+            console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
+        } catch {
+            console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
+        }
+        setIsFetchCompleted(true);
+    };
+
+    useEffect(() => {
+        fetchCurrentUser();
+    }, []);
+
+    if (!isFetchCompleted) {
+        return "loading...";
     }
-    else{
-      console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;")
-    }
-    setIsFetchCompleted(true)
-  }
 
-  useEffect(() => {
-      fetchCurrentUser()
-  }, [])
-
-  if (!isFetchCompleted) {
-      return "loading..."
-  }
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -78,7 +79,6 @@ function App() {
             </MainWrapper>
           </Router>
 
-        
       </UserStateContext.Provider>
     </DispatchContext.Provider>
   )

@@ -28,7 +28,6 @@ function UserManagement(){
                 await Api.delete("users", loginUserId)
                 alert("탈퇴완료")
                 sessionStorage.removeItem("userToken")
-                sessionStorage.removeItem("userId")
                 navigate('/')
             }
             

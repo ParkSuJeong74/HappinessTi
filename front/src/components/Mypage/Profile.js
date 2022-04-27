@@ -6,7 +6,6 @@ import ProfileEdit from'./ProfileEdit.js'
 import norway from '../../srcAssets/img/norway.png'
 
 function Profile({editOpen, setEditOpen, user, setUser}){
-  console.log('profile의 user', user)
 
   return (
   <CardBox>

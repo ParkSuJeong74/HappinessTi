@@ -45,7 +45,7 @@ function Login() {
 
             const jwtToken = user.token
             sessionStorage.setItem("userToken", jwtToken)
-            sessionStorage.setItem("userId", user?.id)
+
             alert("로그인이 성공하였습니다!")
             navigate('/')
 
