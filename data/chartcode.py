@@ -2,15 +2,31 @@ from flask import Flask, jsonify
 import json
 import pandas as pd
 import numpy as np
-from scipy.stats import norm
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import plotly_express as px
 
 df = pd.read_csv('./file/happy_data2.csv')
-
 app = Flask(__name__)
+
+##----treemap.png------##
+print(df['continent'].unique())
+@app.route('/tree',methods=['GET'])
+def treemap():
+  tree_data=[]
+  children=[]
+  for j in df['continent'].unique():
+    test2={
+      'name':j,
+    }
+    for i in range(0,len(df[df['continent']==j])):
+          test={
+            'name':df[df['continent']==j]['country'].to_list()[i],
+            'size':df[df['continent']==j]['happinessScore'].to_list()[i],
+          }
+          result=eval(json.dumps(test))
+          children.append(result)
+    test2['children']=children
+    result2=eval(json.dumps(test2))
+    tree_data.append(result2)
+  return jsonify(tree_data)
 
 #barplot10-1.png#
 #왼쪽부터 오른쪽 순서#
@@ -114,7 +130,7 @@ contData = df.groupby("continent")
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
 
-@app.route('/continent_barplot',methods=['GET'])
+@app.route('/continent/bar',methods=['GET'])
 def continent_barplot():
   group_data=[]
   for i in range(0,len(happAvg.index)):
