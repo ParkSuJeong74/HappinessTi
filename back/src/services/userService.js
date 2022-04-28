@@ -66,7 +66,7 @@ export const userAuthService = {
     );
 
     if (!isPasswordCorrect) {
-      throw error();
+      throw error;
     }
 
     // 로그인 성공 -> JWT 웹 토큰 생성
@@ -87,6 +87,7 @@ export const userAuthService = {
       name,
       description,
     };
+
     const loginResponse = {
       user: { loginUser },
       accessToken: { token },
