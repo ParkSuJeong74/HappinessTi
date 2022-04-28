@@ -1,46 +1,43 @@
-const cors = require("cors")
-const express = require("express")
-const { userAuthRouter } = require("./routers/userRouter")
-const { errorMiddleware } = require("./middlewares/errorMiddleware")
-// const multer = require("multer")
-// const MulterGoogleCloudStorage = require("multer-google-storage")
+import express from "express";
+import cors from "cors";
+import swaggerUi from "swagger-ui-express";
+import { specs } from "./config/swaggerDoc.js";
+import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 
-// const uploadHandler = multer({
-//   storage: multerGoogleStorage.storageEngine(),
-// })
+export const app = express();
 
-const { swaggerUi, specs } = require("./config/swaggerDoc")
-const app = express()
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+import { userAuthRouter } from "./routers/userRouter.js";
+import { totalHappinessRouter } from "./routers/totalHappinessRouter.js";
+import { resultRouter } from "./routers/resultRouter.js";
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(
   "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
-)
-process.env.GOOGLE_APPLICATION_CREDENTIALS =
-  `${process.cwd()}/src/` + process.env.GCS_KEYFILE
+);
 
-console.log(
-  "google authentication installed at",
-  process.env["GOOGLE_APPLICATION_CREDENTIALS"]
-)
+// process.env.GOOGLE_APPLICATION_CREDENTIALS =
+//   `${process.cwd()}/src/secure/` + process.env.GCS_KEYFILE;
+
+// console.log(
+//   "google authentication installed at",
+//   process.env["GOOGLE_APPLICATION_CREDENTIALS"]
+// );
 
 // 기본
 app.get("/", (req, res) => {
-  res.send("안녕하세요, 레이서 프로젝트 API 입니다.")
-})
-
-// app.post("/upload", uploadHandler.any(), (req, res) => {
-//   console.log(req.files)
-//   res.json(req.files)
-// })
+  res.send("기본");
+});
 
 // router | userAuthRouter는 맨 위
-app.use("/users", userAuthRouter)
+app.use("/users", userAuthRouter);
+app.use("/total-happiness", totalHappinessRouter);
+app.use("/result", resultRouter);
 
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 
-module.exports = { app }
+export default app;

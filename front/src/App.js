@@ -13,6 +13,12 @@ import Team from "./screens/Team"
 import Question from "./screens/Question"
 import Login from "./screens/Login"
 import Register from "./screens/Register"
+import Mypage from "./screens/Mypage"
+import './srcAssets/style/Font.module.css'
+
+import { MuiThemeProvider, createTheme} from '@material-ui/core/styles';
+import Signin from "./screens/Signin"
+import Password from "./screens/Password"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -32,7 +38,6 @@ function App() {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
       const res = await Api.get("users/current")
       const currentUser = res.data
-      console.log(currentUser)
 
       // dispatch 함수를 통해 로그인 성공 상태로 만듦.
       dispatch({
@@ -41,7 +46,6 @@ function App() {
       })
       console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;")
     } catch(error) {
-      console.log(error)
       console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;")
     }
     // fetchCurrentUser 과정이 끝났으므로, isFetchCompleted 상태를 true로 바꿔줌
@@ -57,10 +61,17 @@ function App() {
     return "loading..."
   }
 
+  const themeMuiCore = createTheme({
+    typography: {
+      fontFamily: '"Elice Digital Baeum", sans-serif'
+    },
+  });
+
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
         <GlobalStyles />
+        <MuiThemeProvider theme={themeMuiCore}>
 
           <Router>
             <MainWrapper>
@@ -70,13 +81,16 @@ function App() {
                   <Route path="/teampage" element={<Team/>} />
                   <Route path="/question" element={<Question />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
+                  <Route path="/mypage" element={<Mypage />} />
+                  <Route path="/signin" element={<Register />} />
+                  <Route path="/password" element={<Password />} />
                   <Route path="*" element={<Home />} />
                 </Routes>
               <Footer />
             </MainWrapper>
           </Router>
-          
+
+        </MuiThemeProvider>
       </UserStateContext.Provider>
     </DispatchContext.Provider>
   )
