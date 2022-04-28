@@ -29,12 +29,16 @@ export const userAuthService = {
       throw error;
     }
 
+    // console.log("password", password);
     const hashedPassword = await bcrypt.hash(password, 10);
+    // console.log("hashedPassword", hashedPassword);
     const newUser = {
       nickname,
       email,
       hashedPassword,
     };
+
+    // console.log("newUser", newUser);
 
     const createdNewUser = await userModel.create({ newUser });
     return createdNewUser;
