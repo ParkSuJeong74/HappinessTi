@@ -54,7 +54,7 @@ function ProfileEdit({setEditOpen, setUser, user}){
     if(imageInfo){
       await axios
       .post(
-        `http://${window.location.hostname}:5005/users/${loginUserId}/profile-img`,
+        `http://${window.location.hostname}:5005/users/${loginUserId}/profile/image`,
         formData,
         config
       )

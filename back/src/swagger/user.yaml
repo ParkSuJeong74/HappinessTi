@@ -2,7 +2,7 @@ components:
   schemas:
     User: 
       properties: 
-        id: 
+        _id: 
           type: string 
           description: 유저 고유 번호 
         email:
@@ -11,9 +11,9 @@ components:
         nickname:
           type: string 
           description: 유저 닉네임
-        password:
+        hashedPassword:
           type: string 
-          description: 유저 비밀번호
+          description: 유저 해쉬 비밀번호
         description:
           type: string 
           description: 유저 정보
