@@ -62,18 +62,22 @@ happinessRouter.get("/lists", async function (req, res, next) {
  *           $ref: '#/components/schemas/Happiness'
  */
 
-happinessRouter.get("/search", login_required, async function (req, res, next) {
-  try {
-    const { country } = req.body;
-    const searchCountry = await happinessService.getSearchCountry({
-      country,
-    });
+happinessRouter.get(
+  "/search/:country",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const { country } = req.body;
+      const searchCountry = await happinessService.getSearchCountry({
+        country,
+      });
 
-    res.status(200).send(searchCountry);
-  } catch (error) {
-    next(error);
+      res.status(200).send(searchCountry);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // Todo: analysis 페이지 api
 happinessRouter.get("/:id", login_required, async function (req, res, next) {

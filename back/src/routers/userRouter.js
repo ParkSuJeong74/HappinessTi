@@ -203,44 +203,7 @@ userAuthRouter.post(
   }
 );
 
-/**
- * @swagger
- * /users/{id}/profile/image:
- *   get:
- *     tags: [User]
- *     description: 유저 프로필 사진 조회
- *     produces:
- *     - "application/json"
- *     parameters:
- *     - name: "id"
- *       in: "path"
- *       required: true
- *     security:
- *      - Authorization: []
- *     responses:
- *       '200':
- *         description: "유저 프로필 사진 조회 완료"
- *         content:
- *           application/json:
- *            schema:
- *              $ref: '#/components/schemas/User'
- */
-userAuthRouter.get(
-  "/:id/profile/image",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.params.id;
-      const user = await userAuthService.getUserInfo({
-        userId,
-      });
-      const url = `https://storage.googleapis.com/${gcsBucket.name}/ProfileImg/${user.profileImgUrl}`;
-      res.status(200).send({ profileImgUrl: url });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+// s
 
 /**
  * @swagger

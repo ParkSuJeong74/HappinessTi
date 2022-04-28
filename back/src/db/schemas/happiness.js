@@ -48,6 +48,10 @@ const HappinessSchema = new Schema(
       type: String,
       required: true,
     },
+    continent: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
