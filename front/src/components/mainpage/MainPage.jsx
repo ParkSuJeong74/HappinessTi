@@ -43,6 +43,10 @@ function MainPage() {
 
     <div className={mainpage.decoration}></div>
 
+    <div className={mainpage.mainText}>
+      <h1>매일 행복하진 않지만, 행복한 일은 매일 있어요 :)</h1>
+    </div>
+
     <div style={{fontSize: '110px'}}>
       <KeyboardArrowDownIcon fontSize="inherit" className={mainpage.scrollIcon1}/>
       <KeyboardArrowDownIcon fontSize="inherit" className={mainpage.scrollIcon2}/>

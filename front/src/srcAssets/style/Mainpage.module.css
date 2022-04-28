@@ -20,11 +20,20 @@
 
 .decoration {
     height: 10px;
-    width: 38vw;
+    width: 49.75em;
     background-color: #F4C3CD;
     position: absolute;
-    left: 60%;
+    left: 54%;
     bottom: 25%;
+}
+
+.mainText{
+    position: absolute;
+    left: 54%;
+    bottom: 25%;
+    color: #ddd;
+    margin-bottom: 15px;
+    font-size: 1.3em;
 }
 
 .scrollIcon1, .scrollIcon2, .scrollIcon3 {
