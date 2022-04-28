@@ -2,16 +2,11 @@ from flask import Flask
 import json
 import pandas as pd
 import numpy as np
-from collections import Counter
-
-import pycountry_convert as pc
-import missingno as msno
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 import plotly_express as px
-import pycountry
 
 df = pd.read_csv('./file/happy_data2.csv')
 
@@ -19,7 +14,7 @@ app = Flask(__name__)
 
 #barplot10-1.png#
 #왼쪽부터 오른쪽 순서#
-@app.route('/gdp_barplot')
+@app.route('/gdp/bar')
 def gdp_barplot():
   gdp_data=[]
   for i in range(0,len(df.nlargest(10,'gdp'))):
@@ -31,7 +26,7 @@ def gdp_barplot():
       gdp_data.append(result)
   return(gdp_data)
 
-@app.route('/social_barplot')
+@app.route('/social/bar')
 def social_barplot():
   social_data=[]
   for i in range(0,len(df.nlargest(10,'socialSupport'))):
@@ -43,7 +38,7 @@ def social_barplot():
       social_data.append(result)
   return(social_data)
 
-@app.route('/health_barplot')
+@app.route('/health/bar')
 def health_barplot():
   health_data=[]
   for i in range(0,len(df.nlargest(10,'health'))):
@@ -55,7 +50,7 @@ def health_barplot():
       health_data.append(result)
   return(health_data)
 
-@app.route('/freedom_barplot')
+@app.route('/freedom/bar')
 def freedom_barplot():
   freedom_data=[]
   for i in range(0,len(df.nlargest(10,'freedom'))):
@@ -68,7 +63,7 @@ def freedom_barplot():
   return(freedom_data)
 
 ##barplot10-2.png##
-@app.route('/generosity_barplot')
+@app.route('/generosity/bar')
 def generosity_barplot():
   generosity_data=[]
   for i in range(0,len(df.nlargest(10,'generosity'))):
@@ -80,7 +75,7 @@ def generosity_barplot():
       generosity_data.append(result)
   return(generosity_data)
 
-@app.route('/corruption_barplot')
+@app.route('/corruption/bar')
 def corruption_barplot():
   corruptionPerceptions_data=[]
   for i in range(0,len(df.nlargest(10,'corruptionPerceptions'))):
@@ -133,7 +128,7 @@ def continent_barplot():
 
 # highest vs lowest.png #
 #highest
-@app.route('/high_barplot')
+@app.route('/high/bar')
 def high_barplot():
   x = df.sort_values('happinessScore', ascending=True).tail(10)
   high_data=[]
@@ -147,7 +142,7 @@ def high_barplot():
   return(high_data)
 
 #lowest
-@app.route('/low_barplot')
+@app.route('/low/bar')
 def low_barplot():
   z = df.sort_values('happinessScore', ascending=False).tail(10)
   low_data=[]
