@@ -87,6 +87,7 @@ export const userAuthService = {
       name,
       description,
     };
+
     const loginResponse = {
       user: { loginUser },
       accessToken: { token },

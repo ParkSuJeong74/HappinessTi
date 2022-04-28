@@ -9,7 +9,6 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
 import { userAuthService } from "../services/userService.js";
 import { multer } from "../middlewares/multer.js";
-import { gcsBucket } from "../config/gcs.js";
 
 export const userAuthRouter = Router();
 
@@ -44,9 +43,10 @@ export const userAuthRouter = Router();
 userAuthRouter.post("/register", async function (req, res, next) {
   try {
     if (is.emptyObject(req.body)) {
-      throw new Error(
+      let error = new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
+      throw error;
     }
 
     const { nickname, email, password } = req.body;
@@ -202,8 +202,6 @@ userAuthRouter.post(
     }
   }
 );
-
-// s
 
 /**
  * @swagger

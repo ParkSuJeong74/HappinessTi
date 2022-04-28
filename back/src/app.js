@@ -6,6 +6,7 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import { userAuthRouter } from "./routers/userRouter.js";
 import { happinessRouter } from "./routers/happinessRouter.js";
 import { resultRouter } from "./routers/resultRouter.js";
+import { graphRouter } from "./routers/graphRouter.js";
 
 export const app = express();
 
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 app.use("/users", userAuthRouter);
 app.use("/happiness", happinessRouter);
 app.use("/result", resultRouter);
+app.use("/graph", graphRouter);
 app.use(errorMiddleware);
 
 export default app;
