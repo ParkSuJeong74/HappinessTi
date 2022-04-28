@@ -34,6 +34,7 @@ function App() {
         try {
             const res = await Api.get("users/current")
             const currentUser = res.data;
+            console.log("currentUser", currentUser)
 
             dispatch({
                 type: "LOGIN_SUCCESS",

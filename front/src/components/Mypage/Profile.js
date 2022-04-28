@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import ProfileEdit from'./ProfileEdit.js'
 import norway from '../../srcAssets/img/norway.png'
 
-function Profile({editOpen, setEditOpen, user, setUser}){
-  
+function Profile({editOpen, setEditOpen, user, updateUser}){
+  console.log(user)
   return (
   <CardBox>
       <UpperBox>
@@ -27,7 +27,7 @@ function Profile({editOpen, setEditOpen, user, setUser}){
       <LowerBox>
         <Grid container spacing={1}>
           {editOpen ? (
-            <ProfileEdit setUser={setUser} user={user} setEditOpen={setEditOpen}/>
+            <ProfileEdit updateUser={updateUser} user={user} setEditOpen={setEditOpen}/>
           ) : (
             <Grid item xs={5} sx={{textAlign: 'center', marginTop: '9em'}}>
               <Typography variant="h3" component="div">
@@ -35,7 +35,7 @@ function Profile({editOpen, setEditOpen, user, setUser}){
               </Typography>
 
               <Typography variant="h6" sx={{marginTop: '20px'}} component="div">
-                  {user?.description}
+                  {user?.description === "" ? "설명이 아직 없습니다. 추가해 주세요." : user?.description }
               </Typography>
             </Grid>
           )}

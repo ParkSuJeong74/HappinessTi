@@ -6,7 +6,7 @@ import * as Api from '../../api'
 import { useContext } from 'react';
 import { UserStateContext } from '../../App';
 
-function UserManagement(){
+function UserManagement({ deleteUser }){
     const navigate = useNavigate()
     const userState = useContext(UserStateContext)
     const loginUserId = userState.user?.id
@@ -27,6 +27,7 @@ function UserManagement(){
                 //TODO: user 계정 삭제 api 호출하기!
                 await Api.delete("users", loginUserId)
                 alert("탈퇴완료")
+                // deleteUser(null)
                 sessionStorage.removeItem("userToken")
                 navigate('/')
             }

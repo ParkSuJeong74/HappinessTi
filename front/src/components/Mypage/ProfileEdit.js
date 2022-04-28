@@ -19,7 +19,7 @@ const CssTextField = withStyles({
     },
 })(TextField);
 
-function ProfileEdit({setEditOpen, setUser, user}){
+function ProfileEdit({setEditOpen, updateUser, user}){
   const userState = useContext(UserStateContext)
   const loginUserId = userState.user?.id
   const [nickname, setNickname] = useState(user?.nickname)
@@ -35,7 +35,7 @@ function ProfileEdit({setEditOpen, setUser, user}){
       description,
     })
       .then((res) => {
-        setUser(res.data)
+        updateUser(res.data)
       })
       .catch((err) => alert(err.response.data))
 
@@ -59,7 +59,7 @@ function ProfileEdit({setEditOpen, setUser, user}){
         config
       )
       .then((res) => {
-        setUser(res.data.updatedUser)
+        updateUser(res.data.updatedUser)
         
       })
       .catch((err) => alert(err.response.data))
