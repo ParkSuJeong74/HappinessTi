@@ -164,11 +164,15 @@ export const userAuthService = {
 
   deleteById: async ({ userId }) => {
     const isDeleted = await userModel.delete({ userId });
+    const user = await userModel.findById({ userId });
+
     let error = new Error("삭제가 되지 않았습니다.");
 
     if (!isDeleted) {
       throw error;
     }
+
+    gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
 
     return { status: "Ok" };
   },

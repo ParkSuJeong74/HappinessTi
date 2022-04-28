@@ -91,7 +91,7 @@ function Login() {
                     style = {{width: '30%'}}
                     id="standard-basic"
                     label="Password" 
-                    type="password"
+                    type='password'
                     placeholder='Password'
                     variant="standard" 
                     InputLabelProps={{

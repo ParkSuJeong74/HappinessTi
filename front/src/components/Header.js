@@ -8,6 +8,7 @@ import Style from '../srcAssets/style/Header.module.css'
 
 function Header() {
   const dispatch = useContext(DispatchContext)
+
   const isLoggedin = sessionStorage.getItem("userToken")
 
   const navigate = useNavigate()
@@ -43,8 +44,8 @@ function Header() {
 
         <Link to="/datalogs" className={Style.headerLink}>Data</Link>
 
-        {!isLoggedin && 
-        <Link to="/login" className={Style.headerLink}>LogIn</Link>}
+        {!isLoggedin && (
+        <Link to="/login" className={Style.headerLink}>LogIn</Link>)}
 
         {isLoggedin && 
         <Link to="/mypage" className={Style.headerLink}>Mypage</Link>}
@@ -62,9 +63,9 @@ function Header() {
 export default Header
 
 const HeaderNavBar = styled.div`
-  width: 94.2%;
+  width: 100%;
   height: 10vh;
-  padding: 4px 50px;
+  padding: 45px 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;

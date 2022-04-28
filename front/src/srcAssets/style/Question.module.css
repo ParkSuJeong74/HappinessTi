@@ -28,3 +28,34 @@
                 -0.5px 0.5px 0px rgba(0,0,0, 0.15),
                 0px 12px 10px -10px rgba(0,0,0, 0.05);
 }
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.questionHeaderImg{
+    width: 100px;
+    height: 100px;
+}
+
+.questBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.slider {
+    width: 200px; 
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

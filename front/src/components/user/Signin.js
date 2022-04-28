@@ -40,25 +40,15 @@ function Signin() {
         e.preventDefault()
 
         try {
-            //TODO: user 로그인 api 호출!
-            const res = await Api.post("users/register", {
+            //TODO: user 회원가입 api 호출
+            await Api.post("users/register", {
                 email,
-                nickname,
                 password,
+                nickname,
             })
-            const user = res.data
-
-            console.log(res)
-
-            const jwtToken = user.token
-            sessionStorage.setItem("userToken", jwtToken)
             alert("회원가입이 성공하였습니다!")
-            navigate('/')
+            navigate("/login")
 
-            dispatch({
-                type: "LOGIN_SUCCESS",
-                payload: user,
-            });
         } catch (error) {
             alert(error.response.data)
         }
@@ -80,10 +70,11 @@ function Signin() {
             <Box class={signin.inputEmail}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="email" 
                     label="Email" 
                     placeholder='Email'
                     variant="standard"
+                    required
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
@@ -94,10 +85,11 @@ function Signin() {
             <Box class={signin.inputNickname}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="nickname" 
                     label="Nickname" 
                     placeholder='Nickname'
                     variant="standard"
+                    required
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
@@ -108,11 +100,12 @@ function Signin() {
             <Box class={signin.inputPassword}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="password" 
                     label="Password"
                     type = "password"
                     placeholder='Password'
                     variant="standard"
+                    required
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
@@ -123,11 +116,12 @@ function Signin() {
             <Box class={signin.inputPasswordconfirm}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="onfirmPassword" 
                     label="Confirm Password"
                     type = "Password"
                     placeholder='Confirm Password'
                     variant="standard"
+                    required
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}

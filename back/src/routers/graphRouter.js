@@ -2,11 +2,10 @@
  *  @swagger
  *  tags:
  *    name: Graph
- *    description: API to manage Graph
+ *    description: API to manage Main Page Graph
  */
 import { Router } from "express";
 import axios from "axios";
-import { login_required } from "../middlewares/login_required.js";
 export const graphRouter = Router();
 
 /**
@@ -14,12 +13,12 @@ export const graphRouter = Router();
  * /graph/gdp/bar:
  *   get:
  *     tags: [Graph]
- *     description: GDP bar plot 그래프 시각화
+ *     description: 메인페이지 GDP bar plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "GDP bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 GDP bar plot 그래프 시각화 완료"
  */
 graphRouter.get("/gdp/bar", async function (req, res, next) {
   try {
@@ -29,17 +28,18 @@ graphRouter.get("/gdp/bar", async function (req, res, next) {
     next(error);
   }
 });
+
 /**
  * @swagger
  * /graph/social/bar:
  *   get:
  *     tags: [Graph]
- *     description: social bar plot 그래프 시각화
+ *     description: 메인페이지 social bar plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "social bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 social bar plot 그래프 시각화 완료"
  */
 graphRouter.get("/social/bar", async function (req, res, next) {
   try {
@@ -49,17 +49,18 @@ graphRouter.get("/social/bar", async function (req, res, next) {
     next(error);
   }
 });
+
 /**
  * @swagger
  * /graph/health/bar:
  *   get:
  *     tags: [Graph]
- *     description: health bar plot 그래프 시각화
+ *     description: 메인페이지 health bar plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "health bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 health bar plot 그래프 시각화 완료"
  */
 graphRouter.get("/health/bar", async function (req, res, next) {
   try {
@@ -69,17 +70,18 @@ graphRouter.get("/health/bar", async function (req, res, next) {
     next(error);
   }
 });
+
 /**
  * @swagger
  * /graph/freedom/bar:
  *   get:
  *     tags: [Graph]
- *     description: freedom bar plot 그래프 시각화
+ *     description: 메인페이지 freedom bar plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "freedom bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 freedom bar plot 그래프 시각화 완료"
  */
 graphRouter.get("/freedom/bar", async function (req, res, next) {
   try {
@@ -89,17 +91,18 @@ graphRouter.get("/freedom/bar", async function (req, res, next) {
     next(error);
   }
 });
+
 /**
  * @swagger
  * /graph/generosity/bar:
  *   get:
  *     tags: [Graph]
- *     description: generosity bar plot 그래프 시각화
+ *     description: 메인페이지 generosity bar plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "generosity bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 generosity bar plot 그래프 시각화 완료"
  */
 graphRouter.get("/generosity/bar", async function (req, res, next) {
   try {
@@ -109,17 +112,18 @@ graphRouter.get("/generosity/bar", async function (req, res, next) {
     next(error);
   }
 });
+
 /**
  * @swagger
  * /graph/corruption/bar:
  *   get:
  *     tags: [Graph]
- *     description: corruption bar plot 그래프 시각화
+ *     description: 메인페이지 corruption bar plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 corruption bar plot 그래프 시각화 완료"
  */
 graphRouter.get("/corruption/bar", async function (req, res, next) {
   try {
@@ -135,12 +139,12 @@ graphRouter.get("/corruption/bar", async function (req, res, next) {
  * /graph/continent/bar:
  *   get:
  *     tags: [Graph]
- *     description: continent bar plot 그래프 시각화
+ *     description: 메인페이지 continent bar plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 corruption bar plot 그래프 시각화 완료"
  */
 graphRouter.get("/continent/bar", async function (req, res, next) {
   try {
@@ -150,17 +154,18 @@ graphRouter.get("/continent/bar", async function (req, res, next) {
     next(error);
   }
 });
+
 /**
  * @swagger
  * /graph/mapplot:
  *   get:
  *     tags: [Graph]
- *     description: corruption bar plot 그래프 시각화
+ *     description: 메인페이지 map 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 map 시각화 완료"
  */
 graphRouter.get("/mapplot", async function (req, res, next) {
   try {
@@ -177,17 +182,18 @@ graphRouter.get("/mapplot", async function (req, res, next) {
     next(error);
   }
 });
+
 /**
  * @swagger
  * /graph/high/bar:
  *   get:
  *     tags: [Graph]
- *     description: corruption bar plot 그래프 시각화
+ *     description: high 그래프 시각화(임시)
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
+ *         description: "high 그래프 시각화 완료"
  */
 graphRouter.get("/high/bar", async function (req, res, next) {
   try {
@@ -203,12 +209,12 @@ graphRouter.get("/high/bar", async function (req, res, next) {
  * /graph/low/bar:
  *   get:
  *     tags: [Graph]
- *     description: corruption bar plot 그래프 시각화
+ *     description: low 그래프 시각화(임시)
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
+ *         description: "low 그래프 시각화 완료"
  */
 graphRouter.get("/low/bar", async function (req, res, next) {
   try {
