@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import json
 import pandas as pd
 import numpy as np
@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 #barplot10-1.png#
 #왼쪽부터 오른쪽 순서#
-@app.route('/gdp/bar')
+@app.route('/gdp/bar',methods=['GET'])
 def gdp_barplot():
   gdp_data=[]
   for i in range(0,len(df.nlargest(10,'gdp'))):
@@ -24,9 +24,9 @@ def gdp_barplot():
       }
       result=eval(json.dumps(test))
       gdp_data.append(result)
-  return(gdp_data)
+  return jsonify(gdp_data)
 
-@app.route('/social/bar')
+@app.route('/social/bar',methods=['GET'])
 def social_barplot():
   social_data=[]
   for i in range(0,len(df.nlargest(10,'socialSupport'))):
@@ -36,9 +36,9 @@ def social_barplot():
       }
       result=eval(json.dumps(test))
       social_data.append(result)
-  return(social_data)
+  return jsonify(social_data)
 
-@app.route('/health/bar')
+@app.route('/health/bar',methods=['GET'])
 def health_barplot():
   health_data=[]
   for i in range(0,len(df.nlargest(10,'health'))):
@@ -48,9 +48,9 @@ def health_barplot():
       }
       result=eval(json.dumps(test))
       health_data.append(result)
-  return(health_data)
+  return jsonify(health_data)
 
-@app.route('/freedom/bar')
+@app.route('/freedom/bar',methods=['GET'])
 def freedom_barplot():
   freedom_data=[]
   for i in range(0,len(df.nlargest(10,'freedom'))):
@@ -60,10 +60,10 @@ def freedom_barplot():
       }
       result=eval(json.dumps(test))
       freedom_data.append(result)
-  return(freedom_data)
+  return jsonify(freedom_data)
 
 ##barplot10-2.png##
-@app.route('/generosity/bar')
+@app.route('/generosity/bar',methods=['GET'])
 def generosity_barplot():
   generosity_data=[]
   for i in range(0,len(df.nlargest(10,'generosity'))):
@@ -73,9 +73,9 @@ def generosity_barplot():
       }
       result=eval(json.dumps(test))
       generosity_data.append(result)
-  return(generosity_data)
+  return jsonify(generosity_data)
 
-@app.route('/corruption/bar')
+@app.route('/corruption/bar',methods=['GET'])
 def corruption_barplot():
   corruptionPerceptions_data=[]
   for i in range(0,len(df.nlargest(10,'corruptionPerceptions'))):
@@ -85,11 +85,11 @@ def corruption_barplot():
       }
       result=eval(json.dumps(test))
       corruptionPerceptions_data.append(result)
-  return(corruptionPerceptions_data)
+  return jsonify(corruptionPerceptions_data)
 
 
 ##----맵차트 ------##
-@app.route('/mapplot')
+@app.route('/mapplot',methods=['GET'])
 def mapplot():
   map_data=[]
   for i in range(0,len(df)):
@@ -99,7 +99,7 @@ def mapplot():
       }
       result=eval(json.dumps(test))
       map_data.append(result)
-  return(map_data)
+  return jsonify(map_data)
 
 ##----대륙별로 시각화----##
 ##찾아보니 nivo에서 zoom을 조절할 수 있는것같습니다##
@@ -114,7 +114,7 @@ contData = df.groupby("continent")
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
 
-@app.route('/continent_barplot')
+@app.route('/continent_barplot',methods=['GET'])
 def continent_barplot():
   group_data=[]
   for i in range(0,len(happAvg.index)):
@@ -124,11 +124,11 @@ def continent_barplot():
       }
       result=eval(json.dumps(test))
       group_data.append(result)
-  return(group_data)
+  return jsonify(group_data)
 
 # highest vs lowest.png #
 #highest
-@app.route('/high/bar')
+@app.route('/high/bar',methods=['GET'])
 def high_barplot():
   x = df.sort_values('happinessScore', ascending=True).tail(10)
   high_data=[]
@@ -139,10 +139,10 @@ def high_barplot():
       }
       result=eval(json.dumps(test))
       high_data.append(result)
-  return(high_data)
+  return jsonify(high_data)
 
 #lowest
-@app.route('/low/bar')
+@app.route('/low/bar',methods=['GET'])
 def low_barplot():
   z = df.sort_values('happinessScore', ascending=False).tail(10)
   low_data=[]
@@ -153,10 +153,10 @@ def low_barplot():
       }
       result=eval(json.dumps(test))
       low_data.append(result)
-  return(low_data)
+  return jsonify(low_data)
 
 #--------군집분석------#
-@app.route('/similar')
+@app.route('/similar',methods=['GET'])
 def similar():
   dict={'1':['Israel', 'Costa Rica', 'Romania', 'Italy', 'Cyprus', 'Mexico', 'Greece',
   'Colombia', 'Peru', 'Ecuador', 'Georgia'],
@@ -185,3 +185,6 @@ def similar():
   return(dict)
 #매개변수로 :country가 들어오면 그 country가 속한 그룹의 나라들을 모두 출력해주는 로직
 
+if __name__ == "__main__":
+    app.run(debug=True)
+    
