@@ -105,7 +105,7 @@ function QuestionContent(){
     const quest = useRecoilValue(questState);
     const [currentId, setCurrentId] = useRecoilState(currentIdState);
 
-    console.log(quest)
+    // console.log(quest)
 
     return (
         <Box className={question.questBox}>

@@ -21,9 +21,10 @@ const CssTextField = withStyles({
 
 function ProfileEdit({setEditOpen, updateUser, user}){
   const userState = useContext(UserStateContext)
-  const loginUserId = userState.user?.id
+  const loginUserId = userState.user?._id
   const [nickname, setNickname] = useState(user?.nickname)
-  const [description, setDescription] = useState(user?.description)
+  const currentDescription = user?.description === "None" ? "설명이 아직 없습니다. 추가해 주세요." : user?.description
+  const [description, setDescription] = useState(currentDescription)
   const [imageInfo, setImageInfo] = useState(null)
 
   const handleSubmit = async (e) => {
@@ -89,7 +90,7 @@ function ProfileEdit({setEditOpen, updateUser, user}){
           <CssTextField 
             id="Description"
             label="Description 수정"
-            placeholder={user?.description}
+            placeholder={currentDescription}
             value={description}
             multiline
             row={3}

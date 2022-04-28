@@ -35,7 +35,7 @@ function Profile({editOpen, setEditOpen, user, updateUser}){
               </Typography>
 
               <Typography variant="h6" sx={{marginTop: '20px'}} component="div">
-                  {user?.description === "" ? "설명이 아직 없습니다. 추가해 주세요." : user?.description }
+                  {user?.description === "None" ? "설명이 아직 없습니다. 추가해 주세요." : user?.description }
               </Typography>
             </Grid>
           )}
