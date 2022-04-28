@@ -1,10 +1,9 @@
 import { Box, Container } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { Treemap } from "recharts";
 import mainpage from '../../srcAssets/style/Mainpage.module.css'
 import Chart from "./Chart";
 import ChartMap from "./ChartMap";
-import ChartTreemap from "./ChartTreemap";
+import Example from "./ChartTreemap";
 
 function Intro() {
     const navigate = useNavigate();
@@ -35,7 +34,8 @@ function Intro() {
                 </h2>
             
                 <div style={{width: '1000px', height: '500px'}}>
-                    <ChartTreemap></ChartTreemap>
+                    {/* <ChartTreemap></ChartTreemap> */}
+                    <Example></Example>
                 </div>
             </Box>
 
