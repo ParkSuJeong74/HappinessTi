@@ -102,7 +102,7 @@
 .chart2 {
     width: 50em;
     height: 25em;
-    background-color: rgb(117, 112, 112);
+    background-color: rgba(36, 34, 34, 0.045);
 }
 
 .guide{

@@ -13,8 +13,8 @@ const MyResponsiveChoropleth = ({ data }) => (
       data={data}
       features={countries.features}
       colors="nivo"
-      domain={[ 0, 1000000 ]}
-      unknownColor="#666666"
+      domain={[ 0, 9 ]}
+      unknownColor="rgba(36, 34, 34, 0.045)"
       label="properties.name"
       valueFormat=".2s"
       projectionTranslation={[0.5, 0.5]}
@@ -22,11 +22,12 @@ const MyResponsiveChoropleth = ({ data }) => (
       graticuleLineColor="#dddddd"
       borderWidth={0.5}
       borderColor="#152538"
+      onClick={(e) => console.log(e.id)}
       legends={[
         {
           anchor: "bottom-left",
           direction: "column",
-          justify: true,
+          justify: false,
           translateX: 20,
           translateY: -100,
           itemsSpacing: 0,
@@ -43,7 +44,8 @@ const MyResponsiveChoropleth = ({ data }) => (
                 itemTextColor: "#000000",
                 itemOpacity: 1
               }
-            }
+            },
+
           ]
         }
       ]}

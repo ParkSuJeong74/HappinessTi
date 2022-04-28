@@ -2,11 +2,11 @@ from flask import Flask, jsonify
 import json
 import pandas as pd
 import numpy as np
-from scipy.stats import norm
-import matplotlib.pyplot as plt
-import seaborn as sns
+# from scipy.stats import norm
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 
-import plotly_express as px
+# import plotly_express as px
 
 df = pd.read_csv('./file/happy_data2.csv')
 

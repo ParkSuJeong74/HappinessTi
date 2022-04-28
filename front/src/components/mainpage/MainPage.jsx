@@ -33,7 +33,7 @@ function MainPage() {
     <>
     {/* <MainImg /> */}
     <video autoPlay loop muted className={mainpage.bgVideo}>
-      <source src={bgVideo} type="video/mp4" />
+      <source src={`https://storage.googleapis.com/crashingdevstorage14/video/bgVideo.mp4`} type="video/mp4" />
     </video>
 
     <div className={mainpage.greetingContainer}>
