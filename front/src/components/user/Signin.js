@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
 import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
 import signin from '../../srcAssets/style/Signin.module.css';
+import Swal from 'sweetalert2'
 
 import { useState } from "react"
 import * as Api from '../../api'
@@ -30,7 +31,16 @@ function Signin() {
     const [nickname, setNickname] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmpassword] = useState("")
-console.log(email, nickname, password)
+
+    function errorHandler(message){
+        Swal.fire({
+            title: '회원가입 오류',
+            text: message,
+            icon: 'warning',
+            showCloseButton: true,
+        })
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -45,7 +55,7 @@ console.log(email, nickname, password)
             navigate("/login")
 
         } catch (error) {
-            alert(error.response.data)
+            errorHandler(error.response.data)
         }
     }
  

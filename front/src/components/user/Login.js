@@ -10,6 +10,8 @@ import login from '../../srcAssets/style/Login.module.css';
 
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2'
+
 import * as Api from '../../api'
 import { DispatchContext } from "../../App";
 
@@ -31,6 +33,15 @@ function Login() {
     const dispatch = useContext(DispatchContext);
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    function errorHandler(message){
+        Swal.fire({
+            title: '로그인 오류',
+            text: message,
+            icon: 'warning',
+            showCloseButton: true,
+        })
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -56,7 +67,7 @@ function Login() {
             });
 
         } catch (error) {
-            alert(error.response.data)
+            errorHandler(error.response.data)
         }
     }
  
