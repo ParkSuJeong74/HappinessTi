@@ -1,8 +1,6 @@
 import { Button, Grid, IconButton, Stack, Typography } from "@mui/material"
 import EditIcon from '@mui/icons-material/Edit';
 import styled from 'styled-components';
-import smile from '../../srcAssets/img/smile2.png' //{'/static/media/smile2.ca5418679920d8480273.png'}
-import defaultCrashImg from '../../srcAssets/img/defaultCrashingdev.png'
 import ProfileEdit from'./ProfileEdit.js'
 import norway from '../../srcAssets/img/norway.png'
 
@@ -19,11 +17,8 @@ function Profile({editOpen, setEditOpen, user, setUser}){
         {!editOpen && (
           <ImageBox>
             <ProfileImage 
-              src={
-                user?.profileImgUrl === '../../image/crashingdevlogo.png'
-                  ? defaultCrashImg
-                  : smile
-              }/>
+              src={`https://storage.googleapis.com/crashingdevstorage14/ProfileImg/${user?.profileImgUrl}`}/>
+
           </ImageBox>
         )}
           
@@ -94,9 +89,10 @@ const ImageBox = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  padding: 8px;
+  padding: 10px;
   background: white;
   transform: translate(85px, 0px);
+  box-sizing: content-box;
 `;
 
 const ProfileImage = styled.img`

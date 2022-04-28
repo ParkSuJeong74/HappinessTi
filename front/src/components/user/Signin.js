@@ -8,9 +8,8 @@ import styled from 'styled-components';
 import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
 import signin from '../../srcAssets/style/Signin.module.css';
 
-import { useContext, useState } from "react"
+import { useState } from "react"
 import * as Api from '../../api'
-import { DispatchContext } from "../../App";
 
 const CssTextField = withStyles({
     root: {
@@ -26,16 +25,12 @@ const CssTextField = withStyles({
 
 function Signin() {
     const navigate = useNavigate()
-   
-
-    const dispatch = useContext(DispatchContext);
     
     const [email, setEmail] = useState("")
     const [nickname, setNickname] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmpassword] = useState("")
-
-
+console.log(email, nickname, password)
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -147,7 +142,6 @@ function Signin() {
 export default Signin;
 
 const SigninBody = styled.form`
-  
 `;
 
 const SigninBodyUpper = styled.div`
