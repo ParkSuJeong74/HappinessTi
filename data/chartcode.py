@@ -1,3 +1,4 @@
+from flask import Flask
 import json
 import pandas as pd
 import numpy as np
@@ -12,162 +13,98 @@ import seaborn as sns
 import plotly_express as px
 import pycountry
 
-df = pd.read_csv('./file/2022_google_csv.csv')
-df = df.dropna(axis=1)
+df = pd.read_csv('./file/happy_data2.csv')
 
-
-# # 전처리
-#컬럼명 변경
-df.rename(columns={'Happiness score':'happinessScore','Dystopia (1.83) + residual':'dystopia','Explained by: GDP per capita':'gdp','Explained by: Social support':'socialSupport',
-                   'Explained by: Healthy life expectancy':'health','Explained by: Freedom to make life choices':'freedom','Explained by: Generosity':'generosity',
-                   'Explained by: Perceptions of corruption':'corruptionPerceptions','Country':'country'},inplace=True)
-
-print(df.columns)
-
-
-# #이상치 제거 함수를 불러온다.
-def detect_outliers(df, n, features):
-    outlier_indices = []
-    for col in features:
-        Q1 = np.percentile(df[col], 25)
-        Q3 = np.percentile(df[col], 75)
-        IQR = Q3 - Q1
-        
-        outlier_step = 1.5 * IQR
-        
-        outlier_list_col = df[(df[col] < Q1 - outlier_step) | (df[col] > Q3 + outlier_step)].index
-        outlier_indices.extend(outlier_list_col) #outlier_inidices: 이상치가 발견된 행
-    outlier_indices = Counter(outlier_indices) #행의 빈도수를 세준다.
-    print(outlier_indices)
-    multiple_outliers = list(k for k, v in outlier_indices.items() if v > n) #이상치가 2개 이상 발견되면 return 해줌
-    return multiple_outliers
-
-
-col=[i for i in df.columns]
-Outliers_to_drop = detect_outliers(df, 2,['happinessScore',
- 'dystopia',
- 'gdp',
- 'socialSupport',
- 'health',
- 'freedom',
- 'generosity',
- 'corruptionPerceptions'])
-
-df.loc[Outliers_to_drop]
-
-df = df.drop(Outliers_to_drop, axis = 0).reset_index(drop=True)
-print(df.shape)
-
-
-
-df["country"] = df["country"].str.replace("*","")
-df["country"].replace("Palestinian Territories","Palestine",inplace = True)
-df["country"].replace("Hong Kong S.A.R. of China","Hong Kong",inplace = True)
-df["country"].replace("Russia","Russian Federation",inplace = True)
-df["country"].replace("Taiwan Province of China","Taiwan",inplace = True)
-
-# Adding a column with country codes 🧭
-
-def countryCode (country_name):
-    try:
-        return pc.country_name_to_country_alpha2(country_name)
-    except:
-        return None                  # None keyword adds a null value 🐹
-
-if __name__ == "__main__":
-    df['country code']= df.apply(lambda x: countryCode(x.country), axis = 1)
-
-# Adding a column with continent 🌡️
-def continent(country_code):
-    try:
-        return pc.country_alpha2_to_continent_code(country_code)
-    except:
-        return None                  # None keyword adds a null value 🐹
-    
-if __name__ == "__main__":
-    df['Continent']= df["country code"].apply(lambda x: continent(x))
-df.dropna(inplace = True)
-
-
-#나라코드 컬럼추가#
-df["StNames"] = df["country"].apply(lambda x : pc.country_name_to_country_alpha3(x))
-print(df.head())
-#----데이터 전처리 끝 !! --------#
+app = Flask(__name__)
 
 #barplot10-1.png#
 #왼쪽부터 오른쪽 순서#
-gdp_data=[]
-for i in range(0,len(df.nlargest(10,'gdp'))):
-    test={
-      'country':df.nlargest(10,'gdp')['country'].to_list()[i],
-      'happinessScore':df.nlargest(10,'gdp')['happinessScore'].to_list()[i],
-    }
-    result=eval(json.dumps(test))
-    gdp_data.append(result)
-print(gdp_data)
+@app.route('/gdp_barplot')
+def gdp_barplot():
+  gdp_data=[]
+  for i in range(0,len(df.nlargest(10,'gdp'))):
+      test={
+        'country':df.nlargest(10,'gdp')['country'].to_list()[i],
+        'happinessScore':df.nlargest(10,'gdp')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      gdp_data.append(result)
+  return(gdp_data)
 
-social_data=[]
-for i in range(0,len(df.nlargest(10,'socialSupport'))):
-    test={
-      'country':df.nlargest(10,'socialSupport')['country'].to_list()[i],
-      'happinessScore':df.nlargest(10,'socialSupport')['happinessScore'].to_list()[i],
-    }
-    result=eval(json.dumps(test))
-    social_data.append(result)
-print(social_data)
+@app.route('/social_barplot')
+def social_barplot():
+  social_data=[]
+  for i in range(0,len(df.nlargest(10,'socialSupport'))):
+      test={
+        'country':df.nlargest(10,'socialSupport')['country'].to_list()[i],
+        'happinessScore':df.nlargest(10,'socialSupport')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      social_data.append(result)
+  return(social_data)
 
-health_data=[]
-for i in range(0,len(df.nlargest(10,'health'))):
-    test={
-      'country':df.nlargest(10,'health')['country'].to_list()[i],
-      'happinessScore':df.nlargest(10,'health')['happinessScore'].to_list()[i],
-    }
-    result=eval(json.dumps(test))
-    health_data.append(result)
-print(health_data)
+@app.route('/health_barplot')
+def health_barplot():
+  health_data=[]
+  for i in range(0,len(df.nlargest(10,'health'))):
+      test={
+        'country':df.nlargest(10,'health')['country'].to_list()[i],
+        'happinessScore':df.nlargest(10,'health')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      health_data.append(result)
+  return(health_data)
 
-freedom_data=[]
-for i in range(0,len(df.nlargest(10,'freedom'))):
-    test={
-      'country':df.nlargest(10,'freedom')['country'].to_list()[i],
-      'happinessScore':df.nlargest(10,'freedom')['happinessScore'].to_list()[i],
-    }
-    result=eval(json.dumps(test))
-    freedom_data.append(result)
-print(freedom_data)
+@app.route('/freedom_barplot')
+def freedom_barplot():
+  freedom_data=[]
+  for i in range(0,len(df.nlargest(10,'freedom'))):
+      test={
+        'country':df.nlargest(10,'freedom')['country'].to_list()[i],
+        'happinessScore':df.nlargest(10,'freedom')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      freedom_data.append(result)
+  return(freedom_data)
 
 ##barplot10-2.png##
-generosity_data=[]
-for i in range(0,len(df.nlargest(10,'generosity'))):
-    test={
-      'country':df.nlargest(10,'generosity')['country'].to_list()[i],
-      'happinessScore':df.nlargest(10,'generosity')['happinessScore'].to_list()[i],
-    }
-    result=eval(json.dumps(test))
-    generosity_data.append(result)
-print(generosity_data)
+@app.route('/generosity_barplot')
+def generosity_barplot():
+  generosity_data=[]
+  for i in range(0,len(df.nlargest(10,'generosity'))):
+      test={
+        'country':df.nlargest(10,'generosity')['country'].to_list()[i],
+        'happinessScore':df.nlargest(10,'generosity')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      generosity_data.append(result)
+  return(generosity_data)
 
-corruptionPerceptions_data=[]
-for i in range(0,len(df.nlargest(10,'corruptionPerceptions'))):
-    test={
-      'country':df.nlargest(10,'corruptionPerceptions')['country'].to_list()[i],
-      'happinessScore':df.nlargest(10,'corruptionPerceptions')['happinessScore'].to_list()[i],
-    }
-    result=eval(json.dumps(test))
-    corruptionPerceptions_data.append(result)
-print(corruptionPerceptions_data)
+@app.route('/corruption_barplot')
+def corruption_barplot():
+  corruptionPerceptions_data=[]
+  for i in range(0,len(df.nlargest(10,'corruptionPerceptions'))):
+      test={
+        'country':df.nlargest(10,'corruptionPerceptions')['country'].to_list()[i],
+        'happinessScore':df.nlargest(10,'corruptionPerceptions')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      corruptionPerceptions_data.append(result)
+  return(corruptionPerceptions_data)
 
 
 ##----맵차트 ------##
-map_data=[]
-for i in range(0,len(df)):
-    test={
-      'StNames':df['StNames'].to_list()[i],
-      'RANK':df['happinessScore'].to_list()[i],
-    }
-    result=eval(json.dumps(test))
-    map_data.append(result)
-print(map_data)
+@app.route('/mapplot')
+def mapplot():
+  map_data=[]
+  for i in range(0,len(df)):
+      test={
+        'StNames':df['StNames'].to_list()[i],
+        'RANK':df['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      map_data.append(result)
+  return(map_data)
 
 ##----대륙별로 시각화----##
 ##찾아보니 nivo에서 zoom을 조절할 수 있는것같습니다##
@@ -177,49 +114,79 @@ print(map_data)
 
 ##---score per continent.png----#
 # Grouping data on basis of continents 🐾
-contData = df.groupby("Continent")
-# Average happinessScore per Continent 🦨
+contData = df.groupby("continent")
+# Average happinessScore per continent 🦨
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
 
-group_data=[]
-for i in range(0,len(happAvg.index)):
-    test={
-      'Continent':happAvg.index[i],
-      'happinessScore':happAvg.values[i],
-    }
-    result=eval(json.dumps(test))
-    group_data.append(result)
-print(group_data)
+@app.route('/continent_barplot')
+def continent_barplot():
+  group_data=[]
+  for i in range(0,len(happAvg.index)):
+      test={
+        'continent':happAvg.index[i],
+        'happinessScore':happAvg.values[i],
+      }
+      result=eval(json.dumps(test))
+      group_data.append(result)
+  return(group_data)
 
 # highest vs lowest.png #
 #highest
-x = df.sort_values('happinessScore', ascending=True).tail(10)
-high_data=[]
-for i in range(0,len(x)):
-    test={
-      'happinessScore':x['happinessScore'][i],
-      'country':x['happinessScore'][i],
-    }
-    result=eval(json.dumps(test))
-    high_data.append(result)
-print(high_data)
+@app.route('/high_barplot')
+def high_barplot():
+  x = df.sort_values('happinessScore', ascending=True).tail(10)
+  high_data=[]
+  for i in range(0,len(x)):
+      test={
+        'happinessScore':x['happinessScore'][i],
+        'country':x['happinessScore'][i],
+      }
+      result=eval(json.dumps(test))
+      high_data.append(result)
+  return(high_data)
 
 #lowest
-z = df.sort_values('happinessScore', ascending=False).tail(10)
-low_data=[]
-for i in range(0,len(z)):
-    test={
-      'happinessScore':z['happinessScore'].to_list()[i],
-      'country':z['happinessScore'].to_list()[i],
-    }
-    result=eval(json.dumps(test))
-    low_data.append(result)
-print(low_data)
+@app.route('/low_barplot')
+def low_barplot():
+  z = df.sort_values('happinessScore', ascending=False).tail(10)
+  low_data=[]
+  for i in range(0,len(z)):
+      test={
+        'happinessScore':z['happinessScore'].to_list()[i],
+        'country':z['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      low_data.append(result)
+  return(low_data)
 
-
-
-
-
-
+#--------군집분석------#
+@app.route('/similar')
+def similar():
+  dict={'1':['Israel', 'Costa Rica', 'Romania', 'Italy', 'Cyprus', 'Mexico', 'Greece',
+  'Colombia', 'Peru', 'Ecuador', 'Georgia'],
+        '2':['Luxembourg' ,'Ireland', 'United Arab Emirates', 'South Korea' ,'Hong Kong',
+  'Morocco', 'Venezuela'],
+        '3':['Singapore', 'Russian Federation' ,'Sri Lanka', 'Ethiopia'],
+        '4':['Iceland' ,'United States' ,'Czechia' ,'Belgium', 'Slovenia', 'Saudi Arabia',
+  'Taiwan', 'Uruguay', 'Slovakia', 'Panama', 'Kazakhstan', 'Serbia', 'Chile',
+  'Argentina', 'Mongolia', 'Dominican Republic', 'North Macedonia'],
+        '5':['Guatemala', 'Honduras', 'Tajikistan', 'Gambia', 'Iran', 'Kenya'],
+        '6':['India'],
+        '7':['Ukraine', 'Congo'],
+        '8':['Thailand', 'Paraguay', 'Bulgaria', 'Laos'],
+        '9':['France', 'Spain', 'Malta', 'Poland', 'Kuwait', 'Hungary', 'Japan' ,'Portugal',
+  'Malaysia', 'China', 'Nepal', 'Indonesia'],
+        '10':['Yemen'],
+        '11':['Brazil', 'Philippines', 'Jamaica', 'Bolivia', 'Uganda' ,'Nigeria'],
+        '12':['Pakistan', 'Jordan'],
+        '13':['Finland', 'Denmark', 'Switzerland', 'Netherlands', 'Sweden', 'Norway',
+  'New Zealand', 'Austria', 'Australia', 'Germany', 'Canada', 'United Kingdom'],
+        '14':['South Africa', 'Myanmar'],
+        '15':['Cambodia' ,'Egypt'],
+        '16':['Ghana'],
+        '17':['Iraq'] ,
+  }
+  return(dict)
+#매개변수로 :country가 들어오면 그 country가 속한 그룹의 나라들을 모두 출력해주는 로직
 
