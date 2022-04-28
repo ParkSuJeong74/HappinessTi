@@ -58,8 +58,6 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
 // 서버에 사진 삭제(fs)
 // 버킷 링크 전달(front)
 
-// 군집 분석 : 결과창에서 제시
-
 /**
  * @swagger
  * /result/{country}/similar:

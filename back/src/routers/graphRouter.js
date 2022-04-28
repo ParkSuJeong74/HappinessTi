@@ -24,7 +24,6 @@ export const graphRouter = Router();
 graphRouter.get("/gdp/bar", async function (req, res, next) {
   try {
     const response = await axios.get("http://localhost:5000/gdp/bar");
-    console.log(response);
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -45,7 +44,6 @@ graphRouter.get("/gdp/bar", async function (req, res, next) {
 graphRouter.get("/social/bar", async function (req, res, next) {
   try {
     const response = await axios.get("http://localhost:5000/social/bar");
-    console.log(response);
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -66,7 +64,6 @@ graphRouter.get("/social/bar", async function (req, res, next) {
 graphRouter.get("/health/bar", async function (req, res, next) {
   try {
     const response = await axios.get("http://localhost:5000/health/bar");
-    console.log(response);
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -87,7 +84,6 @@ graphRouter.get("/health/bar", async function (req, res, next) {
 graphRouter.get("/freedom/bar", async function (req, res, next) {
   try {
     const response = await axios.get("http://localhost:5000/freedom/bar");
-    console.log(response);
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -108,7 +104,6 @@ graphRouter.get("/freedom/bar", async function (req, res, next) {
 graphRouter.get("/generosity/bar", async function (req, res, next) {
   try {
     const response = await axios.get("http://localhost:5000/generosity/bar");
-    console.log(response);
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -129,8 +124,34 @@ graphRouter.get("/generosity/bar", async function (req, res, next) {
 graphRouter.get("/corruption/bar", async function (req, res, next) {
   try {
     const response = await axios.get("http://localhost:5000/corruption/bar");
-    console.log(response);
     res.status(200).send(response.data);
+  } catch (error) {
+    next(error);
+  }
+});
+/**
+ * @swagger
+ * /graph/mapplot:
+ *   get:
+ *     tags: [Graph]
+ *     description: corruption bar plot 그래프 시각화
+ *     produces:
+ *     - "application/json"
+ *     responses:
+ *       '200':
+ *         description: "corruption bar plot 그래프 시각화 완료"
+ */
+graphRouter.get("/mapplot", async function (req, res, next) {
+  try {
+    const response = await axios.get("http://localhost:5000/mapplot");
+    const list = response.data.map((d) => {
+      let newValue = {};
+      newValue["value"] = d["RANK"];
+      newValue["id"] = d["StNames"];
+
+      return newValue;
+    });
+    res.status(200).send(list);
   } catch (error) {
     next(error);
   }
