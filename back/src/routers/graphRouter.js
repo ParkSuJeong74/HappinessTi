@@ -129,6 +129,27 @@ graphRouter.get("/corruption/bar", async function (req, res, next) {
     next(error);
   }
 });
+
+/**
+ * @swagger
+ * /graph/continent/bar:
+ *   get:
+ *     tags: [Graph]
+ *     description: continent bar plot 그래프 시각화
+ *     produces:
+ *     - "application/json"
+ *     responses:
+ *       '200':
+ *         description: "corruption bar plot 그래프 시각화 완료"
+ */
+graphRouter.get("/continent/bar", async function (req, res, next) {
+  try {
+    const response = await axios.get("http://localhost:5000/continent/bar");
+    res.status(200).send(response.data);
+  } catch (error) {
+    next(error);
+  }
+});
 /**
  * @swagger
  * /graph/mapplot:
@@ -152,6 +173,47 @@ graphRouter.get("/mapplot", async function (req, res, next) {
       return newValue;
     });
     res.status(200).send(list);
+  } catch (error) {
+    next(error);
+  }
+});
+/**
+ * @swagger
+ * /graph/high/bar:
+ *   get:
+ *     tags: [Graph]
+ *     description: corruption bar plot 그래프 시각화
+ *     produces:
+ *     - "application/json"
+ *     responses:
+ *       '200':
+ *         description: "corruption bar plot 그래프 시각화 완료"
+ */
+graphRouter.get("/high/bar", async function (req, res, next) {
+  try {
+    const response = await axios.get("http://localhost:5000/high/bar");
+    res.status(200).send(response.data);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
+ * /graph/low/bar:
+ *   get:
+ *     tags: [Graph]
+ *     description: corruption bar plot 그래프 시각화
+ *     produces:
+ *     - "application/json"
+ *     responses:
+ *       '200':
+ *         description: "corruption bar plot 그래프 시각화 완료"
+ */
+graphRouter.get("/low/bar", async function (req, res, next) {
+  try {
+    const response = await axios.get("http://localhost:5000/low/bar");
+    res.status(200).send(response.data);
   } catch (error) {
     next(error);
   }
