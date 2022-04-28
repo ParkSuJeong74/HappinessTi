@@ -1,5 +1,5 @@
-import { ResponsiveChoropleth } from '@nivo/geo'
-import data from "./data.js"
+import { ResponsiveChoropleth, ResponsiveChoroplethCanvas  } from '@nivo/geo'
+import data from "./dataMap.js"
 import countries from "./world_countries.json";
 
 // make sure parent container have a defined height when using
@@ -9,11 +9,11 @@ import countries from "./world_countries.json";
 // you'll often use just a few of them.
 
 const MyResponsiveChoropleth = ({ data }) => (
-    <ResponsiveChoropleth
+    <ResponsiveChoroplethCanvas
       data={data}
       features={countries.features}
-      colors="nivo"
-      domain={[ 0, 9 ]}
+      colors="RdBu" /* RdBu */
+      domain={[ 3, 8 ]}
       unknownColor="rgba(36, 34, 34, 0.045)"
       label="properties.name"
       valueFormat=".2s"
@@ -27,7 +27,7 @@ const MyResponsiveChoropleth = ({ data }) => (
         {
           anchor: "bottom-left",
           direction: "column",
-          justify: false,
+          justify: true,
           translateX: 20,
           translateY: -100,
           itemsSpacing: 0,
