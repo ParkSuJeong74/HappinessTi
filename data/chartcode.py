@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import json
 import pandas as pd
 import numpy as np
@@ -24,7 +24,7 @@ def gdp_barplot():
       }
       result=eval(json.dumps(test))
       gdp_data.append(result)
-  return(gdp_data)
+  return jsonify(gdp_data)
 
 @app.route('/social/bar',methods=['GET'])
 def social_barplot():
@@ -36,7 +36,7 @@ def social_barplot():
       }
       result=eval(json.dumps(test))
       social_data.append(result)
-  return(social_data)
+  return jsonify(social_data)
 
 @app.route('/health/bar',methods=['GET'])
 def health_barplot():
@@ -48,7 +48,7 @@ def health_barplot():
       }
       result=eval(json.dumps(test))
       health_data.append(result)
-  return(health_data)
+  return jsonify(health_data)
 
 @app.route('/freedom/bar',methods=['GET'])
 def freedom_barplot():
@@ -60,7 +60,7 @@ def freedom_barplot():
       }
       result=eval(json.dumps(test))
       freedom_data.append(result)
-  return(freedom_data)
+  return jsonify(freedom_data)
 
 ##barplot10-2.png##
 @app.route('/generosity/bar',methods=['GET'])
@@ -73,7 +73,7 @@ def generosity_barplot():
       }
       result=eval(json.dumps(test))
       generosity_data.append(result)
-  return(generosity_data)
+  return jsonify(generosity_data)
 
 @app.route('/corruption/bar',methods=['GET'])
 def corruption_barplot():
@@ -85,7 +85,7 @@ def corruption_barplot():
       }
       result=eval(json.dumps(test))
       corruptionPerceptions_data.append(result)
-  return(corruptionPerceptions_data)
+  return jsonify(corruptionPerceptions_data)
 
 
 ##----맵차트 ------##
@@ -99,7 +99,7 @@ def mapplot():
       }
       result=eval(json.dumps(test))
       map_data.append(result)
-  return(map_data)
+  return jsonify(map_data)
 
 ##----대륙별로 시각화----##
 ##찾아보니 nivo에서 zoom을 조절할 수 있는것같습니다##
@@ -124,7 +124,7 @@ def continent_barplot():
       }
       result=eval(json.dumps(test))
       group_data.append(result)
-  return(group_data)
+  return jsonify(group_data)
 
 # highest vs lowest.png #
 #highest
@@ -139,7 +139,7 @@ def high_barplot():
       }
       result=eval(json.dumps(test))
       high_data.append(result)
-  return(high_data)
+  return jsonify(high_data)
 
 #lowest
 @app.route('/low/bar',methods=['GET'])
@@ -153,7 +153,7 @@ def low_barplot():
       }
       result=eval(json.dumps(test))
       low_data.append(result)
-  return(low_data)
+  return jsonify(low_data)
 
 #--------군집분석------#
 @app.route('/similar',methods=['GET'])
