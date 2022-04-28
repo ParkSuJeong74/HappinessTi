@@ -10,15 +10,25 @@ import Profile from "./Profile";
 function Mypage(){
   const navigate = useNavigate()
 
-  //리덕스나, 리코일, 리듀서로 구현한 현재 user정보에서 id를 가져옴 -> loginUserId
+  //리덕스나, 리코일, 리듀서로 구현한 현재 user상태에서 id를 가져옴 -> loginUserId
   const userState = useContext(UserStateContext)
-  const loginUserId = userState.user?.id
+  const loginUserId = userState.user?._id
   const [user, setUser] = useState(null)
   const [userLog, setUserlogs] = useState(null)
   const [editOpen, setEditOpen] = useState(false)
 
-  // const isLoggedin = sessionStorage.getItem("userToken")
-  const isLoggedin = userState.user?.id
+  const updateUser = (user) => {
+    setUser(user);
+  };
+
+  const deleteUser = (user) => {
+    setUser(user);
+  };
+
+  const isLoggedin = sessionStorage.getItem("userToken")
+  console.log("토큰", sessionStorage.getItem("userToken"))
+  console.log("userState.user", userState.user)
+  // const isLoggedin = userState.user?.id
 
   //loginUserId가 변경될 때마다 user api 호출 다시 하기
   useEffect(() => {
@@ -27,12 +37,11 @@ function Mypage(){
     async function getUserData(){
       try{
         const res = await Api.get("users", loginUserId)
-        console.log(res.data)
+        console.log('user 정보 백에서 가져와?',res.data)
         setUser(res.data)
       } catch(err){
         console.log(err)
       }
-      
     }
     getUserData()
     
@@ -51,17 +60,19 @@ function Mypage(){
 
   }, [navigate,loginUserId])
 
+  console.log(user)
+
   return (
 
     <Container sx={{py: 7, mt: 12}}>
-      <Profile user={user} setUser={setUser} editOpen={editOpen} setEditOpen={setEditOpen}/>
+      <Profile user={user} updateUser={updateUser} editOpen={editOpen} setEditOpen={setEditOpen}/>
 
       <Typography variant="h3" component="div" sx={{fontSize: '30px',mt: 6, mb:2}}>
           <InfoIcon sx={{mx: 1.2, my: -1, fontSize: '40px', color: 'gray'}}/>
           회원 정보
       </Typography>
 
-      <ProfileInfo />
+      <ProfileInfo deleteUser={deleteUser} />
     </Container>
 
   )

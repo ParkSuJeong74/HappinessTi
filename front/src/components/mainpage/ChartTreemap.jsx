@@ -2,12 +2,11 @@ import { Treemap } from 'recharts';
 import data from './dataTreemap'
 
 const MyTreeMap = ({ data }) => {
-    console.log("여기data", data)
     return (
         
         <Treemap
-            width={730}
-            height={250}
+            width={1000}
+            height={500}
             data={data}
             dataKey="size"
             ratio={4 / 3}
@@ -19,7 +18,7 @@ const MyTreeMap = ({ data }) => {
 
 function ChartTreemap() {
     return (
-      <div style={{ height: "400px" }}>
+      <div>
         <MyTreeMap data={data} />
       </div>
     )

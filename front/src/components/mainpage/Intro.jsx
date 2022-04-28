@@ -34,7 +34,7 @@ function Intro() {
                     Total Countries <span class={mainpage.coloring}>Happiness</span>
                 </h2>
             
-                <div style={{width: '730px', height: '250px'}}>
+                <div style={{width: '1000px', height: '500px'}}>
                     <ChartTreemap></ChartTreemap>
                 </div>
             </Box>

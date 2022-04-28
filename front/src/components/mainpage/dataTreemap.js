@@ -1,342 +1,428 @@
 export default [
     {
-      "name": "axis",
       "children": [
         {
-          "name": "Axis",
-          "size": 24593
-        },
+          "name": "Finland", 
+          "size": 7.821
+        }, 
         {
-          "name": "Axes",
-          "size": 1302
-        },
+          "name": "Denmark", 
+          "size": 7.636
+        }, 
         {
-          "name": "AxisGridLine",
-          "size": 652
-        },
+          "name": "Iceland", 
+          "size": 7.557
+        }, 
         {
-          "name": "AxisLabel",
-          "size": 636
-        },
+          "name": "Switzerland", 
+          "size": 7.512
+        }, 
         {
-          "name": "CartesianAxes",
-          "size": 6703
+          "name": "Netherlands", 
+          "size": 7.415
+        }, 
+        {
+          "name": "Luxembourg", 
+          "size": 7.404
+        }, 
+        {
+          "name": "Sweden", 
+          "size": 7.384
+        }, 
+        {
+          "name": "Norway", 
+          "size": 7.365
+        }, 
+        {
+          "name": "Austria", 
+          "size": 7.163
+        }, 
+        {
+          "name": "Ireland", 
+          "size": 7.041
+        }, 
+        {
+          "name": "Germany", 
+          "size": 7.034
+        }, 
+        {
+          "name": "United Kingdom", 
+          "size": 6.943
+        }, 
+        {
+          "name": "Czechia", 
+          "size": 6.92
+        }, 
+        {
+          "name": "Belgium", 
+          "size": 6.805
+        }, 
+        {
+          "name": "France", 
+          "size": 6.687
+        }, 
+        {
+          "name": "Slovenia", 
+          "size": 6.63
+        }, 
+        {
+          "name": "Romania", 
+          "size": 6.477
+        }, 
+        {
+          "name": "Spain", 
+          "size": 6.476
+        }, 
+        {
+          "name": "Italy", 
+          "size": 6.467
+        }, 
+        {
+          "name": "Malta", 
+          "size": 6.447
+        }, 
+        {
+          "name": "Slovakia", 
+          "size": 6.391
+        }, 
+        {
+          "name": "Serbia", 
+          "size": 6.178
+        }, 
+        {
+          "name": "Poland", 
+          "size": 6.123
+        }, 
+        {
+          "name": "Hungary", 
+          "size": 6.086
+        }, 
+        {
+          "name": "Portugal", 
+          "size": 6.016
+        }, 
+        {
+          "name": "Greece", 
+          "size": 5.948
+        }, 
+        {
+          "name": "Russian Federation", 
+          "size": 5.459
+        }, 
+        {
+          "name": "Bulgaria", 
+          "size": 5.371
+        }, 
+        {
+          "name": "North Macedonia", 
+          "size": 5.199
+        }, 
+        {
+          "name": "Ukraine", 
+          "size": 5.084
         }
-      ]
-    },
+      ], 
+      "name": "EU"
+    }, 
     {
-      "name": "controls",
       "children": [
         {
-          "name": "TooltipControl",
-          "size": 8435
-        },
+          "name": "Israel", 
+          "size": 7.364
+        }, 
         {
-          "name": "SelectionControl",
-          "size": 7862
-        },
+          "name": "United Arab Emirates", 
+          "size": 6.576
+        }, 
         {
-          "name": "PanZoomControl",
-          "size": 5222
-        },
+          "name": "Saudi Arabia", 
+          "size": 6.523
+        }, 
         {
-          "name": "HoverControl",
-          "size": 4896
-        },
+          "name": "Taiwan", 
+          "size": 6.512
+        }, 
         {
-          "name": "ControlList",
-          "size": 4665
-        },
+          "name": "Singapore", 
+          "size": 6.48
+        }, 
         {
-          "name": "ClickControl",
-          "size": 3824
-        },
+          "name": "Kazakhstan", 
+          "size": 6.234
+        }, 
         {
-          "name": "ExpandControl",
-          "size": 2832
-        },
+          "name": "Cyprus", 
+          "size": 6.221
+        }, 
         {
-          "name": "DragControl",
-          "size": 2649
-        },
+          "name": "Kuwait", 
+          "size": 6.106
+        }, 
         {
-          "name": "AnchorControl",
-          "size": 2138
-        },
+          "name": "Uzbekistan", 
+          "size": 6.063
+        }, 
         {
-          "name": "Control",
-          "size": 1353
-        },
+          "name": "Japan", 
+          "size": 6.039
+        }, 
         {
-          "name": "IControl",
-          "size": 763
+          "name": "South Korea", 
+          "size": 5.935
+        }, 
+        {
+          "name": "Philippines", 
+          "size": 5.904
+        }, 
+        {
+          "name": "Thailand", 
+          "size": 5.891
+        }, 
+        {
+          "name": "Mongolia", 
+          "size": 5.761
+        }, 
+        {
+          "name": "Malaysia", 
+          "size": 5.711
+        }, 
+        {
+          "name": "China", 
+          "size": 5.585
+        }, 
+        {
+          "name": "Vietnam", 
+          "size": 5.485
+        }, 
+        {
+          "name": "Hong Kong", 
+          "size": 5.425
+        }, 
+        {
+          "name": "Armenia", 
+          "size": 5.399
+        }, 
+        {
+          "name": "Tajikistan", 
+          "size": 5.377
+        }, 
+        {
+          "name": "Nepal", 
+          "size": 5.377
+        }, 
+        {
+          "name": "Indonesia", 
+          "size": 5.24
+        }, 
+        {
+          "name": "Bangladesh", 
+          "size": 5.155
+        }, 
+        {
+          "name": "Laos", 
+          "size": 5.14
+        }, 
+        {
+          "name": "Georgia", 
+          "size": 4.973
+        }, 
+        {
+          "name": "Iraq", 
+          "size": 4.941
+        }, 
+        {
+          "name": "Iran", 
+          "size": 4.888
+        }, 
+        {
+          "name": "Turkey", 
+          "size": 4.744
+        }, 
+        {
+          "name": "Cambodia", 
+          "size": 4.64
+        }, 
+        {
+          "name": "Pakistan", 
+          "size": 4.516
+        }, 
+        {
+          "name": "Myanmar", 
+          "size": 4.394
+        }, 
+        {
+          "name": "Sri Lanka", 
+          "size": 4.362
+        }, 
+        {
+          "name": "Yemen", 
+          "size": 4.197
+        }, 
+        {
+          "name": "Jordan", 
+          "size": 4.152
+        }, 
+        {
+          "name": "India", 
+          "size": 3.777
         }
-      ]
-    },
+      ], 
+      "name": "AS"
+    }, 
     {
-      "name": "data",
       "children": [
         {
-          "name": "Data",
-          "size": 20544
-        },
+          "name": "New Zealand", 
+          "size": 7.2
+        }, 
         {
-          "name": "Node",
-          "size": 19382
-        },
-        {
-          "name": "DataList",
-          "size": 19788
-        },
-        {
-          "name": "sprite",
-          "size": 10349
-        },
-        {
-          "name": "Edge",
-          "size": 3301
-        },
-        {
-          "name": "render",
-          "children": [
-            {
-              "name": "EdgeR",
-              "size": 5569
-            },
-            {
-              "name": "ShapeRenderer",
-              "size": 2247
-            },
-            {
-              "name": "ArrowType",
-              "size": 698
-            },
-            {
-              "name": "IRenderer",
-              "size": 353
-            }
-          ]
-        },
-        {
-          "name": "Scale",
-          "size": 11275
-        },
-        {
-          "name": "TreeB",
-          "size": 9930
-        },
-        {
-          "name": "Tree",
-          "size": 7147
+          "name": "Australia", 
+          "size": 7.162
         }
-      ]
-    },
+      ], 
+      "name": "OC"
+    }, 
     {
-      "name": "events",
       "children": [
         {
-          "name": "DataEvent",
-          "size": 7313
-        },
+          "name": "Canada", 
+          "size": 7.025
+        }, 
         {
-          "name": "SelectionEvent",
-          "size": 6880
-        },
+          "name": "United States", 
+          "size": 6.977
+        }, 
         {
-          "name": "TooltipEvent",
-          "size": 3701
-        },
+          "name": "Costa Rica", 
+          "size": 6.582
+        }, 
         {
-          "name": "VisualizationEvent",
-          "size": 2117
+          "name": "Panama", 
+          "size": 6.309
+        }, 
+        {
+          "name": "Guatemala", 
+          "size": 6.262
+        }, 
+        {
+          "name": "Mexico", 
+          "size": 6.128
+        }, 
+        {
+          "name": "Honduras", 
+          "size": 6.022
+        }, 
+        {
+          "name": "Jamaica", 
+          "size": 5.85
+        }, 
+        {
+          "name": "Dominican Republic", 
+          "size": 5.737
         }
-      ]
-    },
+      ], 
+      "name": "NorthAmerica"
+    }, 
     {
-      "name": "legend",
       "children": [
         {
-          "name": "Legend",
-          "size": 20859
-        },
+          "name": "Uruguay", 
+          "size": 6.474
+        }, 
         {
-          "name": "LegendRange",
-          "size": 10530
-        },
+          "name": "Brazil", 
+          "size": 6.293
+        }, 
         {
-          "name": "LegendItem",
-          "size": 4614
+          "name": "Chile", 
+          "size": 6.172
+        }, 
+        {
+          "name": "Argentina", 
+          "size": 5.967
+        }, 
+        {
+          "name": "Colombia", 
+          "size": 5.781
+        }, 
+        {
+          "name": "Bolivia", 
+          "size": 5.6
+        }, 
+        {
+          "name": "Paraguay", 
+          "size": 5.578
+        }, 
+        {
+          "name": "Peru", 
+          "size": 5.559
+        }, 
+        {
+          "name": "Ecuador", 
+          "size": 5.533
+        }, 
+        {
+          "name": "Venezuela", 
+          "size": 4.925
         }
-      ]
-    },
+      ], 
+      "name": "SA"
+    }, 
     {
-      "name": "operator",
       "children": [
         {
-          "name": "distortion",
-          "children": [
-            {
-              "name": "Distortion",
-              "size": 6314
-            },
-            {
-              "name": "BifocalDistortion",
-              "size": 4461
-            },
-            {
-              "name": "FisheyeDistortion",
-              "size": 3444
-            }
-          ]
-        },
+          "name": "South Africa", 
+          "size": 5.194
+        }, 
         {
-          "name": "encoder",
-          "children": [
-            {
-              "name": "PropertyEncoder",
-              "size": 4138
-            },
-            {
-              "name": "Encoder",
-              "size": 4060
-            },
-            {
-              "name": "ColorEncoder",
-              "size": 3179
-            },
-            {
-              "name": "SizeEncoder",
-              "size": 1830
-            },
-            {
-              "name": "ShapeEncoder",
-              "size": 1690
-            }
-          ]
-        },
+          "name": "Gambia", 
+          "size": 5.164
+        }, 
         {
-          "name": "filter",
-          "children": [
-            {
-              "name": "FisheyeTreeFilter",
-              "size": 5219
-            },
-            {
-              "name": "VisibilityFilter",
-              "size": 3509
-            },
-            {
-              "name": "GraphDistanceFilter",
-              "size": 3165
-            }
-          ]
-        },
+          "name": "Congo", 
+          "size": 5.075
+        }, 
         {
-          "name": "IOperator",
-          "size": 1286
-        },
+          "name": "Morocco", 
+          "size": 5.06
+        }, 
         {
-          "name": "label",
-          "children": [
-            {
-              "name": "Labeler",
-              "size": 9956
-            },
-            {
-              "name": "RadialLabeler",
-              "size": 3899
-            },
-            {
-              "name": "StackedAreaLabeler",
-              "size": 3202
-            }
-          ]
-        },
+          "name": "Ghana", 
+          "size": 4.872
+        }, 
         {
-          "name": "layout",
-          "children": [
-            {
-              "name": "RadialTreeLayout",
-              "size": 12348
-            },
-            {
-              "name": "NodeLinkTreeLayout",
-              "size": 12870
-            },
-            {
-              "name": "CirclePackingLayout",
-              "size": 12003
-            },
-            {
-              "name": "CircleLayout",
-              "size": 9317
-            },
-            {
-              "name": "TreeMapLayout",
-              "size": 9191
-            },
-            {
-              "name": "StackedAreaLayout",
-              "size": 9121
-            },
-            {
-              "name": "Layout",
-              "size": 7881
-            },
-            {
-              "name": "AxisLayout",
-              "size": 6725
-            },
-            {
-              "name": "IcicleTreeLayout",
-              "size": 4864
-            },
-            {
-              "name": "DendrogramLayout",
-              "size": 4853
-            },
-            {
-              "name": "ForceDirectedLayout",
-              "size": 8411
-            },
-            {
-              "name": "BundledEdgeRouter",
-              "size": 3727
-            },
-            {
-              "name": "IndentedTreeLayout",
-              "size": 3174
-            },
-            {
-              "name": "PieLayout",
-              "size": 2728
-            },
-            {
-              "name": "RandomLayout",
-              "size": 870
-            }
-          ]
-        },
+          "name": "Uganda", 
+          "size": 4.603
+        }, 
         {
-          "name": "OperatorList",
-          "size": 5248
-        },
+          "name": "Nigeria", 
+          "size": 4.552
+        }, 
         {
-          "name": "OperatorSequence",
-          "size": 4190
-        },
+          "name": "Kenya", 
+          "size": 4.543
+        }, 
         {
-          "name": "OperatorSwitch",
-          "size": 2581
-        },
+          "name": "Madagascar", 
+          "size": 4.339
+        }, 
         {
-          "name": "Operator",
-          "size": 2490
-        },
+          "name": "Egypt", 
+          "size": 4.288
+        }, 
         {
-          "name": "SortOperator",
-          "size": 2023
+          "name": "Ethiopia", 
+          "size": 4.241
+        }, 
+        {
+          "name": "Tanzania", 
+          "size": 3.702
+        }, 
+        {
+          "name": "Zimbabwe", 
+          "size": 2.995
         }
-      ]
+      ], 
+      "name": "AF"
     }
   ]
