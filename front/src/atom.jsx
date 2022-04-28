@@ -10,7 +10,7 @@ const questState = atom({
     {
         num: 1,
         quiz: '당신의 평균 연봉을 입력해주세요! (만 원 단위) ',
-        value: 50
+        value: 6100
     },
     {
         num: 2,
@@ -29,4 +29,9 @@ const questState = atom({
     }] 
 });
 
-export default questState;
+const currentIdState = atom({
+    key: 'currentIdState',
+    default: 0
+});
+
+export { questState, currentIdState };

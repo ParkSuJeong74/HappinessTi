@@ -49,13 +49,14 @@
     margin-top: 50px;
 }
 
-.slider {
-    width: 200px; 
-}
 
 .buttons{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.inputSpace{
+
 }
