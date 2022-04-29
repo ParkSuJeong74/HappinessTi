@@ -2,7 +2,7 @@
  *  @swagger
  *  tags:
  *    name: Result
- *    description: API to manage Result
+ *    description: API to manage Survey Result
  */
 import { Router } from "express";
 import axios from "axios";
@@ -103,8 +103,8 @@ resultRouter.get(
 
 /**
  * @swagger
- * /result:
- *   post:
+ * /result/{country}:
+ *   get:
  *     tags: [Result]
  *     description: 해당 로그 저장
  *     produces:
@@ -131,62 +131,7 @@ resultRouter.get(
  *       '200':
  *         description: "머신러닝 행복도 예측 완료"
  */
-resultRouter.post("/", login_required, async function (req, res, next) {
-  try {
-    const response = await axios.post(
-      "http://localhost:5000/predict",
-      req.body
-    );
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
-
-/**
- * @swagger
- * /result:
- *   post:
- *     tags: [Result]
- *     description: 해당 로그 저장
- *     produces:
- *     - "application/json"
- *     security:
- *      - Authorization: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               myCountry:
- *                 type: string
- *               kw:
- *                 type: number
- *               lifeExpectancy:
- *                 type: number
- *               social:
- *                 type: number
- *               generosity:
- *                 type: number
- *     responses:
- *       '200':
- *         description: "머신러닝 행복도 예측 완료"
- */
-resultRouter.post("/", login_required, async function (req, res, next) {
-  try {
-    const response = await axios.post(
-      "http://localhost:5000/predict",
-      req.body
-    );
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// 시각화 조회
-resultRouter.get("/", login_required, async function (req, res, next) {
+resultRouter.get("/:country", login_required, async function (req, res, next) {
   try {
     const response = await axios.post(
       "http://localhost:5000/predict",
