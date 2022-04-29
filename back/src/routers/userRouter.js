@@ -238,16 +238,12 @@ userAuthRouter.get("/:id", login_required, async function (req, res, next) {
 /**
  * @swagger
  * path:
- * /users/{id}:
+ * /users/:
  *   put:
  *     tags: [User]
  *     description: 해당 id의 유저 정보 수정
  *     produces:
  *     - "application/json"
- *     parameters:
- *     - name: "id"
- *       in: "path"
- *       required: true
  *     security:
  *      - Authorization: []
  *     requestBody:
@@ -266,17 +262,17 @@ userAuthRouter.get("/:id", login_required, async function (req, res, next) {
  *         schema:
  *           $ref: '#/components/schemas/User'
  */
-userAuthRouter.put("/:id", login_required, async function (req, res, next) {
+userAuthRouter.put("/", login_required, async function (req, res, next) {
   try {
-    const userId = req.params.id;
-    let error = new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
-    error.status = 401;
-    if (userId != req.currentUserId) {
-      throw error;
-    }
-
-    const { nickname, description } = req.body;
-    const toUpdate = { nickname, description };
+    const userId = req.currentUserId;
+    // let error = new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
+    // error.status = 401;
+    // if (userId != req.currentUserId) {
+    //   throw error;
+    // }
+    // const userId = ;
+    const toUpdate = req.body;
+    // const toUpdate = { nickname, description };
 
     const updatedUser = await userAuthService.setUser({ userId, toUpdate });
 

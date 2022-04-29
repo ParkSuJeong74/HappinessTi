@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import { userModel } from "./models/userModel.js";
 import { happyModel } from "./models/happyModel.js";
+import { surveylogModel } from "./models/surveylogModel.js";
+import { rankingModel } from "./models/rankingModel.js";
+import { resultModel } from "./models/resultModel.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -23,4 +26,4 @@ db.on("error", (error) =>
   console.error("MongoDB 연결에 실패하였습니다...\n" + DB_URL + "\n" + error)
 );
 
-export { userModel, happyModel };
+export { userModel, happyModel, surveylogModel, rankingModel, resultModel };

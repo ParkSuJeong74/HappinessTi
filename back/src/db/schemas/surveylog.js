@@ -1,14 +1,14 @@
 import pkg from "mongoose";
 const { Schema, model } = pkg;
 
-const TestlogSchema = new Schema(
+const SurveylogSchema = new Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
     happinessId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Happiness",
     },
   },
@@ -17,4 +17,4 @@ const TestlogSchema = new Schema(
   }
 );
 
-export const Testlog = model("Testlog", TestlogSchema);
+export const Surveylog = model("Surveylog", SurveylogSchema);

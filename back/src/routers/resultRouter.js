@@ -7,6 +7,7 @@
 import { Router } from "express";
 import axios from "axios";
 import { login_required } from "../middlewares/login_required.js";
+import { resultService } from "../services/resultService.js";
 
 export const resultRouter = Router();
 
@@ -46,7 +47,13 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
       "http://localhost:5000/predict",
       req.body
     );
-    res.status(200).send(response.data);
+    const userId = req.currentUserId;
+    const { data } = response;
+    // mongodb 접근
+    // log 기록
+    // ranking counting
+    await resultService.save({ userId, data });
+    res.status(200).send(data);
   } catch (error) {
     next(error);
   }
@@ -71,30 +78,30 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
  *         description: "군집 분석 결과 도출, 같은 군집의 나라 조회 완료"
  */
 resultRouter.get(
-  "/:country/similar",
+  "/:countryName/similar",
   login_required,
   async function (req, res, next) {
     try {
       const response = await axios.get("http://localhost:5000/similar");
-      const country = req.params;
-      const countryName = country["country"].toLowerCase();
-      const keys = Object.keys(response.data);
-      let similarCountries;
-      for (let key of keys) {
-        response.data[key].map((value) => {
-          if (value.toLowerCase() === countryName) {
-            const countries = response.data[key].filter(
-              (country) => country.toLowerCase() !== countryName
-            );
-            similarCountries = countries;
-          }
-        });
+      if (!response) {
+        throw "";
       }
-      let error = "군집을 찾을 수 없습니다.";
-      if (!similarCountries) {
-        throw error;
+      const { countryName } = req.params;
+      const { data } = response;
+      const keys = Object.keys(data);
+      let similarCounrtries;
+      for (const key of keys) {
+        const index = data[key].findIndex(
+          (c) => c.toLowerCase() === countryName.toLowerCase()
+        );
+        if (index < 0) continue;
+        const result = data[key];
+        result.splice(index, 1);
+        similarCounrtries = result;
+        break;
       }
-      res.status(200).json({ counrtries: similarCountries });
+      if (!similarCounrtries) throw "군집 없음";
+      res.status(200).json({ similarCounrtries });
     } catch (error) {
       next(error);
     }
@@ -106,7 +113,7 @@ resultRouter.get(
  * /result/{country}:
  *   get:
  *     tags: [Result]
- *     description: 해당 로그 저장
+ *     description: 설문조사 결과 페이지 시각화
  *     produces:
  *     - "application/json"
  *     security:
@@ -134,8 +141,8 @@ resultRouter.get(
 resultRouter.get("/:country", login_required, async function (req, res, next) {
   try {
     const response = await axios.post(
-      "http://localhost:5000/predict",
-      req.body
+      "http://localhost:5000/result/",
+      req.params
     );
     res.status(200).send(response.data);
   } catch (error) {

@@ -41,12 +41,13 @@ export const userModel = {
     return users;
   },
 
-  update: async ({ userId, updateObject, newValue }) => {
-    const filter = { _id: userId };
-    const update = { $set: updateObject };
+  update: async ({ userId, data }) => {
+    // const filter = { _id: userId };
+    const update = { $set: data };
     const option = { returnOriginal: false };
+    console.log("update", update);
 
-    const updatedUser = await User.findOneAndUpdate(filter, update, option);
+    const updatedUser = await User.findByIdAndUpdate(userId, update, option);
     return updatedUser;
   },
 

@@ -1,0 +1,13 @@
+components:
+  schemas:
+    Surveylog: 
+      properties: 
+        _id: 
+          type: string 
+          description: 설문조사 로그 고유 번호 
+        userId:
+          type: string 
+          description: User ref
+        happinessId:
+          type: string 
+          description: Happiness ref

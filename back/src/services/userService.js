@@ -1,6 +1,5 @@
 import { userModel } from "../db/index.js";
 import jwt from "jsonwebtoken";
-import { SetUtil } from "../common/setUtil.js";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import { gcsBucket } from "../config/gcs.js";
@@ -153,12 +152,16 @@ export const userAuthService = {
     );
 
     // 현재 유저의 닉네임도 찾기 때문에
-    if (findByNicknameUser && findByNicknameUser.id != userId) {
+    if (findByNicknameUser && findByNicknameUser.id !== userId) {
       throw error;
     }
 
-    const updateObject = SetUtil.compareValues(toUpdate, user);
-    user = await userModel.update({ userId, updateObject });
+    // const updateObject = SetUtil.compareValues(toUpdate, user);c
+    console.log(toUpdate);
+
+    // const data = { nickname: "bar", description: "foo" };
+    user = await userModel.update({ userId, data: toUpdate });
+
     return user;
   },
 

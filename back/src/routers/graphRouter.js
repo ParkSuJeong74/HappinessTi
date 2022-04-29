@@ -10,19 +10,19 @@ export const graphRouter = Router();
 
 /**
  * @swagger
- * /graph/happiness/years:
+ * /graph/happiness:
  *   get:
  *     tags: [Graph]
- *     description: 메인페이지 GDP bar plot 그래프 시각화
+ *     description: 메인페이지 composed-chart plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "메인페이지 GDP bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 composed-chart plot 그래프 시각화 완료"
  */
 graphRouter.get("/happiness/years", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000/gdp/bar");
+    const response = await axios.get("http://localhost:5000");
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -280,16 +280,16 @@ graphRouter.get("/:continent/bar", async function (req, res, next) {
  * /graph/treemap:
  *   get:
  *     tags: [Graph]
- *     description: low 그래프 시각화(임시)
+ *     description: treemap 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "low 그래프 시각화 완료"
+ *         description: "treemap 시각화 완료"
  */
 graphRouter.get("/treemap", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000/low/bar");
+    const response = await axios.get("http://localhost:5000/tree");
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
