@@ -2,15 +2,30 @@ from flask import Flask, jsonify
 import json
 import pandas as pd
 import numpy as np
-from scipy.stats import norm
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-import plotly_express as px
 
 df = pd.read_csv('./file/happy_data2.csv')
-
 app = Flask(__name__)
+
+##----treemap.png------##
+@app.route('/tree',methods=['GET'])
+def treemap():
+  tree_data=[]
+  children=[]
+  for j in df['continent'].unique():
+    test2={
+      'name':j,
+    }
+    for i in range(0,len(df[df['continent']==j])):
+          test={
+            'name':df[df['continent']==j]['country'].to_list()[i],
+            'size':df[df['continent']==j]['happinessScore'].to_list()[i],
+          }
+          result=eval(json.dumps(test))
+          children.append(result)
+    test2['children']=children
+    result2=eval(json.dumps(test2))
+    tree_data.append(result2)
+  return jsonify(tree_data)
 
 #barplot10-1.png#
 #왼쪽부터 오른쪽 순서#
@@ -114,7 +129,7 @@ contData = df.groupby("continent")
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
 
-@app.route('/continent_barplot',methods=['GET'])
+@app.route('/continent/bar',methods=['GET'])
 def continent_barplot():
   group_data=[]
   for i in range(0,len(happAvg.index)):
@@ -184,6 +199,75 @@ def similar():
   }
   return(dict)
 #매개변수로 :country가 들어오면 그 country가 속한 그룹의 나라들을 모두 출력해주는 로직
+
+##대륙별로 TOP10 내보내기##
+
+##-------Asia-top10.png----------##
+@app.route('/asia/bar',methods=['GET'])
+def asia_barplot():
+  asia_data=[]
+  for i in range(0,len(df[df['continent']=='AS'].nlargest(10,'happinessScore'))):
+      test={
+        'country':df[df['continent']=='AS'].nlargest(10,'happinessScore')['country'].to_list()[i],
+        'happinessScore':df[df['continent']=='AS'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      asia_data.append(result)
+  return jsonify(asia_data)
+
+
+#----Europe-top10.png---------##
+@app.route('/europe/bar',methods=['GET'])
+def europe_barplot():
+  europe_data=[]
+  for i in range(0,len(df[df['continent']=='EU'].nlargest(10,'happinessScore'))):
+      test={
+        'country':df[df['continent']=='EU'].nlargest(10,'happinessScore')['country'].to_list()[i],
+        'happinessScore':df[df['continent']=='EU'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      europe_data.append(result)
+  return jsonify(europe_data)
+
+##-------Afica-top10---------##
+@app.route('/africa/bar',methods=['GET'])
+def africa_barplot():
+  africa_data=[]
+  for i in range(0,len(df[df['continent']=='AF'].nlargest(10,'happinessScore'))):
+      test={
+        'country':df[df['continent']=='AF'].nlargest(10,'happinessScore')['country'].to_list()[i],
+        'happinessScore':df[df['continent']=='AF'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      africa_data.append(result)
+  return jsonify(africa_data)
+
+##---------NorthAmerica-top10--------##
+@app.route('/north/bar',methods=['GET'])
+def north_barplot():
+  north_data=[]
+  for i in range(0,len(df[df['continent']=='NorthAmerica'].nlargest(10,'happinessScore'))):
+      test={
+        'country':df[df['continent']=='NorthAmerica'].nlargest(10,'happinessScore')['country'].to_list()[i],
+        'happinessScore':df[df['continent']=='NorthAmerica'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      north_data.append(result)
+  return jsonify(north_data)
+
+
+##--------SouthAmerica-top10-------##
+@app.route('/south/bar',methods=['GET'])
+def south_barplot():
+  south_data=[]
+  for i in range(0,len(df[df['continent']=='SouthAmerica'].nlargest(10,'happinessScore'))):
+      test={
+        'country':df[df['continent']=='SouthAmerica'].nlargest(10,'happinessScore')['country'].to_list()[i],
+        'happinessScore':df[df['continent']=='SouthAmerica'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+      }
+      result=eval(json.dumps(test))
+      south_data.append(result)
+  return jsonify(south_data)
 
 if __name__ == "__main__":
     app.run(debug=True)

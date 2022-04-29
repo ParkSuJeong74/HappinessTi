@@ -99,6 +99,12 @@ if __name__ == "__main__":
     df['Continent']= df["Country code"].apply(lambda x: continent(x))
 df.dropna(inplace = True)
 
+df["world"] = "world" # in order to have a single root node
+fig = px.treemap(df, path=['world','Continent', 'Country'], values='happinessScore',
+                  color=df['happinessScore'], hover_data=['RANK'],
+                  color_continuous_scale='RdBu',
+                  color_continuous_midpoint=np.average(df['happinessScore'], weights=df['happinessScore']))
+fig.show()
 
 
 targets = ['Low', 'Low-Mid', 'Top-Mid', 'Top']
