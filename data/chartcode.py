@@ -23,6 +23,7 @@ def treemap():
           result=eval(json.dumps(test))
           children.append(result)
     test2['children']=children
+    children=[]
     result2=eval(json.dumps(test2))
     tree_data.append(result2)
   return jsonify(tree_data)
@@ -268,7 +269,62 @@ def south_barplot():
       result=eval(json.dumps(test))
       south_data.append(result)
   return jsonify(south_data)
-
+##------radar chart----------##
+@app.route('/result',methods=['GET'])
+def radar():
+  dic=[]
+  test2={}
+  for country in df['country'].unique():
+      data=[]
+      temp=df[df['country']==country]
+      test1={
+          'name':'gdp',
+          'uv':temp['gdp'].to_list()[0],
+          "fill": "#8884d8",
+      }
+      # test2={
+      #     'name':'dystopia',
+      #     'uv':temp['dystopia'].to_list()[0],
+      #     "fill":"#83a6ed",
+      # }
+      test3={
+          'name':'socialSupport',
+          'uv':temp['socialSupport'].to_list()[0],
+          "fill": "#8dd1e1",
+      }
+      test4={
+          'name':'health',
+          'uv':temp['health'].to_list()[0],
+          "fill": "#82ca9d",
+      }
+      test5={
+          'name':'freedom',
+          'uv':temp['freedom'].to_list()[0],
+          "fill": "#a4de6c",
+      }
+      test6={
+          'name':'generosity',
+          'uv':temp['generosity'].to_list()[0],
+          "fill": "#d0ed57",
+      }
+      test7={
+          'name':'corruptionPerceptions',
+          'uv':temp['corruptionPerceptions'].to_list()[0],
+          "fill": "#ffc658",
+      }
+      data.append(eval(json.dumps(test1)))
+      # data.append(eval(json.dumps(test2)))
+      data.append(eval(json.dumps(test3)))
+      data.append(eval(json.dumps(test4)))
+      data.append(eval(json.dumps(test5)))
+      data.append(eval(json.dumps(test6)))
+      data.append(eval(json.dumps(test7)))
+      test2[country]=data
+      dic.append(test2)
+  return jsonify(dic[0])
 if __name__ == "__main__":
     app.run(debug=True)
+    
+    
+
     
