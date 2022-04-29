@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv('./file/happy_data2.csv')
+df_merged = pd.read_csv('./file/df_merged.csv')
 app = Flask(__name__)
 
 ##----treemap.png------##
@@ -191,7 +192,7 @@ def barplot(continent):
 @app.route('/result/?country',methods=['GET'])
 def radar(country):
   dic=[]
-  test2={}
+  test={}
   for i in df['country'].unique():
       data=[]
       temp=df[df['country']==i]
@@ -200,11 +201,11 @@ def radar(country):
           'uv':temp['gdp'].to_list()[0],
           "fill": "#8884d8",
       }
-      # test2={
-      #     'name':'dystopia',
-      #     'uv':temp['dystopia'].to_list()[0],
-      #     "fill":"#83a6ed",
-      # }
+      test2={
+          'name':'dystopia',
+          'uv':temp['dystopia'].to_list()[0],
+          "fill":"#83a6ed",
+      }
       test3={
           'name':'socialSupport',
           'uv':temp['socialSupport'].to_list()[0],
@@ -231,16 +232,31 @@ def radar(country):
           "fill": "#ffc658",
       }
       data.append(eval(json.dumps(test1)))
-      # data.append(eval(json.dumps(test2)))
+      data.append(eval(json.dumps(test2)))
       data.append(eval(json.dumps(test3)))
       data.append(eval(json.dumps(test4)))
       data.append(eval(json.dumps(test5)))
       data.append(eval(json.dumps(test6)))
       data.append(eval(json.dumps(test7)))
-      test2[i]=data
+      test[i]=data
       dic.append(test2)
   dic=eval(json.dumps(dic[0]))
   return jsonify(dic.get(country))
+#----composed barchart----------#
+@app.route('/composed',methods=['GET'])
+def composedBarchart():
+  yearAvg=df_merged.groupby('Year')[['Happiness Score','Family (Social Support)','Economy (GDP per Capita)','Health (Life Expectancy)']].mean()
+  data=[]
+  for i in yearAvg.index:
+    test={
+        'year':i,
+        "happinessScore":list(yearAvg[yearAvg.index==i]['Happiness Score'].values)[0],
+        "socialSupport":list(yearAvg[yearAvg.index==i]['Family (Social Support)'].values)[0],
+        'gdp':list(yearAvg[yearAvg.index==i]['Economy (GDP per Capita)'].values)[0],
+        'health':list(yearAvg[yearAvg.index==i]['Health (Life Expectancy)'].values)[0],
+    }
+    data.append(eval(json.dumps(test)))
+  return jsonify(data)
 if __name__ == "__main__":
     app.run(debug=True)
     
