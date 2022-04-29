@@ -49,10 +49,17 @@
     margin-top: 50px;
 }
 
+.quiz {
+    margin-bottom: 20px;
+    font-size: 23px;
+    font-weight: bold;
+}
+
 .situation {
     margin-top: 30px;
     font-size: 25px;
-    font-weight: bolder;
+    font-weight: 400;
+    font-style: italic;
 }
 
 .radioButtons {

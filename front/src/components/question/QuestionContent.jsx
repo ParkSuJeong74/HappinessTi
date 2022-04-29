@@ -1,11 +1,12 @@
 import { Box, Button, Slider, Stack } from "@mui/material"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import question from '../../srcAssets/style/Question.module.css'
+import styles from '../../srcAssets/style/Question.module.css'
 import {questState, currentNumState } from '../../atom.jsx';
 import { useEffect, useState } from "react";
 import InputText from "./inputType/InputText";
 import InputSlider from "./inputType/InputSlider";
 import InputCheck from "./inputType/InputCheck";
+import { style } from "@mui/system";
 
 function QuestionContent(){
     const quest = useRecoilValue(questState);
@@ -33,11 +34,8 @@ function QuestionContent(){
     }
 
     const toggleInputSpace = () => {
-        if(quest[currentNum]?.id === 0 || quest[currentNum]?.id === 2){
+        if(quest[currentNum]?.id >= 0 && quest[currentNum]?.id <= 2){
             return <InputText></InputText>
-        }
-        else if(quest[currentNum]?.id === 1){
-            return <InputSlider></InputSlider>
         }
 
         else {
@@ -48,9 +46,9 @@ function QuestionContent(){
     console.log(quest)
 
     return (
-        <Box className={question.questBox}>
+        <Box className={styles.questBox}>
 
-            <div>{quest[currentNum]?.quiz}</div>
+            <div className={styles.quiz}>{quest[currentNum]?.quiz}</div>
 
             {/* 입력 공간 형식이 문제에 따라 바뀜 */}
             {toggleInputSpace()}
