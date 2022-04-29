@@ -2,50 +2,51 @@ import { ComposedChart, XAxis,  YAxis, Tooltip, Legend, CartesianGrid, Area, Bar
 
 const data = [
     {
-      "name": "Page A",
-      "uv": 4000,
-      "pv": 2400,
-      "amt": 2400
+      "name": "EU",
+      "socialSupport": 4000,
+      "gdp": 2400,
+      "happyScore": 2400,
+      "lifeExpectancy": 5000,
     },
     {
-      "name": "Page B",
-      "uv": 3000,
-      "pv": 1398,
-      "amt": 2210
+      "name": "AS",
+      "socialSupport": 3000,
+      "gdp": 1398,
+      "happyScore": 2210,
+      "lifeExpectancy": 3477,
     },
     {
-      "name": "Page C",
-      "uv": 2000,
-      "pv": 9800,
-      "amt": 2290
+      "name": "OC",
+      "socialSupport": 2000,
+      "gdp": 9800,
+      "happyScore": 2290,
+      "lifeExpectancy": 2000,
     },
     {
-      "name": "Page D",
-      "uv": 2780,
-      "pv": 3908,
-      "amt": 2000
+      "name": "SA",
+      "socialSupport": 2780,
+      "gdp": 3908,
+      "happyScore": 2000,
+      "lifeExpectancy": 3488,
     },
     {
-      "name": "Page E",
-      "uv": 1890,
-      "pv": 4800,
-      "amt": 2181
+      "name": "AF",
+      "socialSupport": 1890,
+      "gdp": 4800,
+      "happyScore": 2181,
+      "lifeExpectancy": 2399,
     },
     {
-      "name": "Page F",
-      "uv": 2390,
-      "pv": 3800,
-      "amt": 2500
+      "name": "North America",
+      "socialSupport": 2390,
+      "gdp": 3800,
+      "happyScore": 2500,
+      "lifeExpectancy": 1099,
     },
-    {
-      "name": "Page G",
-      "uv": 3490,
-      "pv": 4300,
-      "amt": 2100
-    }
+   
 ]
   
-function Chart(){
+function Chart({active}){
     return (
       <ComposedChart width={730} height={250} data={data}>
         <XAxis dataKey="name" />
@@ -53,9 +54,10 @@ function Chart(){
         <Tooltip />
         <Legend />
         <CartesianGrid stroke="#f5f5f5" />
-        <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" />
-        <Bar dataKey="pv" barSize={20} fill="#413ea0" />
-        <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+        <Area isAnimationActive={active} dataKey="happyScore" type="monotone" fill="#8884d8" stroke="#8884d8" />
+        <Bar isAnimationActive={active} dataKey="gdp" barSize={20} fill="#413ea0" />
+        <Bar isAnimationActive={active} dataKey="lifeExpectancy" barSize={20} fill="#8E3200" />
+        <Line isAnimationActive={active} dataKey="socialSupport" type="monotone" stroke="#ff7300" />
       </ComposedChart>
     )
 }

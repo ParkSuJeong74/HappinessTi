@@ -1,5 +1,6 @@
 .bgVideo {
     position: relative;
+    width: 100%;
 }
 
 .greetingContainer {
@@ -32,17 +33,17 @@
     left: 54%;
     bottom: 25%;
     color: #ddd;
-    margin-bottom: 15px;
-    font-size: 1.3em;
+    margin-bottom: 25px;
+    font-size: 1.4em;
 }
 
 .scrollIcon1, .scrollIcon2, .scrollIcon3 {
-    animation: blink 2s linear forwards;
+    animation: scrollBlink 2s linear forwards;
     animation-iteration-count: infinite;
     color: #fff;
 }
 
-@keyframes blink{
+@keyframes scrollBlink{
     0%{
         opacity: 0;
     }
@@ -99,7 +100,7 @@
     margin-bottom: 1em;
 }
 
-.chart1, .chart2{
+.chart1{
     margin: 0 auto;
 }
 
@@ -108,9 +109,17 @@
     height: 250px;
 }
 
+.country{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .chart2 {
-    width: 50em;
+    width: 750px;
     height: 25em;
+    border: 1px solid lightgray;
     background-color: rgba(36, 34, 34, 0.045);
 }
 
@@ -122,6 +131,7 @@
     margin-bottom: 20px;
 }
 
+
 .guide input{
     width: 0;
     height: 0;
@@ -129,6 +139,7 @@
 
 .guide input::before {
     content: '나의 행복도 찾기 Go!';
+    margin-top: 10px;
     font-size: 40px;
     width: 800px;
     transform: translateX(-400px);
@@ -144,3 +155,24 @@
                 -0.5px 0.5px 0px rgba(0,0,0, 0.15),
                 0px 12px 10px -10px rgba(0,0,0, 0.05);
 }
+
+@keyframes changeMovement {
+    0% {
+        opacity: 0.3;
+        transform: translateX(-2rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.active{
+    animation: changeMovement 1s ease-in-out;
+    /* chart2 css 속성 */
+    width: 750px;
+    height: 25em;
+    border: 1px solid lightgray;
+    background-color: rgba(36, 34, 34, 0.045);
+}
+

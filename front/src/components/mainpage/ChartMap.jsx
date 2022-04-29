@@ -1,12 +1,6 @@
-import { ResponsiveChoropleth, ResponsiveChoroplethCanvas  } from '@nivo/geo'
+import {  ResponsiveChoropleth, ResponsiveChoroplethCanvas  } from '@nivo/geo'
 import data from "./dataMap.js"
 import countries from "./world_countries.json";
-
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
 
 const MyResponsiveChoropleth = ({ data }) => (
     <ResponsiveChoroplethCanvas
@@ -54,7 +48,7 @@ const MyResponsiveChoropleth = ({ data }) => (
 
 function ChartMap() {
   return (
-    <div style={{ height: "400px" }}>
+    <div style={{ height: "400px", width: "750px" }}>
       <MyResponsiveChoropleth data={data} />
     </div>
   )
