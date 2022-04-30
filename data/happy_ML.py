@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import joblib
 
-LinModel = joblib.load('Linhappy82.pkl')
+LinModel = joblib.load('Linhappy99x7.pkl')
 
-df = pd.read_csv("happy6x.csv")
+df = pd.read_csv("happy99x7.csv")
 
 app = Flask(__name__)
 
@@ -37,8 +37,11 @@ def home():
     perceptions_num = params["perceptions"]
     perceptions = perceptions_num / 100
     
+    NorDystopia = params["NorDystopia"]
+
+    
     lin_country = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [lifeExpectancy] ,"SOCIAL_SUPPORT": [socialSupport] 
-              ,"GENEROSITY": [generosity], "FREEDOM": [freedom], "PERCEPTIONS_OF_CORRUPTION": [perceptions]}
+              ,"GENEROSITY": [generosity], "FREEDOM": [freedom], "PERCEPTIONS_OF_CORRUPTION": [perceptions], "NorDystopia" : [NorDystopia]}
     
     lin_country = pd.DataFrame(lin_country)
 
