@@ -10,7 +10,7 @@ export const graphRouter = Router();
 
 /**
  * @swagger
- * /graph/happiness:
+ * /graph/composed:
  *   get:
  *     tags: [Graph]
  *     description: 메인페이지 composed-chart plot 그래프 시각화
@@ -20,9 +20,86 @@ export const graphRouter = Router();
  *       '200':
  *         description: "메인페이지 composed-chart plot 그래프 시각화 완료"
  */
-graphRouter.get("/happiness/years", async function (req, res, next) {
+graphRouter.get("/composed", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000");
+    const response = await axios.get("http://localhost:5000/composed");
+    res.status(200).send(response.data);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
+ * /graph/treemap:
+ *   get:
+ *     tags: [Graph]
+ *     description: 메인페이지 treemap 시각화
+ *     produces:
+ *     - "application/json"
+ *     responses:
+ *       '200':
+ *         description: "메인페이지 treemap 시각화 완료"
+ */
+graphRouter.get("/treemap", async function (req, res, next) {
+  try {
+    const response = await axios.get("http://localhost:5000/tree");
+    res.status(200).send(response.data);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
+ * /graph/mapplot:
+ *   get:
+ *     tags: [Graph]
+ *     description: 메인페이지 map 시각화
+ *     produces:
+ *     - "application/json"
+ *     responses:
+ *       '200':
+ *         description: "메인페이지 map 시각화 완료"
+ */
+graphRouter.get("/mapplot", async function (req, res, next) {
+  try {
+    const response = await axios.get("http://localhost:5000/mapplot");
+    const list = response.data.map((d) => {
+      let newValue = {};
+      newValue["value"] = d["RANK"];
+      newValue["id"] = d["StNames"];
+
+      return newValue;
+    });
+    res.status(200).send(list);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
+ * /graph/bar/{continent}:
+ *   get:
+ *     tags: [Graph]
+ *     description: 대륙별 Top 10 시각화
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "continent"
+ *       in: "path"
+ *       required: true
+ *     responses:
+ *       '200':
+ *         description: "대륙별 Top 10 시각화 완료"
+ */
+graphRouter.get("/bar/:continent", async function (req, res, next) {
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/bar/",
+      req.params.continent
+    );
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -183,55 +260,6 @@ graphRouter.get("/mapplot", async function (req, res, next) {
   }
 });
 
-/**
- * @swagger
- * /graph/mapplot:
- *   get:
- *     tags: [Graph]
- *     description: 메인페이지 map 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "메인페이지 map 시각화 완료"
- */
-graphRouter.get("/mapplot", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/mapplot");
-    const list = response.data.map((d) => {
-      let newValue = {};
-      newValue["value"] = d["RANK"];
-      newValue["id"] = d["StNames"];
-
-      return newValue;
-    });
-    res.status(200).send(list);
-  } catch (error) {
-    next(error);
-  }
-});
-
-/**
- * @swagger
- * /graph/{continent}/bar:
- *   get:
- *     tags: [Graph]
- *     description: 대륙별 Top 10 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "대륙별 Top 10 시각화 완료"
- */
-graphRouter.get("/:continent/bar", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/:continent/bar");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // /**
 //  * @swagger
 //  * /graph/high/bar:
@@ -273,25 +301,3 @@ graphRouter.get("/:continent/bar", async function (req, res, next) {
 //     next(error);
 //   }
 // });
-
-//treemap
-/**
- * @swagger
- * /graph/treemap:
- *   get:
- *     tags: [Graph]
- *     description: treemap 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "treemap 시각화 완료"
- */
-graphRouter.get("/treemap", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/tree");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});

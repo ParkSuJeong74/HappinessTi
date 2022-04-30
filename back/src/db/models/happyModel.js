@@ -1,9 +1,10 @@
 import { Happiness } from "../schemas/happiness.js";
 
 export const happyModel = {
-  create: async ({ newUser }) => {
-    const createdNewUser = await Happiness.create(newUser);
-    return createdNewUser;
+  findByCountry: async ({ countryName }) => {
+    const country = await Happiness.find({ country: countryName });
+    console.log(country);
+    return country;
   },
   findAll: async ({}) => {
     const list = await Happiness.find({});

@@ -259,7 +259,3 @@ def composedBarchart():
   return jsonify(data)
 if __name__ == "__main__":
     cc.run(debug=True)
-    
-    
-
-    

@@ -3,14 +3,16 @@ const { Schema, model } = pkg;
 
 const SurveylogSchema = new Schema(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
     happinessId: {
-      type: Schema.Types.ObjectId,
-      ref: "Happiness",
+      type: String,
+      required: true,
     },
+    user: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timestamps: true,

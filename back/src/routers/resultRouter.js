@@ -47,12 +47,9 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
       "http://localhost:5000/predict",
       req.body
     );
+    console.log(response.data);
     const userId = req.currentUserId;
     const { data } = response;
-    console.log(data);
-    // mongodb 접근
-    // log 기록
-    // ranking counting
     await resultService.saveLog({ userId, data });
     await resultService.saveRanking({ userId, data });
     res.status(200).send(data);
