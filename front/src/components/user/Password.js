@@ -3,29 +3,54 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { withStyles } from "@material-ui/core/styles";
 
-import { Link } from 'react-router-dom'
-import styled from 'styled-components';
-import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
-import password from '../../srcAssets/style/Password.module.css';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import logoImg from "../../srcAssets/img/crashingdevlogo-removebg.png";
+import password from "../../srcAssets/style/Password.module.css";
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import * as Api from "../../api";
+
+const CssTextField = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: "pink",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "pink",
+    },
+    width: "300px",
+  },
+})(TextField);
 
 function Password() {
-  const CssTextField = withStyles({
-    root: {
-      "& label.Mui-focused": {
-        color: "pink",
-      },
-      "& .MuiInput-underline:after": {
-        borderBottomColor: "pink",
-      },
-      width: "300px",
-    },
-  })(TextField);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await Api.post("users/newpassword", {
+        email,
+      });
+      const user = res.data;
+
+      const jwtToken = user.token;
+      console.log(res.data);
+      sessionStorage.setItem("userToken", jwtToken);
+      navigate("/");
+    } catch (error) {
+      alert(error.response.data);
+    }
+  };
 
   return (
-    <PasswordBody>
+    <PasswordBody onSubmit={handleSubmit}>
       <PasswordBodyUpper>
         <Box>
-          <LogoImg src={logoImg} />
+          <LogoImg src={logoImg} onClick={() => navigate("/")} />
         </Box>
         <Box>
           <PasswordTitle>Forgot your password?</PasswordTitle>
@@ -46,48 +71,14 @@ function Password() {
           InputLabelProps={{
             style: { color: "#FFB7C0" },
           }}
-        />
-      </Box>
-      <Box class={password.inputNickname}>
-        <CssTextField
-          style={{ width: "30%" }}
-          id="standard-basic"
-          label="인증번호"
-          placeholder="인증번호를 입력해주세요"
-          variant="standard"
-          InputLabelProps={{
-            style: { color: "#FFB7C0" },
-          }}
-        />
-      </Box>
-      <Box class={password.inputPassword}>
-        <CssTextField
-          style={{ width: "30%" }}
-          id="standard-basic"
-          label="Password"
-          placeholder="Password"
-          variant="standard"
-          InputLabelProps={{
-            style: { color: "#FFB7C0" },
-          }}
-        />
-      </Box>
-      <Box class={password.inputPasswordconfirm}>
-        <CssTextField
-          style={{ width: "30%" }}
-          id="standard-basic"
-          label="Confirm Password"
-          placeholder="Confirm Password"
-          variant="standard"
-          InputLabelProps={{
-            style: { color: "#FFB7C0" },
-          }}
+          required
+          onChange={(e) => setEmail(e.target.value)}
         />
       </Box>
 
       <div class={password.signinButtonbox}>
-        <button type="button" class={password.signinButton}>
-          비밀번호 변경
+        <button type="submit" class={password.signinButton}>
+          비밀번호 재설정
         </button>
 
         <Box class={password.otherButtonbox}>
@@ -105,7 +96,7 @@ function Password() {
 
 export default Password;
 
-const PasswordBody = styled.div``;
+const PasswordBody = styled.form``;
 
 const PasswordBodyUpper = styled.div`
   display: flex;
