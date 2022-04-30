@@ -38,10 +38,8 @@ class CustomizedContent extends PureComponent {
   }
 }
 
-export default function Example({ active }) {
-    // static demoUrl = 'https://codesandbox.io/s/treemap-with-customized-content-7qxfp';
-  
-    /* render() { */
+export default function ChartTreemap({ active }) {
+
       return (
         <ResponsiveContainer width="100%" height="100%">
           <Treemap
@@ -57,30 +55,6 @@ export default function Example({ active }) {
           />
         </ResponsiveContainer>
       );
-    // }
-  }
 
-const MyTreeMap = ({ data }) => {
-    return (
-        
-        <Treemap
-            width={1000}
-            height={500}
-            data={data}
-            dataKey="size"
-            ratio={4 / 3}
-            stroke="#fff"
-            fill="#8884d8"
-            />
-    )
 }
 
-function ChartTreemap() {
-    return (
-      <div>
-        <MyTreeMap data={data} />
-      </div>
-    )
-  }
-  
-// export default ChartTreemap

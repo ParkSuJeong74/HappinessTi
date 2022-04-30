@@ -1,5 +1,5 @@
 import {  ResponsiveChoropleth, ResponsiveChoroplethCanvas  } from '@nivo/geo'
-import data from "./dataMap.js"
+import data from "./dataMap"
 import countries from "./world_countries.json";
 
 const MyResponsiveChoropleth = ({ data }) => (

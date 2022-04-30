@@ -46,7 +46,7 @@ const data = [
    
 ]
   
-function Chart({active}){
+function ChartComposed({active}){
     return (
       <ComposedChart width={730} height={250} data={data}>
         <XAxis dataKey="name" />
@@ -62,4 +62,4 @@ function Chart({active}){
     )
 }
 
-export default Chart
+export default ChartComposed
