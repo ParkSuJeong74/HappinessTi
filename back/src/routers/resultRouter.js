@@ -115,6 +115,10 @@ resultRouter.get(
  *     description: 설문조사 결과 페이지 시각화
  *     produces:
  *     - "application/json"
+ *     parameters:
+ *     - name: "country"
+ *       in: "path"
+ *       required: true
  *     security:
  *      - Authorization: []
  *     responses:
@@ -123,10 +127,10 @@ resultRouter.get(
  */
 resultRouter.get("/:country", login_required, async function (req, res, next) {
   try {
-    const response = await axios.post(
-      "http://localhost:5000/result/",
-      req.params
+    const response = await axios.get(
+      `http://localhost:5000/result/${req.params.country}`
     );
+    console.log(response.data);
     res.status(200).send(response.data);
   } catch (error) {
     next(error);

@@ -4,8 +4,8 @@ const { Schema, model } = pkg;
 const RankingSchema = new Schema(
   {
     happinessId: {
-      type: Schema.Types.ObjectId,
-      ref: "Happiness",
+      type: String,
+      required: true,
     },
     count: {
       type: Number,

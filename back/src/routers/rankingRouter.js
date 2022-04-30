@@ -9,11 +9,6 @@ import { rankingService } from "../services/rankingService.js";
 
 export const rankingRouter = Router();
 
-// rank logic
-// 설문조사 완료 -> 결과 출력하는 api 호출(ml, 시각화) -> 그 api에서 db에 log 저장
-// 웹소켓 : 실시간 update(testlog)
-// get으로 mainpage
-
 /**
  * @swagger
  * /rank:
@@ -28,7 +23,28 @@ export const rankingRouter = Router();
  */
 rankingRouter.get("/", async function (req, res, next) {
   try {
-    const ranking = await rankingService.getRanking({});
+    const ranking = await rankingService.getRanking();
+    res.status(200).send(ranking);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
+ * /rank/happiness:
+ *   get:
+ *     tags: [Rank]
+ *     description: 메인페이지 랭킹 조회(행복도 순위 버전)
+ *     produces:
+ *     - "application/json"
+ *     responses:
+ *       '200':
+ *         description: "메인페이지 랭킹 조회(행복도 순위 버전) 완료"
+ */
+rankingRouter.get("/happiness", async function (req, res, next) {
+  try {
+    const ranking = await rankingService.getHappinessRanking();
     res.status(200).send(ranking);
   } catch (error) {
     next(error);

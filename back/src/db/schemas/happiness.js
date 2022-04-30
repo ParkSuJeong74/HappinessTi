@@ -8,13 +8,11 @@ const HappinessSchema = new Schema(
       type: Number,
       required: true,
       unique: true,
-      index: true,
     },
     country: {
       type: String,
       required: true,
       unique: true,
-      index: true,
     },
     happinessScore: {
       type: Number,
@@ -51,6 +49,10 @@ const HappinessSchema = new Schema(
     continent: {
       type: String,
       required: true,
+    },
+    count: {
+      type: Number,
+      index: true,
     },
   },
   {

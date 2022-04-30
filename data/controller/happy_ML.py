@@ -69,6 +69,3 @@ def home():
     return jsonify({"probability" : probability, "country" : format(found_data[0]), "happy" : happy_type })
 
     #return render_template('after.html', probability_data= probability, country_data = format(found_data[0]),happy_data = happy_type )
-
-if __name__ == "__main__":
-    ml.run(debug=True)

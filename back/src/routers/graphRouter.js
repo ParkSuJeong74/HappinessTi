@@ -78,33 +78,32 @@ graphRouter.get("/mapplot", async function (req, res, next) {
   }
 });
 
-/**
- * @swagger
- * /graph/bar/{continent}:
- *   get:
- *     tags: [Graph]
- *     description: 대륙별 Top 10 시각화
- *     produces:
- *     - "application/json"
- *     parameters:
- *     - name: "continent"
- *       in: "path"
- *       required: true
- *     responses:
- *       '200':
- *         description: "대륙별 Top 10 시각화 완료"
- */
-graphRouter.get("/bar/:continent", async function (req, res, next) {
-  try {
-    const response = await axios.get(
-      "http://localhost:5000/bar/",
-      req.params.continent
-    );
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
+// /**
+//  * @swagger
+//  * /graph/bar/{continent}:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: 대륙별 Top 10 시각화
+//  *     produces:
+//  *     - "application/json"
+//  *     parameters:
+//  *     - name: "continent"
+//  *       in: "path"
+//  *       required: true
+//  *     responses:
+//  *       '200':
+//  *         description: "대륙별 Top 10 시각화 완료"
+//  */
+// graphRouter.get("/bar/:continent", async function (req, res, next) {
+//   try {
+//     const { continent } = req.params;
+//     console.log(continent);
+//     const response = await axios.get(`http://localhost:5000/bar/${continent}`);
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 // /**
 //  * @swagger
@@ -231,34 +230,6 @@ graphRouter.get("/bar/:continent", async function (req, res, next) {
 //     next(error);
 //   }
 // });
-
-/**
- * @swagger
- * /graph/mapplot:
- *   get:
- *     tags: [Graph]
- *     description: 메인페이지 map 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "메인페이지 map 시각화 완료"
- */
-graphRouter.get("/mapplot", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/mapplot");
-    const list = response.data.map((d) => {
-      let newValue = {};
-      newValue["value"] = d["RANK"];
-      newValue["id"] = d["StNames"];
-
-      return newValue;
-    });
-    res.status(200).send(list);
-  } catch (error) {
-    next(error);
-  }
-});
 
 // /**
 //  * @swagger
