@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv('./file/happy_data2.csv')
+df_merged = pd.read_csv('./file/df_merged.csv')
 app = Flask(__name__)
 
 ##----treemap.png------##
@@ -23,6 +24,7 @@ def treemap():
           result=eval(json.dumps(test))
           children.append(result)
     test2['children']=children
+    children=[]
     result2=eval(json.dumps(test2))
     tree_data.append(result2)
   return jsonify(tree_data)
@@ -128,7 +130,6 @@ contData = df.groupby("continent")
 # Average happinessScore per continent 🦨
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
-
 @app.route('/continent/bar',methods=['GET'])
 def continent_barplot():
   group_data=[]
@@ -141,34 +142,6 @@ def continent_barplot():
       group_data.append(result)
   return jsonify(group_data)
 
-# highest vs lowest.png #
-#highest
-@app.route('/high/bar',methods=['GET'])
-def high_barplot():
-  x = df.sort_values('happinessScore', ascending=True).tail(10)
-  high_data=[]
-  for i in range(0,len(x)):
-      test={
-        'happinessScore':x['happinessScore'][i],
-        'country':x['happinessScore'][i],
-      }
-      result=eval(json.dumps(test))
-      high_data.append(result)
-  return jsonify(high_data)
-
-#lowest
-@app.route('/low/bar',methods=['GET'])
-def low_barplot():
-  z = df.sort_values('happinessScore', ascending=False).tail(10)
-  low_data=[]
-  for i in range(0,len(z)):
-      test={
-        'happinessScore':z['happinessScore'].to_list()[i],
-        'country':z['happinessScore'].to_list()[i],
-      }
-      result=eval(json.dumps(test))
-      low_data.append(result)
-  return jsonify(low_data)
 
 #--------군집분석------#
 @app.route('/similar',methods=['GET'])
@@ -202,73 +175,91 @@ def similar():
 
 ##대륙별로 TOP10 내보내기##
 
-##-------Asia-top10.png----------##
-@app.route('/asia/bar',methods=['GET'])
-def asia_barplot():
-  asia_data=[]
-  for i in range(0,len(df[df['continent']=='AS'].nlargest(10,'happinessScore'))):
+@app.route('/bar/?continent',methods=['GET'])
+def barplot(continent):
+  continent_data=[]
+  for i in range(0,len(df[df['continent']==continent].nlargest(10,'happinessScore'))):
       test={
-        'country':df[df['continent']=='AS'].nlargest(10,'happinessScore')['country'].to_list()[i],
-        'happinessScore':df[df['continent']=='AS'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+        'country':df[df['continent']==continent].nlargest(10,'happinessScore')['country'].to_list()[i],
+        'happinessScore':df[df['continent']==continent].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
       }
       result=eval(json.dumps(test))
-      asia_data.append(result)
-  return jsonify(asia_data)
+      continent_data.append(result)
+  return jsonify(continent_data)
 
 
-#----Europe-top10.png---------##
-@app.route('/europe/bar',methods=['GET'])
-def europe_barplot():
-  europe_data=[]
-  for i in range(0,len(df[df['continent']=='EU'].nlargest(10,'happinessScore'))):
-      test={
-        'country':df[df['continent']=='EU'].nlargest(10,'happinessScore')['country'].to_list()[i],
-        'happinessScore':df[df['continent']=='EU'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+##------radar chart----------##
+@app.route('/result/?country',methods=['GET'])
+def radar(country):
+  dic=[]
+  test={}
+  for i in df['country'].unique():
+      data=[]
+      temp=df[df['country']==i]
+      test1={
+          'name':'gdp',
+          'uv':temp['gdp'].to_list()[0],
+          "fill": "#8884d8",
       }
-      result=eval(json.dumps(test))
-      europe_data.append(result)
-  return jsonify(europe_data)
-
-##-------Afica-top10---------##
-@app.route('/africa/bar',methods=['GET'])
-def africa_barplot():
-  africa_data=[]
-  for i in range(0,len(df[df['continent']=='AF'].nlargest(10,'happinessScore'))):
-      test={
-        'country':df[df['continent']=='AF'].nlargest(10,'happinessScore')['country'].to_list()[i],
-        'happinessScore':df[df['continent']=='AF'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+      test2={
+          'name':'dystopia',
+          'uv':temp['dystopia'].to_list()[0],
+          "fill":"#83a6ed",
       }
-      result=eval(json.dumps(test))
-      africa_data.append(result)
-  return jsonify(africa_data)
-
-##---------NorthAmerica-top10--------##
-@app.route('/north/bar',methods=['GET'])
-def north_barplot():
-  north_data=[]
-  for i in range(0,len(df[df['continent']=='NorthAmerica'].nlargest(10,'happinessScore'))):
-      test={
-        'country':df[df['continent']=='NorthAmerica'].nlargest(10,'happinessScore')['country'].to_list()[i],
-        'happinessScore':df[df['continent']=='NorthAmerica'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+      test3={
+          'name':'socialSupport',
+          'uv':temp['socialSupport'].to_list()[0],
+          "fill": "#8dd1e1",
       }
-      result=eval(json.dumps(test))
-      north_data.append(result)
-  return jsonify(north_data)
-
-
-##--------SouthAmerica-top10-------##
-@app.route('/south/bar',methods=['GET'])
-def south_barplot():
-  south_data=[]
-  for i in range(0,len(df[df['continent']=='SouthAmerica'].nlargest(10,'happinessScore'))):
-      test={
-        'country':df[df['continent']=='SouthAmerica'].nlargest(10,'happinessScore')['country'].to_list()[i],
-        'happinessScore':df[df['continent']=='SouthAmerica'].nlargest(10,'happinessScore')['happinessScore'].to_list()[i],
+      test4={
+          'name':'health',
+          'uv':temp['health'].to_list()[0],
+          "fill": "#82ca9d",
       }
-      result=eval(json.dumps(test))
-      south_data.append(result)
-  return jsonify(south_data)
-
+      test5={
+          'name':'freedom',
+          'uv':temp['freedom'].to_list()[0],
+          "fill": "#a4de6c",
+      }
+      test6={
+          'name':'generosity',
+          'uv':temp['generosity'].to_list()[0],
+          "fill": "#d0ed57",
+      }
+      test7={
+          'name':'corruptionPerceptions',
+          'uv':temp['corruptionPerceptions'].to_list()[0],
+          "fill": "#ffc658",
+      }
+      data.append(eval(json.dumps(test1)))
+      data.append(eval(json.dumps(test2)))
+      data.append(eval(json.dumps(test3)))
+      data.append(eval(json.dumps(test4)))
+      data.append(eval(json.dumps(test5)))
+      data.append(eval(json.dumps(test6)))
+      data.append(eval(json.dumps(test7)))
+      test[i]=data
+      dic.append(test2)
+  dic=eval(json.dumps(dic[0]))
+  return jsonify(dic.get(country))
+#----composed barchart----------#
+@app.route('/composed',methods=['GET'])
+def composedBarchart():
+  yearAvg=df_merged.groupby('Year')[['Happiness Score','Family (Social Support)','Economy (GDP per Capita)','Health (Life Expectancy)']].mean()
+  data=[]
+  for i in yearAvg.index:
+    test={
+        'year':i,
+        "happinessScore":list(yearAvg[yearAvg.index==i]['Happiness Score'].values)[0],
+        "socialSupport":list(yearAvg[yearAvg.index==i]['Family (Social Support)'].values)[0],
+        'gdp':list(yearAvg[yearAvg.index==i]['Economy (GDP per Capita)'].values)[0],
+        'health':list(yearAvg[yearAvg.index==i]['Health (Life Expectancy)'].values)[0],
+    }
+    data.append(eval(json.dumps(test)))
+  return jsonify(data)
 if __name__ == "__main__":
     app.run(debug=True)
+    
+    
+
     
