@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Blueprint
 import numpy as np
 import pandas as pd
 import joblib
@@ -6,13 +6,13 @@ import joblib
 model = joblib.load('./file/lgb1.pkl')
 df = pd.read_csv("./file/happy.csv")
 
-app = Flask(__name__)
+ml = Blueprint('ml',__name__)
 
-@app.route('/')
+@ml.route('/')
 def man():
     return render_template('home.html')
 
-@app.route('/predict', methods=['POST'])
+@ml.route('/predict', methods=['POST'])
 def home():
     params = request.get_json()
     
@@ -71,4 +71,4 @@ def home():
     #return render_template('after.html', probability_data= probability, country_data = format(found_data[0]),happy_data = happy_type )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    ml.run(debug=True)

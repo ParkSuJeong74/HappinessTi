@@ -1,14 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Blueprint
 import json
 import pandas as pd
 import numpy as np
 
 df = pd.read_csv('./file/happy_data2.csv')
 df_merged = pd.read_csv('./file/df_merged.csv')
-app = Flask(__name__)
+cc = Blueprint('cc',__name__)
 
 ##----treemap.png------##
-@app.route('/tree',methods=['GET'])
+@cc.route('/tree',methods=['GET'])
 def treemap():
   tree_data=[]
   children=[]
@@ -31,7 +31,7 @@ def treemap():
 
 #barplot10-1.png#
 #왼쪽부터 오른쪽 순서#
-@app.route('/gdp/bar',methods=['GET'])
+@cc.route('/gdp/bar',methods=['GET'])
 def gdp_barplot():
   gdp_data=[]
   for i in range(0,len(df.nlargest(10,'gdp'))):
@@ -43,7 +43,7 @@ def gdp_barplot():
       gdp_data.append(result)
   return jsonify(gdp_data)
 
-@app.route('/social/bar',methods=['GET'])
+@cc.route('/social/bar',methods=['GET'])
 def social_barplot():
   social_data=[]
   for i in range(0,len(df.nlargest(10,'socialSupport'))):
@@ -55,7 +55,7 @@ def social_barplot():
       social_data.append(result)
   return jsonify(social_data)
 
-@app.route('/health/bar',methods=['GET'])
+@cc.route('/health/bar',methods=['GET'])
 def health_barplot():
   health_data=[]
   for i in range(0,len(df.nlargest(10,'health'))):
@@ -67,7 +67,7 @@ def health_barplot():
       health_data.append(result)
   return jsonify(health_data)
 
-@app.route('/freedom/bar',methods=['GET'])
+@cc.route('/freedom/bar',methods=['GET'])
 def freedom_barplot():
   freedom_data=[]
   for i in range(0,len(df.nlargest(10,'freedom'))):
@@ -80,7 +80,7 @@ def freedom_barplot():
   return jsonify(freedom_data)
 
 ##barplot10-2.png##
-@app.route('/generosity/bar',methods=['GET'])
+@cc.route('/generosity/bar',methods=['GET'])
 def generosity_barplot():
   generosity_data=[]
   for i in range(0,len(df.nlargest(10,'generosity'))):
@@ -92,7 +92,7 @@ def generosity_barplot():
       generosity_data.append(result)
   return jsonify(generosity_data)
 
-@app.route('/corruption/bar',methods=['GET'])
+@cc.route('/corruption/bar',methods=['GET'])
 def corruption_barplot():
   corruptionPerceptions_data=[]
   for i in range(0,len(df.nlargest(10,'corruptionPerceptions'))):
@@ -106,7 +106,7 @@ def corruption_barplot():
 
 
 ##----맵차트 ------##
-@app.route('/mapplot',methods=['GET'])
+@cc.route('/mapplot',methods=['GET'])
 def mapplot():
   map_data=[]
   for i in range(0,len(df)):
@@ -130,7 +130,7 @@ contData = df.groupby("continent")
 # Average happinessScore per continent 🦨
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
-@app.route('/continent/bar',methods=['GET'])
+@cc.route('/continent/bar',methods=['GET'])
 def continent_barplot():
   group_data=[]
   for i in range(0,len(happAvg.index)):
@@ -144,7 +144,7 @@ def continent_barplot():
 
 
 #--------군집분석------#
-@app.route('/similar',methods=['GET'])
+@cc.route('/similar',methods=['GET'])
 def similar():
   dict={'1':['Israel', 'Costa Rica', 'Romania', 'Italy', 'Cyprus', 'Mexico', 'Greece',
   'Colombia', 'Peru', 'Ecuador', 'Georgia'],
@@ -175,7 +175,7 @@ def similar():
 
 ##대륙별로 TOP10 내보내기##
 
-@app.route('/bar/?continent',methods=['GET'])
+@cc.route('/bar/?continent',methods=['GET'])
 def barplot(continent):
   continent_data=[]
   for i in range(0,len(df[df['continent']==continent].nlargest(10,'happinessScore'))):
@@ -189,7 +189,7 @@ def barplot(continent):
 
 
 ##------radar chart----------##
-@app.route('/result/?country',methods=['GET'])
+@cc.route('/result/?country',methods=['GET'])
 def radar(country):
   dic=[]
   test={}
@@ -243,7 +243,7 @@ def radar(country):
   dic=eval(json.dumps(dic[0]))
   return jsonify(dic.get(country))
 #----composed barchart----------#
-@app.route('/composed',methods=['GET'])
+@cc.route('/composed',methods=['GET'])
 def composedBarchart():
   yearAvg=df_merged.groupby('Year')[['Happiness Score','Family (Social Support)','Economy (GDP per Capita)','Health (Life Expectancy)']].mean()
   data=[]
@@ -258,7 +258,7 @@ def composedBarchart():
     data.append(eval(json.dumps(test)))
   return jsonify(data)
 if __name__ == "__main__":
-    app.run(debug=True)
+    cc.run(debug=True)
     
     
 
