@@ -52,7 +52,7 @@ const HappinessSchema = new Schema(
     },
     count: {
       type: Number,
-      index: true,
+      required: true,
     },
   },
   {

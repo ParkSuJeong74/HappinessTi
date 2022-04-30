@@ -17,13 +17,12 @@ export const resultService = {
     }
   },
   saveRanking: async ({ userId, data }) => {
-    const country = await happyModel.findByCountry({
+    const country = await happyModel.findByName({
       countryName: data.myCountry,
     });
+    console.log(country)
 
-    const ranking = await resultModel.saveRanking({ data });
-    if (!ranking) {
-      throw "ranking 저장 못함";
-    }
+    const 
+    return country;
   },
 };
