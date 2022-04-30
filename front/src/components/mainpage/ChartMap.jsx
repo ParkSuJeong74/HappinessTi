@@ -1,5 +1,5 @@
 import { ResponsiveChoropleth } from '@nivo/geo'
-import data from "./data.js"
+import data from "./data/data2.js"
 import countries from "./world_countries.json";
 
 // make sure parent container have a defined height when using
