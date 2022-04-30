@@ -26,6 +26,7 @@ function UserManagement(){
                 //TODO: user 계정 삭제 api 호출하기!
                 await Api.delete("users", userState.user?.id)
                 alert("탈퇴완료")
+                sessionStorage.removeItem("userToken")
                 navigate('/')
             }
             
