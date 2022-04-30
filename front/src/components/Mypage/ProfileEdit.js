@@ -21,7 +21,7 @@ const CssTextField = withStyles({
 
 function ProfileEdit({setEditOpen, updateUser, user}){
   const userState = useContext(UserStateContext)
-  const loginUserId = userState.user?._id
+  const loginUserId = userState.user?._id ?? userState.user?.id
   const [nickname, setNickname] = useState(user?.nickname)
   const currentDescription = user?.description === "None" ? "설명이 아직 없습니다. 추가해 주세요." : user?.description
   const [description, setDescription] = useState(currentDescription)

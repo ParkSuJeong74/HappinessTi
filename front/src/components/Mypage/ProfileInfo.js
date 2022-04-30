@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import Userlog from './Userlog';
 import UserManagement from './UserManagement';
 
-function ProfileInfo({ deleteUser }){
+function ProfileInfo(){
     return (
         <>
             <InfoBox>
                 <Userlog />
-                <UserManagement deleteUser={deleteUser} />
+                <UserManagement />
             </InfoBox>
         </>
     )
