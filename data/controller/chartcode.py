@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, Blueprint
+from sklearn.preprocessing import MinMaxScaler
 import json
 import pandas as pd
 import numpy as np
@@ -6,7 +7,7 @@ import numpy as np
 df = pd.read_csv('./file/happy_data2.csv')
 df_merged = pd.read_csv('./file/df_merged.csv')
 cc = Blueprint('cc',__name__)
-
+scaler=MinMaxScaler()
 ##----treemap.png------##
 @cc.route('/tree',methods=['GET'])
 def treemap():
@@ -175,7 +176,7 @@ def similar():
 
 ##대륙별로 TOP10 내보내기##
 
-@cc.route('/bar/?continent',methods=['GET'])
+@cc.route('/bar/<continent>',methods=['GET'])
 def barplot(continent):
   continent_data=[]
   for i in range(0,len(df[df['continent']==continent].nlargest(10,'happinessScore'))):
@@ -189,7 +190,7 @@ def barplot(continent):
 
 
 ##------radar chart----------##
-@cc.route('/result/?country',methods=['GET'])
+@cc.route('/result/<country>',methods=['GET'])
 def radar(country):
   dic=[]
   test={}
@@ -239,13 +240,15 @@ def radar(country):
       data.append(eval(json.dumps(test6)))
       data.append(eval(json.dumps(test7)))
       test[i]=data
-      dic.append(test2)
-  dic=eval(json.dumps(dic[0]))
-  return jsonify(dic.get(country))
+      dic.append(test)
+  return jsonify(dic[0].get(country))
+
 #----composed barchart----------#
 @cc.route('/composed',methods=['GET'])
 def composedBarchart():
   yearAvg=df_merged.groupby('Year')[['Happiness Score','Family (Social Support)','Economy (GDP per Capita)','Health (Life Expectancy)']].mean()
+  #정규화하기
+  yearAvg.values
   data=[]
   for i in yearAvg.index:
     test={
