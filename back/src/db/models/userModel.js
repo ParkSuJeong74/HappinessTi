@@ -6,13 +6,29 @@ export const userModel = {
     return createdNewUser;
   },
 
+  isNicknameExist: async ({ nickname }) => {
+    const isNicknameExist = await User.findOne({ nickname });
+    if (isNicknameExist) {
+      return false;
+    }
+    return true;
+  },
+
+  isEmailExist: async ({ email }) => {
+    const isEmailExist = await User.findOne({ email });
+    if (isEmailExist) {
+      return false;
+    }
+    return true;
+  },
+
   findByEmail: async ({ email }) => {
     const user = await User.findOne({ email });
     return user;
   },
 
   findById: async ({ userId }) => {
-    const user = await User.findOne({ id: userId });
+    const user = await User.findOne({ _id: userId });
     return user;
   },
   findByNickname: async ({ nickname }) => {
@@ -26,7 +42,7 @@ export const userModel = {
   },
 
   update: async ({ userId, updateObject, newValue }) => {
-    const filter = { id: userId };
+    const filter = { _id: userId };
     const update = { $set: updateObject };
     const option = { returnOriginal: false };
 
@@ -35,7 +51,7 @@ export const userModel = {
   },
 
   delete: async ({ userId }) => {
-    const deleteUser = await User.deleteOne({ id: userId });
+    const deleteUser = await User.deleteOne({ _id: userId });
     const isDeleted = deleteUser.deletedCount === 1;
     return isDeleted; // True or False
   },

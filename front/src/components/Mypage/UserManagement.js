@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import * as Api from '../../api'
 import { useContext } from 'react';
-import { UserStateContext } from '../../App';
+import { DispatchContext, UserStateContext } from '../../App';
 
 function UserManagement(){
     const navigate = useNavigate()
     const userState = useContext(UserStateContext)
+    const dispatch = useContext(DispatchContext)
+
+    const loginUserId = userState.user?._id ?? userState.user?.id
 
     function withDrawlHandler(){
         Swal.fire({
@@ -24,8 +27,11 @@ function UserManagement(){
         }).then(async function(result) {
             if(result.isConfirmed){
                 //TODO: user 계정 삭제 api 호출하기!
-                await Api.delete("users", userState.user?.id)
+                await Api.delete("users", loginUserId)
                 alert("탈퇴완료")
+                dispatch({
+                    type: 'LOGOUT'      
+                })
                 sessionStorage.removeItem("userToken")
                 navigate('/')
             }

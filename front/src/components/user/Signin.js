@@ -7,10 +7,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
 import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
 import signin from '../../srcAssets/style/Signin.module.css';
+import Swal from 'sweetalert2'
 
-import { useContext, useState } from "react"
+import { useState } from "react"
 import * as Api from '../../api'
-import { DispatchContext } from "../../App";
 
 const CssTextField = withStyles({
     root: {
@@ -26,44 +26,39 @@ const CssTextField = withStyles({
 
 function Signin() {
     const navigate = useNavigate()
-   
-
-    const dispatch = useContext(DispatchContext);
     
     const [email, setEmail] = useState("")
     const [nickname, setNickname] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmpassword] = useState("")
 
+    function errorHandler(message){
+        Swal.fire({
+            title: '회원가입 오류',
+            text: message,
+            icon: 'warning',
+            showCloseButton: true,
+        })
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
-            //TODO: user 로그인 api 호출!
-            const res = await Api.post("users/register", {
+            //TODO: user 회원가입 api 호출
+            await Api.post("users/register", {
                 email,
-                nickname,
                 password,
+                nickname,
             })
-            const user = res.data
-
-            console.log(res)
-
-            const jwtToken = user.token
-            sessionStorage.setItem("userToken", jwtToken)
             alert("회원가입이 성공하였습니다!")
-            navigate('/')
+            navigate("/login")
 
-            dispatch({
-                type: "LOGIN_SUCCESS",
-                payload: user,
-            });
         } catch (error) {
-            alert(error.response.data)
+            errorHandler(error.response.data)
         }
     }
- 
+
     return(
 
         <SigninBody onSubmit={handleSubmit}>
@@ -80,10 +75,11 @@ function Signin() {
             <Box class={signin.inputEmail}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="email" 
                     label="Email" 
                     placeholder='Email'
                     variant="standard"
+                    required
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
@@ -94,10 +90,11 @@ function Signin() {
             <Box class={signin.inputNickname}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="nickname" 
                     label="Nickname" 
                     placeholder='Nickname'
                     variant="standard"
+                    required
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
@@ -108,11 +105,12 @@ function Signin() {
             <Box class={signin.inputPassword}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="password" 
                     label="Password"
                     type = "password"
                     placeholder='Password'
                     variant="standard"
+                    required
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
@@ -123,11 +121,12 @@ function Signin() {
             <Box class={signin.inputPasswordconfirm}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="standard-basic" 
+                    id="onfirmPassword" 
                     label="Confirm Password"
                     type = "Password"
                     placeholder='Confirm Password'
                     variant="standard"
+                    required
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
@@ -144,7 +143,6 @@ function Signin() {
                     <Link to="/password" class={signin.forgotpasswordButton}>Forgot password?</Link>
                 </Box>
             </div>
-
             
         </SigninBody>
     )
@@ -153,7 +151,6 @@ function Signin() {
 export default Signin;
 
 const SigninBody = styled.form`
-  
 `;
 
 const SigninBodyUpper = styled.div`

@@ -6,7 +6,6 @@ export class SetUtil {
       if (element[1] !== model[element[0]])
         updateObject[element[0]] = element[1];
     });
-
     return updateObject;
   }
 }
