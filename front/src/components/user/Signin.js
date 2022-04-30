@@ -58,7 +58,7 @@ function Signin() {
             errorHandler(error.response.data)
         }
     }
- 
+
     return(
 
         <SigninBody onSubmit={handleSubmit}>
@@ -143,7 +143,6 @@ function Signin() {
                     <Link to="/password" class={signin.forgotpasswordButton}>Forgot password?</Link>
                 </Box>
             </div>
-
             
         </SigninBody>
     )
