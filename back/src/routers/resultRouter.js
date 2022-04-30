@@ -49,10 +49,12 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
     );
     const userId = req.currentUserId;
     const { data } = response;
+    console.log(data);
     // mongodb 접근
     // log 기록
     // ranking counting
-    await resultService.save({ userId, data });
+    await resultService.saveLog({ userId, data });
+    await resultService.saveRanking({ userId, data });
     res.status(200).send(data);
   } catch (error) {
     next(error);
@@ -100,7 +102,7 @@ resultRouter.get(
         similarCounrtries = result;
         break;
       }
-      if (!similarCounrtries) throw "군집 없음";
+      // if (!similarCounrtries) throw "군집 없음";
       res.status(200).json({ similarCounrtries });
     } catch (error) {
       next(error);
@@ -118,25 +120,9 @@ resultRouter.get(
  *     - "application/json"
  *     security:
  *      - Authorization: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               myCountry:
- *                 type: string
- *               kw:
- *                 type: number
- *               lifeExpectancy:
- *                 type: number
- *               social:
- *                 type: number
- *               generosity:
- *                 type: number
  *     responses:
  *       '200':
- *         description: "머신러닝 행복도 예측 완료"
+ *         description: "설문조사 결과 페이지 완료"
  */
 resultRouter.get("/:country", login_required, async function (req, res, next) {
   try {

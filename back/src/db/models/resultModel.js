@@ -3,11 +3,11 @@ import { Ranking } from "../schemas/ranking.js";
 
 export const resultModel = {
   saveSurvey: async ({ data }) => {
-    const user = await Surveylog.create({ userId });
+    const user = await Surveylog.create({ data });
     return user;
   },
   saveRanking: async ({ data }) => {
-    const user = await Ranking.findOne({ userId });
+    const user = await Ranking.findOne({ data });
     return user;
   },
 };
