@@ -1,0 +1,43 @@
+.resultTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.resultBox {
+    margin-top: 5vh;
+    padding: 50px 0 50px 0;
+    border: 2px solid #FC8694;
+    
+}
+
+.resultBoxtop {
+    display: flex;
+    margin: 20px 120px;
+    font-size: x-large;
+}
+.resultResultType {
+    font-size: xx-large;
+}
+
+.resultUsername {
+    color: #FC8694;
+}
+
+.resultFlag {
+    display: flex;
+    align-items: center;
+    flex: 0.7fr 1fr;
+}
+
+.resultTi,
+.resultType,
+.resultCountry {
+    color: #FC8694;
+}
+
+.resultInfo1,
+.resultInfo2 {
+    align-items: center;
+}
