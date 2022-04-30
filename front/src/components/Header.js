@@ -10,7 +10,6 @@ function Header() {
   const dispatch = useContext(DispatchContext)
   const userState = useContext(UserStateContext)
 
-  // const isLoggedin = sessionStorage.getItem("userToken")
   const isLoggedin = userState.user
 
   const navigate = useNavigate()

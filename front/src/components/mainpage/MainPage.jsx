@@ -1,6 +1,5 @@
-import styled from 'styled-components'
-import bgImg from '../../srcAssets/img/main-Img.png'
-import mainpage from '../../srcAssets/style/Mainpage.module.css'
+
+import style from '../../srcAssets/style/Mainpage.module.css'
 import Typed from 'typed.js'
 import { useEffect, useRef, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -57,24 +56,24 @@ function MainPage() {
     <div ref={sectionRef}>
       {/* <MainVideo & greeting /> */}
       <section>
-        <video autoPlay loop muted className={mainpage.bgVideo}>
+        <video autoPlay loop muted className={style.bgVideo}>
           <source src={`https://storage.googleapis.com/crashingdevstorage14/video/titlevideo.mp4`} type="video/mp4" />
         </video>
 
-        <div className={mainpage.greetingContainer}>
-          <span className={mainpage.greetingWord1}>Are you </span>
-          <p className = {mainpage.greetingWord2} ref={el}></p>
+        <div className={style.greetingContainer}>
+          <span className={style.greetingWord1}>Are you </span>
+          <p className = {style.greetingWord2} ref={el}></p>
         </div>
 
-        <div className={mainpage.decoration}></div>
+        <div className={style.decoration}></div>
 
-        <div className={mainpage.mainText}>
+        <div className={style.mainText}>
           <h1>매일 행복하진 않지만, 행복한 일은 매일 있어요 :)</h1>
         </div>
 
         <div style={{fontSize: '110px'}}>
-          <KeyboardArrowDownIcon fontSize="inherit" className={mainpage.scrollIcon1}/>
-          <KeyboardArrowDownIcon fontSize="inherit" className={mainpage.scrollIcon2}/>
+          <KeyboardArrowDownIcon fontSize="inherit" className={style.scrollIcon1}/>
+          <KeyboardArrowDownIcon fontSize="inherit" className={style.scrollIcon2}/>
         </div>
       </section>
 

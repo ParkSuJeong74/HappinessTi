@@ -170,9 +170,6 @@
 .active{
     animation: changeMovement 1s ease-in-out;
     /* chart2 css 속성 */
-    width: 750px;
-    height: 25em;
-    border: 1px solid lightgray;
-    background-color: rgba(36, 34, 34, 0.045);
+    
 }
 

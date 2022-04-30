@@ -5,14 +5,13 @@ import FileCopyIcon from "@mui/icons-material/FileCopyOutlined"
 function GoAllData() {
     const navigate = useNavigate()
     const actions = [
-      {
-        icon: <FileCopyIcon onClick={() => navigate("/")} />,
-        name: "Data list 보러가기",
-      },
+        {
+            icon: <FileCopyIcon onClick={() => navigate("/")} />,
+            name: "Data list 보러가기",
+        },
     ]
 
     return (
-    <>
         <Box sx={{ height: 100, transform: "translateZ(0px)", flexGrow: 1 }}>
             <SpeedDial
                 ariaLabel="SpeedDial basic example"
@@ -28,8 +27,7 @@ function GoAllData() {
                 ))}
             </SpeedDial>
         </Box>
-    </>
     )
-  }
+}
 
-  export default GoAllData
+export default GoAllData
