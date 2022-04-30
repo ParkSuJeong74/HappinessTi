@@ -30,13 +30,13 @@ console.log(currentNum)
             placeholder={quest[currentNum]?.value}
             onChange={(e) => {
                 setQuest((prev) => {
-                    console.log("현재 id", quest[currentNum].id)
+                    console.log("현재 문항번호!", currentNum)
                     console.log("바꾸고 있는 값", e.target.value)
 
-                    return prev.map((el) => el.id === quest[currentNum]?.id 
+                    return prev.map((el) => el.id === currentNum 
                     ? {
                         ...el,
-                        id: quest[currentNum]?.id, quiz: quest[currentNum]?.quiz,
+                        id: currentNum, quiz: quest[currentNum]?.quiz,
                         value: e.target.value
                     } 
                     : el)                   

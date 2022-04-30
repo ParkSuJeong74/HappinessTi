@@ -1,9 +1,15 @@
+.toggleButtons {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
 .guide{
     display: flex;
     flex-direction: column;
     align-items: center; 
     justify-content: center;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .guide input{
@@ -13,6 +19,7 @@
 
 .guide input::before {
     content: '결과 페이지 이동!';
+    margin-top: 10px;
     font-size: 40px;
     width: 800px;
     transform: translateX(-400px);
@@ -22,7 +29,7 @@
     justify-content: center;
     border-radius: 40px;
     cursor: pointer;
-    background: #F4C3CD;
+    background: #dbcaf9;
     box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
                 inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
                 -0.5px 0.5px 0px rgba(0,0,0, 0.15),
@@ -34,6 +41,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-bottom: 40px;
 }
 
 .questionHeaderImg{
@@ -46,13 +54,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
 }
 
 .quiz {
     margin-bottom: 20px;
     font-size: 23px;
     font-weight: bold;
+}
+
+.highlight {
+    background: linear-gradient(to top, #9f53e63d 30%, transparent 40%);
+    border-bottom: 4px solid #9f53e63d;
 }
 
 .situation {

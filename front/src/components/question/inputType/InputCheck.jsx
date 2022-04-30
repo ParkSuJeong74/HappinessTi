@@ -2,22 +2,23 @@ import situation from './situation'
 import choice from './choice5'
 import style from '../../../srcAssets/style/Question.module.css'
 import CheckIcon from '@mui/icons-material/Check';
-import { useRecoilState } from 'recoil';
-import {questState } from '../../../atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {questState, currentNumState } from '../../../atom';
 
 
 function InputCheck({ currentQuest }) {
     const [quest, setQuest] = useRecoilState(questState);
+    const currentNum = useRecoilValue(currentNumState);
 
     const ChoosedAnsToQuest = (e) => {
 
         setQuest((prev) => {
             console.log("현재 id", currentQuest.id)
             console.log("바꾸고 있는 값", e.target.value)
-            return prev.map((el) => el.id === currentQuest.id ?
+            return prev.map((el) => el.id === currentNum ?
             {
                 ...el,
-                id: currentQuest.id, quiz: currentQuest.quiz,
+                id: currentNum, quiz: currentQuest.quiz,
                 value: e.target.value
             } : el)                   
         })
@@ -25,12 +26,14 @@ function InputCheck({ currentQuest }) {
     console.log(quest)
 
     //현재 문항에 대한 situation을 가져옴
-    const currentSituation = situation.find((item) => item.num === currentQuest?.id)
+    const currentSituation = situation.find((item) => item.num === currentNum)
 
     return (
     <>
+        {/* 현재 문항에 대한 상황을 가져옴 */}
         <h1 className={style.situation}>{currentSituation?.content}</h1>
 
+        {/* 5지 선다로 선택할 수 있는 라디오 버튼! */}
         <div className={style.radioButtons}>
         
             <label className={style.customRadio}>
