@@ -29,7 +29,7 @@ function Header() {
   }
 
   return (
-    <>
+
     <HeaderNavBar>
       <Link to="/" className={Style.headerTitle}>
         <HeaderLogo>
@@ -57,7 +57,7 @@ function Header() {
         
       </div>
     </HeaderNavBar>
-    </>
+
   )
 
 }
