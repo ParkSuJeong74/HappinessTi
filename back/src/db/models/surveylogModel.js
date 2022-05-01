@@ -6,7 +6,7 @@ export const surveylogModel = {
     return user;
   },
   addLog: async ({ log }) => {
-    const newLog = await Surveylog.create({ log });
+    const newLog = await Surveylog.create(log);
     return newLog;
   },
 };

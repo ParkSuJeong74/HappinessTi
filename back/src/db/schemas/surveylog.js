@@ -3,12 +3,10 @@ const { Schema, model } = pkg;
 
 const SurveylogSchema = new Schema(
   {
-    userId: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    userId: {
+      type: String,
+      required: true,
+    },
     happyType: {
       type: String,
       required: true,

@@ -8,14 +8,17 @@ export const resultService = {
       myCountry: data.myCountry,
       reCountry: data.reCountry,
     };
-    console.log("data", log);
-    const newLog = surveylogModel.addLog({ log });
-    console.log(newLog);
+
+    surveylogModel.addLog({ log });
   },
   saveCounting: async ({ data }) => {
+    console.log(data.reCountry);
     const country = await happyModel.findByName({
-      countryName: data.myCountry,
+      countryName: data.reCountry,
     });
+    if (!country) {
+      throw "찾을 수 없는 나라입니다.";
+    }
     const counting = { count: country.count + 1 };
     const happinessId = country._id;
     await happyModel.update({ happinessId, counting });
