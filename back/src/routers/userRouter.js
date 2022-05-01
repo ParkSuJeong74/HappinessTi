@@ -133,6 +133,48 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
   }
 });
 
+userAuthRouter.post("/newpassword", async function (req, res, next) {
+  try {
+    //form에서 받아온 이메일 저장
+    const { email } = req.body;
+
+    //1)받아온 이메일이 db에 존재하는지 확인하고 2)새 비밀번호를 업데이트할 함수
+    const { newPassword, updatedUser } = await userAuthService.setNewPassword({
+      email,
+    });
+
+    if (updatedUser.errorMessage) {
+      throw new Error(updatedUser.errorMessage);
+    }
+
+    //메일옵션 => 아래 내용이 수신됨ss
+    const mailOption = {
+      from: "eliceTest@gmail.com",
+      to: email,
+      subject: `[개발뽀개기]  임시 비밀번호가 생성되었습니다.`,
+      html: `
+      <h1>임시비밀번호</h1>
+      임시 비밀번호 : ${newPassword}
+      `,
+    };
+
+    smtpTransport.sendMail(mailOption, (err, res) => {
+      if (err) {
+        console.log("err", err);
+      } else {
+        console.log("Message send :" + res);
+      }
+      smtpTransport.close();
+    });
+
+    res.status(200).send({
+      result: "ok",
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 /**
  * @swagger
  * /users/{id}/profile/image:

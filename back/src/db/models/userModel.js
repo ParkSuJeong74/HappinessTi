@@ -16,7 +16,11 @@ export const userModel = {
 
   isEmailExist: async ({ email }) => {
     const isEmailExist = await User.findOne({ email });
+<<<<<<< HEAD
     if (isEmailExist) {
+=======
+    if (!isEmailExist) {
+>>>>>>> 2821440775187ce30ff40e13fc4908eca7fe0143
       return false;
     }
     return true;
@@ -42,7 +46,6 @@ export const userModel = {
   },
 
   update: async ({ userId, data }) => {
-    // const filter = { _id: userId };
     const update = { $set: data };
     const option = { returnOriginal: false };
     console.log("update", update);
@@ -56,4 +59,37 @@ export const userModel = {
     const isDeleted = deleteUser.deletedCount === 1;
     return isDeleted; // True or False
   },
+  updatePassword:  async ({email, fieldToUpdate, hashedNewPassword}) => {
+    const filter = { email };
+    const update = { [fieldToUpdate]: hashedNewPassword };
+    const option = { returnOriginal: false };
+    const updatedPasswordUser = await User.findOneAndUpdate( filter, update, option );
+    return updatedPasswordUser
+  },
+
+   /*
+  * findPasswordById()
+  * 해당 user_id에 맞는 객체를 찾고 암호화 처리된 패스워드를 넘겨준다.
+  */
+  findPasswordById: async ({ user_id }) => {
+    const user = await User.findOne({ id: user_id });
+    return user.password;
+  },
+
+  /*
+  * createRandomPassword()
+  * 임의 비밀번호 생성 함수
+  */
+  createRandomPassword: async() => {
+    const randStr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+      'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+      '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+    let randomPassword = "";
+    for (var j = 0; j < 5; j++){
+      randomPassword += randStr[Math.floor(Math.random() * randStr.length)];
+    }
+    return randomPassword;
+  }
+
 };
+

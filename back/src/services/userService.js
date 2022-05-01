@@ -163,6 +163,9 @@ export const userAuthService = {
   deleteById: async ({ userId }) => {
     const user = await userModel.findById({ userId });
     const isDeleted = await userModel.delete({ userId });
+    const user = await userModel.findById({ userId });
+
+    let error = new Error("삭제가 되지 않았습니다.");
 
     let error = new Error("삭제가 되지 않았습니다.");
 
@@ -173,6 +176,9 @@ export const userAuthService = {
     if (user.profileImgUrl !== "crashingdevlogo.png") {
       gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
     }
+
+    gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
+
     return { status: "Ok" };
   },
 
@@ -187,5 +193,32 @@ export const userAuthService = {
     }
 
     return user;
+  },
+
+  setNewPassword: async ({ email }) => {
+    //email로 유저 찾고
+    let user = await userModel.findByEmail({ email });
+    let error = new Error(
+      "잘못된 이메일입니다. 메일을 다시 확인하시기 바랍니다."
+    );
+    console.log("user", user);
+    //email 정보와 매칭되는 유저가 없으면 에러메세지 리턴
+    if (!user) {
+      throw error;
+    }
+
+    const newPassword = await userModel.createRandomPassword();
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    //업데이트할 field를 password로 설정
+    const fieldToUpdate = "hashedPassword";
+    //updatedUser에 password를 업데이트한 user정보 저장
+    const updatedUser = await userModel.updatePassword({
+      email,
+      fieldToUpdate,
+      hashedNewPassword,
+    });
+
+    return { newPassword, updatedUser };
   },
 };
