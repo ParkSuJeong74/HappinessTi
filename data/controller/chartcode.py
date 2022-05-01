@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, Blueprint
+from sklearn.preprocessing import MinMaxScaler
 import json
 import pandas as pd
 import numpy as np
@@ -6,7 +7,7 @@ import numpy as np
 df = pd.read_csv('./file/happy_data2.csv')
 df_merged = pd.read_csv('./file/df_merged.csv')
 cc = Blueprint('cc',__name__)
-
+scaler=MinMaxScaler()
 ##----treemap.png------##
 @cc.route('/tree',methods=['GET'])
 def treemap():
@@ -146,36 +147,37 @@ def continent_barplot():
 #--------군집분석------#
 @cc.route('/similar',methods=['GET'])
 def similar():
-  dict={'1':['Israel', 'Costa Rica', 'Romania', 'Italy', 'Cyprus', 'Mexico', 'Greece',
-  'Colombia', 'Peru', 'Ecuador', 'Georgia'],
-        '2':['Luxembourg' ,'Ireland', 'United Arab Emirates', 'South Korea' ,'Hong Kong',
-  'Morocco', 'Venezuela'],
-        '3':['Singapore', 'Russian Federation' ,'Sri Lanka', 'Ethiopia'],
-        '4':['Iceland' ,'United States' ,'Czechia' ,'Belgium', 'Slovenia', 'Saudi Arabia',
-  'Taiwan', 'Uruguay', 'Slovakia', 'Panama', 'Kazakhstan', 'Serbia', 'Chile',
-  'Argentina', 'Mongolia', 'Dominican Republic', 'North Macedonia'],
-        '5':['Guatemala', 'Honduras', 'Tajikistan', 'Gambia', 'Iran', 'Kenya'],
-        '6':['India'],
-        '7':['Ukraine', 'Congo'],
-        '8':['Thailand', 'Paraguay', 'Bulgaria', 'Laos'],
-        '9':['France', 'Spain', 'Malta', 'Poland', 'Kuwait', 'Hungary', 'Japan' ,'Portugal',
-  'Malaysia', 'China', 'Nepal', 'Indonesia'],
-        '10':['Yemen'],
-        '11':['Brazil', 'Philippines', 'Jamaica', 'Bolivia', 'Uganda' ,'Nigeria'],
-        '12':['Pakistan', 'Jordan'],
-        '13':['Finland', 'Denmark', 'Switzerland', 'Netherlands', 'Sweden', 'Norway',
-  'New Zealand', 'Austria', 'Australia', 'Germany', 'Canada', 'United Kingdom'],
-        '14':['South Africa', 'Myanmar'],
-        '15':['Cambodia' ,'Egypt'],
-        '16':['Ghana'],
-        '17':['Iraq'] ,
+  dict={'1':['Uzbekistan' 'Vietnam' 'Tajikistan' 'Laos' 'Cambodia' 'Ethiopia'],
+        '2':['Iceland' 'United States' 'Czechia' 'Belgium' 'Slovenia' 'Saudi Arabia'
+ 'Taiwan' 'Uruguay' 'Slovakia' 'Panama' 'Kazakhstan' 'Serbia' 'Chile'
+ 'Argentina' 'Mongolia' 'Dominican Republic' 'South Africa'],
+        '3':['Israel' 'Costa Rica' 'Romania' 'Italy' 'Cyprus' 'Mexico' 'Greece'
+ 'Colombia' 'Peru' 'Ecuador' 'Iraq'],
+        '4':['France' 'Spain' 'Malta' 'Poland' 'Kuwait' 'Hungary' 'Japan' 'Portugal'
+ 'Malaysia' 'China' 'Russian Federation' 'Bulgaria' 'North Macedonia'],
+        '5':['Singapore' 'Hong Kong' 'Egypt' 'Jordan'],
+        '6':['Gambia' 'Madagascar'],
+        '7':['Guatemala' 'Honduras' 'Nepal' 'Bangladesh' 'Ghana' 'Pakistan'],
+        '8':['Luxembourg' 'Ireland' 'United Arab Emirates' 'South Korea' 'Armenia'
+ 'Georgia' 'Iran'],
+        '9':['Congo' 'Morocco'],
+        '10':['Uganda' 'Yemen'],
+        '11':['Myanmar' 'Tanzania'],
+        '12':['Venezuela'],
+        '13':['India'],
+        '14':['Brazil' 'Philippines' 'Jamaica' 'Bolivia' 'Nigeria' 'Kenya'],
+        '15':['Turkey'],
+        '16':['Thailand' 'Paraguay' 'Indonesia' 'Ukraine'],
+        '17':['Finland' 'Denmark' 'Switzerland' 'Netherlands' 'Sweden' 'Norway'
+ 'New Zealand' 'Austria' 'Australia' 'Germany' 'Canada' 'United Kingdom'] ,
+        '18':['Sri Lanka' 'Zimbabwe']
   }
   return(dict)
 #매개변수로 :country가 들어오면 그 country가 속한 그룹의 나라들을 모두 출력해주는 로직
 
 ##대륙별로 TOP10 내보내기##
 
-@cc.route('/bar/?continent',methods=['GET'])
+@cc.route('/bar/<continent>',methods=['GET'])
 def barplot(continent):
   continent_data=[]
   for i in range(0,len(df[df['continent']==continent].nlargest(10,'happinessScore'))):
@@ -189,7 +191,7 @@ def barplot(continent):
 
 
 ##------radar chart----------##
-@cc.route('/result/?country',methods=['GET'])
+@cc.route('/result/<country>',methods=['GET'])
 def radar(country):
   dic=[]
   test={}
@@ -239,13 +241,16 @@ def radar(country):
       data.append(eval(json.dumps(test6)))
       data.append(eval(json.dumps(test7)))
       test[i]=data
-      dic.append(test2)
-  dic=eval(json.dumps(dic[0]))
-  return jsonify(dic.get(country))
+      dic.append(test)
+  dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=True)
+  return jsonify(dic[0].get(country))
+
 #----composed barchart----------#
 @cc.route('/composed',methods=['GET'])
 def composedBarchart():
   yearAvg=df_merged.groupby('Year')[['Happiness Score','Family (Social Support)','Economy (GDP per Capita)','Health (Life Expectancy)']].mean()
+  #정규화하기
+  yearAvg.values
   data=[]
   for i in yearAvg.index:
     test={
