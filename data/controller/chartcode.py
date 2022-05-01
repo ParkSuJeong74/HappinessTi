@@ -147,30 +147,32 @@ def continent_barplot():
 #--------군집분석------#
 @cc.route('/similar',methods=['GET'])
 def similar():
-  dict={'1':['Uzbekistan' 'Vietnam' 'Tajikistan' 'Laos' 'Cambodia' 'Ethiopia'],
-        '2':['Iceland' 'United States' 'Czechia' 'Belgium' 'Slovenia' 'Saudi Arabia'
- 'Taiwan' 'Uruguay' 'Slovakia' 'Panama' 'Kazakhstan' 'Serbia' 'Chile'
- 'Argentina' 'Mongolia' 'Dominican Republic' 'South Africa'],
-        '3':['Israel' 'Costa Rica' 'Romania' 'Italy' 'Cyprus' 'Mexico' 'Greece'
- 'Colombia' 'Peru' 'Ecuador' 'Iraq'],
-        '4':['France' 'Spain' 'Malta' 'Poland' 'Kuwait' 'Hungary' 'Japan' 'Portugal'
- 'Malaysia' 'China' 'Russian Federation' 'Bulgaria' 'North Macedonia'],
-        '5':['Singapore' 'Hong Kong' 'Egypt' 'Jordan'],
-        '6':['Gambia' 'Madagascar'],
-        '7':['Guatemala' 'Honduras' 'Nepal' 'Bangladesh' 'Ghana' 'Pakistan'],
-        '8':['Luxembourg' 'Ireland' 'United Arab Emirates' 'South Korea' 'Armenia'
- 'Georgia' 'Iran'],
-        '9':['Congo' 'Morocco'],
-        '10':['Uganda' 'Yemen'],
-        '11':['Myanmar' 'Tanzania'],
-        '12':['Venezuela'],
-        '13':['India'],
-        '14':['Brazil' 'Philippines' 'Jamaica' 'Bolivia' 'Nigeria' 'Kenya'],
-        '15':['Turkey'],
-        '16':['Thailand' 'Paraguay' 'Indonesia' 'Ukraine'],
-        '17':['Finland' 'Denmark' 'Switzerland' 'Netherlands' 'Sweden' 'Norway'
- 'New Zealand' 'Austria' 'Australia' 'Germany' 'Canada' 'United Kingdom'] ,
-        '18':['Sri Lanka' 'Zimbabwe']
+  dict={'1':['India', 'Tanzania', 'Zimbabwe'],
+        '2':['Finland', 'Denmark', 'Iceland', 'Switzerland', 'Netherlands', 'Luxembourg',
+ 'Sweden', 'Norway', 'Israel'],
+        '3':['Cambodia', 'Uganda', 'Nigeria', 'Kenya', 'Pakistan', 'Madagascar', 'Ethiopia',
+ 'Yemen'],
+        '4':['Thailand', 'Malaysia', 'China', 'Paraguay', 'Peru', 'Ecuador', 'Vietnam',
+ 'Armenia'],
+        '5':['Costa Rica', 'Romania', 'Italy', 'Slovakia', 'Panama', 'Brazil' ,'Cyprus',
+ 'Serbia', 'Chile', 'Mexico', 'Greece'],
+        '6':['New Zealand', 'Austria', 'Australia', 'Ireland', 'Germany', 'Canada',
+ 'United States', 'United Kingdom', 'Czechia' ,'Belgium'],
+        '7':['Georgia', 'Iran' ,'Turkey'],
+        '8':['Uzbekistan', 'Argentina', 'Philippines', 'Jamaica', 'Colombia', 'Mongolia',
+ 'Dominican Republic', 'Bolivia'],
+        '9':['Russian Federation', 'Bulgaria', 'Indonesia', 'North Macedonia',
+ 'South Africa', 'Ukraine'],
+        '10':['Venezuela'],
+        '11':['Myanmar', 'Sri Lanka', 'Egypt', 'Jordan'],
+        '12':['Tajikistan', 'Nepal', 'Bangladesh', 'Laos', 'Iraq', 'Ghana'],
+        '13':['France', 'Slovenia', 'United Arab Emirates', 'Saudi Arabia', 'Taiwan',
+ 'Spain', 'Uruguay' ,'Malta'],
+        '14':['Guatemala' ,'Honduras'],
+        '15':['Gambia', 'Congo', 'Morocco'],
+        '16':['Kazakhstan', 'Poland', 'Kuwait' ,'Hungary', 'Japan', 'Portugal', 'South Korea'],
+        '17':['Singapore'],
+        '18':['Hong Kong'],
   }
   return(dict)
 #매개변수로 :country가 들어오면 그 country가 속한 그룹의 나라들을 모두 출력해주는 로직
