@@ -37,6 +37,12 @@ export const resultRouter = Router();
  *                 type: number
  *               generosity:
  *                 type: number
+ *               freedom:
+ *                 type: number
+ *               perceptions:
+ *                 type: number
+ *               NorDystopia:
+ *                 type: number
  *     responses:
  *       '200':
  *         description: "머신러닝 행복도 예측 완료"
@@ -49,7 +55,6 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
     );
     const userId = req.currentUserId;
     const { data } = response;
-    console.log(data);
     await resultService.saveCounting({ data }); // count
     await resultService.saveLog({ userId, data }); // log 저장
     res.status(200).send(data);

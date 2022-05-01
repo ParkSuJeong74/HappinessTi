@@ -155,11 +155,6 @@ export const userAuthService = {
     if (findByNicknameUser && findByNicknameUser.id !== userId) {
       throw error;
     }
-
-    // const updateObject = SetUtil.compareValues(toUpdate, user);c
-    console.log(toUpdate);
-
-    // const data = { nickname: "bar", description: "foo" };
     user = await userModel.update({ userId, data: toUpdate });
 
     return user;

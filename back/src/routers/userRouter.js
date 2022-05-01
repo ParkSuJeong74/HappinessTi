@@ -265,15 +265,7 @@ userAuthRouter.get("/:id", login_required, async function (req, res, next) {
 userAuthRouter.put("/", login_required, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
-    // let error = new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
-    // error.status = 401;
-    // if (userId != req.currentUserId) {
-    //   throw error;
-    // }
-    // const userId = ;
     const toUpdate = req.body;
-    // const toUpdate = { nickname, description };
-
     const updatedUser = await userAuthService.setUser({ userId, toUpdate });
 
     res.status(200).json(updatedUser);
@@ -281,6 +273,48 @@ userAuthRouter.put("/", login_required, async function (req, res, next) {
     next(error);
   }
 });
+
+/**
+ * @swagger
+ * path:
+ * /users/password:
+ *   put:
+ *     tags: [User]
+ *     description: 해당 id의 유저 비밀번호 수정
+ *     produces:
+ *     - "application/json"
+ *     security:
+ *      - Authorization: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 비밀번호 수정 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
+userAuthRouter.put(
+  "/password",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const userId = req.currentUserId;
+      const { password } = req.body;
+      const toUpdate = { password };
+      const updatedUser = await userAuthService.setUser({ userId, toUpdate });
+
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 /**
  * @swagger

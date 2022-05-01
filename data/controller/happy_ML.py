@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import joblib
 
-LinModel = joblib.load('Linhappy99x7.pkl')
+LinModel = joblib.load('./file/Linhappy99x7.pkl')
 
-df = pd.read_csv("happy99x7.csv")
+df = pd.read_csv("./file/happy99x7.csv")
 
 ml = Blueprint('ml',__name__)
 
@@ -17,6 +17,8 @@ def man():
 def home():
     params = request.get_json()
     
+    myCountry = params["myCountry"]
+
     kw = params["kw"]
     gdp = kw * 8
     
@@ -37,7 +39,7 @@ def home():
     NorDystopia = params["NorDystopia"]
 
     
-    lin_country = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [lifeExpectancy] ,"SOCIAL_SUPPORT": [socialSupport] 
+    lin_country = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [life_expectancy] ,"SOCIAL_SUPPORT": [social_support] 
               ,"GENEROSITY": [generosity], "FREEDOM": [freedom], "PERCEPTIONS_OF_CORRUPTION": [perceptions], "NorDystopia" : [NorDystopia]}
     
     lin_country = pd.DataFrame(lin_country)
@@ -57,7 +59,4 @@ def home():
     reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry
     myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry
     
-    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountry_flag" : reCountry_flag})
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag})
