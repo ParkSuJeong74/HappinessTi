@@ -5,7 +5,7 @@ import joblib
 
 LinModel = joblib.load('Linhappy99x7.pkl')
 
-df = pd.read_csv("happy99x7.csv")
+df = pd.read_csv("happy_data2.csv")
 
 app = Flask(__name__)
 
@@ -47,7 +47,7 @@ def home():
 
     lin_prob = LinModel.predict(lin_country)
     
-    reHAPPINESS_SCORE = abs(df['HAPPINESS_SCORE'] - lin_prob).idxmin()
+    reHAPPINESS_SCORE = abs(df['happinessScore'] - lin_prob).idxmin()
     reCountry = df.iloc[reHAPPINESS_SCORE,1]
    
     if reHAPPINESS_SCORE<5:
