@@ -5,7 +5,7 @@ components:
         _id: 
           type: string 
           description: 행복 데이터 고유 번호 
-        RANK:
+        rank:
           type: number 
           description: 나라별 행복도 랭킹
         country:
@@ -35,3 +35,6 @@ components:
         corruptionPerceptions:
           type: number 
           description: 사회 부패 인식 지수
+        count:
+          type: number 
+          description: 설문조사 횟수

@@ -29,12 +29,6 @@ const UserSchema = new Schema(
       required: true,
       default: "crashingdevlogo.png",
     },
-    surveyLog: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Surveylog",
-      },
-    ],
   },
   {
     timestamps: true,

@@ -1,6 +1,14 @@
 import { Happiness } from "../schemas/happiness.js";
 
 export const happyModel = {
+  findAll: async () => {
+    const totalHappylist = await Happiness.find();
+    return totalHappylist;
+  },
+  findByCountry: async ({ countryName }) => {
+    const country = await Happiness.find({ country: countryName });
+    return country;
+  },
   counting: async ({ countryName }) => {
     const country = await Happiness.find({ country: countryName });
     console.log(country);

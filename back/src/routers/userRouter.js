@@ -276,6 +276,37 @@ userAuthRouter.put("/", login_required, async function (req, res, next) {
 
 /**
  * @swagger
+ * /user/surveylogs:
+ *   get:
+ *     tags: [User]
+ *     description: 한 유저의 설문조사 결과 조회(마이페이지)
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "userId"
+ *       in: "path"
+ *       required: true
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 설문조사 결과 조회 완료"
+ *         content:
+ *           application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Surveylog'
+ */
+userAuthRouter.get("/surveylogs", async function (req, res, next) {
+  try {
+    const { userId } = req.params;
+    const logs = await surveyLogService.getUser({ userId });
+
+    res.status(201).json(logs);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
  * path:
  * /users/password:
  *   put:

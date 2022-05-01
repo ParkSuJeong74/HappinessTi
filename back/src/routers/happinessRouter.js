@@ -56,7 +56,7 @@ happinessRouter.get("/search/:country", async function (req, res, next) {
   try {
     const { country } = req.params;
     const searchCountry = await happinessService.getSearchCountry({
-      country,
+      countryName: country,
     });
 
     res.status(200).send(searchCountry);
