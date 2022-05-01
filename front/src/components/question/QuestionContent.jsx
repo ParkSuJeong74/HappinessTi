@@ -33,7 +33,7 @@ function QuestionContent(){
         <Box className={style.questBox}>
 
             {/* 설문조사 문항 질문 */}
-            <div className={`${style.quiz}, ${style.highlight}`}>{quest[currentNum]?.quiz}</div>
+            <div className={`${style.highlight} ${style.quiz}`}>{quest[currentNum]?.quiz}</div>
 
             {/* 입력 공간 형식이 문제에 따라 바뀜 */}
             {toggleInputSpace()}
