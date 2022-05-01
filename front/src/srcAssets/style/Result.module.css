@@ -1,19 +1,36 @@
-.resultTitle {
+.resultTitle1,
+.resultTitle3,
+.resultInfoBox {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+.resultTitle1,
+.resultTitle3 {
+    margin-top: 20vh;
+    font-size: x-large;
+}
+.resultTitle2,
+.resultTitle4 {
+    border-top: 2px solid #FC8694;
+    border-width: 10%;
+    padding-top: 16px;
+}
 
 
-.resultBox {
+
+.resultBox,
+.resultBox2,
+.resultBox3 {
     margin-top: 5vh;
-    padding: 50px 0 50px 0;
-    border: 2px solid #FC8694;
-    
+    padding: 70px 0 70px 0;
+    border: 3px solid #FC8694;
 }
 
 .resultBoxtop {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 20px 120px;
     font-size: x-large;
 }
@@ -21,11 +38,8 @@
     font-size: xx-large;
 }
 
-.resultUsername {
-    color: #FC8694;
-}
-
 .resultFlag {
+    padding-top: 20px;
     display: flex;
     align-items: center;
     flex: 0.7fr 1fr;
@@ -33,11 +47,22 @@
 
 .resultTi,
 .resultType,
-.resultCountry {
+.resultCountry,
+.resultUserflag,
+.resultPercent {
     color: #FC8694;
 }
 
-.resultInfo1,
-.resultInfo2 {
-    align-items: center;
+.resultInfo1 {
+    padding: 40px 5px 10px 5px;
+    font-size: larger;
+    border-bottom: 2px solid #FC8694;
 }
+.resultInfo2 {
+    padding: 20px 5px 10px 5px;
+    font-size: larger;
+    border-bottom: 2px solid #FC8694;
+}
+
+
+
