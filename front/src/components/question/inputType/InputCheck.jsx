@@ -13,13 +13,14 @@ function InputCheck({ currentQuest }) {
     const ChoosedAnsToQuest = (e) => {
 
         setQuest((prev) => {
+            const stringToInt = parseInt(e.target.value)
             console.log("현재 id", currentQuest.id)
             console.log("바꾸고 있는 값", e.target.value)
             return prev.map((el) => el.id === currentNum ?
             {
                 ...el,
                 id: currentNum, quiz: currentQuest.quiz,
-                value: e.target.value
+                value: stringToInt
             } : el)                   
         })
     }

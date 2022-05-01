@@ -30,6 +30,7 @@ console.log(currentNum)
             placeholder={quest[currentNum]?.value}
             onChange={(e) => {
                 setQuest((prev) => {
+                    
                     console.log("현재 문항번호!", currentNum)
                     console.log("바꾸고 있는 값", e.target.value)
 
