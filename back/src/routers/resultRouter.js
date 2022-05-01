@@ -133,7 +133,7 @@ resultRouter.get(
 resultRouter.get("/:country", login_required, async function (req, res, next) {
   try {
     const response = await axios.get(
-      `http://localhost:5000/result/${req.params.country}`
+      `http://localhost:8000/result/${req.params.country}`
     );
     res.status(200).send(response.data);
   } catch (error) {

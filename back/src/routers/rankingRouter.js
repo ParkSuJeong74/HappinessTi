@@ -23,8 +23,8 @@ export const rankingRouter = Router();
  */
 rankingRouter.get("/", async function (req, res, next) {
   try {
-    const ranking = await rankingService.getRanking();
-    res.status(200).send(ranking);
+    const countries = await rankingService.getRanking();
+    res.status(200).send(countries);
   } catch (error) {
     next(error);
   }

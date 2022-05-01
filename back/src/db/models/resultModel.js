@@ -1,5 +1,5 @@
 import { Surveylog } from "../schemas/surveylog.js";
-import { Ranking } from "../schemas/ranking.js";
+// import { Ranking } from "../schemas/ranking.js";
 
 export const resultModel = {
   saveSurvey: async ({ newData }) => {
@@ -7,7 +7,7 @@ export const resultModel = {
     return user;
   },
   saveRanking: async ({ data }) => {
-    const user = await Ranking.findOne({ data });
-    return user;
+    // const user = await Ranking.findOne({ data });
+    // return user;
   },
 };

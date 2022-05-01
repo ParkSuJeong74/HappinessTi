@@ -21,4 +21,8 @@ export const happyModel = {
     );
     return country;
   },
+  findRanking: async ({}) => {
+    const countries = await Happiness.find().sort({ count: -1 }).limit(5);
+    return countries;
+  },
 };
