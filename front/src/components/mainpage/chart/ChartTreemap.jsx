@@ -38,7 +38,7 @@ class CustomizedContent extends PureComponent {
   }
 }
 
-export default function ChartTreemap({ active }) {
+export default function ChartTreemap({ active /* , data */ }) {
 
       return (
         <ResponsiveContainer width="100%" height="100%">

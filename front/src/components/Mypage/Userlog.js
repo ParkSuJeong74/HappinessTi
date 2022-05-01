@@ -31,8 +31,9 @@ function Userlog(){
             </AccordionSummary>
 
             <AccordionDetails>
-                <div style={{ height: 300, width: '85%', margin: '0 auto'}}>
+                <div style={{ height: 300, width: '85%', margin: '0 auto', cursor: 'pointer'}}>
                     <DataGrid
+                        onRowClick={(e) => console.log(e.row.type.split(" ")[0])}
                         rows={rows}
                         columns={columns}
                         pageSize={5}

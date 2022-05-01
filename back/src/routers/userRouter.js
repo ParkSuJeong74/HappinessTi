@@ -10,6 +10,7 @@ import { login_required } from "../middlewares/login_required.js";
 import { userAuthService } from "../services/userService.js";
 import { surveyLogService } from "../services/surveylogService.js";
 import { multer } from "../middlewares/multer.js";
+import { smtpTransport } from "../config/smtpTransport.js";
 
 export const userAuthRouter = Router();
 
@@ -133,7 +134,32 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
   }
 });
 
-userAuthRouter.post("/newpassword", async function (req, res, next) {
+/**
+ * @swagger
+ * /users/password/reset:
+ *   put:
+ *     tags: [User]
+ *     description: password 변경
+ *     produces:
+ *     - "application/json"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         "application/json":
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: "프로필 사진 업로드 완료"
+ *         content:
+ *           application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ */
+userAuthRouter.put("/password/reset", async function (req, res, next) {
   try {
     //form에서 받아온 이메일 저장
     const { email } = req.body;

@@ -163,9 +163,6 @@ export const userAuthService = {
   deleteById: async ({ userId }) => {
     const user = await userModel.findById({ userId });
     const isDeleted = await userModel.delete({ userId });
-    const user = await userModel.findById({ userId });
-
-    let error = new Error("삭제가 되지 않았습니다.");
 
     let error = new Error("삭제가 되지 않았습니다.");
 
@@ -201,7 +198,6 @@ export const userAuthService = {
     let error = new Error(
       "잘못된 이메일입니다. 메일을 다시 확인하시기 바랍니다."
     );
-    console.log("user", user);
     //email 정보와 매칭되는 유저가 없으면 에러메세지 리턴
     if (!user) {
       throw error;
