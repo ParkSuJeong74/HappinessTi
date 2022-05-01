@@ -5,9 +5,13 @@ import { DispatchContext, UserStateContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
 import Style from '../srcAssets/style/Header.module.css'
 
+
 function Header() {
   const dispatch = useContext(DispatchContext)
   const userState = useContext(UserStateContext)
+
+  const isLoggedin = userState.user
+
   const navigate = useNavigate()
   const sampleLocation = useLocation();
   if (sampleLocation.pathname === '/login' || sampleLocation.pathname === '/signin' || sampleLocation.pathname === '/password'){
@@ -16,6 +20,7 @@ function Header() {
 
   function logoutHandler(){
     sessionStorage.removeItem("userToken")
+
     dispatch({
       type: 'LOGOUT'      
     })
@@ -24,6 +29,7 @@ function Header() {
   }
 
   return (
+
     <HeaderNavBar>
       <Link to="/" className={Style.headerTitle}>
         <HeaderLogo>
@@ -34,18 +40,22 @@ function Header() {
         </HeaderLogo>
       </Link>
       
-      <HeaderNav>
+      <div>
 
         <Link to="/teampage" className={Style.headerLink}>Team</Link>
 
-        {!userState.user && 
-        <Link to="/login" className={Style.headerLink}>LogIn</Link>}
+        <Link to="/datalogs" className={Style.headerLink}>Data</Link>
 
+        {!isLoggedin && (
+        <Link to="/login" className={Style.headerLink}>LogIn</Link>)}
+
+        
         <Link to="/mypage" className={Style.headerLink}>Mypage</Link>
 
-        <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>
-
-      </HeaderNav>
+        {isLoggedin &&
+        <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>}
+        
+      </div>
     </HeaderNavBar>
 
   )
@@ -55,12 +65,16 @@ function Header() {
 export default Header
 
 const HeaderNavBar = styled.div`
+  width: 100%;
   height: 10vh;
-  padding: 4px 50px;
-  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+  padding: 45px 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0,0,0, 0.7);
+  backdrop-filter: blur(8px)
 `;
 
 const LogoImg = styled.img`
@@ -74,12 +88,9 @@ const HeaderLogo=styled.div`
   justify-content: center;
 `
 const HeaderTitle = styled.span`
-  color: #000;
   text-transform: uppercase;
   font-size: 3rem;
-`;
-
-const HeaderNav = styled.div`
+  color: #fff;
 `;
 
 const LogoutButton = styled.span`

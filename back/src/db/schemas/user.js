@@ -3,31 +3,31 @@ const { Schema, model } = pkg;
 
 const UserSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
       required: true,
+      unique: true,
+      index: true,
     },
     nickname: {
       type: String,
       required: true,
+      unique: true,
+      index: true,
     },
-    password: {
+    hashedPassword: {
       type: String,
       required: true,
     },
     description: {
       type: String,
-      required: false,
-      default: "설명이 아직 없습니다. 추가해 주세요.",
+      required: true,
+      default: "None",
     },
     profileImgUrl: {
       type: String,
-      required: false,
-      default: "../../image/crashingdevlogo.png",
+      required: true,
+      default: "crashingdevlogo.png",
     },
   },
   {
