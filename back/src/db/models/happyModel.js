@@ -8,6 +8,7 @@ export const happyModel = {
   },
   findByName: async ({ countryName }) => {
     const country = await Happiness.find({ country: countryName });
+    console.log(country);
     return country;
   },
 };

@@ -47,11 +47,11 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
       "http://localhost:5000/predict",
       req.body
     );
-    console.log(response.data);
     const userId = req.currentUserId;
     const { data } = response;
-    await resultService.saveLog({ userId, data });
-    await resultService.saveRanking({ userId, data });
+    console.log(data);
+    await resultService.saveCounting({ data }); // count
+    await resultService.saveLog({ userId, data }); // log 저장
     res.status(200).send(data);
   } catch (error) {
     next(error);
@@ -83,7 +83,7 @@ resultRouter.get(
     try {
       const response = await axios.get("http://localhost:5000/similar");
       if (!response) {
-        throw "";
+        throw "데이터를 받아오지 못했습니다.";
       }
       const { countryName } = req.params;
       const { data } = response;
@@ -130,7 +130,6 @@ resultRouter.get("/:country", login_required, async function (req, res, next) {
     const response = await axios.get(
       `http://localhost:5000/result/${req.params.country}`
     );
-    console.log(response.data);
     res.status(200).send(response.data);
   } catch (error) {
     next(error);

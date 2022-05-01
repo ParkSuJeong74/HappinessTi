@@ -1,4 +1,4 @@
-import { resultModel, happyModel, userModel } from "../db/index.js";
+import { happyModel, userModel } from "../db/index.js";
 
 export const resultService = {
   saveLog: async ({ userId, data }) => {
@@ -16,13 +16,11 @@ export const resultService = {
       throw "survey 저장 못함";
     }
   },
-  saveRanking: async ({ userId, data }) => {
+  saveCounting: async ({ data }) => {
     const country = await happyModel.findByName({
       countryName: data.myCountry,
     });
-    console.log(country)
-
-    const 
+    console.log(country);
     return country;
   },
 };

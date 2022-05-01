@@ -3,8 +3,9 @@ import numpy as np
 import pandas as pd
 import joblib
 
-model = joblib.load('./file/lgb1.pkl')
-df = pd.read_csv("./file/happy.csv")
+LinModel = joblib.load('Linhappy99x7.pkl')
+
+df = pd.read_csv("happy99x7.csv")
 
 ml = Blueprint('ml',__name__)
 
@@ -27,45 +28,36 @@ def home():
     generosity_num = params["generosity"]
     generosity = generosity_num / 100
     
-    new_country = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [life_expectancy] ,"SOCIAL_SUPPORT": [social_support] \
-              ,"GENEROSITY": [generosity]}
+    freedom_num = params["freedom"]
+    freedom = freedom_num / 100
     
-    new_country = pd.DataFrame(new_country)
+    perceptions_num = params["perceptions"]
+    perceptions = perceptions_num / 100
+    
+    NorDystopia = params["NorDystopia"]
 
-    y_prob = model.predict_proba(new_country)
     
-    happy = list(y_prob[:,0])[0]
-    normal = list(y_prob[:,1])[0]
-    unhappy = list(y_prob[:,2])[0]
+    lin_country = {"GDP_PER_PERSON": [gdp] ,"HEALTHY_LIFE_EXPECTANCY": [lifeExpectancy] ,"SOCIAL_SUPPORT": [socialSupport] 
+              ,"GENEROSITY": [generosity], "FREEDOM": [freedom], "PERCEPTIONS_OF_CORRUPTION": [perceptions], "NorDystopia" : [NorDystopia]}
     
-    if (normal > happy and normal > unhappy):
-        probability = round(normal*100, 2)
-        happy_type = 1
-    elif (happy > normal and happy > unhappy):
-        probability = round(happy*100, 2)
-        happy_type = 2
+    lin_country = pd.DataFrame(lin_country)
+
+    lin_prob = LinModel.predict(lin_country)
+    
+    reHAPPINESS_SCORE = abs(df['HAPPINESS_SCORE'] - lin_prob).idxmin()
+    reCountry = df.iloc[reHAPPINESS_SCORE,1]
+   
+    if reHAPPINESS_SCORE<5:
+        happyType = "불행"
+    elif 5<=reHAPPINESS_SCORE<=6:
+        happyType = "보통"
     else:
-        probability = round(unhappy*100, 2)
-        happy_type = 3
-        
-    def find_nearest_country(gdp, hle, scl):
-        def calculate_distance(x, gdp, hle, scl):
-            gdp_dif = np.log((x["LOG_OF_GDP_PER_PERSON"] - float(gdp))**2)
-            hle_dif = np.log((x["HEALTHY_LIFE_EXPECTANCY"] - float(hle))**2) 
-            scl_dif = np.log((x["SOCIAL_SUPPORT"] - float(scl))**2)
-            return gdp_dif + hle_dif + scl_dif
+        happyType = "행복"
+   
+    reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry
+    myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry
     
-        data1 = df[["COUNTRY", "LOG_OF_GDP_PER_PERSON", "HEALTHY_LIFE_EXPECTANCY","SOCIAL_SUPPORT"]]
-        data1['distances'] = data1.apply(lambda x: calculate_distance(x, gdp, hle, scl), axis=1)
-        index = data1['distances'].values.argmin()
-        found = data1.iloc[index, :]    
-        return found
-    
-    hle = life_expectancy      
-    scl = social_support  
-    found_data = find_nearest_country(gdp, hle, scl)
-    
-    ### probability_data = 어떤 타입의 행복일지에 확률(float) , happy_data = 어떠한 타입인지 1 = 평범/ 2 = 행복/ 3 = 불행 ,country_data = 나라 추천
-    return jsonify({"probability" : probability, "country" : format(found_data[0]), "happy" : happy_type })
+    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountry_flag" : reCountry_flag})
 
-    #return render_template('after.html', probability_data= probability, country_data = format(found_data[0]),happy_data = happy_type )
+if __name__ == "__main__":
+    app.run(debug=True)
