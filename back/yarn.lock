@@ -3993,11 +3993,6 @@ is-negative-zero@^2.0.2:
   resolved "https://registry.yarnpkg.com/is-negative-zero/-/is-negative-zero-2.0.2.tgz#7bf6f03a28003b8b3965de3ac26f664d765f3150"
   integrity sha512-dqJvarLawXsFbNDeJW7zAz8ItJ9cd28YufuuFzh0G8pNHjJMnY08Dv7sYX2uF5UpQOwieAeOExEYAWWfu7ZZUA==
 
-is-node@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/is-node/-/is-node-1.0.2.tgz#d7d002745ef7debbb7477e988956ab0a4fccb653"
-  integrity sha1-19ACdF733ru3R36YiVarCk/MtlM=
-
 is-npm@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/is-npm/-/is-npm-5.0.0.tgz#43e8d65cc56e1b67f8d47262cf667099193f45a8"
@@ -5269,11 +5264,6 @@ npmlog@^5.0.1:
     gauge "^3.0.0"
     set-blocking "^2.0.0"
 
-numerous@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/numerous/-/numerous-1.0.3.tgz#f62aeef2e7853deff09d1af1e147b096194e46fe"
-  integrity sha512-jN2WTpfdMmR1d5ClpYguln+XAvgW7B0te6wlsyaZhyev7E2CyOmvXq5LTIV/p9mt9WrPW9Xw1g5+28iZh8BhFQ==
-
 nwsapi@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.2.0.tgz#204879a9e3d068ff2a55139c2c772780681a38b7"
@@ -6425,14 +6415,6 @@ through2@^2.0.0, through2@^2.0.3:
   dependencies:
     readable-stream "~2.3.6"
     xtend "~4.0.1"
-
-time-delta@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/time-delta/-/time-delta-1.0.0.tgz#9487f8c45a0697f1c3dc7884106867055e2c9f4f"
-  integrity sha512-9Njh4IxFsKileZFMTQ01ci1Mt7HlfkkgGSNSsvo2psvSqUedqSDdxS18gI7C9kSjeJ8FSkD4ekA2w5bOZCnu7g==
-  dependencies:
-    is-node "^1.0.2"
-    numerous "^1.0.3"
 
 timm@^1.6.1:
   version "1.7.1"

@@ -22,7 +22,9 @@ export const graphRouter = Router();
  */
 graphRouter.get("/composed", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000/composed");
+    const response = await axios.get(
+      `http://localhost:${process.env.FLASK_PORT}/composed`
+    );
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -43,7 +45,9 @@ graphRouter.get("/composed", async function (req, res, next) {
  */
 graphRouter.get("/treemap", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000/tree");
+    const response = await axios.get(
+      `http://localhost:${process.env.FLASK_PORT}/tree`
+    );
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -64,7 +68,9 @@ graphRouter.get("/treemap", async function (req, res, next) {
  */
 graphRouter.get("/mapplot", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000/mapplot");
+    const response = await axios.get(
+      `http://localhost:${process.env.FLASK_PORT}/mapplot`
+    );
     const list = response.data.map((d) => {
       let newValue = {};
       newValue["value"] = d["RANK"];

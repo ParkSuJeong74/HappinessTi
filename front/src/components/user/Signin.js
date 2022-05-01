@@ -7,10 +7,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
 import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
 import signin from '../../srcAssets/style/Signin.module.css';
+import Swal from 'sweetalert2'
 
-import { useContext, useState } from "react"
+import { useState } from "react"
 import * as Api from '../../api'
-import { DispatchContext } from "../../App";
 
 const CssTextField = withStyles({
     root: {
@@ -26,15 +26,20 @@ const CssTextField = withStyles({
 
 function Signin() {
     const navigate = useNavigate()
-   
-
-    const dispatch = useContext(DispatchContext);
     
     const [email, setEmail] = useState("")
     const [nickname, setNickname] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmpassword] = useState("")
 
+    function errorHandler(message){
+        Swal.fire({
+            title: '회원가입 오류',
+            text: message,
+            icon: 'warning',
+            showCloseButton: true,
+        })
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -50,10 +55,10 @@ function Signin() {
             navigate("/login")
 
         } catch (error) {
-            alert(error.response.data)
+            errorHandler(error.response.data)
         }
     }
- 
+
     return(
 
         <SigninBody onSubmit={handleSubmit}>
@@ -138,7 +143,6 @@ function Signin() {
                     <Link to="/password" class={signin.forgotpasswordButton}>Forgot password?</Link>
                 </Box>
             </div>
-
             
         </SigninBody>
     )
@@ -147,7 +151,6 @@ function Signin() {
 export default Signin;
 
 const SigninBody = styled.form`
-  
 `;
 
 const SigninBodyUpper = styled.div`

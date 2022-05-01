@@ -50,7 +50,7 @@ export const resultRouter = Router();
 resultRouter.post("/predict", login_required, async function (req, res, next) {
   try {
     const response = await axios.post(
-      "http://localhost:5000/predict",
+      "http://localhost:8000/predict",
       req.body
     );
     const userId = req.currentUserId;
@@ -86,7 +86,7 @@ resultRouter.get(
   login_required,
   async function (req, res, next) {
     try {
-      const response = await axios.get("http://localhost:5000/similar");
+      const response = await axios.get("http://localhost:8000/similar");
       if (!response) {
         throw "데이터를 받아오지 못했습니다.";
       }

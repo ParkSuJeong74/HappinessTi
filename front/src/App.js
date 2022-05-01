@@ -17,8 +17,7 @@ import Result from "./components/result/Result";
 
 import { MainWrapper } from "./srcAssets/style/MainWrapper";
 import "./srcAssets/style/Font.module.css";
-
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import * as Api from "./api";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -28,6 +27,34 @@ function App() {
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
   });
+
+  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+
+  const fetchCurrentUser = async () => {
+    try {
+      const res = await Api.get("users/current");
+      const currentUser = res.data;
+      console.log("currentUser", currentUser);
+
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: currentUser,
+      });
+
+      console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
+    } catch {
+      console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
+    }
+    setIsFetchCompleted(true);
+  };
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
+
+  if (!isFetchCompleted) {
+    return "loading...";
+  }
 
   return (
     <DispatchContext.Provider value={dispatch}>
