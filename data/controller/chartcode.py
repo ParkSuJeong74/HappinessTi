@@ -241,6 +241,7 @@ def radar(country):
       data.append(eval(json.dumps(test7)))
       test[i]=data
       dic.append(test)
+  dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=True)
   return jsonify(dic[0].get(country))
 
 #----composed barchart----------#
