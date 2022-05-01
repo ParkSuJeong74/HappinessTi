@@ -5,7 +5,7 @@ import ProfileEdit from'./ProfileEdit.js'
 import norway from '../../srcAssets/img/norway.png'
 
 function Profile({editOpen, setEditOpen, user, updateUser}){
-  console.log(user)
+
   return (
   <CardBox>
       <UpperBox>
@@ -18,7 +18,6 @@ function Profile({editOpen, setEditOpen, user, updateUser}){
           <ImageBox>
             <ProfileImage 
               src={`https://storage.googleapis.com/crashingdevstorage14/ProfileImg/${user?.profileImgUrl}`}/>
-
           </ImageBox>
         )}
           

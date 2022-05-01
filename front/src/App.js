@@ -29,32 +29,30 @@ function App() {
   })
 
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+  const fetchCurrentUser = async () => {
+      try {
+          const res = await Api.get("users/current")
+          const currentUser = res.data;
 
-    const fetchCurrentUser = async () => {
-        try {
-            const res = await Api.get("users/current")
-            const currentUser = res.data;
-            console.log("currentUser", currentUser)
+          dispatch({
+              type: "LOGIN_SUCCESS",
+              payload: currentUser,
+          });
 
-            dispatch({
-                type: "LOGIN_SUCCESS",
-                payload: currentUser,
-            });
+          console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
+      } catch {
+          console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
+      }
+      setIsFetchCompleted(true);
+  };
 
-            console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
-        } catch {
-            console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
-        }
-        setIsFetchCompleted(true);
-    };
+  useEffect(() => {
+      fetchCurrentUser();
+  }, []);
 
-    useEffect(() => {
-        fetchCurrentUser();
-    }, []);
-
-    if (!isFetchCompleted) {
-        return "loading...";
-    }
+  if (!isFetchCompleted) {
+      return "loading...";
+  }
 
 
   return (

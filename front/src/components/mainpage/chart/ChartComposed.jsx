@@ -1,7 +1,7 @@
 import { ComposedChart, XAxis,  YAxis, Tooltip, Legend, CartesianGrid, Area, Bar, Line} from 'recharts';
 import data from "./dataComposed"
 
-function ChartComposed({active}){
+function ChartComposed({active/* , data */}){
   
     return (
       <ComposedChart width={730} height={250} data={data}>

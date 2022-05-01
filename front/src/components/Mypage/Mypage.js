@@ -22,8 +22,6 @@ function Mypage(){
   };
 
   const isLoggedin = sessionStorage.getItem("userToken")
-  console.log("토큰", sessionStorage.getItem("userToken"))
-  console.log("userState.user", userState.user)
   // const isLoggedin = userState.user?.id
 
   //loginUserId가 변경될 때마다 user api 호출 다시 하기
@@ -33,7 +31,6 @@ function Mypage(){
     async function getUserData(){
       try{
         const res = await Api.get("users", loginUserId)
-        console.log('user 정보 백에서 가져와?',res.data)
         setUser(res.data)
       } catch(err){
         console.log(err)
@@ -53,10 +50,7 @@ function Mypage(){
       alert("반가워요! 먼저 로그인을 해주세요!")
       navigate("/login", { replace: true })
     }
-
-  }, [navigate,loginUserId])
-
-  console.log(user)
+  }, [])
 
   return (
 
