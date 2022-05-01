@@ -345,7 +345,7 @@ userAuthRouter.put("/", login_required, async function (req, res, next) {
 
 /**
  * @swagger
- * /users/surveylogs:
+ * /users/survey/logs:
  *   get:
  *     tags: [User]
  *     description: 한 유저의 설문조사 결과 조회(마이페이지)
@@ -362,12 +362,11 @@ userAuthRouter.put("/", login_required, async function (req, res, next) {
  *              $ref: '#/components/schemas/Surveylog'
  */
 userAuthRouter.get(
-  "/surveylogs",
+  "/survey/logs",
   login_required,
   async function (req, res, next) {
     try {
       const userId = req.currentUserId;
-      console.log(userId);
       const logs = await surveyLogService.getLogs({ userId });
 
       res.status(201).json(logs);

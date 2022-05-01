@@ -28,16 +28,12 @@ export const userAuthService = {
       throw error;
     }
 
-    // console.log("password", password);
     const hashedPassword = await bcrypt.hash(password, 10);
-    // console.log("hashedPassword", hashedPassword);
     const newUser = {
       nickname,
       email,
       hashedPassword,
     };
-
-    // console.log("newUser", newUser);
 
     const createdNewUser = await userModel.create({ newUser });
     return createdNewUser;
@@ -97,6 +93,9 @@ export const userAuthService = {
 
   getUsers: async () => {
     const users = await userModel.findAll();
+    if (!users) {
+      throw "유저 정보를 가져올 수 없습니다.";
+    }
     return users;
   },
 
@@ -173,8 +172,6 @@ export const userAuthService = {
     if (user.profileImgUrl !== "crashingdevlogo.png") {
       gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
     }
-
-    gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
 
     return { status: "Ok" };
   },

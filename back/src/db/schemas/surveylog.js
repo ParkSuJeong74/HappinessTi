@@ -4,8 +4,8 @@ const { Schema, model } = pkg;
 const SurveylogSchema = new Schema(
   {
     userId: {
-      type: String,
-      required: true,
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     happyType: {
       type: String,
