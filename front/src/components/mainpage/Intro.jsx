@@ -53,7 +53,7 @@ function Intro({ activeBtn }) {
                     </h2>
 
                     <div className={style.country}>
-                        <div className={`${activeBtn === 3 ? `${style.chart2}, ${style.active}` : style.chart2}`}>
+                        <div className={`${activeBtn === 3 ? `${style.chart2} ${style.active}` : style.chart2}`}>
                             <ChartMap></ChartMap>
                         </div>
                         <div>
