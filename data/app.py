@@ -7,9 +7,10 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 app = Flask(__name__)
-app.register_blueprint(cc)
-app.register_blueprint(ml)
+with app.app_context():
+    app.register_blueprint(cc)
+    app.register_blueprint(ml)
 
 
-if __name__ == 'main':
-    app.run(host='0.0.0.0',port=os.environ.get("FLASK_PORT"), debug=os.environ.get("FLASK_DEBUG"))
+if __name__ == '__main__':
+    app.run(host='localhost',port=os.environ.get("FLASK_PORT"), debug=os.environ.get("FLASK_DEBUG"))
