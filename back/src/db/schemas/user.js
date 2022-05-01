@@ -3,12 +3,6 @@ const { Schema, model } = pkg;
 
 const UserSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-      index: true,
-    },
     email: {
       type: String,
       required: true,
@@ -21,19 +15,26 @@ const UserSchema = new Schema(
       unique: true,
       index: true,
     },
-    password: {
+    hashedPassword: {
       type: String,
       required: true,
     },
     description: {
       type: String,
-      required: false,
+      required: true,
+      default: "None",
     },
     profileImgUrl: {
       type: String,
       required: true,
       default: "crashingdevlogo.png",
     },
+    surveyLog: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Surveylog",
+      },
+    ],
   },
   {
     timestamps: true,

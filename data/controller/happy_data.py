@@ -2,15 +2,18 @@ import csv
 from pymongo import MongoClient
 
 
-with open ("./file/2022_google_csv.csv", "r") as f:
+with open ("../file/happy_data2.csv", "r") as f:
     reader = csv.reader(f)
     next(reader)
+    data = {"Happiness": []}
     for row in reader:
-        dic={'happinessScore': row['Happiness score'],
-         'gdp': row['Explained by: GDP per capita']}
+        data["Happiness"].append({"rank":row[0],"country":row[1], "happinessScore":row[2],
+        "dytopia":row[3],"gdp":row[4],"socialSupport":row[5],"health":row[6],
+        "freedom":row[7],"generosity":row[8],"corruptionPerceptions":row[9],  "continent":row[11], "count": row[14] })
 
 
-client = MongoClient("mongodb+srv://kimdahyeon:dnjs1569@cluster0.wrb2k.mongodb.net/myFirstDatabase")
-
-# db = client.test_database
-db = client['test'] # test-db라는 이름의 데이터베이스에 접속
+client = MongoClient("mongodb+srv://crackingdevs:elice1234@crackingdevs.guuao.mongodb.net/crackingdevs")
+for i in data["Happiness"]:
+    db = client['crackingdevs']
+    # print(i)
+    dpInsert = db.happinesses.insert_one(i)

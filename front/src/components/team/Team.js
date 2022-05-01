@@ -91,7 +91,7 @@ function Team(){
                             <Card>
                                 <MemberImg src={teamJA} alt="주안님"/>
                                 <MemberDes1>이주안</MemberDes1>
-                                <MemberDes2>역할: 프론트엔드, 데이터분석</MemberDes2>
+                                <MemberDes2>역할: 백엔드, 데이터분석</MemberDes2>
                             </Card>
                         </Tilt>
                     </Grid>

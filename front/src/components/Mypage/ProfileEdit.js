@@ -19,11 +19,12 @@ const CssTextField = withStyles({
     },
 })(TextField);
 
-function ProfileEdit({setEditOpen, setUser, user}){
+function ProfileEdit({setEditOpen, updateUser, user}){
   const userState = useContext(UserStateContext)
-  const loginUserId = userState.user?.id
+  const loginUserId = userState.user?._id ?? userState.user?.id
   const [nickname, setNickname] = useState(user?.nickname)
-  const [description, setDescription] = useState(user?.description)
+  const currentDescription = user?.description === "None" ? "설명이 아직 없습니다. 추가해 주세요." : user?.description
+  const [description, setDescription] = useState(currentDescription)
   const [imageInfo, setImageInfo] = useState(null)
 
   const handleSubmit = async (e) => {
@@ -35,7 +36,7 @@ function ProfileEdit({setEditOpen, setUser, user}){
       description,
     })
       .then((res) => {
-        setUser(res.data)
+        updateUser(res.data)
       })
       .catch((err) => alert(err.response.data))
 
@@ -54,12 +55,12 @@ function ProfileEdit({setEditOpen, setUser, user}){
     if(imageInfo){
       await axios
       .post(
-        `http://${window.location.hostname}:5005/users/${loginUserId}/profile-img`,
+        `http://${window.location.hostname}:5005/users/${loginUserId}/profile/image`,
         formData,
         config
       )
       .then((res) => {
-        setUser(res.data.updatedUser)
+        updateUser(res.data.updatedUser)
         
       })
       .catch((err) => alert(err.response.data))
@@ -89,7 +90,7 @@ function ProfileEdit({setEditOpen, setUser, user}){
           <CssTextField 
             id="Description"
             label="Description 수정"
-            placeholder={user?.description}
+            placeholder={currentDescription}
             value={description}
             multiline
             row={3}

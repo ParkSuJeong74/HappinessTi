@@ -4,17 +4,15 @@ const { Schema, model } = pkg;
 // 데이터셋 칼럼
 const HappinessSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
-    RANK: {
+    rank: {
       type: Number,
       required: true,
+      unique: true,
     },
     country: {
       type: String,
       required: true,
+      unique: true,
     },
     happinessScore: {
       type: Number,
@@ -46,6 +44,14 @@ const HappinessSchema = new Schema(
     },
     corruptionPerceptions: {
       type: String,
+      required: true,
+    },
+    continent: {
+      type: String,
+      required: true,
+    },
+    count: {
+      type: Number,
       required: true,
     },
   },
