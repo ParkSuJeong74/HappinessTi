@@ -26,13 +26,21 @@ function UserManagement(){
             showCloseButton: true,
         }).then(async function(result) {
             if(result.isConfirmed){
+                
                 //TODO: user 계정 삭제 api 호출하기!
                 await Api.delete("users", loginUserId)
-                alert("탈퇴완료")
+                sessionStorage.removeItem("userToken")
                 dispatch({
                     type: 'LOGOUT'      
                 })
-                sessionStorage.removeItem("userToken")
+
+                Swal.fire({
+                    title: '회원 탈퇴되었습니다!',
+                    text: '당신, 쿨하시군요!',
+                    icon: 'success'
+                })
+                
+                
                 navigate('/')
             }
             
