@@ -2,7 +2,8 @@ import { Surveylog } from "../schemas/surveylog.js";
 
 export const surveylogModel = {
   findById: async ({ userId }) => {
-    const user = await Surveylog.findOne({ userId });
+    console.log(userId);
+    const user = await Surveylog.find({ userId }).sort({ createdAt: -1 });
     return user;
   },
   addLog: async ({ log }) => {

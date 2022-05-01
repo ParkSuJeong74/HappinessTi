@@ -7,7 +7,13 @@ components:
           description: 설문조사 로그 고유 번호 
         userId:
           type: string 
-          description: User ref
-        happinessId:
+          description: userId
+        happyType:
           type: string 
-          description: Happiness ref
+          description: Happiness type
+        myCountry:
+          type: string 
+          description: 유저의 나라
+        reCountry:
+          type: string 
+          description: 행복 Ti
