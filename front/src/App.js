@@ -10,7 +10,7 @@ import Question from "./components/question/Question";
 import Login from "./components/user/Login";
 import Signin from "./components/user/Signin";
 import Password from "./components/user/Password";
-import Mypage from "./components/mypage/Mypage";
+import Mypage from "./components/Mypage/Mypage";
 import Team from "./components/team/Team";
 import DataLog from "./components/datalogs/DataLog";
 import Result from "./components/result/Result";

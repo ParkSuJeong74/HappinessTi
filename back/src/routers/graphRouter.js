@@ -25,6 +25,7 @@ graphRouter.get("/composed", async function (req, res, next) {
     const response = await axios.get(
       `http://localhost:${process.env.FLASK_PORT}/composed`
     );
+    console.log(response.data)
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
