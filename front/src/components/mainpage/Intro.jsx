@@ -1,13 +1,36 @@
 import { Box, Container } from "@mui/material"
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import style from '../../srcAssets/style/Mainpage.module.css'
 import ChartComposed from "./chart/ChartComposed";
 import ChartMap from "./chart/ChartMap";
 import ChartTreemap from "./chart/ChartTreemap";
 import Ranking from "./ranking/Ranking";
+import * as Api from '../../api'
 
 function Intro({ activeBtn }) {
     const navigate = useNavigate();
+    const [isFetchCompleted, setIsFetchCompleted] = useState(false);
+
+    const fetchData = async () => {
+        try {
+            
+            
+        } catch {
+
+        }
+        setIsFetchCompleted(true)
+    }
+
+    // 초기에 한번만 실행, 데이터 불러와서 차트 3개랑 랭킹에 data 넘겨주기
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    // 로딩될 동안에 기다리는 중 gif 띄워놓기?
+    if (!isFetchCompleted) {
+        return "데이터 불러오는 중입니다..."
+    }
 
     return (
         <Container sx={{py:10}}>
@@ -45,7 +68,7 @@ function Intro({ activeBtn }) {
                 </Box>
             </section>
 
-            {/* 나라별 행복도 지도맵 차트 */}
+            {/* 나라별 행복도 지도맵 차트 & 랭킹 */}
             <section>
                 <Box sx={{my: 10}}>
                     <h2 className={style.subtitle}>
@@ -53,7 +76,7 @@ function Intro({ activeBtn }) {
                     </h2>
 
                     <div className={style.country}>
-                        <div className={`${activeBtn === 3 ? `${style.chart2}, ${style.active}` : style.chart2}`}>
+                        <div className={`${activeBtn === 3 ? `${style.chart2} ${style.active}` : style.chart2}`}>
                             <ChartMap></ChartMap>
                         </div>
                         <div>

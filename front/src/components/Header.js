@@ -29,7 +29,7 @@ function Header() {
   }
 
   return (
-    <>
+
     <HeaderNavBar>
       <Link to="/" className={Style.headerTitle}>
         <HeaderLogo>
@@ -49,15 +49,15 @@ function Header() {
         {!isLoggedin && (
         <Link to="/login" className={Style.headerLink}>LogIn</Link>)}
 
-        {isLoggedin && 
-        <Link to="/mypage" className={Style.headerLink}>Mypage</Link>}
+        
+        <Link to="/mypage" className={Style.headerLink}>Mypage</Link>
 
         {isLoggedin &&
         <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>}
         
       </div>
     </HeaderNavBar>
-    </>
+
   )
 
 }

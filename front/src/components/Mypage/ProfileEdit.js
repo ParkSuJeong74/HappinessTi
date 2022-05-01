@@ -30,51 +30,60 @@ function ProfileEdit({ setEditOpen, updateUser, user }) {
   const [description, setDescription] = useState(currentDescription);
   const [imageInfo, setImageInfo] = useState(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit2 = async (e) => {
     e.preventDefault();
 
-    //TODO: user 수정 api 호출!
-    await Api.put(`users/${loginUserId}`, {
+    // user 수정 api 호출
+    const UserInfoEdit = await Api.put(`users/${loginUserId}`, {
       nickname,
       description,
-    })
-      .then((res) => {
-        updateUser(res.data);
-      })
-      .catch((err) => alert(err.response.data));
+    });
 
     let formData = new FormData();
-
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
       },
     };
-
     formData.append("profileImgUrl", imageInfo);
 
-    //TODO: 프로필 업로드 api 호출!
-    if (imageInfo) {
-      await axios
-        .post(
-          `http://${window.location.hostname}:5005/users/${loginUserId}/profile/image`,
-          formData,
-          config
-        )
-        .then((res) => {
-          updateUser(res.data.updatedUser);
-        })
-        .catch((err) => alert(err.response.data));
-    }
+    // 이미지를 넣었을 경우에만 업로드 api 호출
+    const ImageEdit =
+      imageInfo &&
+      (await axios.post(
+        `http://${window.location.hostname}:5005/users/${loginUserId}/profile/image`,
+        formData,
+        config
+      ));
 
-    alert("회원정보가 정상적으로 변경되었습니다!");
+    const Edit = async () => {
+      try {
+        return await Promise.all([UserInfoEdit, ImageEdit]);
+      } catch (error) {
+        throw error;
+      }
+    };
 
-    setEditOpen(false);
+    Edit()
+      .then((res) => {
+        const InfoData = res[0].data;
+        const ImageData = res[1]?.data?.updatedUser; // 이미지 안넣었을 땐 res[1]이 null 값.
+
+        ImageData ? updateUser(ImageData) : updateUser(InfoData);
+        alert("회원정보가 정상적으로 변경되었습니다!");
+
+        setEditOpen(false);
+      })
+      .catch((error) => {
+        alert("회원 정보 수정이 실패하였습니다.");
+        console.log("error", error.response.data);
+      });
   };
+
   return (
     <Grid item xs={5}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit2}>
         <Stack
           direction="column"
           spacing={2}
@@ -149,3 +158,46 @@ const UploadBox = {
   justifyContent: "center",
   p: 1,
 };
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault()
+
+//   //TODO: user 수정 api 호출!
+//   await Api.put(`users/${loginUserId}`, {
+//     nickname,
+//     description,
+//   })
+//     .then((res) => {
+//       updateUser(res.data)
+//     })
+//     .catch((err) => alert(err.response.data))
+
+//   let formData = new FormData()
+
+//   const config = {
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+//     }
+//   }
+
+//   formData.append("profileImgUrl", imageInfo)
+
+//   //TODO: 프로필 업로드 api 호출!
+//   if(imageInfo){
+//     await axios
+//     .post(
+//       `http://${window.location.hostname}:5005/users/${loginUserId}/profile/image`,
+//       formData,
+//       config
+//     )
+//     .then((res) => {
+//       updateUser(res.data.updatedUser)
+//     })
+//     .catch((err) => alert(err.response.data))
+//   }
+
+//   alert("회원정보가 정상적으로 변경되었습니다!")
+
+//   setEditOpen(false)
+// }

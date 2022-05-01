@@ -14,7 +14,6 @@ import Mypage from "./components/mypage/Mypage";
 import Team from "./components/team/Team";
 import DataLog from "./components/datalogs/DataLog";
 import Result from "./components/result/Result";
-import Analysis from "./components/analysis/Analysis";
 
 import { MainWrapper } from "./srcAssets/style/MainWrapper";
 import "./srcAssets/style/Font.module.css";
@@ -30,12 +29,10 @@ function App() {
   });
 
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
-
   const fetchCurrentUser = async () => {
     try {
       const res = await Api.get("users/current");
       const currentUser = res.data;
-      console.log("currentUser", currentUser);
 
       dispatch({
         type: "LOGIN_SUCCESS",
@@ -73,7 +70,6 @@ function App() {
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/password" element={<Password />} />
-              <Route path="/analysis" element={<Analysis />} />
               <Route path="*" element={<MainPage />} />
             </Routes>
             <Footer />

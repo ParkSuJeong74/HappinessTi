@@ -5,8 +5,8 @@ export const happinessService = {
     const totalHappylist = await happyModel.findAll({});
     return totalHappylist;
   },
-  getSearchCountry: async ({ country }) => {
-    const currentUserInfo = await happyModel.findByCountry({ country });
-    return currentUserInfo;
+  getSearchCountry: async ({ countryName }) => {
+    const country = await happyModel.findByCountry({ countryName });
+    return country;
   },
 };

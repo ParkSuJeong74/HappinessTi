@@ -53,7 +53,6 @@ function Login() {
                 password,
             })
             const user = res.data.loginUser
-            console.log(user)
 
             const jwtToken = user.token
             sessionStorage.setItem("userToken", jwtToken)

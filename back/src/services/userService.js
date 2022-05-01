@@ -1,6 +1,5 @@
 import { userModel } from "../db/index.js";
 import jwt from "jsonwebtoken";
-import { SetUtil } from "../common/setUtil.js";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import { gcsBucket } from "../config/gcs.js";
@@ -153,22 +152,29 @@ export const userAuthService = {
     );
 
     // 현재 유저의 닉네임도 찾기 때문에
-    if (findByNicknameUser && findByNicknameUser.id != userId) {
+    if (findByNicknameUser && findByNicknameUser.id !== userId) {
       throw error;
     }
+    user = await userModel.update({ userId, data: toUpdate });
 
-    const updateObject = SetUtil.compareValues(toUpdate, user);
-    user = await userModel.update({ userId, updateObject });
     return user;
   },
 
   deleteById: async ({ userId }) => {
+    const user = await userModel.findById({ userId });
     const isDeleted = await userModel.delete({ userId });
+
     let error = new Error("삭제가 되지 않았습니다.");
 
     if (!isDeleted) {
       throw error;
     }
+
+    if (user.profileImgUrl !== "crashingdevlogo.png") {
+      gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
+    }
+
+    gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
 
     return { status: "Ok" };
   },
@@ -184,5 +190,31 @@ export const userAuthService = {
     }
 
     return user;
+  },
+
+  setNewPassword: async ({ email }) => {
+    //email로 유저 찾고
+    let user = await userModel.findByEmail({ email });
+    let error = new Error(
+      "잘못된 이메일입니다. 메일을 다시 확인하시기 바랍니다."
+    );
+    //email 정보와 매칭되는 유저가 없으면 에러메세지 리턴
+    if (!user) {
+      throw error;
+    }
+
+    const newPassword = await userModel.createRandomPassword();
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    //업데이트할 field를 password로 설정
+    const fieldToUpdate = "hashedPassword";
+    //updatedUser에 password를 업데이트한 user정보 저장
+    const updatedUser = await userModel.updatePassword({
+      email,
+      fieldToUpdate,
+      hashedNewPassword,
+    });
+
+    return { newPassword, updatedUser };
   },
 };

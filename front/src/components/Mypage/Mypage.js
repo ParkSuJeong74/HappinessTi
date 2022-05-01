@@ -10,7 +10,7 @@ import Profile from "./Profile";
 function Mypage() {
   const navigate = useNavigate();
 
-  //리덕스나, 리코일, 리듀서로 구현한 현재 user상태에서 id를 가져옴 -> loginUserId
+  //현재 user상태에서 id를 가져옴 -> loginUserId
   const userState = useContext(UserStateContext);
   const loginUserId = userState.user?._id ?? userState.user?.id;
   const [user, setUser] = useState(null);
@@ -22,17 +22,14 @@ function Mypage() {
   };
 
   const isLoggedin = sessionStorage.getItem("userToken");
-  console.log("토큰", sessionStorage.getItem("userToken"));
-  console.log("userState.user", userState.user);
   // const isLoggedin = userState.user?.id
 
   //loginUserId가 변경될 때마다 user api 호출 다시 하기
   useEffect(() => {
-    //TODO: user정보 호출하기 (login_required)
+    // user정보 호출하기
     async function getUserData() {
       try {
         const res = await Api.get("users", loginUserId);
-        console.log("user 정보 백에서 가져와?", res.data);
         setUser(res.data);
       } catch (err) {
         console.log(err);
@@ -52,9 +49,7 @@ function Mypage() {
       alert("반가워요! 먼저 로그인을 해주세요!");
       navigate("/login", { replace: true });
     }
-  }, [navigate, loginUserId]);
-
-  console.log(user);
+  }, [loginUserId]);
 
   return (
     <Container sx={{ py: 7, mt: 12 }}>

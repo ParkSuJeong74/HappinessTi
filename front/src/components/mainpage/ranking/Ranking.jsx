@@ -22,7 +22,7 @@ const rankingDatas = [
     {
         id: 3,
         grade: 3,
-        nation: 'Repulic of Korea',
+        nation: 'The%20Republic%20Of%20Korea',
     },
     {
         id: 4,
@@ -40,7 +40,7 @@ function Ranking() {
     const naviage = useNavigate()
 
   return (
-    <Paper elevation={12} sx={{ width: "300px", bgcolor: "#FFB3A3", p: 1, margin: 0 }}>
+    <Paper elevation={12} sx={{ width: "320px", bgcolor: "#FFB3A3", p: 1, margin: 0 }}>
       
       <Box sx={{ margin: "1.3em", textAlign: "center" }}>
           <EmojiEventsSharpIcon sx={{ fontSize: "3.5rem", color: "#FFFA82" }} />
