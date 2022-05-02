@@ -1,36 +1,37 @@
-import React from 'react';
+import React, { useState } from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
-interface IPopUpProps {
-  showPopUp: boolean;
-  setshowPopUp: Function;
-}
-
-function PopUp({ showPopUp, setshowPopUp }: IPopUpProps) {
-  const onPopUpNotShot = () => {
-    // logic
+export default function PopUp() {
+  const [open, setOpen] = useState(true);
+  //취소버튼
+  const handleClickCancel = () => {
+    handleClose();
+  };
+  //기타 위치 클릭으로 취소
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
-    <>
-      {showPopUp ? (
-        <S.Wrapper>
-          <S.ImageWrapper className="notice-img">
-            <img src="3team_ad.png" alt="" />
-          </S.ImageWrapper>
-          <S.TodayWrapper className="todays">
-            <button className="today-not-show" onClick={onPopUpNotShot}>
-              오늘 하루 보지 않기
-            </button>
-            <button className="close" onClick={() => setshowPopUp(false)}>
-              닫기
-            </button>
-          </S.TodayWrapper>
-        </S.Wrapper>
-      ) : (
-        ''
-      )}
-    </>
+    <div>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>삭제 확인</DialogTitle>
+        <DialogContent>
+          <DialogContentText>정말 삭제하시겠습니까?</DialogContentText>
+        </DialogContent>
+        <DialogActions >
+            <Button onClick={handleClickCancel}>
+              취소
+            </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
-
-export default PopUp;

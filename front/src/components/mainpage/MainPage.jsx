@@ -1,10 +1,11 @@
 import style from '../../srcAssets/style/Mainpage.module.css'
 import Typed from 'typed.js'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Intro from './Intro.jsx'
 import Snackbar from "@mui/material/Snackbar";
-
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 function MainPage() {
   const el = useRef(null)
@@ -12,29 +13,30 @@ function MainPage() {
   const sectionRef = useRef(null) 
   const [section, setSection] = useState(0)//section을 저장할 상태
   const [activeBtn, setActiveBtn] = useState(0); // 활성화된 btn 저장할 상태
-  const action = <img src="3team_ad.png" style={{ height: "300px" }} />;
-  // const [showPopUp, setshowPopUp] = useState(false);
+  const [openElice, setEliceOpen] = useState(true);
+  const [open, setOpen] = useState(true);
 
-  // useEffect(() => {
-  //   const fuzePopUpNotShow = localStorage.getItem('fuzePopUpNotShow'); // ISO
-  //   const fuzePopUpNotShowUNIX = Date.parse(fuzePopUpNotShow); // UNIX
-  //   const whenWillBeExpired = fuzePopUpNotShowUNIX + 1000 * 60; // 우선 1분만
+  useEffect(() => {
+    if (!open && !openElice) {
+      setOpen(false)
+      setEliceOpen(false)
+    }
+    else if(open && !openElice) setOpen(true);
+    else if(!open && openElice)  setEliceOpen(true)
+  }, [open, openElice]);
+  
+  const handleEliceClose = (event, reason) => {
+    setEliceOpen(false)
+  };
+  const handle4Close = (event, reason) => {
+    setOpen(false);
+  };
 
-  //   const currentUNIX = Math.floor(new Date().getTime());
-  //   if (Number.isNaN(fuzePopUpNotShowUNIX)) {
-  //     setshowPopUp(true);
-  //   }
-
-  //   if (whenWillBeExpired < currentUNIX) {
-  //     setshowPopUp(true);
-  //   }
-  // }, []);
-
-  // //section 세팅
-  // useEffect(() => {
-  //   const s = sectionRef.current.getElementsByTagName("section");
-  //   setSection(s)
-  // }, [])
+  //section 세팅
+  useEffect(() => {
+    const s = sectionRef.current.getElementsByTagName("section");
+    setSection(s)
+  }, [])
 
   useEffect (() => {
     const options = {
@@ -98,11 +100,39 @@ function MainPage() {
       {/* mainpage의 intro 부분 */}
       <Intro activeBtn={activeBtn}></Intro>
     </div>
+    // 광고
     <Snackbar
-    open={true}
+    open={open}
     autoHideDuration={6000}
-    onClose={false}
-    action={action}
+    // onClose={handle4Close}
+    anchorOrigin={{vertical:'bottom' , horizontal:'left' }}
+    action={<React.Fragment>
+      <a href="https://aitrack.lms.elice.io/"> <img src="3team_ad.png" style={{ height: "200px" }} /></a>
+      <IconButton
+    aria-label="close"
+    color="inherit"
+    sx={{ p: 0.5 }}
+    onClick={handle4Close}>
+    <CloseIcon />
+  </IconButton>
+  </React.Fragment>}
+    
+  />
+  <Snackbar
+    open={openElice}
+    autoHideDuration={6000}
+    // onClose={handleEliceClose}
+    anchorOrigin={{vertical:'top' , horizontal:'left' }}
+    action={<React.Fragment>
+      <a href="https://aitrack.lms.elice.io/"><img src="elice-ad.png" style={{ height: "500px" }} /></a>
+      <IconButton
+    aria-label="close"
+    color="inherit"
+    sx={{ p: 0.5 }}
+    onClick={handleEliceClose}>
+    <CloseIcon />
+  </IconButton>
+  </React.Fragment>}
   />
   </>
   )
