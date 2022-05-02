@@ -113,15 +113,13 @@ userAuthRouter.post("/login", async function (req, res, next) {
  *     description: 현재 로그인한 유저 정보 조회
  *     produces:
  *     - "application/json"
- *     security:
- *      - Authorization: []
  *     responses:
  *       '200':
  *         description: "현재 로그인한 유저의 정보 조회 완료"
  *         schema:
  *           $ref: '#/components/schemas/User'
  */
-userAuthRouter.get("/current", login_required, async function (req, res, next) {
+userAuthRouter.get("/current", async function (req, res, next) {
   try {
     const userId = req.currentUserId;
     const currentUserInfo = await userAuthService.getUserInfo({
