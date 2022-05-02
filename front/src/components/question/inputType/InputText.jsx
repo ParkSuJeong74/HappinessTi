@@ -4,27 +4,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {questState, currentNumState } from '../../../atom';
 
 // 연봉과 수명은 textfield로 입력받음
-function InputText() {
+function InputText({updateQuestProcess}) {
     const [quest, setQuest] = useRecoilState(questState);
     const currentNum = useRecoilValue(currentNumState);
 
     const isUnderSalary = quest[currentNum]?.value < 800;
     const isExcessSalary = quest[currentNum]?.value > 120000;
-
-    function updateQuestProcess(prev, val) {
-        console.log("현재 문항번호!", currentNum)
-        console.log("바꾸고 있는 값", val)
-        return (
-            
-            prev.map((el) => el.id === currentNum 
-            ? {
-                ...el,
-                id: el.id, quiz: quest[currentNum]?.quiz,
-                value: val
-            } 
-            : el) 
-        )
-    } 
 
     if(Number.isNaN(quest[currentNum]?.value)){
         setQuest((prev) => updateQuestProcess(prev, 0))

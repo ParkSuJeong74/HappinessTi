@@ -18,6 +18,21 @@ function QuestionContent(){
     const quest = useRecoilValue(questState);
     const [currentNum, setCurrentNum] = useRecoilState(currentNumState);
 
+    function updateQuestProcess(prev, val) {
+        console.log("현재 문항번호!", currentNum)
+        console.log("바꾸고 있는 값", val)
+        return (
+            
+            prev.map((el) => el.id === currentNum 
+            ? {
+                ...el,
+                id: el.id, quiz: quest[currentNum]?.quiz,
+                value: val
+            } 
+            : el) 
+        )
+    } 
+
 
     const movePrevNumber = () => {
         setCurrentNum((prev) => prev - 1)
@@ -29,12 +44,12 @@ function QuestionContent(){
 
     const toggleInputSpace = () => {
         if(currentNum === 0 ){
-            return <InputSelect></InputSelect>
+            return <InputSelect updateQuestProcess={updateQuestProcess}></InputSelect>
         }
         else if(currentNum === 1 || currentNum === 2){
-            return <InputText></InputText>
+            return <InputText updateQuestProcess={updateQuestProcess}></InputText>
         }
-        return <InputCheck currentQuest = {quest[currentNum]}></InputCheck>
+        return <InputCheck updateQuestProcess={updateQuestProcess}></InputCheck>
     }
 
     console.log(quest)

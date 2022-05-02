@@ -6,23 +6,13 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import {questState, currentNumState } from '../../../atom';
 
 
-function InputCheck({ currentQuest }) {
+function InputCheck({updateQuestProcess}) {
     const [quest, setQuest] = useRecoilState(questState);
     const currentNum = useRecoilValue(currentNumState);
+    const currentQuest = quest[currentNum]
 
     const ChoosedAnsToQuest = (e) => {
-
-        setQuest((prev) => {
-            const stringToInt = parseInt(e.target.value)
-            console.log("현재 id", currentQuest.id)
-            console.log("바꾸고 있는 값", e.target.value)
-            return prev.map((el) => el.id === currentNum ?
-            {
-                ...el,
-                id: currentNum, quiz: currentQuest.quiz,
-                value: stringToInt
-            } : el)                   
-        })
+        setQuest((prev) => updateQuestProcess(prev, parseInt(e.target.value)))
     }
 
     

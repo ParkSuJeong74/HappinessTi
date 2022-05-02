@@ -6,7 +6,7 @@ import { useState } from 'react';
 import {continents, countryCategory} from '../data/countries'
 
 // 나라는 select로 입력받음
-function InputSelect() {
+function InputSelect({updateQuestProcess}) {
     const [quest, setQuest] = useRecoilState(questState);
     const currentNum = useRecoilValue(currentNumState);
     const [continent, setContinent] = useState('아시아')
@@ -46,18 +46,7 @@ function InputSelect() {
                     onChange={(e) => {
                         setChecked(false)
                         setCountry(e.target.value)
-                        setQuest((prev) => {
-                            console.log("현재 문항번호!", currentNum)
-                            console.log("바꾸고 있는 값", e.target.value)
-
-                            return prev.map((el) => el.id === currentNum 
-                            ? {
-                                ...el,
-                                id: currentNum, quiz: quest[currentNum]?.quiz,
-                                value: e.target.value
-                            } 
-                            : el)                   
-                        })
+                        setQuest((prev) => updateQuestProcess(prev, e.target.value))
                     }}
                 >
                     {countryCategory[continent].map((country) => (
