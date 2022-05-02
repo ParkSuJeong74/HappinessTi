@@ -2,128 +2,30 @@
  *  @swagger
  *  tags:
  *    name: Graph
- *    description: API to manage Graph
+ *    description: API to manage Main Page Graph
  */
 import { Router } from "express";
 import axios from "axios";
-import { login_required } from "../middlewares/login_required.js";
 export const graphRouter = Router();
 
 /**
  * @swagger
- * /graph/gdp/bar:
+ * /graph/composed:
  *   get:
  *     tags: [Graph]
- *     description: GDP bar plot 그래프 시각화
+ *     description: 메인페이지 composed-chart plot 그래프 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "GDP bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 composed-chart plot 그래프 시각화 완료"
  */
-graphRouter.get("/gdp/bar", async function (req, res, next) {
+graphRouter.get("/composed", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000/gdp/bar");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
-/**
- * @swagger
- * /graph/social/bar:
- *   get:
- *     tags: [Graph]
- *     description: social bar plot 그래프 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "social bar plot 그래프 시각화 완료"
- */
-graphRouter.get("/social/bar", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/social/bar");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
-/**
- * @swagger
- * /graph/health/bar:
- *   get:
- *     tags: [Graph]
- *     description: health bar plot 그래프 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "health bar plot 그래프 시각화 완료"
- */
-graphRouter.get("/health/bar", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/health/bar");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
-/**
- * @swagger
- * /graph/freedom/bar:
- *   get:
- *     tags: [Graph]
- *     description: freedom bar plot 그래프 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "freedom bar plot 그래프 시각화 완료"
- */
-graphRouter.get("/freedom/bar", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/freedom/bar");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
-/**
- * @swagger
- * /graph/generosity/bar:
- *   get:
- *     tags: [Graph]
- *     description: generosity bar plot 그래프 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "generosity bar plot 그래프 시각화 완료"
- */
-graphRouter.get("/generosity/bar", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/generosity/bar");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
-/**
- * @swagger
- * /graph/corruption/bar:
- *   get:
- *     tags: [Graph]
- *     description: corruption bar plot 그래프 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
- */
-graphRouter.get("/corruption/bar", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/corruption/bar");
+    const response = await axios.get(
+      `http://localhost:${process.env.FLASK_PORT}/composed`
+    );
+    console.log(response.data)
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
@@ -132,39 +34,44 @@ graphRouter.get("/corruption/bar", async function (req, res, next) {
 
 /**
  * @swagger
- * /graph/continent/bar:
+ * /graph/treemap:
  *   get:
  *     tags: [Graph]
- *     description: continent bar plot 그래프 시각화
+ *     description: 메인페이지 treemap 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 treemap 시각화 완료"
  */
-graphRouter.get("/continent/bar", async function (req, res, next) {
+graphRouter.get("/treemap", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000/continent/bar");
+    const response = await axios.get(
+      `http://localhost:${process.env.FLASK_PORT}/tree`
+    );
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
   }
 });
+
 /**
  * @swagger
  * /graph/mapplot:
  *   get:
  *     tags: [Graph]
- *     description: corruption bar plot 그래프 시각화
+ *     description: 메인페이지 map 시각화
  *     produces:
  *     - "application/json"
  *     responses:
  *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
+ *         description: "메인페이지 map 시각화 완료"
  */
 graphRouter.get("/mapplot", async function (req, res, next) {
   try {
-    const response = await axios.get("http://localhost:5000/mapplot");
+    const response = await axios.get(
+      `http://localhost:${process.env.FLASK_PORT}/mapplot`
+    );
     const list = response.data.map((d) => {
       let newValue = {};
       newValue["value"] = d["RANK"];
@@ -177,44 +84,198 @@ graphRouter.get("/mapplot", async function (req, res, next) {
     next(error);
   }
 });
-/**
- * @swagger
- * /graph/high/bar:
- *   get:
- *     tags: [Graph]
- *     description: corruption bar plot 그래프 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
- */
-graphRouter.get("/high/bar", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/high/bar");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
 
-/**
- * @swagger
- * /graph/low/bar:
- *   get:
- *     tags: [Graph]
- *     description: corruption bar plot 그래프 시각화
- *     produces:
- *     - "application/json"
- *     responses:
- *       '200':
- *         description: "corruption bar plot 그래프 시각화 완료"
- */
-graphRouter.get("/low/bar", async function (req, res, next) {
-  try {
-    const response = await axios.get("http://localhost:5000/low/bar");
-    res.status(200).send(response.data);
-  } catch (error) {
-    next(error);
-  }
-});
+// /**
+//  * @swagger
+//  * /graph/bar/{continent}:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: 대륙별 Top 10 시각화
+//  *     produces:
+//  *     - "application/json"
+//  *     parameters:
+//  *     - name: "continent"
+//  *       in: "path"
+//  *       required: true
+//  *     responses:
+//  *       '200':
+//  *         description: "대륙별 Top 10 시각화 완료"
+//  */
+// graphRouter.get("/bar/:continent", async function (req, res, next) {
+//   try {
+//     const { continent } = req.params;
+//     console.log(continent);
+//     const response = await axios.get(`http://localhost:5000/bar/${continent}`);
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// /**
+//  * @swagger
+//  * /graph/social/bar:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: 메인페이지 social bar plot 그래프 시각화
+//  *     produces:
+//  *     - "application/json"
+//  *     responses:
+//  *       '200':
+//  *         description: "메인페이지 social bar plot 그래프 시각화 완료"
+//  */
+// graphRouter.get("/social/bar", async function (req, res, next) {
+//   try {
+//     const response = await axios.get("http://localhost:5000/social/bar");
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// /**
+//  * @swagger
+//  * /graph/health/bar:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: 메인페이지 health bar plot 그래프 시각화
+//  *     produces:
+//  *     - "application/json"
+//  *     responses:
+//  *       '200':
+//  *         description: "메인페이지 health bar plot 그래프 시각화 완료"
+//  */
+// graphRouter.get("/health/bar", async function (req, res, next) {
+//   try {
+//     const response = await axios.get("http://localhost:5000/health/bar");
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// /**
+//  * @swagger
+//  * /graph/freedom/bar:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: 메인페이지 freedom bar plot 그래프 시각화
+//  *     produces:
+//  *     - "application/json"
+//  *     responses:
+//  *       '200':
+//  *         description: "메인페이지 freedom bar plot 그래프 시각화 완료"
+//  */
+// graphRouter.get("/freedom/bar", async function (req, res, next) {
+//   try {
+//     const response = await axios.get("http://localhost:5000/freedom/bar");
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// /**
+//  * @swagger
+//  * /graph/generosity/bar:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: 메인페이지 generosity bar plot 그래프 시각화
+//  *     produces:
+//  *     - "application/json"
+//  *     responses:
+//  *       '200':
+//  *         description: "메인페이지 generosity bar plot 그래프 시각화 완료"
+//  */
+// graphRouter.get("/generosity/bar", async function (req, res, next) {
+//   try {
+//     const response = await axios.get("http://localhost:5000/generosity/bar");
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// /**
+//  * @swagger
+//  * /graph/corruption/bar:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: 메인페이지 corruption bar plot 그래프 시각화
+//  *     produces:
+//  *     - "application/json"
+//  *     responses:
+//  *       '200':
+//  *         description: "메인페이지 corruption bar plot 그래프 시각화 완료"
+//  */
+// graphRouter.get("/corruption/bar", async function (req, res, next) {
+//   try {
+//     const response = await axios.get("http://localhost:5000/corruption/bar");
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// /**
+//  * @swagger
+//  * /graph/continent/bar:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: 메인페이지 continent bar plot 그래프 시각화
+//  *     produces:
+//  *     - "application/json"
+//  *     responses:
+//  *       '200':
+//  *         description: "메인페이지 corruption bar plot 그래프 시각화 완료"
+//  */
+// graphRouter.get("/continent/bar", async function (req, res, next) {
+//   try {
+//     const response = await axios.get("http://localhost:5000/continent/bar");
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// /**
+//  * @swagger
+//  * /graph/high/bar:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: high 그래프 시각화(임시)
+//  *     produces:
+//  *     - "application/json"
+//  *     responses:
+//  *       '200':
+//  *         description: "high 그래프 시각화 완료"
+//  */
+// graphRouter.get("/high/bar", async function (req, res, next) {
+//   try {
+//     const response = await axios.get("http://localhost:5000/high/bar");
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// /**
+//  * @swagger
+//  * /graph/low/bar:
+//  *   get:
+//  *     tags: [Graph]
+//  *     description: low 그래프 시각화(임시)
+//  *     produces:
+//  *     - "application/json"
+//  *     responses:
+//  *       '200':
+//  *         description: "low 그래프 시각화 완료"
+//  */
+// graphRouter.get("/low/bar", async function (req, res, next) {
+//   try {
+//     const response = await axios.get("http://localhost:5000/low/bar");
+//     res.status(200).send(response.data);
+//   } catch (error) {
+//     next(error);
+//   }
+// });

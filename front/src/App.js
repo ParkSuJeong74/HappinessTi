@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useReducer, createContext } from "react"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import React, { useState, useEffect, useReducer, createContext } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { loginReducer } from "./reducer"
+import { loginReducer } from "./reducer";
 
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -16,45 +16,44 @@ import DataLog from "./components/datalogs/DataLog"
 import Result from "./components/result/Result"
 import {ROUTES} from './Route'
 
-import { MainWrapper } from "./srcAssets/style/MainWrapper"
-import './srcAssets/style/Font.module.css'
-import * as Api from './api'
+import { MainWrapper } from "./srcAssets/style/MainWrapper";
+import "./srcAssets/style/Font.module.css";
+import * as Api from "./api";
 
-export const UserStateContext = createContext(null)
-export const DispatchContext = createContext(null)
+export const UserStateContext = createContext(null);
+export const DispatchContext = createContext(null);
 
 function App() {
   // useReducer 훅을 통해 userState 상태와 dispatch함수를 생성함.
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
-  })
+  });
 
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
   const fetchCurrentUser = async () => {
-      try {
-          const res = await Api.get("users/current")
-          const currentUser = res.data;
+    try {
+      const res = await Api.get("users/current");
+      const currentUser = res.data;
 
-          dispatch({
-              type: "LOGIN_SUCCESS",
-              payload: currentUser,
-          });
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: currentUser,
+      });
 
-          console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
-      } catch {
-          console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
-      }
-      setIsFetchCompleted(true);
+      console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
+    } catch {
+      console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
+    }
+    setIsFetchCompleted(true);
   };
 
   useEffect(() => {
-      fetchCurrentUser();
+    fetchCurrentUser();
   }, []);
 
   if (!isFetchCompleted) {
-      return "loading...";
+    return "loading...";
   }
-
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -81,7 +80,7 @@ function App() {
 
       </UserStateContext.Provider>
     </DispatchContext.Provider>
-  )
+  );
 }
 
-export default App
+export default App;

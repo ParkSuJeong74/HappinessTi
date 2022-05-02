@@ -1,15 +1,16 @@
-import joblib
-from pymongo import MongoClient
-import datetime
-import pandas as pd
-import numpy as np
-import json
-db='mongodb+srv://crackingdevs:elice1234@crackingdevs.guuao.mongodb.net/crackingdevs'
-collection=db.my_collection
-df=pd.read_csv('2022_google_csv.csv')
-test={
-    'name':df[df['country']=='South Korea']['country'].to_list(),
-    'Happiness score':df[df['country']=='South Korea']['Happiness Score'].to_list(),
-}
-result=json.dumps(test)
-collection.insert_one(result)
+from heapq import heappush
+from tabnanny import verbose
+from flask import Flask
+from controller.chartcode import cc
+from controller.happy_ML import ml
+from dotenv import load_dotenv
+import os
+load_dotenv()
+app = Flask(__name__)
+with app.app_context():
+    app.register_blueprint(cc)
+    app.register_blueprint(ml)
+
+
+if __name__ == '__main__':
+    app.run(host='localhost',port=os.environ.get("FLASK_PORT"), debug=os.environ.get("FLASK_DEBUG"))
