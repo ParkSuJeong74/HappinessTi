@@ -1,44 +1,23 @@
-import * as React from "react"
-import List from "@mui/material/List"
-import Box from "@mui/material/Box"
-
+import React, { PureComponent, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import {List, Box, Paper} from "@mui/material"
 import EmojiEventsSharpIcon from "@mui/icons-material/EmojiEventsSharp"
+import * as Api from '../../../api'
 import Item from "./Item"
 import GoAllData from "./GoAllData"
-import { useNavigate } from "react-router-dom"
-import { Paper } from "@mui/material"
-
-const rankingDatas = [
-    {
-        id: 1,
-        grade: 1,
-        nation: 'Denmark',
-    },
-    {
-        id: 2,
-        grade: 2,
-        nation: 'Norway',
-    },
-    {
-        id: 3,
-        grade: 3,
-        nation: 'The%20Republic%20Of%20Korea',
-    },
-    {
-        id: 4,
-        grade: 4,
-        nation: 'Canada',
-    },
-    {
-        id: 5,
-        grade: 5,
-        nation: 'Australia',
-    }
-]
 
 function Ranking() {
     const naviage = useNavigate()
-
+    const [rankingDatas, setRankingDatas] = useState([])
+  useEffect(()=>{
+    try{
+      Api.get("rank").then(res =>{
+        setRankingDatas(res.data)
+      })
+    } catch(err){
+      console.log(err);
+    }
+  },[])
   return (
     <Paper elevation={12} sx={{ width: "320px", bgcolor: "#FFB3A3", p: 1, margin: 0 }}>
       
@@ -48,7 +27,6 @@ function Ranking() {
               ranking
             </p>
       </Box>
-
       <List
         sx={{ width: "100%", maxWidth: 600, bgcolor: "#fff", borderRadius: 5 }}
         component="nav"
@@ -56,13 +34,12 @@ function Ranking() {
       >
         {rankingDatas.map((data) => (
             <Item
-                key={data.grade} 
+                key={data.country} 
                 data={data}
             />
         ))}
         <GoAllData />
       </List>
-
     </Paper>
   )
 }

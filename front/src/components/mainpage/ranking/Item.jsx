@@ -2,7 +2,7 @@ import { Avatar, Divider, ListItemAvatar, ListItemButton, ListItemText } from "@
 
 function Item({ data }){
   //url에 띄워쓰기는 %20으로 들어가야 함
-  const originalNation = data?.nation
+  const originalNation = data?.country
   // 화면에 나타날 국가명은 %20을 지우고 띄워쓰기로 바꿔야 됨.
   const transformedNation = originalNation.split("%20").join(' ') 
 
