@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import {ROUTES} from '../../Route'
 import style from '../../srcAssets/style/Mainpage.module.css'
 import ChartComposed from "./chart/ChartComposed";
 import ChartMap from "./chart/ChartMap";
@@ -91,7 +92,7 @@ function Intro({ activeBtn }) {
                 <h1>지금 당신과 같은 행복을 가지고 있는 사람들이 궁금하신가요?</h1>
                 <input  
                     type="checkbox"
-                    onChange={(e) => e.target.checked ? navigate("/question") : ''}
+                    onChange={(e) => e.target.checked ? navigate(ROUTES.QUESTION.link) : ''}
                 />
             </Box>
             

@@ -4,6 +4,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import * as Api from '../../api';
 import { UserStateContext } from "../../App"
 import { useNavigate } from "react-router-dom";
+import {ROUTES} from '../../Route'
 import ProfileInfo from "./ProfileInfo";
 import Profile from "./Profile";
 
@@ -48,7 +49,7 @@ function Mypage(){
 
     if(!isLoggedin){
       alert("반가워요! 먼저 로그인을 해주세요!")
-      navigate("/login", { replace: true })
+      navigate(ROUTES.LOGIN.link, { replace: true })
     }
   }, [loginUserId])
 

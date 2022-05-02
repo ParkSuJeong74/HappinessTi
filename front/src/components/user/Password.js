@@ -3,12 +3,14 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { withStyles } from "@material-ui/core/styles";
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import {ROUTES} from '../../Route'
 import styled from 'styled-components';
 import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
 import password from '../../srcAssets/style/Password.module.css';
 
 function Password() {
+  const navigate = useNavigate()
   const CssTextField = withStyles({
     root: {
       "& label.Mui-focused": {
@@ -25,7 +27,7 @@ function Password() {
     <PasswordBody>
       <PasswordBodyUpper>
         <Box>
-          <LogoImg src={logoImg} />
+          <LogoImg src={logoImg} onClick={() => navigate(ROUTES.MAIN_PAGE.link)}/>
         </Box>
         <Box>
           <PasswordTitle>Forgot your password?</PasswordTitle>
@@ -91,10 +93,10 @@ function Password() {
         </button>
 
         <Box class={password.otherButtonbox}>
-          <Link to="/login" class={password.loginButton}>
+          <Link to={ROUTES.LOGIN.link} class={password.loginButton}>
             Back to Login page
           </Link>
-          <Link to="/signin" class={password.forgotpasswordButton}>
+          <Link to={ROUTES.SIGN_IN.link} class={password.forgotpasswordButton}>
             Back to Signin page
           </Link>
         </Box>

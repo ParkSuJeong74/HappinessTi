@@ -1,6 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, Stack, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
+import {ROUTES} from '../../Route'
 import Swal from 'sweetalert2'
 import * as Api from '../../api'
 import { useContext } from 'react';
@@ -40,7 +41,7 @@ function UserManagement(){
                     icon: 'success'
                 })
                 
-                navigate('/')
+                navigate(ROUTES.MAIN_PAGE.link)
             }
             
         })
@@ -59,7 +60,7 @@ function UserManagement(){
             <AccordionDetails>
                 <Stack direction="row" sx={{mb: 2}}>
                     <Typography sx={{fontWeight: 'bold'}} variant="h6">비밀번호를 변경하시나요?</Typography>
-                    <Button variant="contained" color="secondary" onClick={() => navigate("/findpassword")} sx={{ml: 2}}>비밀번호 변경</Button>
+                    <Button variant="contained" color="secondary" onClick={() => navigate(ROUTES.PASSWORD.link)} sx={{ml: 2}}>비밀번호 변경</Button>
                 </Stack>
 
                 <Stack direction="row">

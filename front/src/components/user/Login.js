@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import {withStyles} from "@material-ui/core/styles";
 
 import { Link } from 'react-router-dom'
+import {ROUTES} from '../../Route'
 import styled from 'styled-components';
 import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
 import login from '../../srcAssets/style/Login.module.css';
@@ -58,7 +59,7 @@ function Login() {
             sessionStorage.setItem("userToken", jwtToken)
 
             alert("로그인이 성공하였습니다!")
-            navigate('/')
+            navigate(ROUTES.MAIN_PAGE.link)
 
             dispatch({
                 type: "LOGIN_SUCCESS",
@@ -74,7 +75,7 @@ function Login() {
         <LoginBody onSubmit={handleSubmit}>
             <LoginBodyUpper>
                 <Box>
-                    <LogoImg src={logoImg} onClick={() => navigate("/")}/>
+                    <LogoImg src={logoImg} onClick={() => navigate(ROUTES.MAIN_PAGE.link)}/>
                 </Box>
                 <Box>
                     <LoginTitle>Log In</LoginTitle>
@@ -118,8 +119,8 @@ function Login() {
                 <button type='submit' class={login.loginButton}>LOG IN</button>
 
                 <Box class={login.otherButtonbox}>
-                    <Link to="/signin" class={login.createaccountButton}>Create Account</Link>
-                    <Link to="/password" class={login.forgotpasswordButton}>Forgot password?</Link>
+                    <Link to={ROUTES.SIGN_IN.link} class={login.createaccountButton}>Create Account</Link>
+                    <Link to={ROUTES.PASSWORD.link} class={login.forgotpasswordButton}>Forgot password?</Link>
                 </Box>
                 
             </div>

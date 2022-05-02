@@ -14,6 +14,7 @@ import Mypage from "./components/mypage/Mypage"
 import Team from "./components/team/Team"
 import DataLog from "./components/datalogs/DataLog"
 import Result from "./components/result/Result"
+import {ROUTES} from './Route'
 
 import { MainWrapper } from "./srcAssets/style/MainWrapper"
 import './srcAssets/style/Font.module.css'
@@ -63,16 +64,16 @@ function App() {
             <MainWrapper>
               <Header />
                 <Routes>
-                  <Route path="/" exact element={<MainPage />} />
-                  <Route path="/teampage" element={<Team/>} />
-                  <Route path="/question" element={<Question />} />
-                  <Route path="/question/result" element={<Result />} />
-                  <Route path="/datalogs" element={<DataLog />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/mypage" element={<Mypage />} />
-                  <Route path="/signin" element={<Signin />} />
-                  <Route path="/password" element={<Password />} />
-                  <Route path="*" element={<MainPage />} />
+                  <Route path={ROUTES.MAIN_PAGE.path} exact element={<MainPage />} />
+                  <Route path={ROUTES.TEAM_PAGE.path} element={<Team/>} />
+                  <Route path={ROUTES.QUESTION.path} element={<Question />} />
+                  <Route path={ROUTES.RESULT.path} element={<Result />} />
+                  <Route path={ROUTES.DATA_LOGS.path} element={<DataLog />} />
+                  <Route path={ROUTES.LOGIN.path} element={<Login />} />
+                  <Route path={ROUTES.MY_PAGE.path} element={<Mypage />} />
+                  <Route path={ROUTES.SIGN_IN.path} element={<Signin />} />
+                  <Route path={ROUTES.PASSWORD.path} element={<Password />} />
+                  <Route path={ROUTES.REST.path} element={<MainPage />} />
                 </Routes>
               <Footer />
             </MainWrapper>
