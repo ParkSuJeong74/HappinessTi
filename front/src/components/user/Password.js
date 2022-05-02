@@ -128,4 +128,5 @@ const PasswordTitle2 = styled.div`
 
 const LogoImg = styled.img`
   width: 100px;
+  cursor: pointer;
 `;

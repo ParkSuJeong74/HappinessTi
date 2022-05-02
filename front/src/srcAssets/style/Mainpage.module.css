@@ -169,7 +169,5 @@
 
 .active{
     animation: changeMovement 1s ease-in-out;
-    /* chart2 css 속성 */
-    
 }
 
