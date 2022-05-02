@@ -4,6 +4,7 @@ import {useNavigate } from 'react-router-dom';
 import {ROUTES} from '../../Route'
 
 import style from '../../srcAssets/style/Question.module.css'
+import styled from 'styled-components'
 import {questState, currentNumState } from '../../atom.jsx';
 import InputText from "./inputType/InputText";
 import InputCheck from "./inputType/InputCheck";
@@ -16,6 +17,7 @@ function QuestionContent(){
     const navigate = useNavigate()
     const quest = useRecoilValue(questState);
     const [currentNum, setCurrentNum] = useRecoilState(currentNumState);
+
 
     const movePrevNumber = () => {
         setCurrentNum((prev) => prev - 1)
@@ -48,11 +50,11 @@ function QuestionContent(){
             {/* 입력 공간 형식이 문제에 따라 바뀜 */}
             {toggleInputSpace()}
             
-            <Stack sx={{display: 'flex', flexDirection: 'row'}} className={style.prevNextButtons}>
+            <Stack sx={prevNextButtons}>
                 {currentNum !== 0 && 
-                    <Button variant="contained" startIcon={<ArrowBackIosIcon />} className={style.prevNextBtn} onClick={() => movePrevNumber()}>이전</Button>}
+                    <Button variant="contained" startIcon={<ArrowBackIosIcon />} sx={prevNextBtn} onClick={() => movePrevNumber()}>이전</Button>}
                 {currentNum !== 9 &&
-                    <Button variant="contained" endIcon={<ArrowForwardIosIcon />} className={style.prevNextBtn} onClick={() => moveNextNumber()}>다음</Button>}
+                    <Button variant="contained" endIcon={<ArrowForwardIosIcon />} sx={prevNextBtn} onClick={() => moveNextNumber()}>다음</Button>}
             </Stack>
 
             {/* 마지막 페이지에서 결과 페이지로 이동 버튼 */}
@@ -70,3 +72,18 @@ function QuestionContent(){
 }
 
 export default QuestionContent
+
+const prevNextButtons = {
+    margin: '70px 0',
+    display: 'flex', 
+    flexDirection: 'row'
+}
+
+const prevNextBtn = {
+    backgroundColor: '#8353e6',
+    marginRight: '10px',
+    fontSize: '15px',
+    '&:hover': {
+        backgroundColor: '#8353e6',
+    },
+}
