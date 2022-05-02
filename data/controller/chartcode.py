@@ -247,6 +247,30 @@ def radar(country):
   dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=False)
   return jsonify(dic[0].get(country))
 
+
+##------결과페이지-------------##
+@cc.route('/text/<country>',methods=['GET'])
+def result(country):
+  temp2=df[df['country']==country]
+  temp2['rank_dys'] = df['dystopia'].rank(method='dense', ascending=False)
+  temp2['rank_gdp']=df['gdp'].rank(method='dense', ascending=False)
+  temp2['rank_social']=df['socialSupport'].rank(method='dense', ascending=False)
+  temp2['rank_health']=df['health'].rank(method='dense', ascending=False)
+  temp2['rank_free']=df['freedom'].rank(method='dense', ascending=False)
+  temp2['rank_ge']=df['generosity'].rank(method='dense', ascending=False)
+  temp2['rank_corr']=df['corruptionPerceptions'].rank(method='dense', ascending=False)
+  rank=round(temp2['RANK'].values[0]/df.shape[0]*100)
+  gdp_per=round(temp2['rank_corr'].to_list()[0]/df.shape[0]*100,3)
+  dystopia_per=round(temp2['rank_dys'].to_list()[0]/df.shape[0]*100,3)
+  social_per=round(temp2['rank_social'].to_list()[0]/df.shape[0]*100,3)
+  health_per=round(temp2['rank_health'].to_list()[0]/df.shape[0]*100,3)
+  freedom_per=round(temp2['rank_free'].to_list()[0]/df.shape[0]*100,3)
+  generosity_per=round(temp2['rank_ge'].to_list()[0]/df.shape[0]*100,3)
+  corruption_per=round(temp2['rank_corr'].to_list()[0]/df.shape[0]*100,3)
+  return jsonify({'rank': rank, "gdpPer":gdp_per, 'dystopiaPer':dystopia_per, 'socialPer':social_per,'healthPer':health_per,'freedomPer':freedom_per,'generosityPer':generosity_per,'corruptionPer':corruption_per})
+  # for i in ['rank','gdpPer','dystopiaPer','socialPer','healthPer','freedomPer','generosityPer','corruptionPer']:
+  #   json['text']= '낮' if json[i]<=100 else '높'
+  #return jsonify(json)
 #----composed barchart----------#
 @cc.route('/composed',methods=['GET'])
 def composedBarchart():
