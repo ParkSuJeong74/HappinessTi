@@ -1,6 +1,9 @@
 import { Avatar, Divider, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import {ROUTES} from '../../../Route'
 
 function Item({ data }){
+  const navigate = useNavigate()
   /* //url에 띄워쓰기는 %20으로 들어가야 함
   const originalNation = data?.nation
   // 화면에 나타날 국가명은 %20을 지우고 띄워쓰기로 바꿔야 됨.
@@ -8,7 +11,7 @@ function Item({ data }){
 
     return (
     <>
-        <ListItemButton>
+        <ListItemButton onClick={() => navigate(`analysis/${data?.nation}`)}>
           <span
             style={{
               marginRight: "12px",

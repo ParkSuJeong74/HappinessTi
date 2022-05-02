@@ -23,6 +23,10 @@ export const ROUTES = {
         link: '/datalogs',
         path: '/datalogs'
     },
+    ANALYSIS: {
+        link: '/analysis/:country',
+        path: '/analysis/:country'
+    },
     MAIN_PAGE: {
         link: '/',
         path: '/'

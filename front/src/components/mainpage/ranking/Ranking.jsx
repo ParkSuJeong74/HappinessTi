@@ -37,7 +37,6 @@ const rankingDatas = [
 ]
 
 function Ranking() {
-    const naviage = useNavigate()
 
   return (
     <Paper elevation={12} sx={{ width: "320px", bgcolor: "#FFB3A3", p: 1, margin: 0 }}>

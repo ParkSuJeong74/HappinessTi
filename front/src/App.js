@@ -14,6 +14,8 @@ import Mypage from "./components/mypage/Mypage"
 import Team from "./components/team/Team"
 import DataLog from "./components/datalogs/DataLog"
 import Result from "./components/result/Result"
+import Analysis from "./components/analysis/Analysis";
+
 import {ROUTES} from './Route'
 
 import { MainWrapper } from "./srcAssets/style/MainWrapper";
@@ -67,6 +69,7 @@ function App() {
                   <Route path={ROUTES.ABOUT.path} element={<Team/>} />
                   <Route path={ROUTES.QUESTION.path} element={<Question />} />
                   <Route path={ROUTES.RESULT.path} element={<Result />} />
+                  <Route path={ROUTES.ANALYSIS.path} element={<Analysis />} />
                   <Route path={ROUTES.DATA_LOGS.path} element={<DataLog />} />
                   <Route path={ROUTES.LOGIN.path} element={<Login />} />
                   <Route path={ROUTES.MY_PAGE.path} element={<Mypage />} />
