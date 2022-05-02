@@ -42,10 +42,12 @@ function Header() {
       
       <div>
 
-        <Link to={ROUTES.DATA_LOGS.link} className={Style.headerLink}>Data</Link>
+        
 
         {!isLoggedin && (
           <Link to={ROUTES.LOGIN.link} className={Style.headerLink}>LogIn</Link>)}
+          
+          <Link to={ROUTES.DATA_LOGS.link} className={Style.headerLink}>Data</Link>
         
         <Link to={ROUTES.MY_PAGE.link} className={Style.headerLink}>Mypage</Link>
 
