@@ -5,12 +5,12 @@ const questState = atom({
   default: [{
         id: 0,
         quiz: '당신의 나라를 입력해주세요! (ex. The Republic Of Korea)',
-        value: ''
+        value: 'The Republic Of Korea'
     },
     {
         id: 1,
         quiz: '당신의 평균 연봉을 입력해주세요! (만 원 단위, 최대 12억) ',
-        value: 6100
+        value: 0
     },
     {
         id: 2,
