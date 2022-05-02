@@ -359,8 +359,8 @@ userAuthRouter.get(
   async function (req, res, next) {
     try {
       const userId = req.currentUserId;
-      const logs = await surveyLogService.getLogs({ userId });
-      res.status(201).json(logs);
+      const countryInfo = await surveyLogService.getLogs({ userId });
+      res.status(201).json(countryInfo);
     } catch (error) {
       next(error);
     }

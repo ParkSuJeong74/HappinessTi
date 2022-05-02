@@ -8,7 +8,6 @@ import { happinessRouter } from "./routers/happinessRouter.js";
 import { resultRouter } from "./routers/resultRouter.js";
 import { graphRouter } from "./routers/graphRouter.js";
 import { rankingRouter } from "./routers/rankingRouter.js";
-import { analysisRouter } from "./routers/analysisRouter.js";
 
 export const app = express();
 
@@ -33,7 +32,6 @@ app.use("/happiness", happinessRouter);
 app.use("/result", resultRouter);
 app.use("/graph", graphRouter);
 app.use("/rank", rankingRouter);
-app.use("/analysis", analysisRouter);
 app.use(errorMiddleware);
 
 export default app;

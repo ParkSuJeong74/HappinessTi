@@ -20,4 +20,19 @@ export const surveyLogService = {
 
     return { analysis, countryFlag };
   },
+  getLogs: async ({ userId }) => {
+    const analysis = await surveylogModel.findById({
+      userId,
+    });
+    let countryInfo = [];
+    for (let log of analysis) {
+      countryInfo.push(
+        await happyModel.findByCountry({
+          countryName: log.reCountry,
+        })
+      );
+    }
+
+    return countryInfo;
+  },
 };
