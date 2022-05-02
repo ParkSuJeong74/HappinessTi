@@ -45,13 +45,12 @@ function Intro({ activeBtn }) {
                     <h2 class={style.subtitle}>
                         <span class={style.coloring}>행복 TI</span> 란?
                     </h2>
-                    <p className={style.introContent1}>MBTI 성격 검사를 통해 자신의 성격을 표준화합니다. 그렇다면 자신의 행복을 표준화하는 방법이 없을까요?</p>
-                    <p className={style.introContent2}>행복 Ti에서는 kaggle 데이터셋을 활용한 설문조사로 당신의 행복도를 측정하고 같은 행복도를 가진 나라를 알려드리고 시각화된 자료로 보여줍니다.</p>
-                    <p className={style.introContent3}>설문지내용을 통해 행복도까지 예측해보세요!</p>
-
                     <div class={style.chart1}>
                         <ChartComposed active={activeBtn === 1}></ChartComposed>
                     </div>
+                    <p className={style.introContent1}>2022년 세계행복보고서에 따르면, 삶에 대한 평가는 시간이 흐를수록 단계적으로 변화합니다. </p>
+                    <p className={style.introContent2}>기대 수명의 점진적인 증가는 서구인의 삶에 대한 평가와 동유럽의 격차를 줄였고, GDP의 변화는 전체적인 생활 평가에 변화를 주었습니다.</p>
+                    <p className={style.introContent3}>행복이라는 것은 삶에 대한 평가로부터 기인하며, 여러 감정적인 요인에 따라 달라집니다. 모든 국가는 매년 행복도에 대한 설문조사를 실시하고 95%의 신뢰구간을 가지고 있습니다.</p>      
                 </Box>
             </section>
 
@@ -62,9 +61,12 @@ function Intro({ activeBtn }) {
                         Total Continents <span class={style.coloring}>Happiness</span>
                     </h2>
                 
-                    <div style={{width: '100%', height: '500px'}}>
+                    <div style={{width: '90%', height: '500px', marginBottom : '50px'}}>
                         <ChartTreemap active={activeBtn === 2}></ChartTreemap>
                     </div>
+                    <p className={style.introContent1}> 또한 행복에 대한 척도와 기준은 대륙마다 뚜렷한 지역적인 차이를 가지고 있습니다. 각 대륙의 특수한 문화 속에서 겪는 삶의 경험과 공유하는 감정에 따라 달라지니까요. 그 패턴은 유사성 또한 가지고 있습니다. </p>
+                    <br/>
+                    <p className={style.introContent1}> 대표적인 것이 바로 스트레스입니다. 특히 삶에 대한 자유의식을 갖게 된다거나 사회의 부패를 인지하는 경향, 친사회적인 행위 등이 한 나라에서 공유되는 스트레스에 영향을 미칩니다. 그 외에도 복지의 불평등 등이 있을 수 있습니다.</p>
                 </Box>
             </section>
 
@@ -79,10 +81,11 @@ function Intro({ activeBtn }) {
                         <div className={`${activeBtn === 3 ? `${style.chart2} ${style.active}` : style.chart2}`}>
                             <ChartMap></ChartMap>
                         </div>
-                        <div>
+                        <div className={style.ranking}>
                             <Ranking></Ranking>
                         </div>
                     </div>
+                    <p className={style.introContent1}>행복 Ti는 기대수명, GDP, 자유, 부패 인식, 관용, 총 5가지 지표를 이용한 설문조사를 기반으로 당신의 행복도를 조사하고, 세계행복보고서에서 수립된 지표로 만들어진 kaggle 데이터를 활용하여 총 100여 개의 나라와 당신의 행복도를 비교해줍니다. 또한 당신이 속해있는 나라의 현재와 비교해 당신이 미래에 행복해질 가능성을 보여줍니다.</p>
                 </Box>
             </section>
 
@@ -93,8 +96,8 @@ function Intro({ activeBtn }) {
                     type="checkbox"
                     onChange={(e) => e.target.checked ? navigate("/question") : ''}
                 />
+                
             </Box>
-            
         </Container>
         
     )

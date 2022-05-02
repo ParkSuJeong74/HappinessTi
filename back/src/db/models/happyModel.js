@@ -1,6 +1,11 @@
 import { Happiness } from "../schemas/happiness.js";
 
 export const happyModel = {
+  findRanking: async ({}) => {
+    const countries = await Happiness.find().sort({ count: -1 }).limit(5);
+    return countries;
+  },
+  //
   findAll: async () => {
     const totalHappylist = await Happiness.find();
     return totalHappylist;
@@ -24,9 +29,5 @@ export const happyModel = {
       option
     );
     return country;
-  },
-  findRanking: async ({}) => {
-    const countries = await Happiness.find().sort({ count: -1 }).limit(5);
-    return countries;
   },
 };

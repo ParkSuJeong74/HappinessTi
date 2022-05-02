@@ -1,17 +1,18 @@
-
 import style from '../../srcAssets/style/Mainpage.module.css'
 import Typed from 'typed.js'
 import { useEffect, useRef, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Intro from './Intro.jsx'
+import Snackbar from "@mui/material/Snackbar";
+
 
 function MainPage() {
   const el = useRef(null)
   const typed = useRef(null)
-
   const sectionRef = useRef(null) 
   const [section, setSection] = useState(0)//section을 저장할 상태
   const [activeBtn, setActiveBtn] = useState(0); // 활성화된 btn 저장할 상태
+  const action = <img src="3team_ad.png" style={{ height: "300px" }} />;
 
   //section 세팅
   useEffect(() => {
@@ -52,7 +53,8 @@ function MainPage() {
     }
   });
 
-  return (
+  return (  
+    <>
     <div ref={sectionRef}>
       {/* <MainVideo & greeting /> */}
       <section>
@@ -80,6 +82,13 @@ function MainPage() {
       {/* mainpage의 intro 부분 */}
       <Intro activeBtn={activeBtn}></Intro>
     </div>
+    <Snackbar
+    open={true}
+    autoHideDuration={6000}
+    onClose={false}
+    action={action}
+  />
+  </>
   )
 }
 export default MainPage
