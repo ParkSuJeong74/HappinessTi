@@ -64,7 +64,7 @@ function App() {
               <Header />
                 <Routes>
                   <Route path={ROUTES.MAIN_PAGE.path} exact element={<MainPage />} />
-                  <Route path={ROUTES.TEAM_PAGE.path} element={<Team/>} />
+                  <Route path={ROUTES.ABOUT.path} element={<Team/>} />
                   <Route path={ROUTES.QUESTION.path} element={<Question />} />
                   <Route path={ROUTES.RESULT.path} element={<Result />} />
                   <Route path={ROUTES.DATA_LOGS.path} element={<DataLog />} />

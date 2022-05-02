@@ -11,7 +11,7 @@ export const ROUTES = {
         link: '/login',
         path: '/login'
       },
-    TEAM_PAGE: {
+    ABOUT: {
         link: '/teampage',
         path: '/teampage'
     },
