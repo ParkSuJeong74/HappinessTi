@@ -244,7 +244,7 @@ def radar(country):
       data.append(eval(json.dumps(test7)))
       test[i]=data
       dic.append(test)
-  dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=True)
+  dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=False)
   return jsonify(dic[0].get(country))
 
 #----composed barchart----------#
@@ -258,9 +258,9 @@ def composedBarchart():
     test={
         'year':i,
         "happinessScore":list(yearAvg[yearAvg.index==i]['Happiness Score'].values)[0],
-        "socialSupport":list(yearAvg[yearAvg.index==i]['Family (Social Support)'].values)[0],
-        'gdp':list(yearAvg[yearAvg.index==i]['Economy (GDP per Capita)'].values)[0],
-        'health':list(yearAvg[yearAvg.index==i]['Health (Life Expectancy)'].values)[0],
+        "socialSupport":list(yearAvg[yearAvg.index==i]['Family (Social Support)'].values*4)[0],
+        'gdp':list(yearAvg[yearAvg.index==i]['Economy (GDP per Capita)'].values*4)[0],
+        'health':list(yearAvg[yearAvg.index==i]['Health (Life Expectancy)'].values*8)[0],
     }
     data.append(eval(json.dumps(test)))
   return jsonify(data)
