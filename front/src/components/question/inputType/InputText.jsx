@@ -21,8 +21,6 @@ function InputText() {
         }
     }
 
-console.log(quest)
-console.log(currentNum)
     return (
     <>
         <input 

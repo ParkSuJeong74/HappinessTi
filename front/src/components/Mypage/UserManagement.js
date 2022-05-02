@@ -40,7 +40,6 @@ function UserManagement(){
                     icon: 'success'
                 })
                 
-                
                 navigate('/')
             }
             

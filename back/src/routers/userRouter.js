@@ -10,6 +10,7 @@ import { login_required } from "../middlewares/login_required.js";
 import { userAuthService } from "../services/userService.js";
 import { surveyLogService } from "../services/surveylogService.js";
 import { multer } from "../middlewares/multer.js";
+import { smtpTransport } from "../config/smtpTransport.js";
 
 export const userAuthRouter = Router();
 
@@ -130,6 +131,73 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
     res.status(200).send(currentUserInfo);
   } catch (error) {
     next(error);
+  }
+});
+
+/**
+ * @swagger
+ * /users/password/reset:
+ *   put:
+ *     tags: [User]
+ *     description: password 변경
+ *     produces:
+ *     - "application/json"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         "application/json":
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: "프로필 사진 업로드 완료"
+ *         content:
+ *           application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ */
+userAuthRouter.put("/password/reset", async function (req, res, next) {
+  try {
+    //form에서 받아온 이메일 저장
+    const { email } = req.body;
+
+    //1)받아온 이메일이 db에 존재하는지 확인하고 2)새 비밀번호를 업데이트할 함수
+    const { newPassword, updatedUser } = await userAuthService.setNewPassword({
+      email,
+    });
+
+    if (updatedUser.errorMessage) {
+      throw new Error(updatedUser.errorMessage);
+    }
+
+    //메일옵션 => 아래 내용이 수신됨ss
+    const mailOption = {
+      from: "eliceTest@gmail.com",
+      to: email,
+      subject: `[개발뽀개기]  임시 비밀번호가 생성되었습니다.`,
+      html: `
+      <h1>임시비밀번호</h1>
+      임시 비밀번호 : ${newPassword}
+      `,
+    };
+
+    smtpTransport.sendMail(mailOption, (err, res) => {
+      if (err) {
+        console.log("err", err);
+      } else {
+        console.log("Message send :" + res);
+      }
+      smtpTransport.close();
+    });
+
+    res.status(200).send({
+      result: "ok",
+    });
+  } catch (err) {
+    next(err);
   }
 });
 
@@ -277,7 +345,7 @@ userAuthRouter.put("/", login_required, async function (req, res, next) {
 
 /**
  * @swagger
- * /users/surveylogs:
+ * /users/survey/logs:
  *   get:
  *     tags: [User]
  *     description: 한 유저의 설문조사 결과 조회(마이페이지)
@@ -294,12 +362,11 @@ userAuthRouter.put("/", login_required, async function (req, res, next) {
  *              $ref: '#/components/schemas/Surveylog'
  */
 userAuthRouter.get(
-  "/surveylogs",
+  "/survey/logs",
   login_required,
   async function (req, res, next) {
     try {
       const userId = req.currentUserId;
-      console.log(userId);
       const logs = await surveyLogService.getLogs({ userId });
 
       res.status(201).json(logs);

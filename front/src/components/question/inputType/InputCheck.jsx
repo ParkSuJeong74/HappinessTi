@@ -24,8 +24,8 @@ function InputCheck({ currentQuest }) {
             } : el)                   
         })
     }
-    console.log(quest)
 
+    
     //현재 문항에 대한 situation을 가져옴
     const currentSituation = situation.find((item) => item.num === currentNum)
 

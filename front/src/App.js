@@ -29,12 +29,10 @@ function App() {
   });
 
   const [isFetchCompleted, setIsFetchCompleted] = useState(false);
-
   const fetchCurrentUser = async () => {
     try {
       const res = await Api.get("users/current");
       const currentUser = res.data;
-      console.log("currentUser", currentUser);
 
       dispatch({
         type: "LOGIN_SUCCESS",

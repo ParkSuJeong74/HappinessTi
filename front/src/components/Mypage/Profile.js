@@ -5,7 +5,6 @@ import ProfileEdit from "./ProfileEdit.js";
 import norway from "../../srcAssets/img/norway.png";
 
 function Profile({ editOpen, setEditOpen, user, updateUser }) {
-  console.log(user);
   return (
     <CardBox>
       <UpperBox>

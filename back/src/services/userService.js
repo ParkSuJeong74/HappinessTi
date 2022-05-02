@@ -28,16 +28,12 @@ export const userAuthService = {
       throw error;
     }
 
-    // console.log("password", password);
     const hashedPassword = await bcrypt.hash(password, 10);
-    // console.log("hashedPassword", hashedPassword);
     const newUser = {
       nickname,
       email,
       hashedPassword,
     };
-
-    // console.log("newUser", newUser);
 
     const createdNewUser = await userModel.create({ newUser });
     return createdNewUser;
@@ -97,6 +93,9 @@ export const userAuthService = {
 
   getUsers: async () => {
     const users = await userModel.findAll();
+    if (!users) {
+      throw "유저 정보를 가져올 수 없습니다.";
+    }
     return users;
   },
 
@@ -173,6 +172,7 @@ export const userAuthService = {
     if (user.profileImgUrl !== "crashingdevlogo.png") {
       gcsBucket.file(`ProfileImg/${user.profileImgUrl}`).delete();
     }
+
     return { status: "Ok" };
   },
 
@@ -187,5 +187,31 @@ export const userAuthService = {
     }
 
     return user;
+  },
+
+  setNewPassword: async ({ email }) => {
+    //email로 유저 찾고
+    let user = await userModel.findByEmail({ email });
+    let error = new Error(
+      "잘못된 이메일입니다. 메일을 다시 확인하시기 바랍니다."
+    );
+    //email 정보와 매칭되는 유저가 없으면 에러메세지 리턴
+    if (!user) {
+      throw error;
+    }
+
+    const newPassword = await userModel.createRandomPassword();
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    //업데이트할 field를 password로 설정
+    const fieldToUpdate = "hashedPassword";
+    //updatedUser에 password를 업데이트한 user정보 저장
+    const updatedUser = await userModel.updatePassword({
+      email,
+      fieldToUpdate,
+      hashedNewPassword,
+    });
+
+    return { newPassword, updatedUser };
   },
 };
