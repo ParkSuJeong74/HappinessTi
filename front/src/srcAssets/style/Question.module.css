@@ -1,15 +1,12 @@
-.toggleButtons {
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
+
 
 .guide{
     display: flex;
     flex-direction: column;
     align-items: center; 
     justify-content: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 50px;
+    margin-top: 30px;
 }
 
 .guide input{
@@ -41,12 +38,28 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-bottom: 40px;
 }
 
 .questionHeaderImg{
     width: 100px;
     height: 100px;
+}
+
+.dialogTitle {
+    font-weight: bolder;
+    font-size: 35px;
+}
+
+.dialogText {
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+.agreeText {
+    font-size: 30px;
+    position: absolute;
+    bottom: 260px;
+    left: 450px;
 }
 
 .questBox{
@@ -60,6 +73,12 @@
     margin-bottom: 30px;
     font-size: 30px;
     font-weight: bolder;
+    text-align: center;
+}
+
+.quiz::after{
+    color: #9f53e63d;
+    border-bottom: 4px solid #9f53e63d;
 }
 
 .highlight {
@@ -67,11 +86,50 @@
     border-bottom: 4px solid #9f53e63d;
 }
 
+.progressBar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 35px;;
+}
+
+.progressRate{
+    color: rgb(156, 153, 153);
+}
+
+.nationFlag{
+    margin-left: 20px;
+    box-shadow: 1px 1px 3px rgb(180, 177, 177);
+}
+
+.suffix {
+    color:#141415;
+    font-size: 30px;
+}
+
+.calcSalary {
+    font-size: 20px;
+}
+
+.prevNextButtons {
+    margin: 70px 0;
+}
+
+.prevNextBtn{
+    background-color: #8353e6;
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.prevNextBtn:hover {
+    background-color: #8353e6;
+}
+
 .situation {
     margin-top: 30px;
     font-size: 25px;
     font-weight: 400;
-    font-style: italic;
 }
 
 .radioButtons {
