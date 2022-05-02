@@ -13,12 +13,28 @@ function MainPage() {
   const [section, setSection] = useState(0)//section을 저장할 상태
   const [activeBtn, setActiveBtn] = useState(0); // 활성화된 btn 저장할 상태
   const action = <img src="3team_ad.png" style={{ height: "300px" }} />;
+  // const [showPopUp, setshowPopUp] = useState(false);
 
-  //section 세팅
-  useEffect(() => {
-    const s = sectionRef.current.getElementsByTagName("section");
-    setSection(s)
-  }, [])
+  // useEffect(() => {
+  //   const fuzePopUpNotShow = localStorage.getItem('fuzePopUpNotShow'); // ISO
+  //   const fuzePopUpNotShowUNIX = Date.parse(fuzePopUpNotShow); // UNIX
+  //   const whenWillBeExpired = fuzePopUpNotShowUNIX + 1000 * 60; // 우선 1분만
+
+  //   const currentUNIX = Math.floor(new Date().getTime());
+  //   if (Number.isNaN(fuzePopUpNotShowUNIX)) {
+  //     setshowPopUp(true);
+  //   }
+
+  //   if (whenWillBeExpired < currentUNIX) {
+  //     setshowPopUp(true);
+  //   }
+  // }, []);
+
+  // //section 세팅
+  // useEffect(() => {
+  //   const s = sectionRef.current.getElementsByTagName("section");
+  //   setSection(s)
+  // }, [])
 
   useEffect (() => {
     const options = {
