@@ -72,7 +72,7 @@ function Mypage() {
         회원 정보
       </Typography>
 
-      <ProfileInfo />
+      <ProfileInfo updateUser={updateUser}/>
     </Container>
   );
 }
