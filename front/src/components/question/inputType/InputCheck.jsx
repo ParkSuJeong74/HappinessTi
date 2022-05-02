@@ -38,7 +38,7 @@ function InputCheck({ currentQuest }) {
         <div className={style.radioButtons}>
         
             <label className={style.customRadio}>
-            <input type="radio" value={20} name="choice" checked={currentQuest?.value === '20'}
+            <input type="radio" value={20} name="choice" checked={currentQuest?.value === 20}
                     onChange={ChoosedAnsToQuest} />
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
@@ -48,7 +48,7 @@ function InputCheck({ currentQuest }) {
             </label>
         
             <label className={style.customRadio}>
-                <input type="radio" value={40} name="choice" checked={currentQuest?.value === '40'}
+                <input type="radio" value={40} name="choice" checked={currentQuest?.value === 40}
                     onChange={ChoosedAnsToQuest}/>
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
@@ -57,7 +57,7 @@ function InputCheck({ currentQuest }) {
             </label>
 
             <label className={style.customRadio}>
-                <input type="radio" value={60} name="choice" checked={currentQuest?.value === '60'}
+                <input type="radio" value={60} name="choice" checked={currentQuest?.value === 60}
                     onChange={ChoosedAnsToQuest}/>
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
@@ -66,7 +66,7 @@ function InputCheck({ currentQuest }) {
             </label>
 
             <label className={style.customRadio}>
-                <input type="radio" value={80} name="choice" checked={currentQuest?.value === '80'}
+                <input type="radio" value={80} name="choice" checked={currentQuest?.value === 80}
                     onChange={ChoosedAnsToQuest}/>
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
@@ -75,7 +75,7 @@ function InputCheck({ currentQuest }) {
             </label>
 
             <label className={style.customRadio}>
-                <input type="radio" value={100} name="choice" checked={currentQuest?.value === '100'}
+                <input type="radio" value={100} name="choice" checked={currentQuest?.value === 100}
                     onChange={ChoosedAnsToQuest}/>
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
