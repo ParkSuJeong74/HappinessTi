@@ -4,7 +4,6 @@ import {useNavigate } from 'react-router-dom';
 import {ROUTES} from '../../Route'
 
 import style from '../../srcAssets/style/Question.module.css'
-import styled from 'styled-components'
 import {questState, currentNumState } from '../../atom.jsx';
 import InputText from "./inputType/InputText";
 import InputCheck from "./inputType/InputCheck";

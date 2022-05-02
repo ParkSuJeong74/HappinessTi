@@ -29,8 +29,8 @@
     bottom: 260px;
     left: 450px;
 }
-/* ===== */
 
+/* QuestContent 컴포넌트 */
 .questBox{
     display: flex;
     flex-direction: column;
@@ -50,11 +50,6 @@
     border-bottom: 4px solid #9f53e63d;
 }
 
-.highlight {
-    background: linear-gradient(to top, #9f53e63d 30%, transparent 40%);
-    border-bottom: 4px solid #9f53e63d;
-}
-
 .progressBar {
     width: 100%;
     display: flex;
@@ -65,6 +60,12 @@
 
 .progressRate{
     color: rgb(156, 153, 153);
+}
+
+
+.highlight {
+    background: linear-gradient(to top, #9f53e63d 30%, transparent 40%);
+    border-bottom: 4px solid #9f53e63d;
 }
 
 .nationFlag{
@@ -83,6 +84,7 @@
 .suffix {
     color:#141415;
     font-size: 30px;
+    vertical-align: center;
 }
 
 .calcSalary {

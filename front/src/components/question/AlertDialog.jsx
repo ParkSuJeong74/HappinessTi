@@ -8,6 +8,7 @@ import num3 from '../../srcAssets/img/dialog/dialog_3.jpg'
 import num4 from '../../srcAssets/img/dialog/dialog_4.jpg'
 import num5 from '../../srcAssets/img/dialog/dialog_5.jpg'
 
+
 export default function AlertDialog({modalOpen, setModalOpen}) {
   
     const modalClose = () => {
@@ -25,6 +26,7 @@ export default function AlertDialog({modalOpen, setModalOpen}) {
             <h1 className={style.dialogTitle}>설문조사 전 안내사항입니다!</h1>
           </DialogTitle>
 
+          {/* dialog 안의 내용 */}
           <DialogContent>
             <Stack direction="row">
                 <img width="40px" height="40px"src={num1} alt="숫자 1" />
@@ -44,6 +46,11 @@ export default function AlertDialog({modalOpen, setModalOpen}) {
             <Stack direction="row">
                 <img width="40px" height="40px"src={num4} alt="숫자 4" />
                 <h2 className={style.dialogText}><span class={style.highlight}>새로고침</span>을 하지 마십시오.</h2>
+            </Stack>
+
+            <Stack direction="row">
+                <img width="40px" height="40px"src={num5} alt="숫자 5" />
+                <h2 className={style.dialogText}>이 검사는 kaggle 데이터를 기반으로 만든 독자적인 설문조사입니다. <span class={style.highlight}>재미로만</span> 이용해주세요.</h2>
             </Stack>
             
             <br />
