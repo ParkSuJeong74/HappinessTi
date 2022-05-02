@@ -33,6 +33,7 @@ function DataLog(){
 
             <div className={data.dataHappyTi} style={{ height: 381, width: '85%', margin: '0 auto'}}>
                 <DataGrid
+                    onRowClick={(e) => console.log(e.row.type.split(" ")[0])}
                     rows={rows}
                     columns={columns}
                     pageSize={5}
