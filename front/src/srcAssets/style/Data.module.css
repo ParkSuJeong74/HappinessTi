@@ -1,0 +1,28 @@
+.dataTitle1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 0px 10px 0;
+}
+.dataTitle3
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0px 20px 0;
+}
+
+.dataTitle2
+{
+    font-size: xx-large;
+}
+.dataTitle4 {
+    font-size: larger;
+}
+
+
+
+.dataHappyTi {
+    border: 5px solid #FC8694;
+    border-radius: 5px;
+}

@@ -6,7 +6,7 @@ export const happyModel = {
     return totalHappylist;
   },
   findByCountry: async ({ countryName }) => {
-    const country = await Happiness.find({ country: countryName });
+    const country = await Happiness.findOne({ country: countryName });
     return country;
   },
   counting: async ({ countryName }) => {

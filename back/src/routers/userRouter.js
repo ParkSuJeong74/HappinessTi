@@ -203,7 +203,7 @@ userAuthRouter.put("/password/reset", async function (req, res, next) {
 
 /**
  * @swagger
- * /users/{id}/profile/image:
+ * /users/profile/image:
  *   post:
  *     tags: [User]
  *     description: 유저 프로필 사진 업로드
@@ -219,10 +219,6 @@ userAuthRouter.put("/password/reset", async function (req, res, next) {
  *               profileImgUrl:
  *                 type: string
  *                 format: binary
- *     parameters:
- *     - name: "id"
- *       in: "path"
- *       required: true
  *     security:
  *      - Authorization: []
  *     responses:
@@ -234,13 +230,13 @@ userAuthRouter.put("/password/reset", async function (req, res, next) {
  *              $ref: '#/components/schemas/User'
  */
 userAuthRouter.post(
-  "/:id/profile/image",
+  "/profile/image",
   login_required,
   multer.single("profileImgUrl"),
   async function (req, res, next) {
     try {
       const file = req.file;
-      const userId = req.params.id;
+      const userId = req.currentUserId;
 
       let error = new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
       error.status = 401;
@@ -275,16 +271,12 @@ userAuthRouter.post(
 /**
  * @swagger
  * path:
- * /users/{id}:
+ * /users:
  *   get:
  *     tags: [User]
  *     description: 해당 id의 유저 정보 조회
  *     produces:
  *     - "application/json"
- *     parameters:
- *     - name: "id"
- *       in: "path"
- *       required: true
  *     security:
  *      - Authorization: []
  *     responses:
@@ -293,7 +285,7 @@ userAuthRouter.post(
  *         schema:
  *           $ref: '#/components/schemas/User'
  */
-userAuthRouter.get("/:id", login_required, async function (req, res, next) {
+userAuthRouter.get("/", login_required, async function (req, res, next) {
   try {
     const userId = req.params.id;
     const currentUserInfo = await userAuthService.getUserInfo({ userId });
@@ -368,7 +360,6 @@ userAuthRouter.get(
     try {
       const userId = req.currentUserId;
       const logs = await surveyLogService.getLogs({ userId });
-
       res.status(201).json(logs);
     } catch (error) {
       next(error);
@@ -421,16 +412,12 @@ userAuthRouter.put(
 /**
  * @swagger
  * path:
- * /users/{id}:
+ * /users:
  *   delete:
  *     tags: [User]
  *     description: 해당 id의 유저 삭제
  *     produces:
  *     - "application/json"
- *     parameters:
- *     - name: "id"
- *       in: "path"
- *       required: true
  *     security:
  *      - Authorization: []
  *     responses:
@@ -439,7 +426,7 @@ userAuthRouter.put(
  *         schema:
  *           $ref: '#/components/schemas/User'
  */
-userAuthRouter.delete("/:id", login_required, async (req, res, next) => {
+userAuthRouter.delete("/", login_required, async (req, res, next) => {
   try {
     const userId = req.params.id;
     let error = new Error("당신은 이 유저의 정보를 삭제할 수 없습니다.");
