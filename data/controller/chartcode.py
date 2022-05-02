@@ -3,6 +3,10 @@ from sklearn.preprocessing import MinMaxScaler
 import json
 import pandas as pd
 import numpy as np
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 df = pd.read_csv('./file/happy_data2.csv')
 df_merged = pd.read_csv('./file/df_merged.csv')
@@ -147,7 +151,7 @@ def continent_barplot():
 #--------군집분석------#
 @cc.route('/similar',methods=['GET'])
 def similar():
-  dict={'1':['India', 'Tanzania', 'Zimbabwe'],
+  dict={1:['India', 'Tanzania', 'Zimbabwe'],
         '2':['Finland', 'Denmark', 'Iceland', 'Switzerland', 'Netherlands', 'Luxembourg',
  'Sweden', 'Norway', 'Israel'],
         '3':['Cambodia', 'Uganda', 'Nigeria', 'Kenya', 'Pakistan', 'Madagascar', 'Ethiopia',
@@ -267,10 +271,25 @@ def result(country):
   freedom_per=round(temp2['rank_free'].to_list()[0]/df.shape[0]*100,3)
   generosity_per=round(temp2['rank_ge'].to_list()[0]/df.shape[0]*100,3)
   corruption_per=round(temp2['rank_corr'].to_list()[0]/df.shape[0]*100,3)
-  return jsonify({'rank': rank, "gdpPer":gdp_per, 'dystopiaPer':dystopia_per, 'socialPer':social_per,'healthPer':health_per,'freedomPer':freedom_per,'generosityPer':generosity_per,'corruptionPer':corruption_per})
-  # for i in ['rank','gdpPer','dystopiaPer','socialPer','healthPer','freedomPer','generosityPer','corruptionPer']:
-  #   json['text']= '낮' if json[i]<=100 else '높'
-  #return jsonify(json)
+  
+  gdp_mean=round(temp2['gdp'].values[0]/np.mean(df['gdp'])*100,3)
+  dystopia_mean=round(temp2['dystopia'].values[0]/np.mean(df['dystopia'])*100,3)
+  social_mean=round(temp2['socialSupport'].values[0]/np.mean(df['socialSupport'])*100,3)
+  health_mean=round(temp2['health'].values[0]/np.mean(df['health'])*100,3)
+  freedom_mean=round(temp2['freedom'].values[0]/np.mean(df['freedom'])*100,3)
+  generosity_mean=round(temp2['generosity'].values[0]/np.mean(df['generosity'])*100,3)
+  corruption_mean=round(temp2['corruptionPerceptions'].values[0]/np.mean(df['corruptionPerceptions'])*100,3)
+  
+  gdp_text= 1 if gdp_per<=50 else 0
+  dystopia_text= 1 if dystopia_per<=50 else 0
+  social_text= 1 if social_per<=50 else 0
+  health_text= 1 if health_per<=50 else 0
+  freedom_text= 1 if freedom_per<=50 else 0
+  generosity_text= 1 if generosity_per<=50 else 0
+  corruption_text= 1 if corruption_per<=50 else 0
+  
+  return jsonify({'rank': rank, "gdpPer":[gdp_per,gdp_text], 'dystopiaPer':[dystopia_per,dystopia_text], 'socialPer':[social_per,social_text],'healthPer':[health_per,health_text],'freedomPer':[freedom_per,freedom_text],'generosityPer':[generosity_per,generosity_text],'corruptionPer':[corruption_per,corruption_text]})
+
 #----composed barchart----------#
 @cc.route('/composed',methods=['GET'])
 def composedBarchart():
