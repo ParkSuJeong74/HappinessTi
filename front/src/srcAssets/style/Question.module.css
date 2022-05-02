@@ -1,38 +1,5 @@
 
-
-.guide{
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center;
-    margin-bottom: 50px;
-    margin-top: 30px;
-}
-
-.guide input{
-    width: 0;
-    height: 0;
-}
-
-.guide input::before {
-    content: '결과 페이지 이동!';
-    margin-top: 10px;
-    font-size: 40px;
-    width: 800px;
-    transform: translateX(-400px);
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 40px;
-    cursor: pointer;
-    background: #dbcaf9;
-    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
-                inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
-                -0.5px 0.5px 0px rgba(0,0,0, 0.15),
-                0px 12px 10px -10px rgba(0,0,0, 0.05);
-}
-
+/* 헤더 */
 .header {
     display: flex;
     align-items: center;
@@ -45,6 +12,7 @@
     height: 100px;
 }
 
+/* 설문조사 안내문구 */
 .dialogTitle {
     font-weight: bolder;
     font-size: 35px;
@@ -61,6 +29,7 @@
     bottom: 260px;
     left: 450px;
 }
+/* ===== */
 
 .questBox{
     display: flex;
@@ -103,6 +72,14 @@
     box-shadow: 1px 1px 3px rgb(180, 177, 177);
 }
 
+.situation {
+    margin-top: 30px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+
+/* input이 textfield인 페이지 */
 .suffix {
     color:#141415;
     font-size: 30px;
@@ -110,28 +87,28 @@
 
 .calcSalary {
     font-size: 20px;
+    margin: 10px 0 0 10px;
 }
 
-.prevNextButtons {
-    margin: 70px 0;
+.limitSalary {
+    color: red;
+    margin: 10px 0 0 10px;
 }
 
-.prevNextBtn{
-    background-color: #8353e6;
+.increases {
+    margin: 20px 0;
+}
+
+.incThousand, .incHundred{
+    background-color: #f1f1f2;
+    border: 1px solid black;
+    padding: 6px;
+    display: inline;
     margin-right: 10px;
-    font-size: 15px;
+    cursor: pointer;
 }
 
-.prevNextBtn:hover {
-    background-color: #8353e6;
-}
-
-.situation {
-    margin-top: 30px;
-    font-size: 25px;
-    font-weight: 400;
-}
-
+/* 5지선다 라디오 버튼 */
 .radioButtons {
     display: flex;
     text-align: center;
@@ -188,4 +165,38 @@
 
 .customRadio input:checked + .radioBtn > h3 {
     color: #8373e6;
+}
+
+/* 마지막 페이지 결과 페이지 이동 버튼 */
+.guide{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
+.guide input{
+    width: 0;
+    height: 0;
+}
+
+.guide input::before {
+    content: '결과 페이지 이동!';
+    margin-top: 10px;
+    font-size: 40px;
+    width: 800px;
+    transform: translateX(-400px);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    cursor: pointer;
+    background: #dbcaf9;
+    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                0px 12px 10px -10px rgba(0,0,0, 0.05);
 }
