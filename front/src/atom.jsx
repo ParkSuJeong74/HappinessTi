@@ -4,17 +4,17 @@ const questState = atom({
   key: 'questState',
   default: [{
         id: 0,
-        quiz: '당신의 나라를 입력해주세요! (ex. korea)',
+        quiz: '당신의 나라를 입력해주세요! (ex. The Republic Of Korea)',
         value: ''
     },
     {
         id: 1,
-        quiz: '당신의 평균 연봉을 입력해주세요! (만 원 단위) ',
+        quiz: '당신의 평균 연봉을 입력해주세요! (만 원 단위, 최대 12억) ',
         value: 6100
     },
     {
         id: 2,
-        quiz: '우리가 기대하는 평균 수명을 입력해주세요 (0~100세) ',
+        quiz: `우리가 기대하는 평균 수명을 입력해주세요 (0~100세)`,
         value: 50
     },
     {

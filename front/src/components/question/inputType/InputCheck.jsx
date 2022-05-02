@@ -1,5 +1,5 @@
-import situation from './situation'
-import choice from './choice5'
+import situation from '../data/situation'
+import choice from '../data/choice5'
 import style from '../../../srcAssets/style/Question.module.css'
 import CheckIcon from '@mui/icons-material/Check';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -32,7 +32,7 @@ function InputCheck({ currentQuest }) {
     return (
     <>
         {/* 현재 문항에 대한 상황을 가져옴 */}
-        <h1 className={style.situation}>{currentSituation?.content}</h1>
+        <h1 className={`${style.situation} ${style.highlight}`}>{currentSituation?.content}</h1>
 
         {/* 5지 선다로 선택할 수 있는 라디오 버튼! */}
         <div className={style.radioButtons}>
