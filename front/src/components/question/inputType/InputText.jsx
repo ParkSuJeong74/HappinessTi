@@ -24,19 +24,17 @@ function InputText({updateQuestProcess}) {
     }
 
     function calcSalary(value) {
-        if(value >= 80 && value < 1000){
-            return `${value}만`
-        }
-        else if(value >= 1000 && value < 10000){
-            const calcValue = value/1000
-            return `${calcValue}천`
-        }
-        else{
-            const million = parseInt(value/10000)
-            const thousand = (value%10000)/1000
+        const million = parseInt(value/10000)
+        let temp = value%10000
+        const thousand = parseInt(temp/1000)
+        temp = value%1000
+        const hundred = temp/100
 
-            return `${million}억 ${thousand}천`
-        }
+        const miliMark = million <= 0 ? '' : `${million}억`
+        const thousMark = thousand <= 0 ? '' : `${thousand}천`
+        const hundMark = hundred <= 0 ? '' : `${hundred}만`
+
+        return miliMark + ' ' + thousMark + ' ' + hundMark
     }
 
     return (
