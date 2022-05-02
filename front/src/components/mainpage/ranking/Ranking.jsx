@@ -22,7 +22,7 @@ const rankingDatas = [
     {
         id: 3,
         grade: 3,
-        nation: 'The%20Republic%20Of%20Korea',
+        nation: 'The Republic Of Korea',
     },
     {
         id: 4,
