@@ -2,11 +2,13 @@ import React, {useEffect, useState} from "react"
 import { ComposedChart, XAxis,  YAxis, Tooltip, Legend, CartesianGrid, Area, Bar, Line} from 'recharts';
 import * as Api from '../../../api'
 
+
 function ChartComposed({active}){
   const [data, setData] = useState(null)
   useEffect(()=>{
     try{
       Api.get("graph/composed").then(res =>{
+        console.log(res.data)
         setData(res.data)
       })
     } catch(err){
@@ -18,7 +20,7 @@ function ChartComposed({active}){
     return (
       <ComposedChart width={730} height={250} data={data}>
         <XAxis dataKey="year" />
-        <YAxis type="number" domain={[3, 8]}/>
+        <YAxis type="number" domain={[3, 7]}/>
         <Tooltip />
         <Legend />
         <CartesianGrid stroke="#f5f5f5" />

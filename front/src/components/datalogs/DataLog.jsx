@@ -1,5 +1,6 @@
 import { Container } from "@mui/material"
 import { DataGrid } from '@mui/x-data-grid';
+import { useNavigate } from "react-router-dom";
 import data from '../../srcAssets/style/Data.module.css'
 
 const columns = [
@@ -22,6 +23,7 @@ const rows = [
 ];
 
 function DataLog(){
+    const navigate = useNavigate()
     return (
         <Container sx={{py: 7, mt: 12}}>
             <div className={data.dataTitle1}>
@@ -33,6 +35,11 @@ function DataLog(){
 
             <div className={data.dataHappyTi} style={{ height: 381, width: '85%', margin: '0 auto'}}>
                 <DataGrid
+                    onRowClick={(e) => {
+                        const country = e.row.type.split(" ")[0]
+                        console.log(country)
+                        navigate(`/analysis/${country}`)
+                    }}
                     rows={rows}
                     columns={columns}
                     pageSize={5}
