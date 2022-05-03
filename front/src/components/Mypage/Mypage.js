@@ -15,7 +15,7 @@ function Mypage() {
   const userState = useContext(UserStateContext);
   const loginUserId = userState.user?._id ?? userState.user?.id;
   const [user, setUser] = useState(null);
-  const [userLog, setUserlogs] = useState(null);
+  const [userLog, setUserlog] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
 
   const updateUser = (user) => {
@@ -23,19 +23,21 @@ function Mypage() {
   };
 
   const isLoggedin = sessionStorage.getItem("userToken");
-  // const isLoggedin = userState.user?.id
+
+  // user정보 호출하기
+  async function getUserData() {
+    try {
+      const res = await Api.get("users");
+      console.log(res.data)
+      setUser(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   //loginUserId가 변경될 때마다 user api 호출 다시 하기
   useEffect(() => {
-    // user정보 호출하기
-    async function getUserData() {
-      try {
-        const res = await Api.get("users", loginUserId);
-        setUser(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    }
+    
     getUserData();
 
     //TODO: user의 행복-TI 로그정보 호출하기 (예정!)
@@ -50,7 +52,7 @@ function Mypage() {
       alert("반가워요! 먼저 로그인을 해주세요!")
       navigate(ROUTES.LOGIN.link, { replace: true })
     }
-  }, [loginUserId]);
+  }, []);
 
   return (
     <Container sx={{ py: 7, mt: 12 }}>

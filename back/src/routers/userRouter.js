@@ -285,7 +285,7 @@ userAuthRouter.post(
  */
 userAuthRouter.get("/", login_required, async function (req, res, next) {
   try {
-    const userId = req.params.id;
+    const userId = req.currentUserId;
     const currentUserInfo = await userAuthService.getUserInfo({ userId });
 
     res.status(200).send(currentUserInfo);

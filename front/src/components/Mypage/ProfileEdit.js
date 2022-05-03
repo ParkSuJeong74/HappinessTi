@@ -52,7 +52,7 @@ function ProfileEdit({ setEditOpen, updateUser, user }) {
     const ImageEdit =
       imageInfo &&
       (await axios.post(
-        `http://${window.location.hostname}:5005/users/${loginUserId}/profile/image`,
+        `http://${window.location.hostname}:5005/users/profile/image`,
         formData,
         config
       ));
