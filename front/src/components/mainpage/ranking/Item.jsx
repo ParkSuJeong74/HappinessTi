@@ -11,7 +11,7 @@ function Item({ data }){
 
     return (
     <>
-        <ListItemButton onClick={() => navigate(`analysis/${data?.nation}`)}>
+        <ListItemButton onClick={() => navigate(`analysis/${data?.country}`)}>
           <span
             style={{
               marginRight: "12px",
@@ -25,11 +25,11 @@ function Item({ data }){
             
             <Avatar
               sx={{ width: "2rem", height: "2rem" }} alt="국기"
-              src={`https://countryflagsapi.com/png/${data?.nation}`}
+              src={`https://countryflagsapi.com/png/${data?.country}`}
             />
           </ListItemAvatar>
 
-          <ListItemText primary={data?.nation} />
+          <ListItemText primary={data?.country} />
         </ListItemButton>
 
         <Divider variant="inset" component="li" />

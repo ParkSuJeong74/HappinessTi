@@ -12,7 +12,6 @@ export const resultService = {
     surveylogModel.addLog({ log });
   },
   saveCounting: async ({ data }) => {
-    console.log(data.reCountry);
     const country = await happyModel.findByName({
       countryName: data.reCountry,
     });

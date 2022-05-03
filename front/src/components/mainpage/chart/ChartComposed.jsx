@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from "react"
 import { ComposedChart, XAxis,  YAxis, Tooltip, Legend, CartesianGrid, Area, Bar, Line} from 'recharts';
-// import data from "./dataComposed"
 import * as Api from '../../../api'
 
 function ChartComposed({active}){
   const [data, setData] = useState(null)
   useEffect(()=>{
-    Api.get("graph/composed").then(res =>{
-      setData(res.data)
-    })
+    try{
+      Api.get("graph/composed").then(res =>{
+        setData(res.data)
+      })
+    } catch(err){
+      console.log(err);
+    }
   },[])
   
   

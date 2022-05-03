@@ -56,7 +56,7 @@ def home():
     else:
         happyType = "행복"
    
-    reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry
-    myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry
+    reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry.replace(" ", "%20")
+    myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry.replace(" ", "%20")
     
     return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag})

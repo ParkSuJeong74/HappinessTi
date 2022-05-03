@@ -90,12 +90,15 @@
 
 .introContent1, .introContent2, .introContent3{
     font-size: 1.1em;
+    /* width: 70%; */
+    text-align: center;
 }
 
 .introContent2{
     margin-top: 1em;
 }
 .introContent3{
+    width: 70%;
     margin-top: 1em;
     margin-bottom: 1em;
 }
@@ -107,6 +110,11 @@
 .chart1 {
     width: 750px;
     height: 250px;
+    margin-bottom: 50px;
+}
+
+.ranking {
+    margin-bottom: 50px;
 }
 
 .country{
@@ -121,6 +129,7 @@
     height: 25em;
     border: 1px solid lightgray;
     background-color: rgba(36, 34, 34, 0.045);
+    margin-bottom: 80px;
 }
 
 .guide{

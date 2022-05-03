@@ -7,7 +7,7 @@ function GoAllData() {
     const navigate = useNavigate()
     const actions = [
         {
-            icon: <FileCopyIcon onClick={() => navigate(ROUTES.DATA_LOGS.link)} />,
+            icon: <FileCopyIcon onClick={() => navigate('/datalogs')} />,
             name: "Data list 보러가기",
         },
     ]
@@ -15,7 +15,6 @@ function GoAllData() {
     return (
         <Box sx={{ height: 100, transform: "translateZ(0px)", flexGrow: 1 }}>
             <SpeedDial
-                ariaLabel="SpeedDial basic example"
                 sx={{ position: "absolute", bottom: 16, right: 16 }}
                 icon={<SpeedDialIcon />}
                 >
