@@ -1,7 +1,26 @@
 import { fontSize } from '@mui/system';
 import { RadialBarChart, Tooltip, Legend, RadialBar} from 'recharts';
-import data from "../data/data3.js"
+// import data from "../data/data3.js"
+import * as Api from "../../../api";
+
+import { useEffect, useState } from "react";
+
 function ResultChart(){
+    const [data, setData] = useState([])
+
+    async function getResultData() {
+        try {
+          const res = await Api.get("result/Norway");
+          setData(res.data)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+    useEffect(() => {
+        getResultData()
+    }, [])
+
     return (
         <RadialBarChart 
         width={900} 
