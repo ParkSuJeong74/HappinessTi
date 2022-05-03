@@ -1,6 +1,7 @@
 .resultTitle1,
 .resultTitle3,
-.resultInfoBox {
+.resultInfoBox,
+.resultInfoBox2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,6 +17,12 @@
     border-width: 10%;
     padding-top: 16px;
 }
+.resultInfoBox3 {
+    width: 800px;
+    padding: 20px 300px 20px 100px;
+    border: 1px solid none;
+    box-shadow: 2px 2px 2px 2px #FC8694;
+}
 
 
 
@@ -25,6 +32,9 @@
     margin-top: 5vh;
     padding: 70px 0 70px 0;
     border: 3px solid #FC8694;
+}
+.resultBox2 {
+    padding-top: 200px;
 }
 
 .resultBoxtop {
@@ -49,16 +59,20 @@
 .resultType,
 .resultCountry,
 .resultUserflag,
-.resultPercent {
+.resultPercent,
+.resultPercent2,
+.resultPercent3 {
     color: #FC8694;
 }
 
-.resultInfo1 {
+.resultInfo1,
+.resultInfo3 {
     padding: 40px 5px 10px 5px;
     font-size: larger;
     border-bottom: 2px solid #FC8694;
 }
-.resultInfo2 {
+.resultInfo2,
+.resultInfo4 {
     padding: 20px 5px 10px 5px;
     font-size: larger;
     border-bottom: 2px solid #FC8694;
@@ -66,3 +80,11 @@
 
 
 
+.resultInfoBox4 {
+    display: flex;
+    align-items: center;
+    flex: 0.5fr 1fr;
+}
+.resultSimilarNation {
+    font-size: xx-large;
+}

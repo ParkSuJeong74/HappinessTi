@@ -23,12 +23,12 @@ export const happyModel = {
   //
   findAll: async () => {
     const totalHappylist = await Happiness.find();
-    return totalHappylist;
+    return { totalHappylist };
   },
 
   counting: async ({ countryName }) => {
     const country = await Happiness.find({ country: countryName });
-    console.log(country);
+
     return country;
   },
 };

@@ -8,7 +8,20 @@ export const happinessService = {
   //
   getHappyLists: async () => {
     const totalHappylist = await happyModel.findAll({});
-    return totalHappylist;
+    const totalList = {
+      id: totalHappylist["rank"],
+      country,
+      happinessScore,
+      socialSupport,
+      freedom,
+      gdp,
+      generosity,
+      corruptionPerceptions,
+      dytopia,
+      continent,
+    };
+
+    return totalList;
   },
   getSearchCountry: async ({ countryName }) => {
     const country = await happyModel.findByCountry({ countryName });
