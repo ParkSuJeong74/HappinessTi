@@ -1,0 +1,59 @@
+.title{
+    margin-top: 50px;
+    font-size: x-large;
+    border-top: 2px solid #FC8694;
+    border-width: 10%;
+    padding-top: 16px;
+}
+
+.resultBox{
+    margin-top: 5vh;
+    padding: 50px 0;
+    border: 3px solid #FC8694;
+}
+
+.resultInfoBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.resultInfo {
+    padding: 20px 5px 10px 5px;
+    border-bottom: 2px solid #FC8694;
+}
+
+.coloring {
+    color: #FC8694;
+}
+
+
+.similarBox {
+    width: 100%;
+    margin-top: 5vh;
+    padding: 50px 0;
+    border: 3px solid #FC8694;;
+}
+
+.countriesBox{
+    width: 60%;
+    margin: 0 auto;
+    box-shadow: 2px 2px 2px 2px #FC8694;
+    background-color: #fff3f4;
+}
+
+
+
+
+.resultInfoBox4 {
+    display: flex;
+    align-items: center;
+}
+.nation {
+    font-size: 30px;
+}
+
+.flag {
+    width: 70px;
+    margin: 20px 20px 20px 0px;
+}

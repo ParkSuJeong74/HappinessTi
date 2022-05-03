@@ -2,11 +2,11 @@ import { Container } from "@mui/material"
 import styled from "styled-components";
 import result from '../../srcAssets/style/Result.module.css'
 import norway from '../../srcAssets/img/norway.png'
-import ChartComposed from "../mainpage/chart/ChartComposed";
 import { useRecoilValue } from "recoil";
 import { questState } from "../../atom";
 import * as Api from '../../api'
 import { useEffect, useState } from "react";
+import RadialChart from "../chart/RadialChart";
 
 function Result({ user, activeBtn }){
 
@@ -58,18 +58,34 @@ console.log(similarCountries)
             </div>
 
             <ResultBox className={result.resultBox2}>
-                <ChartComposed active={activeBtn === 1}></ChartComposed>
+                <RadialChart active={activeBtn === 1}></RadialChart>
+
+                <div className={result.resultInfoBox2}>
+                    <p className={result.resultInfo3}>
+                        상위 <span className={result.resultPercent2}>20%</span>의 자유 점수를 갖고 있습니다.
+                    </p>
+                    <p className={result.resultInfo4}>
+                        상위 <span className={result.resultPercent3}>20%</span>의 경제 점수를 갖고 있습니다.
+                    </p>
+                </div>
             </ResultBox>
+
 
             <div className={result.resultTitle3}>
                 <span className={result.resultTitle4}>행복도가 비슷한 나라는?</span>
             </div>
 
             <ResultBox className={result.resultBox3}>
-                
-                
-
+                <div className={result.resultInfoBox3}>
+                    {similarCountries.map((item) => (
+                        <div className={result.resultInfoBox4}>
+                            <NationFlag2 src={`https://countryflagsapi.com/png/${item}`} />
+                            <span className={result.resultSimilarNation}>{item}</span>
+                        </div>
+                    ))}
+                </div>
             </ResultBox>
+
         </Container>
     )
 }
@@ -84,4 +100,9 @@ const ResultBox = styled.div`
 const NationFlag = styled.img`
     width: 200px;
     margin: 20px 160px 20px 20px;
+`;
+
+const NationFlag2 = styled.img`
+    width: 100px;
+    margin: 20px 20px 20px 0px;
 `;
