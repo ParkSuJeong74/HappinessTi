@@ -11,7 +11,6 @@ function Ranking() {
     useEffect(()=>{
       try{
         Api.get("rank").then(res =>{
-          console.log(res.data)
           setRankingDatas(res.data)
         })
       } catch(err){

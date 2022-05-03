@@ -5,11 +5,33 @@ import norway from '../../srcAssets/img/norway.png'
 import ChartComposed from "../mainpage/chart/ChartComposed";
 import { useRecoilValue } from "recoil";
 import { questState } from "../../atom";
+import * as Api from '../../api'
+import { useEffect, useState } from "react";
 
 function Result({ user, activeBtn }){
 
     const quest = useRecoilValue(questState);
+    const [similarCountries, setSimilarCountries] = useState([])
     console.log(quest)
+
+    async function getSimilarData() {
+        try {
+          const res = await Api.get("result/Norway/similar");
+          console.log(res.data)
+          console.log(res.data.similarCounrtries)
+          setSimilarCountries(res.data.similarCounrtries)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    
+
+    useEffect(() => {
+        getSimilarData()
+    }, [])
+
+console.log(similarCountries)
+
     return (
         <Container sx={{py: 7, mt: 12}}>
             <ResultBox className={result.resultBox}>
@@ -39,12 +61,13 @@ function Result({ user, activeBtn }){
                 <ChartComposed active={activeBtn === 1}></ChartComposed>
             </ResultBox>
 
-
             <div className={result.resultTitle3}>
                 <span className={result.resultTitle4}>행복도가 비슷한 나라는?</span>
             </div>
 
             <ResultBox className={result.resultBox3}>
+                
+                
 
             </ResultBox>
         </Container>
