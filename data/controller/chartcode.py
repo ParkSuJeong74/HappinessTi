@@ -1,13 +1,9 @@
+#-- coding: utf-8 --
 from flask import Flask, jsonify, Blueprint
 from sklearn.preprocessing import MinMaxScaler
 import json
 import pandas as pd
 import numpy as np
-import sys
-import io
-sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
-
 df = pd.read_csv('./file/happy_data2.csv')
 df_merged = pd.read_csv('./file/df_merged.csv')
 cc = Blueprint('cc',__name__)
@@ -210,42 +206,42 @@ def radar(country):
           "fill": "#8884d8",
       }
       test2={
-          'name':'dystopia',
+          'name':'디스토피아',
           'uv':temp['dystopia'].to_list()[0],
           "fill":"#83a6ed",
       }
       test3={
-          'name':'socialSupport',
+          'name':'사회적지지',
           'uv':temp['socialSupport'].to_list()[0],
           "fill": "#8dd1e1",
       }
       test4={
-          'name':'health',
+          'name':'건강',
           'uv':temp['health'].to_list()[0],
           "fill": "#82ca9d",
       }
       test5={
-          'name':'freedom',
+          'name':'자유',
           'uv':temp['freedom'].to_list()[0],
           "fill": "#a4de6c",
       }
       test6={
-          'name':'generosity',
+          'name':'관대함',
           'uv':temp['generosity'].to_list()[0],
           "fill": "#d0ed57",
       }
       test7={
-          'name':'corruptionPerceptions',
+          'name':'부패인식',
           'uv':temp['corruptionPerceptions'].to_list()[0],
           "fill": "#ffc658",
       }
-      data.append(eval(json.dumps(test1)))
-      data.append(eval(json.dumps(test2)))
-      data.append(eval(json.dumps(test3)))
-      data.append(eval(json.dumps(test4)))
-      data.append(eval(json.dumps(test5)))
-      data.append(eval(json.dumps(test6)))
-      data.append(eval(json.dumps(test7)))
+      data.append(eval(json.dumps(test1,ensure_ascii=False)))
+      data.append(eval(json.dumps(test2,ensure_ascii=False)))
+      data.append(eval(json.dumps(test3,ensure_ascii=False)))
+      data.append(eval(json.dumps(test4,ensure_ascii=False)))
+      data.append(eval(json.dumps(test5,ensure_ascii=False)))
+      data.append(eval(json.dumps(test6,ensure_ascii=False)))
+      data.append(eval(json.dumps(test7,ensure_ascii=False)))
       test[i]=data
       dic.append(test)
   dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=False)
@@ -280,13 +276,13 @@ def result(country):
   generosity_mean=round(temp2['generosity'].values[0]/np.mean(df['generosity'])*100,3)
   corruption_mean=round(temp2['corruptionPerceptions'].values[0]/np.mean(df['corruptionPerceptions'])*100,3)
   
-  gdp_text= 1 if gdp_per<=50 else 0
-  dystopia_text= 1 if dystopia_per<=50 else 0
-  social_text= 1 if social_per<=50 else 0
-  health_text= 1 if health_per<=50 else 0
-  freedom_text= 1 if freedom_per<=50 else 0
-  generosity_text= 1 if generosity_per<=50 else 0
-  corruption_text= 1 if corruption_per<=50 else 0
+  gdp_text= '높' if gdp_per<=50 else '낮'
+  dystopia_text= '높' if dystopia_per<=50 else '낮'
+  social_text= '높' if social_per<=50 else '낮'
+  health_text= '높' if health_per<=50 else '낮'
+  freedom_text= '높' if freedom_per<=50 else '낮'
+  generosity_text= '높' if generosity_per<=50 else '낮'
+  corruption_text= '높' if corruption_per<=50 else '낮'
   
   return jsonify({'rank': rank, "gdpPer":[gdp_per,gdp_text], 'dystopiaPer':[dystopia_per,dystopia_text], 'socialPer':[social_per,social_text],'healthPer':[health_per,health_text],'freedomPer':[freedom_per,freedom_text],'generosityPer':[generosity_per,generosity_text],'corruptionPer':[corruption_per,corruption_text]})
 
