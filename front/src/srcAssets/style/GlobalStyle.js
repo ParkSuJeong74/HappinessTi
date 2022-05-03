@@ -6,4 +6,8 @@ export const GlobalStyles = createGlobalStyle`
     * {
         font-family: "Elice Digital Baeum", sans-serif;
     }
+
+    html, body, * {
+        box-sizing: border-box;
+    }
 `;
