@@ -180,3 +180,19 @@
     animation: changeMovement 1s ease-in-out;
 }
 
+.backToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 60px;
+    background: rgb(240, 102, 224);
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 5px 10px #ccc;
+}
+
+.backToTop:hover {
+    background: rgba(239, 62, 186, 0.607)
+}
