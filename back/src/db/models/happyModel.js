@@ -20,7 +20,6 @@ export const happyModel = {
     );
     return country;
   },
-  //
   findAllHappiness: async () => {
     const totalHappylist = await Happiness.aggregate([
       {
@@ -41,10 +40,9 @@ export const happyModel = {
     ]);
     return { totalHappylist };
   },
-
+  //
   counting: async ({ countryName }) => {
     const country = await Happiness.find({ country: countryName });
-
     return country;
   },
 };

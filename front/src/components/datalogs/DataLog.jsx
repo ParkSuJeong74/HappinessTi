@@ -62,15 +62,6 @@ const columns = [
     { field: 'continent', headerName: 'continent', width: 130 },
 ];
 
-// userlog api 호출받기
-const rows = [
-    { id: 1, type: 'Norway 형', icon: 'Jon', happiness: 75, freedom: 95, gdp: 323, trust: 509, health: 903 },
-    { id: 2, type: 'Denmark 형', icon: 'Jon', happiness: 34, freedom: 955, gdp: 835, trust: 53, health: 950 },
-    { id: 3, type: 'Korea 형', icon: 'Jon', happiness: 53, freedom: 34, gdp: 65, trust: 189, health: 354 },
-    { id: 4, type: 'Denmark 형', icon: 'Jon', happiness: 34, freedom: 955, gdp: 835, trust: 53, health: 950 },
-    { id: 5, type: 'Korea 형', icon: 'Jon', happiness: 53, freedom: 34, gdp: 65, trust: 189, health: 354 }
-];
-
 function DataLog(){
     const [datas, setDatas] = useState(null)
     useEffect(()=>{
@@ -100,7 +91,6 @@ function DataLog(){
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-
             <div className={data.dataHappyTi} style={{ height: 381, width: '85%', margin: '0 auto'}}>
                 <DataGrid
                     onRowClick={(e) => console.log(e.row.type.split(" ")[0])}
