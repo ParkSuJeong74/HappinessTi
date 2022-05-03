@@ -1,9 +1,9 @@
 import { Container, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
-import * as Api from "../../api";
-import { UserStateContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+
+import * as Api from "../../api";
 import {ROUTES} from '../../Route'
 import ProfileInfo from "./ProfileInfo";
 import Profile from "./Profile";
@@ -11,12 +11,13 @@ import Profile from "./Profile";
 function Mypage() {
   const navigate = useNavigate();
 
-  //현재 user상태에서 id를 가져옴 -> loginUserId
-  const userState = useContext(UserStateContext);
-  const loginUserId = userState.user?._id ?? userState.user?.id;
   const [user, setUser] = useState(null);
   const [userLog, setUserlog] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
+
+  const toggleEditForm = () => {
+    setEditOpen((prev) => !prev)
+  }
 
   const updateUser = (user) => {
     setUser(user);
@@ -35,7 +36,6 @@ function Mypage() {
     }
   }
 
-  //loginUserId가 변경될 때마다 user api 호출 다시 하기
   useEffect(() => {
     
     getUserData();
@@ -61,7 +61,7 @@ function Mypage() {
         user={user}
         updateUser={updateUser}
         editOpen={editOpen}
-        setEditOpen={setEditOpen}
+        toggleEditForm={toggleEditForm}
       />
 
       {/* 회원 설정. 정보 */}

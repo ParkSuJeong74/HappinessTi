@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { UserStateContext } from "../../App.js";
+import { useState } from "react";
 import * as Api from "../../api";
 import { Button, Grid, Stack, Typography } from "@mui/material";
 import TextField from "@material-ui/core/TextField";
@@ -19,25 +18,24 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-function ProfileEdit({ setEditOpen, updateUser, user }) {
-  const userState = useContext(UserStateContext);
-  const loginUserId = userState.user?._id ?? userState.user?.id;
-  const [nickname, setNickname] = useState(user?.nickname);
+function ProfileEdit({ toggleEditForm, updateUser, user }) {
   const currentDescription =
     user?.description === "None"
       ? "설명이 아직 없습니다. 추가해 주세요."
       : user?.description;
-  const [description, setDescription] = useState(currentDescription);
+
   const [imageInfo, setImageInfo] = useState(null);
 
-  const handleSubmit2 = async (e) => {
+  const [form, setForm] = useState({
+    nickname: user?.nickname,
+    description: currentDescription,
+  })
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // user 수정 api 호출
-    const UserInfoEdit = await Api.put(`users`, {
-      nickname,
-      description,
-    });
+    const UserInfoEdit = await Api.put(`users`, form);
 
     let formData = new FormData();
     const config = {
@@ -73,7 +71,7 @@ function ProfileEdit({ setEditOpen, updateUser, user }) {
         ImageData ? updateUser(ImageData) : updateUser(InfoData);
         alert("회원정보가 정상적으로 변경되었습니다!");
 
-        setEditOpen(false);
+        toggleEditForm()
       })
       .catch((error) => {
         alert("회원 정보 수정이 실패하였습니다.");
@@ -83,7 +81,7 @@ function ProfileEdit({ setEditOpen, updateUser, user }) {
 
   return (
     <Grid item xs={5}>
-      <form onSubmit={handleSubmit2}>
+      <form onSubmit={handleSubmit}>
         <Stack
           direction="column"
           spacing={2}
@@ -91,20 +89,24 @@ function ProfileEdit({ setEditOpen, updateUser, user }) {
         >
           <CssTextField
             id="Nickname"
+            name="nickname"
             label="Nickname 수정"
             placeholder={user?.nickname}
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
+            onChange={(e) => setForm((prev) => ({
+              ...prev, [e.target.name]: e.target.value
+          }))}  
           />
 
           <CssTextField
             id="Description"
+            name="nickname"
             label="Description 수정"
             placeholder={currentDescription}
-            value={description}
             multiline
             row={3}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => setForm((prev) => ({
+              ...prev, [e.target.name]: e.target.value
+          }))}  
           />
 
           <Stack direction="column" spacing={1} sx={UploadBox}>
@@ -137,7 +139,7 @@ function ProfileEdit({ setEditOpen, updateUser, user }) {
           </Button>
           <Button
             type="reset"
-            onClick={() => setEditOpen(false)}
+            onClick={() => toggleEditForm()}
             variant="outlined"
           >
             {" "}
@@ -159,45 +161,3 @@ const UploadBox = {
   p: 1,
 };
 
-// const handleSubmit = async (e) => {
-//   e.preventDefault()
-
-//   //TODO: user 수정 api 호출!
-//   await Api.put(`users/${loginUserId}`, {
-//     nickname,
-//     description,
-//   })
-//     .then((res) => {
-//       updateUser(res.data)
-//     })
-//     .catch((err) => alert(err.response.data))
-
-//   let formData = new FormData()
-
-//   const config = {
-//     headers: {
-//       "Content-Type": "multipart/form-data",
-//       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
-//     }
-//   }
-
-//   formData.append("profileImgUrl", imageInfo)
-
-//   //TODO: 프로필 업로드 api 호출!
-//   if(imageInfo){
-//     await axios
-//     .post(
-//       `http://${window.location.hostname}:5005/users/${loginUserId}/profile/image`,
-//       formData,
-//       config
-//     )
-//     .then((res) => {
-//       updateUser(res.data.updatedUser)
-//     })
-//     .catch((err) => alert(err.response.data))
-//   }
-
-//   alert("회원정보가 정상적으로 변경되었습니다!")
-
-//   setEditOpen(false)
-// }
