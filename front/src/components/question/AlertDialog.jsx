@@ -8,7 +8,6 @@ import num3 from '../../srcAssets/img/dialog/dialog_3.jpg'
 import num4 from '../../srcAssets/img/dialog/dialog_4.jpg'
 import num5 from '../../srcAssets/img/dialog/dialog_5.jpg'
 
-
 export default function AlertDialog({modalOpen, setModalOpen}) {
   
     const modalClose = () => {

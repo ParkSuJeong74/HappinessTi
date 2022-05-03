@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import * as Api from '../../api'
 import { useContext } from 'react';
 import { DispatchContext, UserStateContext } from '../../App';
+import errorHandler from '../../errorHandler';
 
 function UserManagement({updateUser}){
     const navigate = useNavigate()
@@ -13,15 +14,6 @@ function UserManagement({updateUser}){
     const dispatch = useContext(DispatchContext)
 
     const loginUserId = userState.user?._id ?? userState.user?.id
-
-    function errorHandler(message){
-        Swal.fire({
-            title: '회원 관리 오류',
-            text: message,
-            icon: 'warning',
-            showCloseButton: true,
-        })
-    }
     
     function updatePassword() {
         Swal.fire({
@@ -56,7 +48,7 @@ function UserManagement({updateUser}){
                         })
                     }
                     catch(err){
-                        errorHandler(err.response.data)
+                        errorHandler('회원 관리 오류', err.response.data)
                     }
                 }
                 
@@ -93,7 +85,7 @@ function UserManagement({updateUser}){
                     
                     navigate(ROUTES.MAIN_PAGE.link)
                 } catch(err){
-                    errorHandler(err.response.data)
+                    errorHandler('회원 관리 오류', err.response.data)
                 }
             }
         })

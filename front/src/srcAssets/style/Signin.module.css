@@ -9,6 +9,10 @@
     text-align: center;
 }
 
+.warning {
+    color: red;
+    margin-top: 5px;
+}
 
 
 .signinButtonbox {

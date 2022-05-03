@@ -3,8 +3,13 @@ import styled from "styled-components";
 import result from '../../srcAssets/style/Result.module.css'
 import norway from '../../srcAssets/img/norway.png'
 import ChartComposed from "../mainpage/chart/ChartComposed";
+import { useRecoilValue } from "recoil";
+import { questState } from "../../atom";
 
 function Result({ user, activeBtn }){
+
+    const quest = useRecoilValue(questState);
+    console.log(quest)
     return (
         <Container sx={{py: 7, mt: 12}}>
             <ResultBox className={result.resultBox}>
