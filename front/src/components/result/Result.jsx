@@ -2,7 +2,7 @@ import { Container } from "@mui/material"
 import styled from "styled-components";
 import result from '../../srcAssets/style/Result.module.css'
 import norway from '../../srcAssets/img/norway.png'
-import ChartComposed from "../mainpage/chart/ChartComposed";
+import RadialChart from "../mainpage/chart/RadialChart";
 
 function Result({ user, activeBtn }){
     return (
@@ -31,7 +31,7 @@ function Result({ user, activeBtn }){
             </div>
 
             <ResultBox className={result.resultBox2}>
-                <ChartComposed active={activeBtn === 1}></ChartComposed>
+                <RadialChart active={activeBtn === 1}></RadialChart>
             </ResultBox>
 
 

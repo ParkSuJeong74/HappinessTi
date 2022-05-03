@@ -3,6 +3,10 @@ from sklearn.preprocessing import MinMaxScaler
 import json
 import pandas as pd
 import numpy as np
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 df = pd.read_csv('./file/happy_data2.csv')
 df_merged = pd.read_csv('./file/df_merged.csv')
@@ -147,7 +151,7 @@ def continent_barplot():
 #--------군집분석------#
 @cc.route('/similar',methods=['GET'])
 def similar():
-  dict={'1':['India', 'Tanzania', 'Zimbabwe'],
+  dict={1:['India', 'Tanzania', 'Zimbabwe'],
         '2':['Finland', 'Denmark', 'Iceland', 'Switzerland', 'Netherlands', 'Luxembourg',
  'Sweden', 'Norway', 'Israel'],
         '3':['Cambodia', 'Uganda', 'Nigeria', 'Kenya', 'Pakistan', 'Madagascar', 'Ethiopia',
@@ -244,8 +248,47 @@ def radar(country):
       data.append(eval(json.dumps(test7)))
       test[i]=data
       dic.append(test)
-  dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=True)
+  dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=False)
   return jsonify(dic[0].get(country))
+
+
+##------결과페이지-------------##
+@cc.route('/text/<country>',methods=['GET'])
+def result(country):
+  temp2=df[df['country']==country]
+  temp2['rank_dys'] = df['dystopia'].rank(method='dense', ascending=False)
+  temp2['rank_gdp']=df['gdp'].rank(method='dense', ascending=False)
+  temp2['rank_social']=df['socialSupport'].rank(method='dense', ascending=False)
+  temp2['rank_health']=df['health'].rank(method='dense', ascending=False)
+  temp2['rank_free']=df['freedom'].rank(method='dense', ascending=False)
+  temp2['rank_ge']=df['generosity'].rank(method='dense', ascending=False)
+  temp2['rank_corr']=df['corruptionPerceptions'].rank(method='dense', ascending=False)
+  rank=round(temp2['RANK'].values[0]/df.shape[0]*100)
+  gdp_per=round(temp2['rank_corr'].to_list()[0]/df.shape[0]*100,3)
+  dystopia_per=round(temp2['rank_dys'].to_list()[0]/df.shape[0]*100,3)
+  social_per=round(temp2['rank_social'].to_list()[0]/df.shape[0]*100,3)
+  health_per=round(temp2['rank_health'].to_list()[0]/df.shape[0]*100,3)
+  freedom_per=round(temp2['rank_free'].to_list()[0]/df.shape[0]*100,3)
+  generosity_per=round(temp2['rank_ge'].to_list()[0]/df.shape[0]*100,3)
+  corruption_per=round(temp2['rank_corr'].to_list()[0]/df.shape[0]*100,3)
+  
+  gdp_mean=round(temp2['gdp'].values[0]/np.mean(df['gdp'])*100,3)
+  dystopia_mean=round(temp2['dystopia'].values[0]/np.mean(df['dystopia'])*100,3)
+  social_mean=round(temp2['socialSupport'].values[0]/np.mean(df['socialSupport'])*100,3)
+  health_mean=round(temp2['health'].values[0]/np.mean(df['health'])*100,3)
+  freedom_mean=round(temp2['freedom'].values[0]/np.mean(df['freedom'])*100,3)
+  generosity_mean=round(temp2['generosity'].values[0]/np.mean(df['generosity'])*100,3)
+  corruption_mean=round(temp2['corruptionPerceptions'].values[0]/np.mean(df['corruptionPerceptions'])*100,3)
+  
+  gdp_text= 1 if gdp_per<=50 else 0
+  dystopia_text= 1 if dystopia_per<=50 else 0
+  social_text= 1 if social_per<=50 else 0
+  health_text= 1 if health_per<=50 else 0
+  freedom_text= 1 if freedom_per<=50 else 0
+  generosity_text= 1 if generosity_per<=50 else 0
+  corruption_text= 1 if corruption_per<=50 else 0
+  
+  return jsonify({'rank': rank, "gdpPer":[gdp_per,gdp_text], 'dystopiaPer':[dystopia_per,dystopia_text], 'socialPer':[social_per,social_text],'healthPer':[health_per,health_text],'freedomPer':[freedom_per,freedom_text],'generosityPer':[generosity_per,generosity_text],'corruptionPer':[corruption_per,corruption_text]})
 
 #----composed barchart----------#
 @cc.route('/composed',methods=['GET'])
@@ -258,9 +301,9 @@ def composedBarchart():
     test={
         'year':i,
         "happinessScore":list(yearAvg[yearAvg.index==i]['Happiness Score'].values)[0],
-        "socialSupport":list(yearAvg[yearAvg.index==i]['Family (Social Support)'].values)[0],
-        'gdp':list(yearAvg[yearAvg.index==i]['Economy (GDP per Capita)'].values)[0],
-        'health':list(yearAvg[yearAvg.index==i]['Health (Life Expectancy)'].values)[0],
+        "socialSupport":list(yearAvg[yearAvg.index==i]['Family (Social Support)'].values*4)[0],
+        'gdp':list(yearAvg[yearAvg.index==i]['Economy (GDP per Capita)'].values*4)[0],
+        'health':list(yearAvg[yearAvg.index==i]['Health (Life Expectancy)'].values*8)[0],
     }
     data.append(eval(json.dumps(test)))
   return jsonify(data)

@@ -5,18 +5,8 @@ export const happyModel = {
     const countries = await Happiness.find().sort({ count: -1 }).limit(5);
     return countries;
   },
-  //
-  findAll: async () => {
-    const totalHappylist = await Happiness.find();
-    return totalHappylist;
-  },
   findByCountry: async ({ countryName }) => {
     const country = await Happiness.findOne({ country: countryName });
-    return country;
-  },
-  counting: async ({ countryName }) => {
-    const country = await Happiness.find({ country: countryName });
-    console.log(country);
     return country;
   },
   update: async ({ happinessId, counting }) => {
@@ -28,6 +18,17 @@ export const happyModel = {
       update,
       option
     );
+    return country;
+  },
+  //
+  findAll: async () => {
+    const totalHappylist = await Happiness.find();
+    return totalHappylist;
+  },
+
+  counting: async ({ countryName }) => {
+    const country = await Happiness.find({ country: countryName });
+    console.log(country);
     return country;
   },
 };
