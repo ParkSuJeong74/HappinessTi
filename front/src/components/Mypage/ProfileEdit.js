@@ -34,7 +34,7 @@ function ProfileEdit({ setEditOpen, updateUser, user }) {
     e.preventDefault();
 
     // user 수정 api 호출
-    const UserInfoEdit = await Api.put(`users/${loginUserId}`, {
+    const UserInfoEdit = await Api.put(`users`, {
       nickname,
       description,
     });

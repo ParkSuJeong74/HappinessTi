@@ -24,6 +24,7 @@
     color: white;
     padding: 5px;
     font-size: x-large;
+    cursor: pointer;
 }
 
 .loginButton:active {

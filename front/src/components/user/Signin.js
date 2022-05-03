@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import {withStyles} from "@material-ui/core/styles";
 
 import { Link, useNavigate } from 'react-router-dom'
+import {ROUTES} from '../../Route'
 import styled from 'styled-components';
 import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
 import signin from '../../srcAssets/style/Signin.module.css';
@@ -52,7 +53,7 @@ function Signin() {
                 nickname,
             })
             alert("회원가입이 성공하였습니다!")
-            navigate("/login")
+            navigate(ROUTES.LOGIN.link)
 
         } catch (error) {
             errorHandler(error.response.data)
@@ -64,7 +65,7 @@ function Signin() {
         <SigninBody onSubmit={handleSubmit}>
             <SigninBodyUpper>
                 <Box>
-                    <LogoImg src={logoImg} onClick={() => navigate("/")}/>
+                    <LogoImg src={logoImg} onClick={() => navigate(ROUTES.MAIN_PAGE.link)}/>
                 </Box>
                 <Box>
                     <SigninTitle>Sign In</SigninTitle>
@@ -139,8 +140,8 @@ function Signin() {
                 <button type='submit' class={signin.signinButton}>SIGN IN</button>
 
                 <Box class={signin.otherButtonbox}>
-                    <Link to="/login" class={signin.loginButton}>Already have account?</Link>
-                    <Link to="/password" class={signin.forgotpasswordButton}>Forgot password?</Link>
+                    <Link to={ROUTES.LOGIN.link} class={signin.loginButton}>Already have account?</Link>
+                    <Link to={ROUTES.PASSWORD.link} class={signin.forgotpasswordButton}>Forgot password?</Link>
                 </Box>
             </div>
             

@@ -3,9 +3,9 @@ from tabnanny import verbose
 from flask import Flask
 from controller.chartcode import cc
 from controller.happy_ML import ml
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
-load_dotenv()
+# load_dotenv()
 app = Flask(__name__)
 with app.app_context():
     app.register_blueprint(cc)
