@@ -5,24 +5,12 @@ export const happinessService = {
     const countries = await happyModel.findRanking({});
     return countries;
   },
-  //
-  getHappyLists: async () => {
-    const totalHappylist = await happyModel.findAll({});
-    const totalList = {
-      id: totalHappylist["rank"],
-      country,
-      happinessScore,
-      socialSupport,
-      freedom,
-      gdp,
-      generosity,
-      corruptionPerceptions,
-      dytopia,
-      continent,
-    };
 
-    return totalList;
+  getHappyLists: async () => {
+    const totalHappylist = await happyModel.findAllHappiness();
+    return { totalHappylist };
   },
+  //
   getSearchCountry: async ({ countryName }) => {
     const country = await happyModel.findByCountry({ countryName });
     return country;

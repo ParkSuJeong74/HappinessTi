@@ -21,8 +21,24 @@ export const happyModel = {
     return country;
   },
   //
-  findAll: async () => {
-    const totalHappylist = await Happiness.find();
+  findAllHappiness: async () => {
+    const totalHappylist = await Happiness.aggregate([
+      {
+        $project: {
+          id: "$rank",
+          _id: 0,
+          country: 1,
+          happinessScore: 1,
+          socialSupport: 1,
+          freedom: 1,
+          gdp: 1,
+          generosity: 1,
+          corruptionPerceptions: 1,
+          dytopia: 1,
+          continent: 1,
+        },
+      },
+    ]);
     return { totalHappylist };
   },
 
