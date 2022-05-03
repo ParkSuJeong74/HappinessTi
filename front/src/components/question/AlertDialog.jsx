@@ -12,7 +12,7 @@ import num5 from '../../srcAssets/img/dialog/dialog_5.jpg'
 export default function AlertDialog({modalOpen, setModalOpen}) {
   
     const modalClose = () => {
-        setModalOpen(false);
+      setModalOpen(false);
     };
   
     return (
