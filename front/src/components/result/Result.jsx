@@ -17,7 +17,6 @@ function Result({ user, activeBtn }){
     async function getSimilarData() {
         try {
           const res = await Api.get("result/Norway/similar");
-          console.log(res.data)
           console.log(res.data.similarCounrtries)
           setSimilarCountries(res.data.similarCounrtries)
         } catch (err) {
