@@ -1,17 +1,12 @@
+#-- coding: utf-8 --
 from flask import Flask, jsonify, Blueprint
 from sklearn.preprocessing import MinMaxScaler
 import json
 import pandas as pd
 import numpy as np
-import sys
-import io
-sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
-sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
-
 df = pd.read_csv('./file/happy_data2.csv')
 df_merged = pd.read_csv('./file/df_merged.csv')
 cc = Blueprint('cc',__name__)
-scaler=MinMaxScaler()
 ##----treemap.png------##
 @cc.route('/tree',methods=['GET'])
 def treemap():
@@ -34,82 +29,6 @@ def treemap():
     tree_data.append(result2)
   return jsonify(tree_data)
 
-#barplot10-1.png#
-#왼쪽부터 오른쪽 순서#
-@cc.route('/gdp/bar',methods=['GET'])
-def gdp_barplot():
-  gdp_data=[]
-  for i in range(0,len(df.nlargest(10,'gdp'))):
-      test={
-        'country':df.nlargest(10,'gdp')['country'].to_list()[i],
-        'happinessScore':df.nlargest(10,'gdp')['happinessScore'].to_list()[i],
-      }
-      result=eval(json.dumps(test))
-      gdp_data.append(result)
-  return jsonify(gdp_data)
-
-@cc.route('/social/bar',methods=['GET'])
-def social_barplot():
-  social_data=[]
-  for i in range(0,len(df.nlargest(10,'socialSupport'))):
-      test={
-        'country':df.nlargest(10,'socialSupport')['country'].to_list()[i],
-        'happinessScore':df.nlargest(10,'socialSupport')['happinessScore'].to_list()[i],
-      }
-      result=eval(json.dumps(test))
-      social_data.append(result)
-  return jsonify(social_data)
-
-@cc.route('/health/bar',methods=['GET'])
-def health_barplot():
-  health_data=[]
-  for i in range(0,len(df.nlargest(10,'health'))):
-      test={
-        'country':df.nlargest(10,'health')['country'].to_list()[i],
-        'happinessScore':df.nlargest(10,'health')['happinessScore'].to_list()[i],
-      }
-      result=eval(json.dumps(test))
-      health_data.append(result)
-  return jsonify(health_data)
-
-@cc.route('/freedom/bar',methods=['GET'])
-def freedom_barplot():
-  freedom_data=[]
-  for i in range(0,len(df.nlargest(10,'freedom'))):
-      test={
-        'country':df.nlargest(10,'freedom')['country'].to_list()[i],
-        'happinessScore':df.nlargest(10,'freedom')['happinessScore'].to_list()[i],
-      }
-      result=eval(json.dumps(test))
-      freedom_data.append(result)
-  return jsonify(freedom_data)
-
-##barplot10-2.png##
-@cc.route('/generosity/bar',methods=['GET'])
-def generosity_barplot():
-  generosity_data=[]
-  for i in range(0,len(df.nlargest(10,'generosity'))):
-      test={
-        'country':df.nlargest(10,'generosity')['country'].to_list()[i],
-        'happinessScore':df.nlargest(10,'generosity')['happinessScore'].to_list()[i],
-      }
-      result=eval(json.dumps(test))
-      generosity_data.append(result)
-  return jsonify(generosity_data)
-
-@cc.route('/corruption/bar',methods=['GET'])
-def corruption_barplot():
-  corruptionPerceptions_data=[]
-  for i in range(0,len(df.nlargest(10,'corruptionPerceptions'))):
-      test={
-        'country':df.nlargest(10,'corruptionPerceptions')['country'].to_list()[i],
-        'happinessScore':df.nlargest(10,'corruptionPerceptions')['happinessScore'].to_list()[i],
-      }
-      result=eval(json.dumps(test))
-      corruptionPerceptions_data.append(result)
-  return jsonify(corruptionPerceptions_data)
-
-
 ##----맵차트 ------##
 @cc.route('/mapplot',methods=['GET'])
 def mapplot():
@@ -122,12 +41,6 @@ def mapplot():
       result=eval(json.dumps(test))
       map_data.append(result)
   return jsonify(map_data)
-
-##----대륙별로 시각화----##
-##찾아보니 nivo에서 zoom을 조절할 수 있는것같습니다##
-##projectionScale로 확대해주시고
-##projection Translation으로 위치를 조정해주셔서 대륙별로 보여주세요!!#
-
 
 ##---score per continent.png----#
 # Grouping data on basis of continents 🐾
@@ -210,42 +123,37 @@ def radar(country):
           "fill": "#8884d8",
       }
       test2={
-          'name':'dystopia',
+          'name':'디스토피아',
           'uv':temp['dystopia'].to_list()[0],
           "fill":"#83a6ed",
       }
       test3={
-          'name':'socialSupport',
+          'name':'사회적지지',
           'uv':temp['socialSupport'].to_list()[0],
           "fill": "#8dd1e1",
       }
       test4={
-          'name':'health',
+          'name':'건강',
           'uv':temp['health'].to_list()[0],
           "fill": "#82ca9d",
       }
       test5={
-          'name':'freedom',
+          'name':'자유',
           'uv':temp['freedom'].to_list()[0],
           "fill": "#a4de6c",
       }
       test6={
-          'name':'generosity',
+          'name':'관대함',
           'uv':temp['generosity'].to_list()[0],
           "fill": "#d0ed57",
       }
       test7={
-          'name':'corruptionPerceptions',
+          'name':'부패인식',
           'uv':temp['corruptionPerceptions'].to_list()[0],
           "fill": "#ffc658",
       }
-      data.append(eval(json.dumps(test1)))
-      data.append(eval(json.dumps(test2)))
-      data.append(eval(json.dumps(test3)))
-      data.append(eval(json.dumps(test4)))
-      data.append(eval(json.dumps(test5)))
-      data.append(eval(json.dumps(test6)))
-      data.append(eval(json.dumps(test7)))
+      for j in range(1,8):
+        data.append(eval(json.dumps(locals()['test{}'.format(j)])))
       test[i]=data
       dic.append(test)
   dic[0].get(country).sort(key=lambda x: x.get('uv'),reverse=False)
@@ -256,39 +164,12 @@ def radar(country):
 @cc.route('/text/<country>',methods=['GET'])
 def result(country):
   temp2=df[df['country']==country]
-  temp2['rank_dys'] = df['dystopia'].rank(method='dense', ascending=False)
-  temp2['rank_gdp']=df['gdp'].rank(method='dense', ascending=False)
-  temp2['rank_social']=df['socialSupport'].rank(method='dense', ascending=False)
-  temp2['rank_health']=df['health'].rank(method='dense', ascending=False)
-  temp2['rank_free']=df['freedom'].rank(method='dense', ascending=False)
-  temp2['rank_ge']=df['generosity'].rank(method='dense', ascending=False)
-  temp2['rank_corr']=df['corruptionPerceptions'].rank(method='dense', ascending=False)
+  for i in ['dystopia','gdp','socialSupport','health','freedom','generosity','corruptionPerceptions']:
+    temp2['rank_{}'.format(i)] = df[i].rank(method='dense', ascending=False)
+    globals()['{}_per'.format(i)]=round(temp2['rank_{}'.format(i)].to_list()[0]/df.shape[0]*100,3)
+    globals()['{}_text'.format(i)]= '높' if globals()['{}_per'.format(i)]<=50 else '낮'
   rank=round(temp2['RANK'].values[0]/df.shape[0]*100)
-  gdp_per=round(temp2['rank_corr'].to_list()[0]/df.shape[0]*100,3)
-  dystopia_per=round(temp2['rank_dys'].to_list()[0]/df.shape[0]*100,3)
-  social_per=round(temp2['rank_social'].to_list()[0]/df.shape[0]*100,3)
-  health_per=round(temp2['rank_health'].to_list()[0]/df.shape[0]*100,3)
-  freedom_per=round(temp2['rank_free'].to_list()[0]/df.shape[0]*100,3)
-  generosity_per=round(temp2['rank_ge'].to_list()[0]/df.shape[0]*100,3)
-  corruption_per=round(temp2['rank_corr'].to_list()[0]/df.shape[0]*100,3)
-  
-  gdp_mean=round(temp2['gdp'].values[0]/np.mean(df['gdp'])*100,3)
-  dystopia_mean=round(temp2['dystopia'].values[0]/np.mean(df['dystopia'])*100,3)
-  social_mean=round(temp2['socialSupport'].values[0]/np.mean(df['socialSupport'])*100,3)
-  health_mean=round(temp2['health'].values[0]/np.mean(df['health'])*100,3)
-  freedom_mean=round(temp2['freedom'].values[0]/np.mean(df['freedom'])*100,3)
-  generosity_mean=round(temp2['generosity'].values[0]/np.mean(df['generosity'])*100,3)
-  corruption_mean=round(temp2['corruptionPerceptions'].values[0]/np.mean(df['corruptionPerceptions'])*100,3)
-  
-  gdp_text= 1 if gdp_per<=50 else 0
-  dystopia_text= 1 if dystopia_per<=50 else 0
-  social_text= 1 if social_per<=50 else 0
-  health_text= 1 if health_per<=50 else 0
-  freedom_text= 1 if freedom_per<=50 else 0
-  generosity_text= 1 if generosity_per<=50 else 0
-  corruption_text= 1 if corruption_per<=50 else 0
-  
-  return jsonify({'rank': rank, "gdpPer":[gdp_per,gdp_text], 'dystopiaPer':[dystopia_per,dystopia_text], 'socialPer':[social_per,social_text],'healthPer':[health_per,health_text],'freedomPer':[freedom_per,freedom_text],'generosityPer':[generosity_per,generosity_text],'corruptionPer':[corruption_per,corruption_text]})
+  return jsonify({'rank': rank, "gdpPer":[gdp_per,gdp_text], 'dystopiaPer':[dystopia_per,dystopia_text], 'socialPer':[socialSupport_per,socialSupport_text],'healthPer':[health_per,health_text],'freedomPer':[freedom_per,freedom_text],'generosityPer':[generosity_per,generosity_text],'corruptionPer':[corruptionPerceptions_per,corruptionPerceptions_text]})
 
 #----composed barchart----------#
 @cc.route('/composed',methods=['GET'])
