@@ -12,6 +12,12 @@ cc = Blueprint('cc',__name__)
 def treemap():
   tree_data=[]
   children=[]
+  df['continent']=df['continent'].replace('EU','Europe')
+  df['continent']=df['continent'].replace('AS','Asia')
+  df['continent']=df['continent'].replace('OC','Oceania')
+  df['continent']=df['continent'].replace('NA','North America')
+  df['continent']=df['continent'].replace('AF','Africa')
+  df['continent']=df['continent'].replace('SA','South Africa')
   for j in df['continent'].unique():
     test2={
       'name':j,

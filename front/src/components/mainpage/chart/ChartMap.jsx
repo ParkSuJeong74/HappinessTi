@@ -2,6 +2,7 @@ import {  ResponsiveChoropleth, ResponsiveChoroplethCanvas  } from '@nivo/geo'
 import countries from "./world_countries.json";
 import * as Api from '../../../api'
 import React, {useEffect, useState} from "react"
+import { DATA_GRID_DEFAULT_SLOTS_COMPONENTS } from '@mui/x-data-grid';
 
 function ChartMap() {
   const [data, setData] = useState(null)
