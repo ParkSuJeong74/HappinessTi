@@ -201,7 +201,7 @@ export const userAuthService = {
       throw error;
     }
 
-    const newPassword = generatePassword(12);;
+    const newPassword = generatePassword(12);
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
     //업데이트할 field를 password로 설정
