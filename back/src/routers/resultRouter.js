@@ -168,7 +168,7 @@ resultRouter.get(
   async function (req, res, next) {
     try {
       const response = await axios.get(
-        `${process.env.FLASK_BASE_URL}/result/${req.params.country}`
+        `${process.env.FLASK_BASE_URL}/text/${req.params.country}`
       );
       res.status(200).send(response.data);
     } catch (error) {
