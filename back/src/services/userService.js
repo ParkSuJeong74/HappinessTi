@@ -4,6 +4,7 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import { gcsBucket } from "../config/gcs.js";
 import { format } from "util";
+import generatePassword from "password-generator";
 
 export const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
@@ -200,7 +201,7 @@ export const userAuthService = {
       throw error;
     }
 
-    const newPassword = await userModel.createRandomPassword();
+    const newPassword = generatePassword(12);
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
     //업데이트할 field를 password로 설정
