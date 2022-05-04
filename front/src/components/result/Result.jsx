@@ -3,8 +3,32 @@ import styled from "styled-components";
 import result from '../../srcAssets/style/Result.module.css'
 import norway from '../../srcAssets/img/norway.png'
 import RadialChart from "../mainpage/chart/RadialChart";
+import * as Api from "../../api";
+
+import { useRecoilValue } from "recoil";
+import { questState } from "../../atom";
+import { useEffect, useState } from "react";
 
 function Result({ user, activeBtn }){
+    const quest = useRecoilValue(questState);
+    const [similarCountries, setSimilarCountries] = useState([])
+
+    async function getSimilarData() {
+        try {
+          const res = await Api.get("result/Norway/similar");
+          console.log(res.data)
+          console.log(res.data.similarCounrtries)
+          setSimilarCountries(res.data.similarCounrtries)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+    useEffect(() => {
+        getSimilarData()
+    }, [])
+
+    console.log(quest);
     return (
         <Container sx={{py: 7, mt: 12}}>
             <ResultBox className={result.resultBox}>
@@ -48,9 +72,12 @@ function Result({ user, activeBtn }){
 
             <ResultBox className={result.resultBox3}>
                 <div className={result.resultInfoBox3}>
-                    <div className={result.resultInfoBox4}>
-                        <NationFlag2 src={norway} /><span className={result.resultSimilarNation}>norway</span>
-                    </div>
+                    {similarCountries.map((item) => (
+                        <div className={result.resultInfoBox4}>
+                            <NationFlag2 src={`https://countryflagsapi.com/png/${item}`} />
+                            <span className={result.resultSimilarNation}>{item}</span>
+                        </div>
+                    ))}
                 </div>
             </ResultBox>
         </Container>

@@ -33,7 +33,7 @@ export const happyModel = {
           gdp: 1,
           generosity: 1,
           corruptionPerceptions: 1,
-          dytopia: 1,
+          dystopia: 1,
           continent: 1,
         },
       },

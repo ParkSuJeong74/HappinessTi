@@ -13,4 +13,4 @@ with app.app_context():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost',port=os.environ.get("FLASK_PORT"), debug=os.environ.get("FLASK_DEBUG"))
+    app.run(host='http://elice-kdt-ai-4th-team14.elicecoding.com/',port=os.environ.get("FLASK_PORT"), debug=os.environ.get("FLASK_DEBUG"))
