@@ -2,6 +2,7 @@ import { Container } from "@mui/material"
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
 import data from '../../srcAssets/style/Data.module.css'
+import ROUTES from '../../Route'
 
 const columns = [
     { field: 'type', headerName: '유형', width: 160 },

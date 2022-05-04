@@ -1,19 +1,18 @@
 import { Container } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import styled from "styled-components"
 import style1 from '../../srcAssets/style/Analysis.module.css'
 import * as Api from '../../api'
 import RadialChart from "../chart/RadialChart"
 
 // 로그인한 user만 분석 페이지 볼 수 있음!
 function Analysis(){
-    const {country} = useParams()
+    const {nation} = useParams()
     const [similarCountries, setSimilarCountries] = useState([])
 
     async function getSimilarData() {
         try {
-          const res = await Api.get("result/Norway/similar");
+          const res = await Api.get(`result/${nation}/similar`);
           console.log(res.data)
           console.log(res.data.similarCounrtries)
           setSimilarCountries(res.data.similarCounrtries)
@@ -27,17 +26,16 @@ function Analysis(){
         getSimilarData()
     }, [])
 
-    console.log(country)
+    console.log(nation)
 
     return (
         <Container sx={analysisPage}>
-            <h1>{country}</h1>
             <div className={style1.title}>
-                <h1><span className={style1.coloring}>노르웨이</span>형 분석 결과</h1>
+                <h1><span className={style1.coloring}>{nation}</span>형 분석 결과</h1>
             </div>
 
             <div className={style1.resultBox}>
-                <RadialChart></RadialChart>
+                <RadialChart nation={nation}></RadialChart>
 
                 <div className={style1.resultInfoBox}>
                     <p className={style1.resultInfo}>
@@ -50,7 +48,7 @@ function Analysis(){
             </div>
 
             <div className={style1.title}>
-                <h1>행복도가 비슷한 나라는?</h1>
+                <h1><span className={style1.coloring}>{nation}</span> 과(와) 행복도가 비슷한 나라는?</h1>
             </div>
 
             <div className={style1.similarBox}>
