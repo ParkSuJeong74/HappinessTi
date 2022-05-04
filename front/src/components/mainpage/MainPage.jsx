@@ -15,21 +15,27 @@ function MainPage() {
   const [activeBtn, setActiveBtn] = useState(0); // 활성화된 btn 저장할 상태
   const [openElice, setEliceOpen] = useState(true);
   const [open, setOpen] = useState(true);
+  const [open20, setOpen20] = useState(true);
 
   useEffect(() => {
     if (!open && !openElice) {
       setOpen(false)
       setEliceOpen(false)
+      setOpen20(false)
     }
     else if(open && !openElice) setOpen(true);
     else if(!open && openElice)  setEliceOpen(true)
-  }, [open, openElice]);
+  }, [open, open20, openElice]);
   
   const handleEliceClose = (event, reason) => {
     setEliceOpen(false)
   };
   const handle4Close = (event, reason) => {
     setOpen(false);
+  };
+
+  const handle20Close = (event, reason) => {
+    setOpen20(false);
   };
 
   //section 세팅
@@ -113,6 +119,23 @@ function MainPage() {
     color="inherit"
     sx={{ p: 0.5 }}
     onClick={handle4Close}>
+    <CloseIcon />
+  </IconButton>
+  </React.Fragment>}
+    
+  />
+  <Snackbar
+    open={open20}
+    autoHideDuration={6000}
+    // onClose={handle4Close}
+    anchorOrigin={{vertical:'top' , horizontal:'center' }}
+    action={<React.Fragment>
+      <a href="https://aitrack.lms.elice.io/"> <img src="20team_ad.png" style={{ height: "400px" }} /></a>
+      <IconButton
+    aria-label="close"
+    color="inherit"
+    sx={{ p: 0.5 }}
+    onClick={handle20Close}>
     <CloseIcon />
   </IconButton>
   </React.Fragment>}

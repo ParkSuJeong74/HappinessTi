@@ -4,7 +4,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import * as Api from "../../api";
 import { UserStateContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import {ROUTES} from '../../Route'
+import { ROUTES } from "../../Route";
 import ProfileInfo from "./ProfileInfo";
 import Profile from "./Profile";
 
@@ -30,7 +30,7 @@ function Mypage() {
     // user정보 호출하기
     async function getUserData() {
       try {
-        const res = await Api.get("users", loginUserId);
+        const res = await Api.get("users/current");
         setUser(res.data);
       } catch (err) {
         console.log(err);
@@ -46,9 +46,9 @@ function Mypage() {
     }
     getUserLogs() */
 
-    if(!isLoggedin){
-      alert("반가워요! 먼저 로그인을 해주세요!")
-      navigate(ROUTES.LOGIN.link, { replace: true })
+    if (!isLoggedin) {
+      alert("반가워요! 먼저 로그인을 해주세요!");
+      navigate(ROUTES.LOGIN.link, { replace: true });
     }
   }, [loginUserId]);
 
@@ -72,7 +72,7 @@ function Mypage() {
         회원 정보
       </Typography>
 
-      <ProfileInfo updateUser={updateUser}/>
+      <ProfileInfo updateUser={updateUser} />
     </Container>
   );
 }
