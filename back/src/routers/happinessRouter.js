@@ -26,7 +26,7 @@ export const happinessRouter = Router();
  */
 happinessRouter.get("/lists", async function (req, res, next) {
   try {
-    const totalHappylist = await happinessService.getHappyLists();
+    const { totalHappylist } = await happinessService.getHappyLists();
     res.status(200).send(totalHappylist);
   } catch (error) {
     next(error);

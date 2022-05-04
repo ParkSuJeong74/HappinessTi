@@ -1,12 +1,13 @@
 import { Box, SpeedDial, SpeedDialAction, SpeedDialIcon } from "@mui/material"
 import { useNavigate } from "react-router-dom"
+import {ROUTES} from '../../../Route'
 import FileCopyIcon from "@mui/icons-material/FileCopyOutlined"
 
 function GoAllData() {
     const navigate = useNavigate()
     const actions = [
         {
-            icon: <FileCopyIcon onClick={() => navigate("/")} />,
+            icon: <FileCopyIcon onClick={() => navigate(ROUTES.DATA_LOGS.link)} />,
             name: "Data list 보러가기",
         },
     ]

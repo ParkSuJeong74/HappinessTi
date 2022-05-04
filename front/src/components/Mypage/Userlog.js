@@ -1,6 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
     { field: 'type', headerName: '유형', width: 160 },
@@ -20,6 +21,8 @@ const rows = [
 ];
 
 function Userlog(){
+    const navigate = useNavigate()
+
     return(
         <Accordion sx={{p: 2}}>
             <AccordionSummary
@@ -33,7 +36,11 @@ function Userlog(){
             <AccordionDetails>
                 <div style={{ height: 300, width: '85%', margin: '0 auto', cursor: 'pointer'}}>
                     <DataGrid
-                        onRowClick={(e) => console.log(e.row.type.split(" ")[0])}
+                        onRowClick={(e) => {
+                            const country = e.row.type.split(" ")[0]
+                            console.log(country)
+                            navigate(`/analysis/${country}`)
+                        }}
                         rows={rows}
                         columns={columns}
                         pageSize={5}

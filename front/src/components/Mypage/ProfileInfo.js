@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import Userlog from './Userlog';
 import UserManagement from './UserManagement';
 
-function ProfileInfo(){
+function ProfileInfo({updateUser}){
     return (
         <>
             <InfoBox>
                 <Userlog />
-                <UserManagement />
+                <UserManagement updateUser={updateUser}/>
             </InfoBox>
         </>
     )
