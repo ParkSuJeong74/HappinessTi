@@ -6,6 +6,7 @@ import style1 from '../../srcAssets/style/Analysis.module.css'
 import * as Api from '../../api'
 import RadialChart from "../chart/RadialChart"
 
+// 로그인한 user만 분석 페이지 볼 수 있음!
 function Analysis(){
     const {country} = useParams()
     const [similarCountries, setSimilarCountries] = useState([])
@@ -53,9 +54,9 @@ function Analysis(){
             </div>
 
             <div className={style1.similarBox}>
-                <div className={style1.countriesBox}>
+                <div className={style1.nationBox}>
                     {similarCountries.map((item) => (
-                        <div className={style1.resultInfoBox4}>
+                        <div className={style1.nations}>
                             <img className={style1.flag} src={`https://countryflagsapi.com/png/${item}`} alt="나라별 국기"/>
                             <h1 className={style1.nation}>{item}</h1>
                         </div>

@@ -35,17 +35,15 @@
     border: 3px solid #FC8694;;
 }
 
-.countriesBox{
+.nationBox{
     width: 60%;
     margin: 0 auto;
     box-shadow: 2px 2px 2px 2px #FC8694;
     background-color: #fff3f4;
 }
 
-
-
-
-.resultInfoBox4 {
+.nations {
+    padding: 0 40px;
     display: flex;
     align-items: center;
 }
