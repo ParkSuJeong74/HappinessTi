@@ -24,7 +24,7 @@ function ChartComposed({active}){
         <Area isAnimationActive={active} type="monotone" dataKey="health" fill="#8884d8" stroke="#8884d8" />
         <Bar isAnimationActive={active} dataKey="happinessScore" barSize={20} fill="#413ea0" />
         <Line isAnimationActive={active} type="monotone" dataKey="socialSupport" stroke="#ff66ff" />
-        <Line type="monotone" dataKey="gdp" stroke="#9900cc" />
+        <Line isAnimationActive={active} type="monotone" dataKey="gdp" stroke="#9900cc" />
       </ComposedChart>
     )
 }
