@@ -4,6 +4,7 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import { gcsBucket } from "../config/gcs.js";
 import { format } from "util";
+// import generatePassword from "password-generator";
 
 export const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
@@ -91,12 +92,17 @@ export const userAuthService = {
     return loginResponse;
   },
 
-  getUsers: async () => {
-    const users = await userModel.findAll();
-    if (!users) {
-      throw "유저 정보를 가져올 수 없습니다.";
+  getUserInfo: async ({ userId }) => {
+    const user = await userModel.findById({ userId });
+    let error = new Error(
+      "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+    );
+
+    if (!user) {
+      throw error;
     }
-    return users;
+
+    return user;
   },
 
   SetGcsBucket: async ({ user, file }) => {
@@ -154,8 +160,15 @@ export const userAuthService = {
     if (findByNicknameUser && findByNicknameUser.id !== userId) {
       throw error;
     }
-    user = await userModel.update({ userId, data: toUpdate });
 
+    user = await userModel.update({ userId, data: toUpdate });
+    return user;
+  },
+
+  setPassword: async ({ userId, password }) => {
+    let user = await userModel.findById({ userId });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    user = await userModel.update({ userId, data: { hashedPassword } });
     return user;
   },
 
@@ -175,18 +188,13 @@ export const userAuthService = {
 
     return { status: "Ok" };
   },
-
-  getUserInfo: async ({ userId }) => {
-    const user = await userModel.findById({ userId });
-    let error = new Error(
-      "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
-    );
-
-    if (!user) {
-      throw error;
+  //
+  getUsers: async () => {
+    const users = await userModel.findAll();
+    if (!users) {
+      throw "유저 정보를 가져올 수 없습니다.";
     }
-
-    return user;
+    return users;
   },
 
   setNewPassword: async ({ email }) => {
@@ -200,7 +208,7 @@ export const userAuthService = {
       throw error;
     }
 
-    const newPassword = await userModel.createRandomPassword();
+    const newPassword = generatePassword(12);
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
     //업데이트할 field를 password로 설정

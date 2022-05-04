@@ -1,10 +1,16 @@
 import { happyModel } from "../db/index.js";
 
 export const happinessService = {
-  getHappyLists: async () => {
-    const totalHappylist = await happyModel.findAll({});
-    return totalHappylist;
+  getRanking: async () => {
+    const countries = await happyModel.findRanking({});
+    return countries;
   },
+
+  getHappyLists: async () => {
+    const totalHappylist = await happyModel.findAllHappiness();
+    return { totalHappylist };
+  },
+  //
   getSearchCountry: async ({ countryName }) => {
     const country = await happyModel.findByCountry({ countryName });
     return country;
@@ -27,5 +33,9 @@ export const happinessService = {
     // });
 
     return { analysis, countryFlag };
+  },
+  getCountries: async () => {
+    const country = await happyModel.findAll();
+    return country;
   },
 };

@@ -5,7 +5,7 @@
  *    description: API to manage Rank
  */
 import { Router } from "express";
-import { rankingService } from "../services/rankingService.js";
+import { happinessService } from "../services/happinessService.js";
 
 export const rankingRouter = Router();
 
@@ -23,7 +23,7 @@ export const rankingRouter = Router();
  */
 rankingRouter.get("/", async function (req, res, next) {
   try {
-    const countries = await rankingService.getRanking();
+    const countries = await happinessService.getRanking();
     res.status(200).send(countries);
   } catch (error) {
     next(error);

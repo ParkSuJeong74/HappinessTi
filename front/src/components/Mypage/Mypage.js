@@ -48,9 +48,9 @@ function Mypage() {
     }
     getUserLogs() */
 
-    if(!isLoggedin){
-      alert("반가워요! 먼저 로그인을 해주세요!")
-      navigate(ROUTES.LOGIN.link, { replace: true })
+    if (!isLoggedin) {
+      alert("반가워요! 먼저 로그인을 해주세요!");
+      navigate(ROUTES.LOGIN.link, { replace: true });
     }
   }, []);
 
@@ -74,7 +74,7 @@ function Mypage() {
         회원 정보
       </Typography>
 
-      <ProfileInfo updateUser={updateUser}/>
+      <ProfileInfo updateUser={updateUser} />
     </Container>
   );
 }

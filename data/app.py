@@ -7,10 +7,10 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 with app.app_context():
     app.register_blueprint(cc)
     app.register_blueprint(ml)
-
 
 if __name__ == '__main__':
     app.run(host='localhost',port=os.environ.get("FLASK_PORT"), debug=os.environ.get("FLASK_DEBUG"))
