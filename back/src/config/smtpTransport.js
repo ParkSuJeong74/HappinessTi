@@ -13,8 +13,8 @@ const smtpTransport = nodemailer.createTransport({
   //이메일 전송을 위해 필요한 인증정보
   //gmail 계정과 암호
   auth: {
-    user: "goodtest531@gmail.com",
-    pass: "xptmxm!2",
+    user:process.env.Google_Id,
+    pass:process.env.Google_Pw,
   },
 });
 
