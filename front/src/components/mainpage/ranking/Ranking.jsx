@@ -12,6 +12,7 @@ function Ranking() {
       try{
         Api.get("rank").then(res =>{
           setRankingDatas(res.data)
+          console.log(res.data)
         })
       } catch(err){
         console.log(err);

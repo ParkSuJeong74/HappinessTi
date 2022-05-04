@@ -57,7 +57,7 @@ console.log(similarCountries)
             </div>
 
             <ResultBox className={result.resultBox2}>
-                <RadialChart active={activeBtn === 1}></RadialChart>
+                <RadialChart nation={'Norway'}active={activeBtn === 1}></RadialChart>
 
                 <div className={result.resultInfoBox2}>
                     <p className={result.resultInfo3}>
