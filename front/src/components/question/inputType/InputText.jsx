@@ -3,7 +3,7 @@ import style from '../../../srcAssets/style/Question.module.css'
 import { useRecoilState, useRecoilValue } from "recoil";
 import {questState, currentNumState } from '../../../atom';
 
-// 연봉과 수명은 textfield로 입력받음
+// 디스토피아, 연봉, 수명 -> textfield로 입력받음
 function InputText({updateQuestProcess}) {
     const [quest, setQuest] = useRecoilState(questState);
     const currentNum = useRecoilValue(currentNumState);
