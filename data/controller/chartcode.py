@@ -7,7 +7,6 @@ import numpy as np
 df = pd.read_csv('./file/happy_data2.csv')
 df_merged = pd.read_csv('./file/df_merged.csv')
 cc = Blueprint('cc',__name__)
-scaler=MinMaxScaler()
 ##----treemap.png------##
 @cc.route('/tree',methods=['GET'])
 def treemap():
