@@ -1,40 +1,43 @@
 import { Container, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
-import * as Api from "../../api";
-import { UserStateContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+
+import * as Api from "../../api";
+import {ROUTES} from '../../Route'
 import ProfileInfo from "./ProfileInfo";
 import Profile from "./Profile";
 
 function Mypage() {
   const navigate = useNavigate();
 
-  //현재 user상태에서 id를 가져옴 -> loginUserId
-  const userState = useContext(UserStateContext);
-  const loginUserId = userState.user?._id ?? userState.user?.id;
   const [user, setUser] = useState(null);
-  const [userLog, setUserlogs] = useState(null);
+  const [userLog, setUserlog] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
+
+  const toggleEditForm = () => {
+    setEditOpen((prev) => !prev)
+  }
 
   const updateUser = (user) => {
     setUser(user);
   };
 
   const isLoggedin = sessionStorage.getItem("userToken");
-  // const isLoggedin = userState.user?.id
 
-  //loginUserId가 변경될 때마다 user api 호출 다시 하기
-  useEffect(() => {
-    // user정보 호출하기
-    async function getUserData() {
-      try {
-        const res = await Api.get("users", loginUserId);
-        setUser(res.data);
-      } catch (err) {
-        console.log(err);
-      }
+  // user정보 호출하기
+  async function getUserData() {
+    try {
+      const res = await Api.get("users");
+      console.log(res.data)
+      setUser(res.data);
+    } catch (err) {
+      console.log(err);
     }
+  }
+
+  useEffect(() => {
+    
     getUserData();
 
     //TODO: user의 행복-TI 로그정보 호출하기 (예정!)
@@ -45,11 +48,11 @@ function Mypage() {
     }
     getUserLogs() */
 
-    if (!isLoggedin) {
-      alert("반가워요! 먼저 로그인을 해주세요!");
-      navigate("/login", { replace: true });
+    if(!isLoggedin){
+      alert("반가워요! 먼저 로그인을 해주세요!")
+      navigate(ROUTES.LOGIN.link, { replace: true })
     }
-  }, [loginUserId]);
+  }, []);
 
   return (
     <Container sx={{ py: 7, mt: 12 }}>
@@ -58,7 +61,7 @@ function Mypage() {
         user={user}
         updateUser={updateUser}
         editOpen={editOpen}
-        setEditOpen={setEditOpen}
+        toggleEditForm={toggleEditForm}
       />
 
       {/* 회원 설정. 정보 */}
@@ -71,7 +74,7 @@ function Mypage() {
         회원 정보
       </Typography>
 
-      <ProfileInfo />
+      <ProfileInfo updateUser={updateUser}/>
     </Container>
   );
 }

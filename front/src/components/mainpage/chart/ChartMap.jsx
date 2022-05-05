@@ -1,8 +1,21 @@
 import {  ResponsiveChoropleth, ResponsiveChoroplethCanvas  } from '@nivo/geo'
-import data from "./dataMap"
 import countries from "./world_countries.json";
+import * as Api from '../../../api'
+import React, {useEffect, useState} from "react"
 
-const MyResponsiveChoropleth = ({ data }) => (
+function ChartMap() {
+  const [data, setData] = useState(null)
+  useEffect(()=>{
+    try{
+      Api.get("graph/mapplot").then(res =>{
+        setData(res.data)
+      })
+    } catch(err){
+      console.log(err);
+    }
+  },[])
+
+  const MyResponsiveChoropleth = () => (
     <ResponsiveChoroplethCanvas
       data={data}
       features={countries.features}
@@ -39,17 +52,14 @@ const MyResponsiveChoropleth = ({ data }) => (
                 itemOpacity: 1
               }
             },
-
           ]
         }
       ]}
     />
   );
-
-function ChartMap() {
   return (
     <div style={{ height: "400px", width: "750px" }}>
-      <MyResponsiveChoropleth data={data} />
+      {data&&<MyResponsiveChoropleth />}
     </div>
   )
 }

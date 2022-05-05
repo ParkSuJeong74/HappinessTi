@@ -1,4 +1,4 @@
-// 문항 number에 따라서 상황이 할당됨
+// (부패) 문항 number에 따라서 상황이 할당됨
 const contents = [
     {
         num: 5,

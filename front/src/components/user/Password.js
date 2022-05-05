@@ -1,32 +1,45 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { withStyles } from "@material-ui/core/styles";
+import {Box} from "@mui/material";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-import { Link } from 'react-router-dom'
-import styled from 'styled-components';
-import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
-import password from '../../srcAssets/style/Password.module.css';
+import {ROUTES} from '../../Route'
+import logoImg from "../../srcAssets/img/crashingdevlogo-removebg.gif";
+import style from "../../srcAssets/style/Password.module.css";
+import * as Api from "../../api";
+import CssTextField from "./CssTextField";
+import errorHandler from "../../errorHandler";
 
 function Password() {
-  const CssTextField = withStyles({
-    root: {
-      "& label.Mui-focused": {
-        color: "pink",
-      },
-      "& .MuiInput-underline:after": {
-        borderBottomColor: "pink",
-      },
-      width: "300px",
-    },
-  })(TextField);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await Api.put("users/password/reset", {
+        email,
+      });
+      console.log(res)
+      alert("비밀번호 리셋이 성공하였습니다!")
+      /* const user = res.data;
+      const jwtToken = user.token;
+      console.log(res.data);
+      sessionStorage.setItem("userToken", jwtToken); */
+      // navigate("/");
+    } catch (error) {
+      errorHandler('비밀번호 리셋 오류', error.response.data)
+    }
+  };
 
   return (
-    <PasswordBody>
+    <PasswordBody onSubmit={handleSubmit}>
       <PasswordBodyUpper>
         <Box>
-          <LogoImg src={logoImg} />
+          <LogoImg src={logoImg} onClick={() => navigate(ROUTES.MAIN_PAGE.link)} />
         </Box>
+
         <Box>
           <PasswordTitle>Forgot your password?</PasswordTitle>
           <PasswordTitle2>
@@ -36,7 +49,7 @@ function Password() {
         </Box>
       </PasswordBodyUpper>
 
-      <Box class={password.inputEmail}>
+      <Box class={style.inputEmail}>
         <CssTextField
           style={{ width: "30%" }}
           id="standard-basic"
@@ -46,55 +59,21 @@ function Password() {
           InputLabelProps={{
             style: { color: "#FFB7C0" },
           }}
-        />
-      </Box>
-      <Box class={password.inputNickname}>
-        <CssTextField
-          style={{ width: "30%" }}
-          id="standard-basic"
-          label="인증번호"
-          placeholder="인증번호를 입력해주세요"
-          variant="standard"
-          InputLabelProps={{
-            style: { color: "#FFB7C0" },
-          }}
-        />
-      </Box>
-      <Box class={password.inputPassword}>
-        <CssTextField
-          style={{ width: "30%" }}
-          id="standard-basic"
-          label="Password"
-          placeholder="Password"
-          variant="standard"
-          InputLabelProps={{
-            style: { color: "#FFB7C0" },
-          }}
-        />
-      </Box>
-      <Box class={password.inputPasswordconfirm}>
-        <CssTextField
-          style={{ width: "30%" }}
-          id="standard-basic"
-          label="Confirm Password"
-          placeholder="Confirm Password"
-          variant="standard"
-          InputLabelProps={{
-            style: { color: "#FFB7C0" },
-          }}
+          required
+          onChange={(e) => setEmail(e.target.value)}
         />
       </Box>
 
-      <div class={password.signinButtonbox}>
-        <button type="button" class={password.signinButton}>
-          비밀번호 변경
+      <div class={style.signinButtonbox}>
+        <button type="submit" class={style.signinButton}>
+          비밀번호 재설정
         </button>
 
-        <Box class={password.otherButtonbox}>
-          <Link to="/login" class={password.loginButton}>
+        <Box class={style.otherButtonbox}>
+          <Link to={ROUTES.LOGIN.link} class={style.loginButton}>
             Back to Login page
           </Link>
-          <Link to="/signin" class={password.forgotpasswordButton}>
+          <Link to={ROUTES.SIGN_IN.link} class={style.forgotpasswordButton}>
             Back to Signin page
           </Link>
         </Box>
@@ -105,7 +84,7 @@ function Password() {
 
 export default Password;
 
-const PasswordBody = styled.div``;
+const PasswordBody = styled.form``;
 
 const PasswordBodyUpper = styled.div`
   display: flex;
@@ -123,5 +102,6 @@ const PasswordTitle2 = styled.div`
 `;
 
 const LogoImg = styled.img`
-  width: 100px;
+  width: 60px;
+  cursor: pointer;
 `;

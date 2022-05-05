@@ -5,6 +5,8 @@ import {withStyles} from "@material-ui/core/styles";
 
 import * as Api from "../../api";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {ROUTES} from '../../Route'
 
 const StyleDataGrid = withStyles({
     '@global': {
@@ -22,7 +24,6 @@ const StyleDataGrid = withStyles({
         }
       },
 })(DataGrid);
-
 
 const columns = [
     { field: 'rank', headerName: '랭킹', width: 130 },
@@ -49,28 +50,27 @@ const columns = [
 // ];
 
 function DataLog(){
-    const [datas, setDatas] = useState([])
+    const navigate = useNavigate()
     const [rows, setRows] = useState([])
 
-    async function getResultData() {
+    async function getDataLogs() {
         try {
           const res = await Api.get("happiness/lists");
-          const originalData = res.data;
+          const listData = res.data;
 
-          for(let i=0; i< originalData.length; i++){
-            originalData[i]['id'] = i+1;
+          for(let i=0; i< listData.length; i++){
+            listData[i]['id'] = i+1;
           }
-          console.log(res)
-          console.log(res.data)
+          console.log(listData)
 
-          setRows(originalData)
+          setRows(listData)
         } catch (err) {
           console.log(err);
         }
       }
 
     useEffect(() => {
-        getResultData()
+        getDataLogs()
     }, [])
 
     return (
@@ -83,8 +83,12 @@ function DataLog(){
             </div>
 
             <div className={data.dataHappyTi} style={{ height: 381, width: '85%', margin: '0 auto'}}>
-                <StyleDataGrid
-                    //onRowClick={(e) => console.log(e.row.type.split(" ")[0])}
+                <DataGrid
+                    onRowClick={(e) => {
+                        console.log(e.row.country)
+                        const nation = e.row.country
+                        navigate(`/analysis/${nation}`)
+                    }}
                     rows={rows}
                     columns={columns}
                     pageSize={5}

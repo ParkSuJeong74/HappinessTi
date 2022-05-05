@@ -1,7 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import { Treemap, ResponsiveContainer } from 'recharts';
-
-import data from './dataTreemap'
+import * as Api from '../../../api'
 
 const COLORS = ['#8889DD', '#9FB4FF', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 
@@ -38,10 +37,21 @@ class CustomizedContent extends PureComponent {
   }
 }
 
-export default function ChartTreemap({ active /* , data */ }) {
-
+export default function ChartTreemap({ active }) {
+  const [data, setData] = useState(null)
+  useEffect(()=>{
+    try{
+      Api.get("graph/treemap").then(res =>{
+        setData(res.data)
+      })
+    } catch(err){
+      console.log(err);
+    }
+  },[])
       return (
-        <ResponsiveContainer width="100%" height="100%">
+        <>
+        {data&&
+          <ResponsiveContainer width="100%" height="100%">
           <Treemap
             width={400}
             height={200}
@@ -52,9 +62,9 @@ export default function ChartTreemap({ active /* , data */ }) {
             fill="#8884d8"
             isAnimationActive={active} 
             content={<CustomizedContent colors={COLORS} />}
-          />
-        </ResponsiveContainer>
+          /> 
+        </ResponsiveContainer>}
+        </>
       );
-
 }
 

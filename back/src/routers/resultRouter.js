@@ -81,18 +81,19 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
  *       '200':
  *         description: "군집 분석 결과 도출, 같은 군집의 나라 조회 완료"
  */
-resultRouter.get(
+ resultRouter.get(
   "/:countryName/similar",
   login_required,
   async function (req, res, next) {
     try {
-      const response = await axios.get("http://localhost:8000/similar");
+      const response = await axios.get(`${process.env.FLASK_BASE_URL}/similar`);
       if (!response) {
         throw "데이터를 받아오지 못했습니다.";
       }
       const { countryName } = req.params;
       const { data } = response;
       const keys = Object.keys(data);
+
       let similarCounrtries;
       for (const key of keys) {
         const index = data[key].findIndex(
@@ -104,7 +105,6 @@ resultRouter.get(
         similarCounrtries = result;
         break;
       }
-      // if (!similarCounrtries) throw "군집 없음";
       res.status(200).json({ similarCounrtries });
     } catch (error) {
       next(error);
