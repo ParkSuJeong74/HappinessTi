@@ -28,7 +28,7 @@ function Mypage() {
   // user정보 호출하기
   async function getUserData() {
     try {
-      const res = await Api.get("users");
+      const res = await Api.get("users/current");
       console.log(res.data)
       setUser(res.data);
     } catch (err) {

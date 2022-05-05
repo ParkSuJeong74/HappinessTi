@@ -163,7 +163,4 @@ const UploadBox = {
   p: 1,
 };
 
-const UploadBox1 = styled.div`
-
-`;
 
