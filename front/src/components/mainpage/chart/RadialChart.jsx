@@ -32,7 +32,7 @@ function ResultChart(){
         endAngle={0}
         margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
         >
-        <RadialBar minAngle={15} label={{ fill: '#666', position: 'insideStart' }} background clockWise={true} dataKey='uv' />
+        <RadialBar width={1000}minAngle={15} label={{ fill: '#666', position: 'insideStart' }} background clockWise={true} dataKey='uv' />
         <Legend value={data.name} iconSize={40} width={240} height={140} layout='vertical' verticalAlign='start' align="right" wrapperStyle={{fontSize: "20px"}} />
         <Tooltip />
         </RadialBarChart>
