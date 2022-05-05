@@ -1,91 +1,114 @@
-.resultTitle1,
-.resultTitle3,
-.resultInfoBox,
-.resultInfoBox2 {
+
+
+.title{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 0 auto;
+    font-size: 40px;
+}
+
+.divider{
+    margin: 150px auto 0 auto;
+    height: 7px;
+    width: 30%;
+    background-color: #FC8694;
+}
+
+/* 분석 결과 */
+.analysisBox {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    padding: 100px 0;
+    border: 3px solid #FC8694;
 }
-.resultTitle1,
-.resultTitle3 {
-    margin-top: 20vh;
-    font-size: x-large;
+
+
+.analysisInfo {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: larger;
+    border-bottom: 2px solid #FC8694;
 }
-.resultTitle2,
-.resultTitle4 {
-    border-top: 2px solid #FC8694;
-    border-width: 10%;
-    padding-top: 16px;
+
+
+/* 나라 예측 */
+.predictBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    padding: 70px 0;
+    border: 3px solid #FC8694;
 }
-.resultInfoBox3 {
-    width: 800px;
-    padding: 20px 300px 20px 100px;
-    border: 1px solid none;
+
+
+.predictIntro, .predictContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 25px 0;
+}
+
+.predictIntro {
+    font-size: 25px;
+}
+
+.predictContent {
+    font-size: 50px;
+}
+
+.coloring {
+    color: #FC8694;
+}
+
+.myflag {
+    width: 100px;
+    margin-right: 20px;
+}
+
+.recflag {
+    width: 300px;
+    margin: 30px 160px 30px 0;
+}
+
+.conclusion {
+    padding: 20px 5px 10px 5px;
+    font-size: 25px;
+    border-bottom: 2px solid #FC8694;
+}
+
+/* 비슷한 나라 */
+.similarBox {
+    width: 100%;
+    margin-top: 5vh;
+    padding: 50px 0;
+    border: 3px solid #FC8694;;
+}
+
+.nationBox{
+    width: 60%;
+    margin: 0 auto;
     box-shadow: 2px 2px 2px 2px #FC8694;
     background-color: #fff3f4;
 }
 
-
-
-.resultBox,
-.resultBox2,
-.resultBox3 {
-    margin-top: 5vh;
-    padding: 70px 0 70px 0;
-    border: 3px solid #FC8694;
-}
-.resultBox2 {
-    padding-top: 200px;
-}
-
-.resultBoxtop {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 120px;
-    font-size: x-large;
-}
-.resultResultType {
-    font-size: xx-large;
-}
-
-.resultFlag {
-    padding-top: 20px;
+.nations {
+    padding: 0 40px;
     display: flex;
     align-items: center;
-    flex: 0.7fr 1fr;
+}
+.nation {
+    font-size: 30px;
 }
 
-.resultTi,
-.resultType,
-.resultCountry,
-.resultUserflag,
-.resultPercent,
-.resultPercent2,
-.resultPercent3 {
-    color: #FC8694;
-}
-
-.resultInfo1,
-.resultInfo3 {
-    padding: 40px 5px 10px 5px;
-    font-size: larger;
-    border-bottom: 2px solid #FC8694;
-}
-.resultInfo2,
-.resultInfo4 {
-    padding: 20px 5px 10px 5px;
-    font-size: larger;
-    border-bottom: 2px solid #FC8694;
-}
-
-
-
-.resultInfoBox4 {
-    display: flex;
-    align-items: center;
-    flex: 0.5fr 1fr;
-}
-.resultSimilarNation {
-    font-size: xx-large;
+.flag {
+    width: 70px;
+    margin: 20px 20px 20px 0px;
 }
