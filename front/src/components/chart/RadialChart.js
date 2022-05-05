@@ -1,24 +1,7 @@
-import { useEffect, useState } from 'react';
 import { RadialBarChart, Tooltip, Legend, RadialBar} from 'recharts';
-// import data from "../data/data3.js"
-import * as Api from '../../api'
 
 function RadialChart({data}){
-    /* const [radialData, setRadialData] = useState([])
-
-    async function getRadialData() {
-        try {
-          const res = await Api.get(`result/${nation}`);
-          setRadialData(res.data)
-        } catch (err) {
-          console.log(err);
-        }
-      }
-
-    useEffect(() => {
-        getRadialData()
-    }, []) */
-
+    
     return (
         <RadialBarChart 
             width={900} 

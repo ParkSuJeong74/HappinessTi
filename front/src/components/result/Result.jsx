@@ -8,6 +8,7 @@ import RadialChart from "../chart/RadialChart";
 import calcQuestion from "./calcQuestion";
 import pinImg from '../../srcAssets/img/pin1-removebg.png'
 
+// 로그인한 user만 결과 페이지 볼 수 있음!
 function Result({ activeBtn }){
 
     const quest = useRecoilValue(questState);
@@ -84,7 +85,7 @@ function Result({ activeBtn }){
             </h1>
 
             <div className={Style.analysisBox}>
-                <RadialChart data={radialData} active={activeBtn === 1}></RadialChart>
+                <RadialChart data={radialData}></RadialChart>
                 <p className={Style.infoRank}>
                     {predict?.reCountry}의 행복도는 상위 <span className={Style.coloring}>{infoText['rank']}%</span>입니다.
                 </p>

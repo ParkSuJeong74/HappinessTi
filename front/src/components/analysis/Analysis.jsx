@@ -9,20 +9,31 @@ import RadialChart from "../chart/RadialChart"
 function Analysis(){
     const {nation} = useParams()
     const [similarCountries, setSimilarCountries] = useState([])
+    const [radialData, setRadialData] = useState([])
+
+    async function getRadialData() {
+        try {
+            const res = await Api.get(`result/${nation}`);
+            console.log(res.data)
+            setRadialData(res.data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     async function getSimilarData() {
         try {
-          const res = await Api.get(`result/${nation}/similar`);
-          console.log(res.data)
-          console.log(res.data.similarCounrtries)
-          setSimilarCountries(res.data.similarCounrtries)
+            const res = await Api.get(`result/${nation}/similar`);
+            console.log(res.data.similarCounrtries)
+            setSimilarCountries(res.data.similarCounrtries)
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
-      }
+    }
     
 
     useEffect(() => {
+        getRadialData()
         getSimilarData()
     }, [])
 
@@ -32,14 +43,14 @@ function Analysis(){
         <Container sx={analysisPage}>
             <div className={Style.divider}/>
 
-            {/* 추천한 나라의 분석 결과 */}
+            {/* 이 나라의 행복도 분석 결과 */}
             <h1 className={Style.title}>
                 <span className={Style.coloring}>{nation}</span>형 분석 결과
             </h1>
 
             <div className={Style.analysisBox}>
 
-                <RadialChart nation={nation} ></RadialChart>
+                <RadialChart data={radialData}></RadialChart>
 
                 <p className={Style.analysisInfo}>
                     상위 <span className={Style.coloring}>20%</span>의 자유 점수를 갖고 있습니다.
@@ -51,7 +62,7 @@ function Analysis(){
 
             <div className={Style.divider}/>
 
-            {/* 추천한 나라와 비슷한 행복도를 가진 나라들 */}
+            {/* 이 나라와 비슷한 행복도를 가진 나라들 */}
             <div className={Style.title}>
                 행복도가 비슷한 나라는?
             </div>
