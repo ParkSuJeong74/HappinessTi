@@ -1,15 +1,34 @@
 import { Container } from "@mui/material"
 import { DataGrid } from '@mui/x-data-grid';
 import data from '../../srcAssets/style/Data.module.css'
+import {withStyles} from "@material-ui/core/styles";
 
 import * as Api from "../../api";
 import { useEffect, useState } from "react";
+
+const StyleDataGrid = withStyles({
+    '@global': {
+        '*::-webkit-scrollbar': {
+          width: '12px',
+          height: '12px'
+        },
+        '*::-webkit-scrollbar-track': {
+          backgroundColor: '#DC9898',
+          borderRadius: '10px'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: '#FFB7C0',
+          borderRadius: '10px'
+        }
+      },
+})(DataGrid);
+
 
 const columns = [
     { field: 'rank', headerName: '랭킹', width: 130 },
     { field: 'country', headerName: '국가', width: 130 },
     { field: 'happinessScore', headerName: '행복 지수', width: 130 },
-    { field: 'dytopia', headerName: '자유 지수', width: 130 },
+    { field: 'dystopia', headerName: '자유 지수', width: 130 },
     { field: 'gdp', headerName: 'GDP 지수', width: 130 },
     { field: 'socialSupport', headerName: '정부 신뢰 지수', width: 130 },
     { field: 'health', headerName: '건강 지수', width: 130 },
@@ -64,7 +83,7 @@ function DataLog(){
             </div>
 
             <div className={data.dataHappyTi} style={{ height: 381, width: '85%', margin: '0 auto'}}>
-                <DataGrid
+                <StyleDataGrid
                     //onRowClick={(e) => console.log(e.row.type.split(" ")[0])}
                     rows={rows}
                     columns={columns}

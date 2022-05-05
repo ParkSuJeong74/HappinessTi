@@ -43,9 +43,6 @@ function Result({ user, activeBtn }){
                         <p className={result.resultInfo1}>
                             당신은 행복한 <span className={result.resultUserflag}>대한민국</span> 국민입니다.
                         </p>
-                        <p className={result.resultInfo2}>
-                            현재보다 당신이 더 행복해질 가능성은 <span className={result.resultPercent}>50%</span>입니다.
-                        </p>
                     </div>
                 </div>
             </ResultBox>
@@ -55,7 +52,7 @@ function Result({ user, activeBtn }){
             </div>
 
             <ResultBox className={result.resultBox2}>
-                <RadialChart active={activeBtn === 1}></RadialChart>
+                <RadialChart nation={'Norway'}active={activeBtn === 1}></RadialChart>
 
                 <div className={result.resultInfoBox2}>
                     <p className={result.resultInfo3}>
