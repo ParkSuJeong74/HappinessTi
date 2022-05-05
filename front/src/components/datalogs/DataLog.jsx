@@ -8,18 +8,15 @@ import { useNavigate } from "react-router-dom";
 import {ROUTES} from '../../Route'
 
 const columns = [
-    { field: 'rank', headerName: '랭킹', width: 130 },
     { field: 'country', headerName: '국가', width: 130 },
     { field: 'happinessScore', headerName: '행복 지수', width: 130 },
-    { field: 'dytopia', headerName: '자유 지수', width: 130 },
+    { field: 'dystopia', headerName: '디스토피아', width: 130 },
     { field: 'gdp', headerName: 'GDP 지수', width: 130 },
-    { field: 'socialSupport', headerName: '정부 신뢰 지수', width: 130 },
-    { field: 'health', headerName: '건강 지수', width: 130 },
-    { field: 'freedom', headerName: 'Rank', width: 130 },
-    { field: 'generosity', headerName: 'Country', width: 130 },
-    { field: 'corruptionPerceptions', headerName: 'Distopia', width: 130 },
-    { field: 'continent', headerName: 'contient', width: 130 },
-    { field: 'count', headerName: 'Count', width: 130 },
+    { field: 'socialSupport', headerName: '사회적 지지도 지수', width: 130 },
+    { field: 'freedom', headerName: '자유도', width: 130 },
+    { field: 'generosity', headerName: '관용도', width: 130 },
+    { field: 'corruptionPerceptions', headerName: '부패 지수', width: 130 },
+    { field: 'continent', headerName: '대륙', width: 130 },
 ];
 
 // userlog api 호출받기
@@ -40,9 +37,9 @@ function DataLog(){
           const res = await Api.get("happiness/lists");
           const listData = res.data;
 
-          for(let i=0; i< listData.length; i++){
+          /* for(let i=0; i< listData.length; i++){
             listData[i]['id'] = i+1;
-          }
+          } */
           console.log(listData)
 
           setRows(listData)

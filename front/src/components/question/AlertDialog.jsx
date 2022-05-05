@@ -29,7 +29,7 @@ export default function AlertDialog({modalOpen, setModalOpen}) {
           <DialogContent>
             <Stack direction="row">
                 <img width="40px" height="40px"src={num1} alt="숫자 1" />
-                <h2 className={style.dialogText}>총 검사 시간은 <span class={style.highlight}>5분 내외</span>입니다.</h2>
+                <h2 className={style.dialogText}>총 검사 시간은 <span class={style.highlight}>15분 내외</span>입니다.</h2>
             </Stack>
 
             <Stack direction="row">
