@@ -44,5 +44,9 @@
 }
 
 
-
-
+.loading{
+    margin: 100px auto;
+}
+.loadingImg{
+    width: 500px;
+}
