@@ -1,58 +1,31 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import {withStyles} from "@material-ui/core/styles";
+import { useContext, useState } from "react"
+import {Box} from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom'
 
-import { Link } from 'react-router-dom'
 import {ROUTES} from '../../Route'
 import styled from 'styled-components';
 import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
-import login from '../../srcAssets/style/Login.module.css';
-
-import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import Swal from 'sweetalert2'
-
+import style from '../../srcAssets/style/Login.module.css';
 import * as Api from '../../api'
 import { DispatchContext } from "../../App";
-
-const CssTextField = withStyles({
-    root: {
-      '& label.Mui-focused': {
-        color: 'pink',
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: 'pink',
-      }, 
-
-      width: '300px'
-    },
-})(TextField);
+import CssTextField from "./CssTextField";
+import errorHandler from "../../errorHandler";
 
 function Login() {
     const navigate = useNavigate()
     const dispatch = useContext(DispatchContext);
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
 
-    function errorHandler(message){
-        Swal.fire({
-            title: '로그인 오류',
-            text: message,
-            icon: 'warning',
-            showCloseButton: true,
-        })
-    }
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
-            //TODO: user 로그인 api 호출!
-            const res = await Api.post("users/login", {
-                email,
-                password,
-            })
+            //user 로그인 api 호출!
+            const res = await Api.post("users/login", form)
             const user = res.data.loginUser
 
             const jwtToken = user.token
@@ -67,7 +40,7 @@ function Login() {
             });
 
         } catch (error) {
-            errorHandler(error.response.data)
+            errorHandler('로그인 오류', error.response.data)
         }
     }
  
@@ -83,11 +56,11 @@ function Login() {
                 </Box>
             </LoginBodyUpper>
             
-            <Box class={login.inputEmail}>
-
+            <Box class={style.inputEmail}>
                 <CssTextField
                     style = {{width: '30%'}}
                     id="email" 
+                    name="email"
                     label="Email" 
                     placeholder='Email'
                     variant="standard"
@@ -95,15 +68,18 @@ function Login() {
                         style: {color: '#FFB7C0'}
                     }}
                     required   
-                    onChange={(e) => setEmail(e.target.value) }                 
+                    onChange={(e) => setForm((prev) => ({
+                        ...prev, [e.target.name]: e.target.value
+                    }))}            
                 />
             </Box>
-            <Box class={login.inputPassword}>
 
+            <Box class={style.inputPassword}>
                 <CssTextField
                     style = {{width: '30%'}}
                     id="standard-basic"
                     label="Password" 
+                    name="password"
                     type='password'
                     placeholder='Password'
                     variant="standard" 
@@ -111,18 +87,19 @@ function Login() {
                         style: {color: '#FFB7C0'}
                     }}
                     required
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setForm((prev) => ({
+                        ...prev, [e.target.name]: e.target.value
+                    }))}  
                 />
             </Box>
 
-            <div class={login.loginButtonbox}>
-                <button type='submit' class={login.loginButton}>LOG IN</button>
+            <div class={style.loginButtonbox}>
+                <button type='submit' class={style.loginButton}>LOG IN</button>
 
-                <Box class={login.otherButtonbox}>
-                    <Link to={ROUTES.SIGN_IN.link} class={login.createaccountButton}>Create Account</Link>
-                    <Link to={ROUTES.PASSWORD.link} class={login.forgotpasswordButton}>Forgot password?</Link>
+                <Box class={style.otherButtonbox}>
+                    <Link to={ROUTES.SIGN_IN.link} class={style.createaccountButton}>Create Account</Link>
+                    <Link to={ROUTES.PASSWORD.link} class={style.forgotpasswordButton}>Forgot password?</Link>
                 </Box>
-                
             </div>
             
         </LoginBody>

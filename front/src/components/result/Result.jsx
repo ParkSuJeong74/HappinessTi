@@ -2,33 +2,35 @@ import { Container } from "@mui/material"
 import styled from "styled-components";
 import result from '../../srcAssets/style/Result.module.css'
 import norway from '../../srcAssets/img/norway.png'
-import RadialChart from "../mainpage/chart/RadialChart";
-import * as Api from "../../api";
-
 import { useRecoilValue } from "recoil";
 import { questState } from "../../atom";
+import * as Api from '../../api'
 import { useEffect, useState } from "react";
+import RadialChart from "../chart/RadialChart";
 
 function Result({ user, activeBtn }){
+
     const quest = useRecoilValue(questState);
     const [similarCountries, setSimilarCountries] = useState([])
+    console.log(quest)
 
     async function getSimilarData() {
         try {
           const res = await Api.get("result/Norway/similar");
-          console.log(res.data)
           console.log(res.data.similarCounrtries)
           setSimilarCountries(res.data.similarCounrtries)
         } catch (err) {
           console.log(err);
         }
       }
+    
 
     useEffect(() => {
         getSimilarData()
     }, [])
 
-    console.log(quest);
+console.log(similarCountries)
+
     return (
         <Container sx={{py: 7, mt: 12}}>
             <ResultBox className={result.resultBox}>
@@ -55,7 +57,7 @@ function Result({ user, activeBtn }){
             </div>
 
             <ResultBox className={result.resultBox2}>
-                <RadialChart active={activeBtn === 1}></RadialChart>
+                <RadialChart nation={'Norway'}active={activeBtn === 1}></RadialChart>
 
                 <div className={result.resultInfoBox2}>
                     <p className={result.resultInfo3}>
@@ -80,6 +82,7 @@ function Result({ user, activeBtn }){
                     ))}
                 </div>
             </ResultBox>
+
         </Container>
     )
 }

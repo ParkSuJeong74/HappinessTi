@@ -165,6 +165,7 @@
                 0px 12px 10px -10px rgba(0,0,0, 0.05);
 }
 
+
 @keyframes changeMovement {
     0% {
         opacity: 0.3;
@@ -179,4 +180,3 @@
 .active{
     animation: changeMovement 1s ease-in-out;
 }
-

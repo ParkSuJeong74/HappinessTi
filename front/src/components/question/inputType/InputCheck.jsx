@@ -5,7 +5,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {questState, currentNumState } from '../../../atom';
 
-
+// 자유, 관용, 부패, 지지 -> check(5지선다)로 입력받음
 function InputCheck({updateQuestProcess}) {
     const [quest, setQuest] = useRecoilState(questState);
     const currentNum = useRecoilValue(currentNumState);

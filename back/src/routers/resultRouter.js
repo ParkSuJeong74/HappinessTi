@@ -84,7 +84,7 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
  *       '200':
  *         description: "군집 분석 결과 도출, 같은 군집의 나라 조회 완료"
  */
-resultRouter.get(
+ resultRouter.get(
   "/:countryName/similar",
   login_required,
   async function (req, res, next) {

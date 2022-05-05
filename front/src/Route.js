@@ -24,8 +24,8 @@ export const ROUTES = {
         path: '/datalogs'
     },
     ANALYSIS: {
-        link: '/analysis/:country',
-        path: '/analysis/:country'
+        link: '/analysis/:nation',
+        path: '/analysis/:nation'
     },
     MAIN_PAGE: {
         link: '/',

@@ -1,5 +1,4 @@
-import React, { PureComponent, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import React, { useEffect, useState } from "react"
 import {List, Box, Paper} from "@mui/material"
 import EmojiEventsSharpIcon from "@mui/icons-material/EmojiEventsSharp"
 import * as Api from '../../../api'
@@ -7,17 +6,19 @@ import Item from "./Item"
 import GoAllData from "./GoAllData"
 
 function Ranking() {
-    const naviage = useNavigate()
     const [rankingDatas, setRankingDatas] = useState([])
-  useEffect(()=>{
-    try{
-      Api.get("rank").then(res =>{
-        setRankingDatas(res.data)
-      })
-    } catch(err){
-      console.log(err);
-    }
-  },[])
+
+    useEffect(()=>{
+      try{
+        Api.get("rank").then(res =>{
+          setRankingDatas(res.data)
+          console.log(res.data)
+        })
+      } catch(err){
+        console.log(err);
+      }
+    },[])
+  
   return (
     <Paper elevation={12} sx={{ width: "320px", bgcolor: "#FFB3A3", p: 1, margin: 0 }}>
       

@@ -194,7 +194,3 @@ def composedBarchart():
     }
     data.append(eval(json.dumps(test)))
   return jsonify(data)
-    
-    
-
-    

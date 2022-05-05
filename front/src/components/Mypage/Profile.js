@@ -4,12 +4,12 @@ import styled from "styled-components";
 import ProfileEdit from "./ProfileEdit.js";
 import norway from "../../srcAssets/img/norway.png";
 
-function Profile({ editOpen, setEditOpen, user, updateUser }) {
+function Profile({ editOpen, toggleEditForm, user, updateUser }) {
   return (
     <CardBox>
       <UpperBox>
         <IconButton
-          onClick={() => setEditOpen((prev) => !prev)}
+          onClick={() => toggleEditForm()}
           sx={{ transform: "translate(865px, 0)" }}
           size="large"
         >
@@ -35,7 +35,7 @@ function Profile({ editOpen, setEditOpen, user, updateUser }) {
             <ProfileEdit
               updateUser={updateUser}
               user={user}
-              setEditOpen={setEditOpen}
+              toggleEditForm={toggleEditForm}
             />
           ) : (
             <Grid item xs={5} sx={{ textAlign: "center", marginTop: "9em" }}>

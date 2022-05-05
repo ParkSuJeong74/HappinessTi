@@ -271,6 +271,37 @@ userAuthRouter.post(
 /**
  * @swagger
  * path:
+<<<<<<< HEAD
+=======
+ * /users:
+ *   get:
+ *     tags: [User]
+ *     description: 해당 id의 유저 정보 조회
+ *     produces:
+ *     - "application/json"
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "한 유저의 정보 조회 완료"
+ *         schema:
+ *           $ref: '#/components/schemas/User'
+ */
+userAuthRouter.get("/", login_required, async function (req, res, next) {
+  try {
+    const userId = req.currentUserId;
+    const currentUserInfo = await userAuthService.getUserInfo({ userId });
+
+    res.status(200).send(currentUserInfo);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
+ * path:
+>>>>>>> c7e5a834c5911d57d0efb6ead6d486576688c50b
  * /users/:
  *   put:
  *     tags: [User]

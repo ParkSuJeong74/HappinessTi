@@ -5,7 +5,7 @@ import { FormControl, FormHelperText, MenuItem, Select, Stack } from '@mui/mater
 import { useState } from 'react';
 import {continents, countryCategory} from '../data/countries'
 
-// 나라는 select로 입력받음
+// 나라: select로 입력받음
 function InputSelect({updateQuestProcess}) {
     const setQuest = useSetRecoilState(questState);
     const [continent, setContinent] = useState('아시아')

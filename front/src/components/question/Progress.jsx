@@ -3,7 +3,6 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import style from '../../srcAssets/style/Question.module.css'
 import { styled } from '@mui/material/styles';
 
-
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     height:12,
     borderRadius: 5,
@@ -14,7 +13,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
       borderRadius: 5,
       backgroundColor: theme.palette.mode === 'light' ? '#8353e6' : '#308fe8',
     },
-  }));
+}));
 
 function Progress({currentNum}) {
     const currentRate = (currentNum/9)*100
