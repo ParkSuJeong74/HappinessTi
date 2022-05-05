@@ -6,6 +6,7 @@ import * as Api from "../../api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {ROUTES} from '../../Route'
+import errorHandler from "../../errorHandler";
 
 const columns = [
     { field: 'country', headerName: '국가', width: 130 },
@@ -44,6 +45,7 @@ function DataLog(){
 
           setRows(listData)
         } catch (err) {
+            errorHandler("데이터 로그 오류", err.response.data)
           console.log(err);
         }
       }

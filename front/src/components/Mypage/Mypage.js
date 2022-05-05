@@ -7,6 +7,7 @@ import * as Api from "../../api";
 import {ROUTES} from '../../Route'
 import ProfileInfo from "./ProfileInfo";
 import Profile from "./Profile";
+import errorHandler from "../../errorHandler";
 
 function Mypage() {
   const navigate = useNavigate();
@@ -31,7 +32,8 @@ function Mypage() {
       const res = await Api.get("users/current");
       setUser(res.data);
     } catch (err) {
-      console.log(err);
+      errorHandler("사용자 정보 불러오기 오류", err.response.data)
+      console.log(err.response.data);
     }
   }
 
@@ -49,7 +51,8 @@ function Mypage() {
 
       setSurveyLog(listData)
     } catch (err) {
-      console.log(err);
+      errorHandler("사용자 로그 정보 불러오기 오류", err.response.data)
+      console.log(err.response.data);
     }
   }
 

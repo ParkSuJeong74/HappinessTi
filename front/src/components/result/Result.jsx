@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import RadialChart from "../chart/RadialChart";
 import calcQuestion from "./calcQuestion";
 import pinImg from '../../srcAssets/img/pin1-removebg.png'
+import errorHandler from "../../errorHandler";
 
 // 로그인한 user만 결과 페이지 볼 수 있음!
 function Result({ activeBtn }){
@@ -49,6 +50,7 @@ function Result({ activeBtn }){
             console.log(res4.data.similarCounrtries)
             setSimilarCountries(res4.data.similarCounrtries)
         } catch (err) {
+            errorHandler("결과 페이지 오류", err.response.data)
             console.log(err.response.data);
         }
     }

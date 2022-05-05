@@ -5,6 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import axios from "axios";
+import errorHandler from "../../errorHandler";
+ 
 
 const CssTextField = withStyles({
   root: {
@@ -74,7 +76,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
         toggleEditForm()
       })
       .catch((error) => {
-        alert("회원 정보 수정이 실패하였습니다.");
+        errorHandler("회원 정보 수정 오류", error.response.data)
         console.log("error", error.response.data);
       });
   };
