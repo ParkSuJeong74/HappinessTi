@@ -1,13 +1,9 @@
 FROM nginx
-FROM node:16
-WORKDIR /
-COPY package*.json ./
-COPY yarn.lock ./
-RUN yarn install
-COPY . .
-RUN yarn build
-COPY . .
-RUN rm /etc/nginx/conf.d/*
+RUN mkdir /app
+WORKDIR /app
+RUN mkdir ./build
+ADD ./build ./build
+RUN rm /etc/nginx/conf.d/default.conf
 COPY ./nginx.conf /etc/nginx/conf.d
-EXPOSE 3000
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
