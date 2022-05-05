@@ -1,0 +1,48 @@
+.imageBox {
+    position:absolute;
+    top: 50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    padding: 10px;
+    background: white;
+    transform: translate(85px, 0px);
+    box-sizing: content-box;
+    position: relative;
+}
+
+.profileImg {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.editButton {
+    cursor: pointer;
+    position: absolute;
+    bottom: 100px;
+    left: 60px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    opacity:0;
+    transition:all .4s linear;
+}
+
+.profileImg:hover {
+    filter: blur(6px);
+    cursor: pointer;
+}
+
+.profileImg:hover + .editButton{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.editButton:hover{
+    opacity: 1;
+}
+
+
+
+
