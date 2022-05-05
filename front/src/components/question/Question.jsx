@@ -49,7 +49,7 @@ function Question(){
         if(currentNum === 0 ){
             return <InputSelect updateQuestProcess={updateQuestProcess}></InputSelect>
         }
-        else if(currentNum === 1 || currentNum === 2){
+        else if(currentNum === 1 || currentNum === 2 || currentNum === 3){
             return <InputText updateQuestProcess={updateQuestProcess}></InputText>
         }
         return <InputCheck updateQuestProcess={updateQuestProcess}></InputCheck>
@@ -77,12 +77,12 @@ function Question(){
             <Stack sx={prevNextButtons}>
                 {currentNum !== 0 && 
                     <Button variant="contained" startIcon={<ArrowBackIosIcon />} sx={prevNextBtn} onClick={() => movePrevNumber()}>이전</Button>}
-                {currentNum !== 9 &&
+                {currentNum !== 34 &&
                     <Button variant="contained" endIcon={<ArrowForwardIosIcon />} sx={prevNextBtn} onClick={() => moveNextNumber()}>다음</Button>}
             </Stack>
 
             {/* 마지막 페이지에서 결과 페이지로 이동 버튼 */}
-            {currentNum === 9 &&
+            {currentNum === 34 &&
                 <Box className={style.guide}>
                     <h1>재밌으셨나요? 결과를 확인해볼까요?</h1>
                     <input  

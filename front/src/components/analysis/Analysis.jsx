@@ -1,7 +1,7 @@
 import { Container } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import style1 from '../../srcAssets/style/Analysis.module.css'
+import Style from '../../srcAssets/style/Analysis.module.css'
 import * as Api from '../../api'
 import RadialChart from "../chart/RadialChart"
 
@@ -30,33 +30,38 @@ function Analysis(){
 
     return (
         <Container sx={analysisPage}>
-            <div className={style1.title}>
-                <h1><span className={style1.coloring}>{nation}</span>형 분석 결과</h1>
+            <div className={Style.divider}/>
+
+            {/* 추천한 나라의 분석 결과 */}
+            <h1 className={Style.title}>
+                <span className={Style.coloring}>{nation}</span>형 분석 결과
+            </h1>
+
+            <div className={Style.analysisBox}>
+
+                <RadialChart nation={nation} ></RadialChart>
+
+                <p className={Style.analysisInfo}>
+                    상위 <span className={Style.coloring}>20%</span>의 자유 점수를 갖고 있습니다.
+                </p>
+                <p className={Style.analysisInfo}>
+                    상위 <span className={Style.coloring}>20%</span>의 경제 점수를 갖고 있습니다.
+                </p>
             </div>
 
-            <div className={style1.resultBox}>
-                <RadialChart nation={nation}></RadialChart>
+            <div className={Style.divider}/>
 
-                <div className={style1.resultInfoBox}>
-                    <p className={style1.resultInfo}>
-                        상위 <span className={style1.coloring}>20%</span>의 자유 점수를 갖고 있습니다.
-                    </p>
-                    <p className={style1.resultInfo}>
-                        상위 <span className={style1.coloring}>20%</span>의 경제 점수를 갖고 있습니다.
-                    </p>
-                </div>
+            {/* 추천한 나라와 비슷한 행복도를 가진 나라들 */}
+            <div className={Style.title}>
+                행복도가 비슷한 나라는?
             </div>
 
-            <div className={style1.title}>
-                <h1><span className={style1.coloring}>{nation}</span> 과(와) 행복도가 비슷한 나라는?</h1>
-            </div>
-
-            <div className={style1.similarBox}>
-                <div className={style1.nationBox}>
+            <div className={Style.similarBox}>
+                <div className={Style.nationBox}>
                     {similarCountries.map((item) => (
-                        <div className={style1.nations}>
-                            <img className={style1.flag} src={`https://countryflagsapi.com/png/${item}`} alt="나라별 국기"/>
-                            <h1 className={style1.nation}>{item}</h1>
+                        <div className={Style.nations}>
+                            <img className={Style.flag} src={`https://countryflagsapi.com/png/${item}`} alt="나라별 국기"/>
+                            <h1 className={Style.nation}>{item}</h1>
                         </div>
                     ))}
                 </div>

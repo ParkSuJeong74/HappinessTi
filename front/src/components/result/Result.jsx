@@ -1,24 +1,51 @@
 import { Container } from "@mui/material"
+<<<<<<< HEAD
 import styled from "styled-components";
 import result from '../../srcAssets/style/Result.module.css'
 import norway from '../../srcAssets/img/norway.png'
+=======
+import Style from '../../srcAssets/style/Result.module.css'
+>>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
 import { useRecoilValue } from "recoil";
 import { questState } from "../../atom";
 import * as Api from '../../api'
 import { useEffect, useState } from "react";
 import RadialChart from "../chart/RadialChart";
+import calcQuestion from "./calcQuestion";
 
-function Result({ user, activeBtn }){
+function Result({ activeBtn }){
 
     const quest = useRecoilValue(questState);
     const [similarCountries, setSimilarCountries] = useState([])
+    const [predict, setPredict] = useState([])
+    
     console.log(quest)
+<<<<<<< HEAD
 
     async function getSimilarData() {
         try {
           const res = await Api.get("result/Norway/similar");
+=======
+    const calculated = calcQuestion(quest)
+    console.log(calculated)
+
+    async function getPredictData() {
+        try{
+            const res = await Api.post("result/predict", calculated);
+            console.log(res.data)
+            setPredict(res.data)
+        }
+        catch(err){
+            console.log(err.response.data)
+        }
+    }
+
+    async function getSimilarData() {
+        try {
+          const res = await Api.get(`result/${predict?.reCountry}/similar`);
+>>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
           console.log(res.data.similarCounrtries)
-          setSimilarCountries(res.data.similarCounrtries)
+        //   setSimilarCountries(res.data.similarCounrtries)
         } catch (err) {
           console.log(err);
         }
@@ -27,67 +54,80 @@ function Result({ user, activeBtn }){
 
     useEffect(() => {
         getSimilarData()
+        getPredictData()
     }, [])
 
+<<<<<<< HEAD
 console.log(similarCountries)
 
+=======
+>>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
     return (
         <Container sx={{py: 7, mt: 12}}>
-            <ResultBox className={result.resultBox}>
-                <div>
-                    <div className={result.resultBoxtop}>
-                        <span>당신은 <span className={result.resultUserflag}>대한민국</span> 국민이지만 당신의 <span className={result.resultTi}>행복 Ti</span>는</span>
-                    </div>
-                    <div className={result.resultFlag}>
-                        <NationFlag src={norway} /><span className={result.resultResultType}><span className={result.resultCountry}>노르웨이</span><span className={result.resultType}> 형</span>입니다!</span>
-                    </div>
-                    <div className={result.resultInfoBox}>
-                        <p className={result.resultInfo1}>
-                            당신은 행복한 <span className={result.resultUserflag}>대한민국</span> 국민입니다.
-                        </p>
-                        <p className={result.resultInfo2}>
-                            현재보다 당신이 더 행복해질 가능성은 <span className={result.resultPercent}>50%</span>입니다.
-                        </p>
-                    </div>
+            {/* 결과 예측 */}
+            <div className={Style.predictBox}>
+                <div className={Style.predictIntro}>
+                    <img src={predict?.myCountryFlag} alt="내 나라 국기" className={Style.myflag} />
+                    <div>당신은 <span className={Style.coloring}>{predict?.myCountry}</span> 국민이지만 당신의 <span className={Style.coloring}>행복 Ti</span>는</div>
                 </div>
-            </ResultBox>
 
-            <div className={result.resultTitle1}>
-                <span className={result.resultTitle2}><span className={result.resultCountry}>노르웨이</span>형 분석 결과</span>
+                <div className={Style.predictContent}>
+                    <img src={predict?.reCountryFlag} alt="추천 나라 국기" className={Style.recflag} />
+                    <div><span className={Style.coloring}>{predict?.reCountry}형</span>입니다!</div>
+                </div>
+                
+                <p className={Style.conclusion}>
+                    당신은 <span className={Style.coloring}>{predict?.happyType}</span>한 {predict?.myCountry} 국민입니다.
+                </p>
             </div>
 
+<<<<<<< HEAD
             <ResultBox className={result.resultBox2}>
                 <RadialChart nation={'Norway'}active={activeBtn === 1}></RadialChart>
+=======
+            <div className={Style.divider}/> 
+>>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
 
-                <div className={result.resultInfoBox2}>
-                    <p className={result.resultInfo3}>
-                        상위 <span className={result.resultPercent2}>20%</span>의 자유 점수를 갖고 있습니다.
-                    </p>
-                    <p className={result.resultInfo4}>
-                        상위 <span className={result.resultPercent3}>20%</span>의 경제 점수를 갖고 있습니다.
-                    </p>
-                </div>
-            </ResultBox>
-            <div className={result.resultTitle3}>
-                <span className={result.resultTitle4}>행복도가 비슷한 나라는?</span>
+            {/* 추천한 나라의 분석 결과 */}
+            <h1 className={Style.title}>
+                <span className={Style.coloring}>노르웨이</span>형 분석 결과
+            </h1>
+
+            <div className={Style.analysisBox}>
+                <RadialChart nation={'Norway'} active={activeBtn === 1}></RadialChart>
+
+                <p className={Style.analysisInfo}>
+                    상위 <span className={Style.coloring}>20%</span>의 자유 점수를 갖고 있습니다.
+                </p>
+                <p className={Style.analysisInfo}>
+                    상위 <span className={Style.coloring}>20%</span>의 경제 점수를 갖고 있습니다.
+                </p>
             </div>
 
-            <ResultBox className={result.resultBox3}>
-                <div className={result.resultInfoBox3}>
-                    {similarCountries.map((item) => (
-                        <div className={result.resultInfoBox4}>
-                            <NationFlag2 src={`https://countryflagsapi.com/png/${item}`} />
-                            <span className={result.resultSimilarNation}>{item}</span>
+            <div className={Style.divider}/>
+
+            {/* 추천한 나라와 비슷한 행복도를 가진 나라들 */}
+            <div className={Style.title}>
+                행복도가 비슷한 나라는?
+            </div>
+
+            <div className={Style.similarBox}>
+                <div className={Style.nationBox}>
+                    {/* {similarCountries.map((item) => (
+                        <div className={Style.nations}>
+                            <img className={Style.flag} src={`https://countryflagsapi.com/png/${item}`} alt="나라별 국기"/>
+                            <h1 className={Style.nation}>{item}</h1>
                         </div>
-                    ))}
+                    ))} */}
                 </div>
-            </ResultBox>
+            </div>
 
         </Container>
     )
 }
 export default Result
 
+<<<<<<< HEAD
 const ResultBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -102,3 +142,5 @@ const NationFlag2 = styled.img`
     width: 100px;
     margin: 20px 20px 20px 0px;
 `;
+=======
+>>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7

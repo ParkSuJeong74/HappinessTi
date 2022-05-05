@@ -5,15 +5,12 @@ import {ROUTES} from '../../Route'
 import Swal from 'sweetalert2'
 import * as Api from '../../api'
 import { useContext } from 'react';
-import { DispatchContext, UserStateContext } from '../../App';
+import { DispatchContext } from '../../App';
 import errorHandler from '../../errorHandler';
 
 function UserManagement({updateUser}){
     const navigate = useNavigate()
-    const userState = useContext(UserStateContext)
     const dispatch = useContext(DispatchContext)
-
-    const loginUserId = userState.user?._id ?? userState.user?.id
     
     function updatePassword() {
         Swal.fire({
@@ -71,7 +68,7 @@ function UserManagement({updateUser}){
             if(result.isConfirmed){
                 try{
                     //user 계정 삭제 
-                    await Api.delete("users", loginUserId)
+                    await Api.delete("users")
                     sessionStorage.removeItem("userToken")
                     dispatch({
                         type: 'LOGOUT'      

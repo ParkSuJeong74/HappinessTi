@@ -3,7 +3,7 @@ import style from '../../../srcAssets/style/Question.module.css'
 import { useRecoilState, useRecoilValue } from "recoil";
 import {questState, currentNumState } from '../../../atom';
 
-// 디스토피아, 연봉, 수명 -> textfield로 입력받음
+// 디스토피아(1), 수명(2), 연봉(3) -> textfield로 입력받음
 function InputText({updateQuestProcess}) {
     const [quest, setQuest] = useRecoilState(questState);
     const currentNum = useRecoilValue(currentNumState);
@@ -41,7 +41,7 @@ function InputText({updateQuestProcess}) {
 
     <Box>
         {/* 1000만, 100만 단위로 증가버튼 */}
-        {currentNum === 1 && (
+        {currentNum === 3 && (
             <Box className={style.increases}>
                 <div className={style.incThousand} onClick={incThousand}>+1000만</div>
                 <div className={style.incHundred} onClick={incHundred}>+100만</div>
@@ -59,15 +59,14 @@ function InputText({updateQuestProcess}) {
                 }}
             />
 
-            {currentNum === 1 && <span className={style.suffix}>만원</span>}
+            {currentNum === 3 && <span className={style.suffix}>만원</span>}
             {currentNum === 2 && <span className={style.suffix}>세</span>}
             
         </Stack>
 
-        {currentNum === 1 && <h1 className={style.calcSalary}>{calcSalary(quest[currentNum]?.value)}</h1>}
-    
-        {currentNum === 1 && isExcessSalary && <h1 className={style.limitSalary}>12억을 초과할 수 없습니다!</h1>}
-        {currentNum === 1 && isUnderSalary && <h1 className={style.limitSalary}>죄송하지만 800만 미만은 적용되지 않습니다!</h1>}
+        {currentNum === 3 && <h1 className={style.calcSalary}>{calcSalary(quest[currentNum]?.value)}</h1>}
+        {currentNum === 3 && isExcessSalary && <h1 className={style.limitSalary}>12억을 초과할 수 없습니다!</h1>}
+        {currentNum === 3 && isUnderSalary && <h1 className={style.limitSalary}>죄송하지만 800만 미만은 적용되지 않습니다!</h1>}
     </Box>
     )
 }
