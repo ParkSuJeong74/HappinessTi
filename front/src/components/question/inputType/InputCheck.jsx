@@ -14,15 +14,15 @@ function InputCheck({updateQuestProcess}) {
     const ChoosedAnsToQuest = (e) => {
         setQuest((prev) => updateQuestProcess(prev, parseInt(e.target.value)))
     }
-
     
     //현재 문항에 대한 situation을 가져옴
     const currentSituation = situation.find((item) => item.num === currentNum)
 
     return (
     <>
-        {/* 현재 문항에 대한 상황을 가져옴 */}
-        <h1 className={`${style.situation} ${style.highlight}`}>{currentSituation?.content}</h1>
+        {/* (부패인식만 해당)현재 문항에 대한 상황을 가져옴 */}
+        {(currentNum >= 11 && currentNum <= 16) &&
+            <h1 className={`${style.situation}`}>{currentSituation?.content}</h1>}
 
         {/* 5지 선다로 선택할 수 있는 라디오 버튼! */}
         <div className={style.radioButtons}>
