@@ -1,6 +1,6 @@
 import { Box, Container } from "@mui/material"
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {ROUTES} from '../../Route'
 import style from '../../srcAssets/style/Mainpage.module.css'
 import ChartComposed from "./chart/ChartComposed";
@@ -93,11 +93,9 @@ function Intro({ activeBtn }) {
             {/* 설문조사로 이동 버튼 */}
             <Box className={style.guide}>
                 <h1>지금 당신과 같은 행복을 가지고 있는 사람들이 궁금하신가요?</h1>
-                <input 
-                    type="checkbox"
-                    onChange={(e) => e.target.checked ? navigate(ROUTES.QUESTION.link) : ''}
-                />
-                
+                <Link to={ROUTES.QUESTION.link}>
+                    <span>나의 행복도 찾기 Go!</span>
+                </Link> 
             </Box>
         </Container>
         
