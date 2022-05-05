@@ -4,18 +4,40 @@ import { useParams } from "react-router-dom"
 import Style from '../../srcAssets/style/Analysis.module.css'
 import * as Api from '../../api'
 import RadialChart from "../chart/RadialChart"
+import pinImg from '../../srcAssets/img/pin1-removebg.png'
 
 // 로그인한 user만 분석 페이지 볼 수 있음!
 function Analysis(){
-    const {nation} = useParams()
-    const [similarCountries, setSimilarCountries] = useState([])
+    const { nation } = useParams()
     const [radialData, setRadialData] = useState([])
+    const [infoText, setInfoText] = useState({
+        'corruptionPer': [0, '높'],
+        'dystopiaPer':  [0, '높'],
+        'freedomPer': [0, '높'],
+        'gdpPer': [0, '높'],
+        'generosityPer': [0, '높'],
+        'healthPer':  [0, '높'],
+        'rank': 0,
+        'socialPer': [0, '높'],
+    })
+    const [similarCountries, setSimilarCountries] = useState([])
+    
 
     async function getRadialData() {
         try {
             const res = await Api.get(`result/${nation}`);
             console.log(res.data)
             setRadialData(res.data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function getInfoText() {
+        try {
+            const res = await Api.get(`result/${nation}/text`)
+            console.log(res.data)
+            setInfoText(res.data)
         } catch (err) {
             console.log(err);
         }
@@ -34,6 +56,7 @@ function Analysis(){
 
     useEffect(() => {
         getRadialData()
+        getInfoText()
         getSimilarData()
     }, [])
 
@@ -49,15 +72,32 @@ function Analysis(){
             </h1>
 
             <div className={Style.analysisBox}>
-
                 <RadialChart data={radialData}></RadialChart>
+                <p className={Style.infoRank}>
+                    {nation}의 행복도는 상위 <span className={Style.coloring}>{infoText['rank']}%</span>입니다.
+                </p>
 
-                <p className={Style.analysisInfo}>
-                    상위 <span className={Style.coloring}>20%</span>의 자유 점수를 갖고 있습니다.
-                </p>
-                <p className={Style.analysisInfo}>
-                    상위 <span className={Style.coloring}>20%</span>의 경제 점수를 갖고 있습니다.
-                </p>
+                <div className={Style.infoBox}>
+                    <img src={pinImg} alt="핀 이미지" className={Style.pinset}/>
+                    <p className={Style.info}>
+                        평균보다 {infoText['freedomPer'][1]}은 상위 <span className={Style.coloring}>{infoText['freedomPer'][0]}%</span>의 자유 점수를 갖고 있습니다.
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['gdpPer'][1]}은 상위 <span className={Style.coloring}>{infoText['gdpPer'][0]}%</span>의 경제 점수를 갖고 있습니다. 
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['socialPer'][1]}은 상위 <span className={Style.coloring}>{infoText['socialPer'][0]}%</span>의 사회적 지지도를 갖고 있습니다. 
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['healthPer'][1]}은 상위 <span className={Style.coloring}>{infoText['healthPer'][0]}%</span>의 건강 점수를 갖고 있습니다. 
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['corruptionPer'][1]}은 상위 <span className={Style.coloring}>{infoText['corruptionPer'][0]}%</span>의 부패 인식도를 갖고 있습니다. 
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['dystopiaPer'][1]}은 상위 <span className={Style.coloring}>{infoText['dystopiaPer'][0]}%</span>의 디스토피아 점수를 갖고 있습니다. 
+                    </p>
+                </div>
             </div>
 
             <div className={Style.divider}/>
