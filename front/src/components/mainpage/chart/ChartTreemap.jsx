@@ -1,6 +1,7 @@
 import React, { PureComponent, useEffect, useState } from 'react';
 import { Treemap, ResponsiveContainer } from 'recharts';
 import * as Api from '../../../api'
+import errorHandler from '../../../errorHandler';
 
 const COLORS = ['#8889DD', '#9FB4FF', '#8DC77B', '#A5D297', '#E2CF45', '#F8C12D'];
 
@@ -45,6 +46,7 @@ export default function ChartTreemap({ active }) {
         setData(res.data)
       })
     } catch(err){
+      errorHandler("tree map 오류", err.response.data)
       console.log(err);
     }
   },[])

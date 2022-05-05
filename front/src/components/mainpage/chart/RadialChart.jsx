@@ -2,6 +2,7 @@ import { fontSize } from '@mui/system';
 import { RadialBarChart, Tooltip, Legend, RadialBar} from 'recharts';
 // import data from "../data/data3.js"
 import * as Api from "../../../api";
+import errorHandler from '../../../errorHandler';
 
 import { useEffect, useState } from "react";
 
@@ -13,6 +14,7 @@ function ResultChart(){
           const res = await Api.get("result/Norway");
           setData(res.data)
         } catch (err) {
+          errorHandler("결과 페이지 오류", err.response.data)
           console.log(err);
         }
       }

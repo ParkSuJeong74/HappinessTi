@@ -46,6 +46,7 @@ function Analysis(){
             console.log(res.data)
             setInfoText(res.data)
         } catch (err) {
+            errorHandler("분석 페이지 오류", err.response.data)
             console.log(err);
         }
     }
@@ -56,11 +57,11 @@ function Analysis(){
             console.log(res.data.similarCounrtries)
             setSimilarCountries(res.data.similarCounrtries)
         } catch (err) {
+            errorHandler("분석 페이지 오류", err.response.data)
             console.log(err);
         }
     }
     
-
     useEffect(() => {
         getRadialData()
         getInfoText()

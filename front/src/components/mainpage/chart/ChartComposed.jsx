@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from "react"
 import { ComposedChart, XAxis,  YAxis, Tooltip, Legend, CartesianGrid, Area, Bar, Line} from 'recharts';
 import * as Api from '../../../api'
+import errorHandler from "../../../errorHandler";
+
 function ChartComposed({active}){
+
   const [data, setData] = useState(null)
   useEffect(()=>{
     try{
@@ -9,6 +12,7 @@ function ChartComposed({active}){
         setData(res.data)
       })
     } catch(err){
+      errorHandler("composed chart 오류", err.response.data)
       console.log(err);
     }
   },[])

@@ -6,7 +6,6 @@ import { withStyles } from "@material-ui/core/styles";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import axios from "axios";
 import errorHandler from "../../errorHandler";
- 
 
 const CssTextField = withStyles({
   root: {
