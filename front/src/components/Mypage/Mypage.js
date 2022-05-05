@@ -12,7 +12,7 @@ function Mypage() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
-  const [userLog, setUserlog] = useState(null);
+  const [surveyLog, setSurveyLog] = useState([]);
   const [editOpen, setEditOpen] = useState(false);
 
   const toggleEditForm = () => {
@@ -29,8 +29,25 @@ function Mypage() {
   async function getUserData() {
     try {
       const res = await Api.get("users/current");
-      console.log(res.data)
       setUser(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  //user의 로그 정보 호출
+  async function getUserLogs() {
+    try {
+      const res = await Api.get("users/survey/logs");
+      const listData = res.data;
+
+      for(let i=0; i< listData.length; i++){
+        listData[i]['id'] = i+1;
+        let time = listData[i]['updatedAt'].split("T")[0]
+        listData[i]['updatedAt'] = time
+      }
+
+      setSurveyLog(listData)
     } catch (err) {
       console.log(err);
     }
@@ -39,14 +56,7 @@ function Mypage() {
   useEffect(() => {
     
     getUserData();
-
-    //TODO: user의 행복-TI 로그정보 호출하기 (예정!)
-    //userlog: {type, happinessScore, freedom, GDP,...}
-    /* async function getUserLogs(){
-        const res = await Api.get("...")
-        setUserlogs(res.data)
-    }
-    getUserLogs() */
+    getUserLogs()
 
     if (!isLoggedin) {
       alert("반가워요! 먼저 로그인을 해주세요!");
@@ -62,6 +72,7 @@ function Mypage() {
         updateUser={updateUser}
         editOpen={editOpen}
         toggleEditForm={toggleEditForm}
+        surveyLog={surveyLog}
       />
 
       {/* 회원 설정. 정보 */}
@@ -74,7 +85,7 @@ function Mypage() {
         회원 정보
       </Typography>
 
-      <ProfileInfo updateUser={updateUser} />
+      <ProfileInfo updateUser={updateUser} surveyLog={surveyLog}/>
     </Container>
   );
 }
