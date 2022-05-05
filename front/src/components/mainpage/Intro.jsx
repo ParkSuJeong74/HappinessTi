@@ -93,7 +93,7 @@ function Intro({ activeBtn }) {
             {/* 설문조사로 이동 버튼 */}
             <Box className={style.guide}>
                 <h1>지금 당신과 같은 행복을 가지고 있는 사람들이 궁금하신가요?</h1>
-                <input  
+                <input 
                     type="checkbox"
                     onChange={(e) => e.target.checked ? navigate(ROUTES.QUESTION.link) : ''}
                 />

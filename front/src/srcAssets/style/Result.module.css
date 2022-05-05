@@ -108,14 +108,9 @@
     font-size: 30px;
 }
 
-.resultTi,
-.resultType,
-.resultCountry,
-.resultUserflag,
-.resultPercent,
-.resultPercent2,
-.resultPercent3 {
-    color: #FC8694;
+.flag {
+    width: 70px;
+    margin: 20px 20px 20px 0px;
 }
 
 .resultInfo1,

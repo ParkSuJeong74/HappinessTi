@@ -90,12 +90,12 @@ function Result({ activeBtn }){
 
             <div className={Style.similarBox}>
                 <div className={Style.nationBox}>
-                    {/* {similarCountries.map((item) => (
+                    {similarCountries.map((item) => (
                         <div className={Style.nations}>
                             <img className={Style.flag} src={`https://countryflagsapi.com/png/${item}`} alt="나라별 국기"/>
                             <h1 className={Style.nation}>{item}</h1>
                         </div>
-                    ))} */}
+                    ))} 
                 </div>
             </div>
 
@@ -103,4 +103,3 @@ function Result({ activeBtn }){
     )
 }
 export default Result
-
