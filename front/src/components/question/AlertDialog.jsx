@@ -7,6 +7,7 @@ import num2 from '../../srcAssets/img/dialog/dialog_2.jpg'
 import num3 from '../../srcAssets/img/dialog/dialog_3.jpg'
 import num4 from '../../srcAssets/img/dialog/dialog_4.jpg'
 import num5 from '../../srcAssets/img/dialog/dialog_5.jpg'
+import num6 from '../../srcAssets/img/dialog/dialog_6.png'
 
 export default function AlertDialog({modalOpen, setModalOpen}) {
   
@@ -50,6 +51,11 @@ export default function AlertDialog({modalOpen, setModalOpen}) {
             <Stack direction="row">
                 <img width="40px" height="40px"src={num5} alt="숫자 5" />
                 <h2 className={style.dialogText}>이 검사는 kaggle 데이터를 기반으로 만든 독자적인 설문조사입니다. <span class={style.highlight}>재미로만</span> 이용해주세요.</h2>
+            </Stack>
+
+            <Stack direction="row">
+                <img width="40px" height="45px"src={num6} alt="숫자 6" />
+                <h2 className={style.dialogText}><span class={style.highlight}>로그인</span>을 하지 않으신다면 HAPPY-TI의 결과를 보실 수 없습니다.</h2>
             </Stack>
             
             <br />

@@ -1,14 +1,20 @@
 import { Container } from "@mui/material"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
+import {ROUTES} from '../../Route'
+
 import Style from '../../srcAssets/style/Analysis.module.css'
 import * as Api from '../../api'
 import RadialChart from "../chart/RadialChart"
 import pinImg from '../../srcAssets/img/pin1-removebg.png'
+import errorHandler from "../../errorHandler"
 
 // 로그인한 user만 분석 페이지 볼 수 있음!
 function Analysis(){
     const { nation } = useParams()
+    const navigate = useNavigate();
+    const isLoggedin = sessionStorage.getItem("userToken");
+
     const [radialData, setRadialData] = useState([])
     const [infoText, setInfoText] = useState({
         'corruptionPer': [0, '높'],
@@ -29,6 +35,7 @@ function Analysis(){
             console.log(res.data)
             setRadialData(res.data)
         } catch (err) {
+            errorHandler("분석 페이지 오류", err.response.data)
             console.log(err);
         }
     }
@@ -58,6 +65,10 @@ function Analysis(){
         getRadialData()
         getInfoText()
         getSimilarData()
+
+        if (!isLoggedin) {
+            navigate(ROUTES.LOGIN.link, { replace: true });
+        }
     }, [])
 
     console.log(nation)

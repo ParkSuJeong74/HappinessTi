@@ -4,6 +4,9 @@ import { useRecoilValue } from "recoil";
 import { questState } from "../../atom";
 import * as Api from '../../api'
 import { useEffect, useState } from "react";
+import {useNavigate } from "react-router-dom"
+import {ROUTES} from '../../Route'
+
 import RadialChart from "../chart/RadialChart";
 import calcQuestion from "./calcQuestion";
 import pinImg from '../../srcAssets/img/pin1-removebg.png'
@@ -11,6 +14,8 @@ import errorHandler from "../../errorHandler";
 
 // 로그인한 user만 결과 페이지 볼 수 있음!
 function Result({ activeBtn }){
+    const navigate = useNavigate();
+    const isLoggedin = sessionStorage.getItem("userToken");
 
     const quest = useRecoilValue(questState);
     
@@ -58,6 +63,10 @@ function Result({ activeBtn }){
 
     useEffect(() => {
         getResultData()
+
+        if (!isLoggedin) {
+            navigate(ROUTES.LOGIN.link, { replace: true });
+        }
     }, [])
 
     return (
