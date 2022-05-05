@@ -4,11 +4,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate } from "react-router-dom";
 
 import * as Api from "../../api";
-<<<<<<< HEAD
 import { ROUTES } from "../../Route";
-=======
-import {ROUTES} from '../../Route'
->>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
 import ProfileInfo from "./ProfileInfo";
 import Profile from "./Profile";
 
@@ -32,13 +28,8 @@ function Mypage() {
   // user정보 호출하기
   async function getUserData() {
     try {
-<<<<<<< HEAD
-      const res = await Api.get("users");
-      console.log(res.data);
-=======
       const res = await Api.get("users/current");
-      console.log(res.data)
->>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
+      console.log(res.data);
       setUser(res.data);
     } catch (err) {
       console.log(err);

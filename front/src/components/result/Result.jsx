@@ -1,11 +1,5 @@
 import { Container } from "@mui/material"
-<<<<<<< HEAD
-import styled from "styled-components";
-import result from '../../srcAssets/style/Result.module.css'
-import norway from '../../srcAssets/img/norway.png'
-=======
 import Style from '../../srcAssets/style/Result.module.css'
->>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
 import { useRecoilValue } from "recoil";
 import { questState } from "../../atom";
 import * as Api from '../../api'
@@ -20,12 +14,6 @@ function Result({ activeBtn }){
     const [predict, setPredict] = useState([])
     
     console.log(quest)
-<<<<<<< HEAD
-
-    async function getSimilarData() {
-        try {
-          const res = await Api.get("result/Norway/similar");
-=======
     const calculated = calcQuestion(quest)
     console.log(calculated)
 
@@ -43,7 +31,6 @@ function Result({ activeBtn }){
     async function getSimilarData() {
         try {
           const res = await Api.get(`result/${predict?.reCountry}/similar`);
->>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
           console.log(res.data.similarCounrtries)
         //   setSimilarCountries(res.data.similarCounrtries)
         } catch (err) {
@@ -57,11 +44,6 @@ function Result({ activeBtn }){
         getPredictData()
     }, [])
 
-<<<<<<< HEAD
-console.log(similarCountries)
-
-=======
->>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
     return (
         <Container sx={{py: 7, mt: 12}}>
             {/* 결과 예측 */}
@@ -81,12 +63,7 @@ console.log(similarCountries)
                 </p>
             </div>
 
-<<<<<<< HEAD
-            <ResultBox className={result.resultBox2}>
-                <RadialChart nation={'Norway'}active={activeBtn === 1}></RadialChart>
-=======
             <div className={Style.divider}/> 
->>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
 
             {/* 추천한 나라의 분석 결과 */}
             <h1 className={Style.title}>
@@ -127,20 +104,3 @@ console.log(similarCountries)
 }
 export default Result
 
-<<<<<<< HEAD
-const ResultBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
-const NationFlag = styled.img`
-    width: 200px;
-    margin: 20px 160px 20px 20px;
-`;
-
-const NationFlag2 = styled.img`
-    width: 100px;
-    margin: 20px 20px 20px 0px;
-`;
-=======
->>>>>>> bb75d20c0a563da3f19647999833c1bc9464f2d7
