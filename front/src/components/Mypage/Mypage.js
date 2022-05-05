@@ -54,7 +54,7 @@ function Mypage() {
 
       setSurveyLog(listData)
     } catch (err) {
-      errorHandler("사용자 로그 정보 불러오기 오류", err.response.data)
+      errorHandler("사용자 로그 불러오기 오류", err.response.data)
       console.log(err.response.data);
     }
     setIsFetchCompleted(true)
@@ -67,7 +67,6 @@ function Mypage() {
     
 
     if (!isLoggedin) {
-      alert("반가워요! 먼저 로그인을 해주세요!");
       navigate(ROUTES.LOGIN.link, { replace: true });
     }
   }, []);

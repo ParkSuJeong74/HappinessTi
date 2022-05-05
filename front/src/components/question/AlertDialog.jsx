@@ -30,7 +30,7 @@ export default function AlertDialog({modalOpen, setModalOpen}) {
           <DialogContent>
             <Stack direction="row">
                 <img width="40px" height="40px"src={num1} alt="숫자 1" />
-                <h2 className={style.dialogText}>총 검사 시간은 <span class={style.highlight}>15분 내외</span>입니다.</h2>
+                <h2 className={style.dialogText}>총 검사 시간은 <span class={style.highlight}>10분 내외</span>입니다.</h2>
             </Stack>
 
             <Stack direction="row">
@@ -55,7 +55,7 @@ export default function AlertDialog({modalOpen, setModalOpen}) {
 
             <Stack direction="row">
                 <img width="40px" height="45px"src={num6} alt="숫자 6" />
-                <h2 className={style.dialogText}><span class={style.highlight}>로그인</span>을 하지 않으신다면 HAPPY-TI의 결과를 보실 수 없습니다.</h2>
+                <h2 className={style.dialogText}><span class={style.highlight}>(주의!) 로그인</span>을 하지 않으신다면 HAPPY-TI의 결과를 보실 수 없습니다.</h2>
             </Stack>
             
             <br />
