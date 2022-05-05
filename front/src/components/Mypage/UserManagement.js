@@ -7,6 +7,7 @@ import * as Api from '../../api'
 import { useContext } from 'react';
 import { DispatchContext } from '../../App';
 import errorHandler from '../../errorHandler';
+import { LOGOUT } from '../../reducer';
 
 function UserManagement({updateUser}){
     const navigate = useNavigate()
@@ -71,7 +72,7 @@ function UserManagement({updateUser}){
                     await Api.delete("users")
                     sessionStorage.removeItem("userToken")
                     dispatch({
-                        type: 'LOGOUT'      
+                        type: LOGOUT      
                     })
 
                     Swal.fire({

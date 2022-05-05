@@ -21,6 +21,7 @@ import {ROUTES} from './Route'
 import { MainWrapper } from "./srcAssets/style/MainWrapper";
 import "./srcAssets/style/Font.module.css";
 import * as Api from "./api";
+import { LOGIN_SUCCESS } from "./reducer";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -38,7 +39,7 @@ function App() {
       const currentUser = res.data;
 
       dispatch({
-        type: "LOGIN_SUCCESS",
+        type: LOGIN_SUCCESS,
         payload: currentUser,
       });
 
