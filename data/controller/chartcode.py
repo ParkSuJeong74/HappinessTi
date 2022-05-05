@@ -70,7 +70,7 @@ def continent_barplot():
 #--------군집분석------#
 @cc.route('/similar',methods=['GET'])
 def similar():
-  dict={1:['India', 'Tanzania', 'Zimbabwe'],
+  dict={'1':['India', 'Tanzania', 'Zimbabwe'],
         '2':['Finland', 'Denmark', 'Iceland', 'Switzerland', 'Netherlands', 'Luxembourg',
  'Sweden', 'Norway', 'Israel'],
         '3':['Cambodia', 'Uganda', 'Nigeria', 'Kenya', 'Pakistan', 'Madagascar', 'Ethiopia',
