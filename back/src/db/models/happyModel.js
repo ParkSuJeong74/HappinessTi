@@ -42,9 +42,4 @@ export const happyModel = {
     ]);
     return { totalHappylist };
   },
-  //
-  counting: async ({ countryName }) => {
-    const country = await Happiness.find({ country: countryName });
-    return country;
-  },
 };

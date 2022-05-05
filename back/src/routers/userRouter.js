@@ -153,7 +153,7 @@ userAuthRouter.get("/current", login_required, async function (req, res, next) {
  *                 type: string
  *     responses:
  *       '200':
- *         description: "프로필 사진 업로드 완료"
+ *         description: "password 변경 완료"
  *         content:
  *           application/json:
  *            schema:

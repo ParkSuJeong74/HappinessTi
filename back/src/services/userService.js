@@ -145,7 +145,7 @@ export const userAuthService = {
     let error = new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
 
     if (!user) {
-      throw error();
+      throw error;
     }
 
     const findByNicknameUser = await userModel.findByNickname({
@@ -188,15 +188,6 @@ export const userAuthService = {
 
     return { status: "Ok" };
   },
-  //
-  getUsers: async () => {
-    const users = await userModel.findAll();
-    if (!users) {
-      throw "유저 정보를 가져올 수 없습니다.";
-    }
-    return users;
-  },
-
   setNewPassword: async ({ email }) => {
     //email로 유저 찾고
     let user = await userModel.findByEmail({ email });
