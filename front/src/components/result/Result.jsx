@@ -1,4 +1,4 @@
-import { Container } from "@mui/material"
+import { Button, Container } from "@mui/material"
 import Style from '../../srcAssets/style/Result.module.css'
 import { useRecoilValue } from "recoil";
 import { questState } from "../../atom";
@@ -70,7 +70,7 @@ function Result({ activeBtn }){
     }, [])
 
     return (
-        <Container sx={{py: 7, mt: 12}}>
+        <Container sx={{py: 7, mt: 7}}>
             {/* 결과 예측 */}
             <div className={Style.predictBox}>
                 <div className={Style.predictIntro}>
@@ -81,11 +81,13 @@ function Result({ activeBtn }){
                 <div className={Style.predictContent}>
                     <img src={predict?.reCountryFlag} alt="추천 나라 국기" className={Style.recflag} />
                     <div><span className={Style.coloring}>{predict?.reCountry}형</span>입니다!</div>
+                    <Button sx={goToAnalysis} variant="contained" onClick={() => navigate(`/analysis/${predict?.reCountry}`)}>자세히 보러가기</Button>
                 </div>
                 
                 <p className={Style.conclusion}>
                     당신은 <span className={Style.coloring}>{predict?.happyType}</span>한 {predict?.myCountry} 국민입니다.
                 </p>
+                
             </div>
 
             <div className={Style.divider}/> 
@@ -148,3 +150,13 @@ function Result({ activeBtn }){
 }
 export default Result
 
+const goToAnalysis = {
+    position: 'absolute',
+    bottom: 10,
+    right: 155,
+    fontSize: '1.3rem',
+    bgcolor: 'tomato',
+    '&:hover' : {
+        bgcolor: 'tomato'
+    }
+}
