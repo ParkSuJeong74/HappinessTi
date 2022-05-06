@@ -49,13 +49,13 @@ def home():
     reHAPPINESS_SCORE = abs(df['happinessScore'] - lin_prob).idxmin()
     reCountry = df.iloc[reHAPPINESS_SCORE,1]
     
-    myCountryScoreList = df[df['country'] == myCountry]
-    myCountryScore = myCountryScoreList['happinessScore']
+    myCountryScoreSeries = df[df['country'] == myCountry].index[0]
+    myCountryScore = df.iloc[myCountryScoreSeries,2]
     
 
-    if str(lin_prob) > str(myCountryScore):
+    if lin_prob > myCountryScore:
         happyType = "행복"
-    elif str(lin_prob) == str(myCountryScore):
+    elif lin_prob == myCountryScore:
         happyType = "동일"
     else:
         happyType = "불행"
@@ -63,4 +63,4 @@ def home():
     reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry.replace(" ", "%20")
     myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry.replace(" ", "%20")
     
-    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag,"lin_prob" :str(lin_prob), "myCountryScore" :str(myCountryScore) })
+    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag,"lin_prob" :lin_prob, "myCountryScore" :myCountryScore })
