@@ -30,7 +30,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
   const [form, setForm] = useState({
     nickname: user?.nickname,
     description: currentDescription,
-  })
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,10 +73,10 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
         ImageData ? updateUser(ImageData) : updateUser(InfoData);
         alert("회원정보가 정상적으로 변경되었습니다!");
 
-        toggleEditForm()
+        toggleEditForm();
       })
       .catch((error) => {
-        errorHandler("회원 정보 수정 오류", error.response.data)
+        errorHandler("회원 정보 수정 오류", error.response.data);
         console.log("error", error.response.data);
       });
   };
@@ -94,9 +94,12 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
             name="nickname"
             label="Nickname 수정"
             placeholder={user?.nickname}
-            onChange={(e) => setForm((prev) => ({
-              ...prev, [e.target.name]: e.target.value
-          }))}  
+            onChange={(e) =>
+              setForm((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
 
           <CssTextField
@@ -106,9 +109,12 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
             placeholder={currentDescription}
             multiline
             row={3}
-            onChange={(e) => setForm((prev) => ({
-              ...prev, [e.target.name]: e.target.value
-          }))}  
+            onChange={(e) =>
+              setForm((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
 
           <Stack direction="column" spacing={1} sx={UploadBox}>
@@ -162,5 +168,3 @@ const UploadBox = {
   justifyContent: "center",
   p: 1,
 };
-
-

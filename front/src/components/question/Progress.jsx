@@ -19,13 +19,13 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 function Progress({currentNum}) {
   const [cheerupOpen, setCheerupOpen] = useState(false);
-  const currentRate = (currentNum/34)*100
+  const currentRate = (currentNum/25)*100
 
   useEffect(() => {
-      if(currentNum === 28) {
+      if(currentNum === 19) {
           setCheerupOpen(true)
       }
-      else if(currentNum > 28) {
+      else if(currentNum > 19) {
           setCheerupOpen(false)
       }
       else {

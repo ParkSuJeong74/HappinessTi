@@ -53,11 +53,13 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
       `${process.env.FLASK_BASE_URL}/predict`,
       req.body
     );
+
     if (!response) {
       throw "데이터를 받아오지 못했습니다.";
     }
     const userId = req.currentUserId;
     const { data } = response;
+
     await resultService.saveCounting({ data }); // Ranking count
     await resultService.saveLog({ userId, data }); // log 저장
     res.status(200).send(data);
@@ -84,7 +86,7 @@ resultRouter.post("/predict", login_required, async function (req, res, next) {
  *       '200':
  *         description: "군집 분석 결과 도출, 같은 군집의 나라 조회 완료"
  */
- resultRouter.get(
+resultRouter.get(
   "/:countryName/similar",
   login_required,
   async function (req, res, next) {

@@ -6,7 +6,7 @@ function calcQuestion(original){
                 calculated['myCountry'] = original[id]['value'] /* 나라는 값 그대로 */
             
             if(id === 1) 
-                calculated['NorDystopia'] = 100 - original[id]['value'] /* 디스토피아는 100-값 */
+                calculated['NorDystopia'] = original[id]['value'] /* 디스토피아는 100-값 */
             
             if(id === 2)
                 calculated['lifeExpectancy'] = original[id]['value'] /* 수명은 값 그대로 */
@@ -37,10 +37,10 @@ function calcQuestion(original){
         }
         else { /* 사회적 지지 */
             let sum = 0
-            for(let i=17; i<=34; i++){
+            for(let i=17; i<=25; i++){
                 sum = sum + original[i]['value']
             }
-            calculated['social'] = parseInt(sum / 18)
+            calculated['social'] = parseInt(sum / 9)
         }
     }
     return calculated

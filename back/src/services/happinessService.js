@@ -10,32 +10,4 @@ export const happinessService = {
     const totalHappylist = await happyModel.findAllHappiness();
     return { totalHappylist };
   },
-  //
-  getSearchCountry: async ({ countryName }) => {
-    const country = await happyModel.findByCountry({ countryName });
-    return country;
-  },
-  getHappiness: async ({ country }) => {
-    const analysis = await happyModel.findByCountry({
-      countryName: country,
-    });
-    const CountryName = analysis.country.replace(" ", "%20");
-    const countryFlag = `https://countryflagsapi.com/png/${CountryName}`;
-
-    // let newLogs = [];
-    // logs.map((log) => {
-    //   const logInfo = await happyModel.findByCountry({
-    //     countryName: log.reCountry,
-    //   });
-    //   // newLogs.push(
-    //   console.log(logInfo);
-    // );
-    // });
-
-    return { analysis, countryFlag };
-  },
-  getCountries: async () => {
-    const country = await happyModel.findAll();
-    return country;
-  },
 };

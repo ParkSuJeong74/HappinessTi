@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Box, Button, Container, Stack } from "@mui/material"
+import {  Box, Button, Container, Stack } from "@mui/material"
 import { useRecoilState, useRecoilValue } from "recoil";
 import {useNavigate } from 'react-router-dom';
 import {ROUTES} from '../../Route'
@@ -11,7 +11,7 @@ import InputSelect from "./inputType/InputSelect";
 import Progress from "./Progress";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AlertDialog from "./AlertDialog";
 
 function Question(){
@@ -20,11 +20,6 @@ function Question(){
     const quest = useRecoilValue(questState);
     const [currentNum, setCurrentNum] = useRecoilState(currentNumState);
     const [modalOpen, setModalOpen] = useState(true);
-    
-
-    
-        
-    
 
     function updateQuestProcess(prev, val) {
         console.log("현재 문항번호!", currentNum)
@@ -40,7 +35,6 @@ function Question(){
             : el) 
         )
     } 
-
 
     const movePrevNumber = () => {
         setCurrentNum((prev) => prev - 1)
@@ -88,7 +82,7 @@ function Question(){
             </Stack>
 
             {/* 마지막 페이지에서 결과 페이지로 이동 버튼 */}
-            {currentNum === 34 &&
+            {currentNum === 25 &&
                 <Box className={style.guide}>
                     <h1>재밌으셨나요? 결과를 확인해볼까요?</h1>
                     <input  

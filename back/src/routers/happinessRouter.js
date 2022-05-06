@@ -2,7 +2,7 @@
  *  @swagger
  *  tags:
  *    name: Happiness
- *    description: API to manage Happiness(후순위)
+ *    description: API to manage Happiness
  */
 
 import { Router } from "express";

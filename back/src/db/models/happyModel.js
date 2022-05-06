@@ -35,14 +35,11 @@ export const happyModel = {
           corruptionPerceptions: 1,
           dystopia: 1,
           continent: 1,
+          health: 1,
+          rank: 1,
         },
       },
     ]);
     return { totalHappylist };
-  },
-  //
-  counting: async ({ countryName }) => {
-    const country = await Happiness.find({ country: countryName });
-    return country;
   },
 };
