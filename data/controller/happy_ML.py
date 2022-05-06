@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import joblib
 
-LinModel = joblib.load('./file/Linhappy99x7.pkl')
+LinModel = joblib.load('../file/Linhappy99x7.pkl')
 
-df = pd.read_csv("./file/happy_data2.csv")
+df = pd.read_csv("../file/happy_data2.csv")
 
 ml = Blueprint('ml',__name__)
 
@@ -48,15 +48,18 @@ def home():
     
     reHAPPINESS_SCORE = abs(df['happinessScore'] - lin_prob).idxmin()
     reCountry = df.iloc[reHAPPINESS_SCORE,1]
-   
-    if reHAPPINESS_SCORE<5:
+    
+    myCountryScore = df[df['country'] == myCountry]
+    Score = lin_prob * 10
+
+    if float(lin_prob) < float(myCountryScore):
         happyType = "불행"
-    elif 5<=reHAPPINESS_SCORE<=6:
-        happyType = "보통"
+    elif float(lin_prob) == float(myCountryScore):
+        happyType = "동일"
     else:
         happyType = "행복"
    
     reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry.replace(" ", "%20")
     myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry.replace(" ", "%20")
     
-    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag})
+    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag, "Score":Score})
