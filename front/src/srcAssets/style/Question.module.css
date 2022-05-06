@@ -26,8 +26,8 @@
 .agreeText {
     font-size: 30px;
     position: absolute;
-    bottom: 275px;
-    left: 450px;
+    top: 28%;
+    left: 50%;
 }
 
 /* QuestContent 컴포넌트 */

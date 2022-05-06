@@ -60,7 +60,7 @@ export default function AlertDialog({modalOpen, setModalOpen}) {
             
             <br />
 
-            <Stack direction="row">
+            <Stack direction="row" sx={{position: 'relative'}}>
                 <img width="300px" height="300px" src={happySmile} alt="나무늘보가 웃어" />
                 <img width="450px" height="300px" src={balloon} alt="말풍선"/>
                 <h1 className={style.agreeText}>동의하시겠습니까?</h1>
