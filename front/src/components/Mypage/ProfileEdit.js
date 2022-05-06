@@ -60,6 +60,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
       try {
         return await Promise.all([UserInfoEdit, ImageEdit]);
       } catch (error) {
+        // errorHandler("회원 정보 수정 오류", error.response.data)
         throw error;
       }
     };
@@ -100,7 +101,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
 
           <CssTextField
             id="Description"
-            name="nickname"
+            name="description"
             label="Description 수정"
             placeholder={currentDescription}
             multiline

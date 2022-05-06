@@ -38,7 +38,7 @@ function UserManagement({updateUser}){
                 else{
                     try{
                         //password 변경하기 
-                        const res = await Api.put("users", {newPassword})
+                        const res = await Api.put("users/password", {password: newPassword})
                         updateUser(res.data)
                         Swal.fire({
                             title: '비밀번호 변경이 성공하였습니다!',
