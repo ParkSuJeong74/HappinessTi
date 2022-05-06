@@ -1,4 +1,4 @@
-import { Box, Button, Container, Stack } from "@mui/material"
+import { Alert, AlertTitle, Box, Button, Container, Stack } from "@mui/material"
 import { useRecoilState, useRecoilValue } from "recoil";
 import {useNavigate } from 'react-router-dom';
 import {ROUTES} from '../../Route'
@@ -11,7 +11,7 @@ import InputSelect from "./inputType/InputSelect";
 import Progress from "./Progress";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AlertDialog from "./AlertDialog";
 
 function Question(){
@@ -20,6 +20,11 @@ function Question(){
     const quest = useRecoilValue(questState);
     const [currentNum, setCurrentNum] = useRecoilState(currentNumState);
     const [modalOpen, setModalOpen] = useState(true);
+    
+
+    
+        
+    
 
     function updateQuestProcess(prev, val) {
         console.log("현재 문항번호!", currentNum)
@@ -61,6 +66,7 @@ function Question(){
     <>
         {modalOpen && 
             <AlertDialog modalOpen={modalOpen} setModalOpen={setModalOpen} />}
+        
 
         <Container sx={{py: 7, mt: 12}}>
 

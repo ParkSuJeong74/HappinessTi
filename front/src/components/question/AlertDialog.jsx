@@ -68,7 +68,7 @@ export default function AlertDialog({modalOpen, setModalOpen}) {
           </DialogContent>
 
           <DialogActions>
-            <Button color="secondary" onClick={modalClose} autoFocus>
+            <Button color="secondary" sx={{fontSize: '1.5rem'}} onClick={modalClose} autoFocus>
               AGREE
             </Button>
           </DialogActions>

@@ -10,5 +10,6 @@ export const GlobalStyles = createGlobalStyle`
     html, body, * {
         font-family: "Elice Digital Baeum", sans-serif;
         box-sizing: border-box;
+        scroll-behavior: smooth;
     }
 `;

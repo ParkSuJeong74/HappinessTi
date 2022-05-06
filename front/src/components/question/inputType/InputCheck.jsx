@@ -4,13 +4,15 @@ import style from '../../../srcAssets/style/Question.module.css'
 import CheckIcon from '@mui/icons-material/Check';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {questState, currentNumState } from '../../../atom';
+import { useEffect, useState } from 'react';
+import { Alert, AlertTitle } from '@mui/material';
 
 // 자유, 관용, 부패, 지지 -> check(5지선다)로 입력받음
 function InputCheck({updateQuestProcess}) {
     const [quest, setQuest] = useRecoilState(questState);
     const currentNum = useRecoilValue(currentNumState);
     const currentQuest = quest[currentNum]
-
+    
     const ChoosedAnsToQuest = (e) => {
         setQuest((prev) => updateQuestProcess(prev, parseInt(e.target.value)))
     }
@@ -19,7 +21,8 @@ function InputCheck({updateQuestProcess}) {
     const currentSituation = situation.find((item) => item.num === currentNum)
 
     return (
-    <>
+    <>        
+
         {/* (부패인식만 해당)현재 문항에 대한 상황을 가져옴 */}
         {(currentNum >= 11 && currentNum <= 16) &&
             <h1 className={`${style.situation}`}>{currentSituation?.content}</h1>}
@@ -73,6 +76,8 @@ function InputCheck({updateQuestProcess}) {
                 </span>
             </label>
         </div>
+
+        
     </>
     )
     

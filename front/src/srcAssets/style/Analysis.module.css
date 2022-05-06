@@ -5,6 +5,7 @@
     justify-content: center;
     margin: 20px auto 0 auto;
     font-size: 40px;
+    font-weight:900;
 }
 
 .divider{
@@ -29,6 +30,7 @@
 .resultInfo {
     padding: 20px 5px 10px 5px;
     border-bottom: 2px solid #FC8694;
+    font-weight:900;
 }
 
 .coloring {
@@ -52,12 +54,14 @@
     margin: 20px;
     font-size: 30px;
     border-bottom: 2px solid #FC8694;
+    font-weight:900;
 }
 
 .info {
     background-color: #fff;
     padding: 25px;
     font-size: 20px;
+    font-weight:900;
 }
 
 .infoBox {
@@ -75,12 +79,13 @@
     top: -60px;
 }
 
-
+/* 유사나라 */
 .similarBox {
     width: 100%;
     margin-top: 5vh;
     padding: 50px 0;
-    border: 3px solid #FC8694;;
+    border: 3px solid #FC8694;
+    font-weight:900;
 }
 
 .nationBox{
