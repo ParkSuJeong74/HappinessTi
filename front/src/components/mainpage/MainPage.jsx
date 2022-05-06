@@ -124,7 +124,7 @@ function MainPage() {
   </React.Fragment>}
     
   />
-  <Snackbar
+  {/* <Snackbar
     open={open20}
     autoHideDuration={6000}
     // onClose={handle4Close}
@@ -140,8 +140,8 @@ function MainPage() {
   </IconButton>
   </React.Fragment>}
     
-  />
-  <Snackbar
+  /> */}
+  {/* <Snackbar
     open={openElice}
     autoHideDuration={6000}
     // onClose={handleEliceClose}
@@ -156,7 +156,7 @@ function MainPage() {
     <CloseIcon />
   </IconButton>
   </React.Fragment>}
-  />
+  /> */}
   </>
   )
 }

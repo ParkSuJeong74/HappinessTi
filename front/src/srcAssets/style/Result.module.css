@@ -134,30 +134,3 @@
     margin: 20px 20px 20px 0px;
 }
 
-.resultInfo1,
-.resultInfo3 {
-    padding: 40px 5px 10px 5px;
-    font-size: larger;
-    border-bottom: 2px solid #FC8694;
-}
-.resultInfo2,
-.resultInfo4 {
-    padding: 20px 5px 10px 5px;
-    font-size: larger;
-    border-bottom: 2px solid #FC8694;
-}
-
-
-
-.resultInfoBox4 {
-    display: flex;
-    align-items: center;
-    flex: 0.5fr 1fr;
-}
-.resultSimilarNation {
-    font-size: xx-large;
-}
-.flag {
-    width: 70px;
-    margin: 20px 20px 20px 0px;
-}
