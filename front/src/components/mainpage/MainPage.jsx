@@ -106,8 +106,8 @@ function MainPage() {
       {/* mainpage의 intro 부분 */}
       <Intro activeBtn={activeBtn}></Intro>
     </div>
-    // 광고
-    <Snackbar
+    {/* 광고 */}
+   {/*  <Snackbar
     open={open}
     autoHideDuration={6000}
     // onClose={handle4Close}
@@ -123,8 +123,8 @@ function MainPage() {
   </IconButton>
   </React.Fragment>}
     
-  />
-  <Snackbar
+  /> */}
+  {/* <Snackbar
     open={open20}
     autoHideDuration={6000}
     // onClose={handle4Close}
@@ -140,8 +140,8 @@ function MainPage() {
   </IconButton>
   </React.Fragment>}
     
-  />
-  <Snackbar
+  /> */}
+  {/* <Snackbar
     open={openElice}
     autoHideDuration={6000}
     // onClose={handleEliceClose}
@@ -156,7 +156,7 @@ function MainPage() {
     <CloseIcon />
   </IconButton>
   </React.Fragment>}
-  />
+  /> */}
   </>
   )
 }

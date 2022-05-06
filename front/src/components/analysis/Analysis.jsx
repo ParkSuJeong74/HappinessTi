@@ -135,7 +135,7 @@ function Analysis(){
 export default Analysis
 
 const analysisPage = {
-    py: 7, mt: 3,
+    py: 5,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'

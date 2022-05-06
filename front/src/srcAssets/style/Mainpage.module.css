@@ -12,6 +12,7 @@
 .greetingWord1, .greetingWord2 {
     color: #fff;
     font-size: 6em;
+    font-weight: 900;
 }
 
 .greetingWord2 {
@@ -21,7 +22,7 @@
 
 .decoration {
     height: 10px;
-    width: 49.75em;
+    width: 46%;
     background-color: #F4C3CD;
     position: absolute;
     left: 54%;
@@ -34,7 +35,7 @@
     bottom: 25%;
     color: #ddd;
     margin-bottom: 25px;
-    font-size: 1.4em;
+    font-size: 1.6em;
 }
 
 .scrollIcon1, .scrollIcon2, .scrollIcon3 {
@@ -76,16 +77,18 @@
 
 .title{
     text-align: center;
-    font-size: 3em;
-    margin-bottom: 2em
+    font-size: 2.7em;
+    margin-bottom: 2em;
+    font-weight: bold;
 }
 .coloring {
     color: #F4C3CD;
 }
 
 .subtitle {
-    font-size: 2em;
+    font-size: 3em;
     margin-bottom: 1.5em;
+    font-weight: bold;
 }
 
 .introContent1, .introContent2, .introContent3{
