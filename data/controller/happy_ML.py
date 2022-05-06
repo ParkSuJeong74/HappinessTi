@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import joblib
 
-LinModel = joblib.load('../file/Linhappy99x7.pkl')
+LinModel = joblib.load('./file/Linhappy99x7.pkl')
 
-df = pd.read_csv("../file/happy_data2.csv")
+df = pd.read_csv("./file/happy_data2.csv")
 
 ml = Blueprint('ml',__name__)
 
@@ -52,9 +52,9 @@ def home():
     myCountryScore = df[df['country'] == myCountry]
     Score = lin_prob * 10
 
-    if float(lin_prob) < float(myCountryScore):
+    if str(lin_prob) < str(myCountryScore):
         happyType = "불행"
-    elif float(lin_prob) == float(myCountryScore):
+    elif str(lin_prob) == str(myCountryScore):
         happyType = "동일"
     else:
         happyType = "행복"
@@ -62,4 +62,4 @@ def home():
     reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry.replace(" ", "%20")
     myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry.replace(" ", "%20")
     
-    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag, "Score":Score})
+    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag,"lin_prob" :str(lin_prob), "myCountryScore" :str(myCountryScore) })
