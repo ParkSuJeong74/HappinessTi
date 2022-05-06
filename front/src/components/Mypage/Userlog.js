@@ -38,8 +38,7 @@ function Userlog({surveyLog}){
                 <div style={{ height: 300, width: '85%', margin: '0 auto', cursor: 'pointer'}}>
                     <DataGrid
                         onRowClick={(e) => {
-                            const country = e.row.type.split(" ")[0]
-                            console.log(country)
+                            const country = e.row.country
                             navigate(`/analysis/${country}`)
                         }}
                         rows={surveyLog}
