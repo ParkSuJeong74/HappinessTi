@@ -16,7 +16,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 function Progress({currentNum}) {
-    const currentRate = (currentNum/34)*100
+    const currentRate = (currentNum/25)*100
     return (
       <Box className={style.progressBar} >
         <Box sx={{ width: "40%", m: 1 }}>
