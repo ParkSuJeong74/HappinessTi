@@ -28,11 +28,32 @@
 }
 
 
-.analysisInfo {
+.infoRank {
     padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-size: larger;
+    margin: 20px;
+    font-size: 30px;
     border-bottom: 2px solid #FC8694;
+}
+
+.info {
+    background-color: #fff;
+    padding: 25px;
+    font-size: 20px;
+}
+
+.infoBox {
+    margin-top: 40px;
+    background-color: #FFCECE;
+    padding: 30px;
+    position: relative;
+    border: 1px solid rgb(212, 162, 162);
+}
+
+.pinset {
+    width: 150px;
+    position: absolute;
+    left: 150px;
+    top: -60px;
 }
 
 
@@ -108,40 +129,8 @@
     font-size: 30px;
 }
 
-.resultTi,
-.resultType,
-.resultCountry,
-.resultUserflag,
-.resultPercent,
-.resultPercent2,
-.resultPercent3 {
-    color: #FC8694;
-}
-
-.resultInfo1,
-.resultInfo3 {
-    padding: 40px 5px 10px 5px;
-    font-size: larger;
-    border-bottom: 2px solid #FC8694;
-}
-.resultInfo2,
-.resultInfo4 {
-    padding: 20px 5px 10px 5px;
-    font-size: larger;
-    border-bottom: 2px solid #FC8694;
-}
-
-
-
-.resultInfoBox4 {
-    display: flex;
-    align-items: center;
-    flex: 0.5fr 1fr;
-}
-.resultSimilarNation {
-    font-size: xx-large;
-}
 .flag {
     width: 70px;
     margin: 20px 20px 20px 0px;
 }
+

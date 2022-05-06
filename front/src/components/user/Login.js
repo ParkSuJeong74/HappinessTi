@@ -4,12 +4,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import {ROUTES} from '../../Route'
 import styled from 'styled-components';
-import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
+import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.gif';
 import style from '../../srcAssets/style/Login.module.css';
 import * as Api from '../../api'
 import { DispatchContext } from "../../App";
 import CssTextField from "./CssTextField";
 import errorHandler from "../../errorHandler";
+import { LOGIN_SUCCESS } from "../../reducer";
 
 function Login() {
     const navigate = useNavigate()
@@ -35,7 +36,7 @@ function Login() {
             navigate(ROUTES.MAIN_PAGE.link)
 
             dispatch({
-                type: "LOGIN_SUCCESS",
+                type: LOGIN_SUCCESS,
                 payload: user,
             });
 
@@ -127,6 +128,6 @@ const LoginTitle2 = styled.div`
 `;
 
 const LogoImg = styled.img`
-    width: 100px;
+    width: 60px;
     cursor: pointer;
 `;

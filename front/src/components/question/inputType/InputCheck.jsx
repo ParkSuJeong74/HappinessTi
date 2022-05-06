@@ -14,21 +14,21 @@ function InputCheck({updateQuestProcess}) {
     const ChoosedAnsToQuest = (e) => {
         setQuest((prev) => updateQuestProcess(prev, parseInt(e.target.value)))
     }
-
     
     //현재 문항에 대한 situation을 가져옴
     const currentSituation = situation.find((item) => item.num === currentNum)
 
     return (
     <>
-        {/* 현재 문항에 대한 상황을 가져옴 */}
-        <h1 className={`${style.situation} ${style.highlight}`}>{currentSituation?.content}</h1>
+        {/* (부패인식만 해당)현재 문항에 대한 상황을 가져옴 */}
+        {(currentNum >= 11 && currentNum <= 16) &&
+            <h1 className={`${style.situation}`}>{currentSituation?.content}</h1>}
 
         {/* 5지 선다로 선택할 수 있는 라디오 버튼! */}
         <div className={style.radioButtons}>
         
             <label className={style.customRadio}>
-            <input type="radio" value={20} name="choice" checked={currentQuest?.value === 20}
+            <input type="radio" value={5} name="choice" checked={currentQuest?.value === 5}
                     onChange={ChoosedAnsToQuest} />
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
@@ -38,7 +38,7 @@ function InputCheck({updateQuestProcess}) {
             </label>
         
             <label className={style.customRadio}>
-                <input type="radio" value={40} name="choice" checked={currentQuest?.value === 40}
+                <input type="radio" value={25} name="choice" checked={currentQuest?.value === 25}
                     onChange={ChoosedAnsToQuest}/>
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
@@ -47,7 +47,7 @@ function InputCheck({updateQuestProcess}) {
             </label>
 
             <label className={style.customRadio}>
-                <input type="radio" value={60} name="choice" checked={currentQuest?.value === 60}
+                <input type="radio" value={50} name="choice" checked={currentQuest?.value === 50}
                     onChange={ChoosedAnsToQuest}/>
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
@@ -56,7 +56,7 @@ function InputCheck({updateQuestProcess}) {
             </label>
 
             <label className={style.customRadio}>
-                <input type="radio" value={80} name="choice" checked={currentQuest?.value === 80}
+                <input type="radio" value={75} name="choice" checked={currentQuest?.value === 75}
                     onChange={ChoosedAnsToQuest}/>
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>
@@ -65,7 +65,7 @@ function InputCheck({updateQuestProcess}) {
             </label>
 
             <label className={style.customRadio}>
-                <input type="radio" value={100} name="choice" checked={currentQuest?.value === 100}
+                <input type="radio" value={95} name="choice" checked={currentQuest?.value === 95}
                     onChange={ChoosedAnsToQuest}/>
                 <span className={style.radioBtn}>
                     <CheckIcon className={style.icon}/>

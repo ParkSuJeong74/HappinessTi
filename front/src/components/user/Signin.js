@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import {ROUTES} from '../../Route'
 import styled from 'styled-components';
-import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
+import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.gif';
 import style from '../../srcAssets/style/Signin.module.css';
 import * as Api from '../../api'
 import CssTextField from './CssTextField'
@@ -162,7 +162,7 @@ const SigninTitle2 = styled.div`
 `;
 
 const LogoImg = styled.img`
-    width: 100px;
+    width: 60px;
     cursor: pointer;
 
 `;

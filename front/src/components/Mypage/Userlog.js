@@ -2,8 +2,6 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/
 import { DataGrid } from '@mui/x-data-grid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import * as Api from '../../api'
 import styled from 'styled-components'
 
 const columns = [
@@ -21,37 +19,8 @@ const columns = [
     { field: 'updatedAt', headerName: '시간', width: 130 },
 ];
 
-// userlog api 호출받기
-// const rows = [
-//     { id: 1, type: 'Norway 형', icon: 'Jon', happiness: 75, freedom: 95, gdp: 323, trust: 509, health: 903 },
-//     { id: 2, type: 'Denmark 형', icon: 'Jon', happiness: 34, freedom: 955, gdp: 835, trust: 53, health: 950 },
-//     { id: 3, type: 'Korea 형', icon: 'Jon', happiness: 53, freedom: 34, gdp: 65, trust: 189, health: 354 },
-// ];
-
-function Userlog(){
+function Userlog({surveyLog}){
     const navigate = useNavigate()
-    const [rows, setRows] = useState([])
-
-    async function getSurveyLogs() {
-        try {
-          const res = await Api.get("users/survey/logs");
-          const listData = res.data;
-
-          for(let i=0; i< listData.length; i++){
-            listData[i]['id'] = i+1;
-            let time = listData[i]['updatedAt'].split("T")[0]
-            listData[i]['updatedAt'] = time
-          }
-
-          setRows(listData)
-        } catch (err) {
-          console.log(err);
-        }
-      }
-
-    useEffect(() => {
-        getSurveyLogs()
-    }, [])
 
     return(
         <Accordion sx={{p: 2}}>
@@ -64,8 +33,7 @@ function Userlog(){
             </AccordionSummary>
 
             <AccordionDetails>
-                {console.log(rows)}
-                {rows.length !== 0
+                {surveyLog?.length !== 0
                 ? 
                 <div style={{ height: 300, width: '85%', margin: '0 auto', cursor: 'pointer'}}>
                     <DataGrid
@@ -74,7 +42,7 @@ function Userlog(){
                             console.log(country)
                             navigate(`/analysis/${country}`)
                         }}
-                        rows={rows}
+                        rows={surveyLog}
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}

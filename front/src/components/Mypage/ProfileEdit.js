@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import axios from "axios";
-import styled from 'styled-components'
+import errorHandler from "../../errorHandler";
 
 const CssTextField = withStyles({
   root: {
@@ -30,7 +30,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
   const [form, setForm] = useState({
     nickname: user?.nickname,
     description: currentDescription,
-  })
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,6 +60,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
       try {
         return await Promise.all([UserInfoEdit, ImageEdit]);
       } catch (error) {
+        errorHandler("회원 정보 수정 오류", error.response.data);
         throw error;
       }
     };
@@ -72,10 +73,10 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
         ImageData ? updateUser(ImageData) : updateUser(InfoData);
         alert("회원정보가 정상적으로 변경되었습니다!");
 
-        toggleEditForm()
+        toggleEditForm();
       })
       .catch((error) => {
-        alert("회원 정보 수정이 실패하였습니다.");
+        errorHandler("회원 정보 수정 오류", error.response.data);
         console.log("error", error.response.data);
       });
   };
@@ -93,24 +94,29 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
             name="nickname"
             label="Nickname 수정"
             placeholder={user?.nickname}
-            onChange={(e) => setForm((prev) => ({
-              ...prev, [e.target.name]: e.target.value
-          }))}  
+            onChange={(e) =>
+              setForm((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
 
           <CssTextField
             id="Description"
-            name="nickname"
+            name="description"
             label="Description 수정"
             placeholder={currentDescription}
             multiline
             row={3}
-            onChange={(e) => setForm((prev) => ({
-              ...prev, [e.target.name]: e.target.value
-          }))}  
+            onChange={(e) =>
+              setForm((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
           />
 
-          {/* div로 바꾸고 onDrop 속성 사용하기 */}
           <Stack direction="column" spacing={1} sx={UploadBox}>
             <UploadFileIcon sx={{ alignItems: "center", color: "gray" }} />
             <Typography sx={{ opacity: 1 }}>Image Upload Here!</Typography>
@@ -162,5 +168,3 @@ const UploadBox = {
   justifyContent: "center",
   p: 1,
 };
-
-

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import {ROUTES} from '../../Route'
-import logoImg from "../../srcAssets/img/crashingdevlogo-removebg.png";
+import logoImg from "../../srcAssets/img/crashingdevlogo-removebg.gif";
 import style from "../../srcAssets/style/Password.module.css";
 import * as Api from "../../api";
 import CssTextField from "./CssTextField";
@@ -102,6 +102,6 @@ const PasswordTitle2 = styled.div`
 `;
 
 const LogoImg = styled.img`
-  width: 100px;
+  width: 60px;
   cursor: pointer;
 `;

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Link, useNavigate,useLocation } from 'react-router-dom';
 import styled from 'styled-components'
 import { DispatchContext } from '../App';
-import logoImg from '../srcAssets/img/crashingdevlogo-removebg.png'
+import logoImg from '../srcAssets/img/crashingdevlogo-removebg.gif'
 import Style from '../srcAssets/style/Header.module.css'
 import {ROUTES} from '../Route'
 
@@ -72,7 +72,7 @@ const HeaderNavBar = styled.div`
 `;
 
 const LogoImg = styled.img`
-  width: 130px;
+  width: 90px;
   cursor: pointer;
 `;
 

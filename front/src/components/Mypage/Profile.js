@@ -1,31 +1,24 @@
-import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import styled from "styled-components";
 import ProfileEdit from "./ProfileEdit.js";
-import norway from "../../srcAssets/img/norway.png";
+import Style from '../../srcAssets/style/Mypage.module.css'
+import { useNavigate } from 'react-router-dom';
+import {ROUTES} from '../../Route'
 
-function Profile({ editOpen, toggleEditForm, user, updateUser }) {
+function Profile({ editOpen, toggleEditForm, user, updateUser, surveyLog }) {
+  const navigate = useNavigate()
+  const latestCountry = surveyLog[0]
+  
   return (
     <CardBox>
       <UpperBox>
-        <IconButton
-          onClick={() => toggleEditForm()}
-          sx={{ transform: "translate(865px, 0)" }}
-          size="large"
-        >
-          <EditIcon
-            fontSize="inherit"
-            sx={{ fontSize: "1.2em", color: "#eee" }}
-          />
-        </IconButton>
-
+        
         {/* 프로필 편집폼이 열리면 이미지 안보이게 함 */}
         {!editOpen && (
-          <ImageBox>
-            <ProfileImage
-              src={`https://storage.googleapis.com/crashingdevstorage14/ProfileImg/${user?.profileImgUrl}`}
-            />
-          </ImageBox>
+          <div className={Style.imageBox} onClick={() => toggleEditForm()}>
+            <img src={`https://storage.googleapis.com/crashingdevstorage14/ProfileImg/${user?.profileImgUrl}`} className={Style.profileImg} alt="프로필 이미지"/>
+            <span className={Style.editButton}>편집하기</span>
+          </div>
         )}
       </UpperBox>
 
@@ -69,20 +62,21 @@ function Profile({ editOpen, toggleEditForm, user, updateUser }) {
                   marginLeft: "15px",
                   verticalAlign: "top",
                 }}
+                onClick={() => navigate(ROUTES.QUESTION.link)}
               >
                 다시 하러 가기
               </Button>
             </Typography>
 
             <Stack direction="row" sx={{ mt: 9, justifyContent: "center" }}>
-              <NationFlag src={norway} />
+              <NationFlag src={`https://countryflagsapi.com/png/${latestCountry?.country}`} />
 
               <Typography
                 variant="h2"
                 sx={{ color: "#FC8694" }}
                 component="span"
               >
-                노르웨이 형{/* {userlog.type?} */}
+                {latestCountry?.country} 형
               </Typography>
             </Stack>
           </Grid>
@@ -108,29 +102,15 @@ const CardBox = styled.div`
 const UpperBox = styled.div`
   height: 150px;
   background: #6587ff;
+  possition: relative;
 `;
 
 const LowerBox = styled.div`
   height: 300px;
 `;
 
-const ImageBox = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  padding: 10px;
-  background: white;
-  transform: translate(85px, 0px);
-  box-sizing: content-box;
-`;
-
-const ProfileImage = styled.img`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-`;
-
 const NationFlag = styled.img`
   width: 100px;
   margin-right: 20px;
+  
 `;

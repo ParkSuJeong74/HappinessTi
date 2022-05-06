@@ -4,6 +4,7 @@ import EmojiEventsSharpIcon from "@mui/icons-material/EmojiEventsSharp"
 import * as Api from '../../../api'
 import Item from "./Item"
 import GoAllData from "./GoAllData"
+import errorHandler from "../../../errorHandler"
 
 function Ranking() {
     const [rankingDatas, setRankingDatas] = useState([])
@@ -15,6 +16,7 @@ function Ranking() {
           console.log(res.data)
         })
       } catch(err){
+        errorHandler("랭킹 정보 오류", err.response.data)
         console.log(err);
       }
     },[])

@@ -1,8 +1,28 @@
 import { Container } from "@mui/material"
 import { DataGrid } from '@mui/x-data-grid';
 import data from '../../srcAssets/style/Data.module.css'
+import {withStyles} from "@material-ui/core/styles";
+import { useNavigate } from "react-router-dom";
+import {ROUTES} from '../../Route'
 import * as Api from '../../api'
 import React, {useEffect, useState} from "react"
+
+const StyleDataGrid = withStyles({
+    '@global': {
+        '*::-webkit-scrollbar': {
+          width: '12px',
+          height: '12px'
+        },
+        '*::-webkit-scrollbar-track': {
+          backgroundColor: '#DC9898',
+          borderRadius: '10px'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: '#FFB7C0',
+          borderRadius: '10px'
+        }
+      },
+})(DataGrid);
 
 const columns = [
     { field: 'country', headerName: 'country', width: 130 },
@@ -18,6 +38,7 @@ const columns = [
 
 function DataLog(){
     const [datas, setDatas] = useState(null)
+    const navigate = useNavigate()
     useEffect(()=>{
         try{
         Api.get("happiness/lists").then(res =>{
@@ -46,7 +67,11 @@ function DataLog(){
           </Search> */}
             <div className={data.dataHappyTi} style={{ height: 381, width: '85%', margin: '0 auto'}}>
                 <DataGrid
-                    onRowClick={(e) => console.log(e.row.type.split(" ")[0])}
+                    onRowClick={(e) => {
+                        console.log(e.row.country)
+                        const nation = e.row.country
+                        navigate(`/analysis/${nation}`)
+                    }}
                     rows={datas}
                     columns={columns}
                     pageSize={5}
