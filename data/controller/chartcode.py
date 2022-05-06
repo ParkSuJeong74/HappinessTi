@@ -35,7 +35,7 @@ def treemap():
     tree_data.append(result2)
   return jsonify(tree_data)
 
-##----ë§µì°¨íŠ¸ ------##
+##----ë§µì°¨?Š¸ ------##
 @cc.route('/mapplot',methods=['GET'])
 def mapplot():
   map_data=[]
@@ -49,9 +49,9 @@ def mapplot():
   return jsonify(map_data)
 
 ##---score per continent.png----#
-# Grouping data on basis of continents ğŸ¾
+# Grouping data on basis of continents ?Ÿ?
 contData = df.groupby("continent")
-# Average happinessScore per continent ğŸ¦¨
+# Average happinessScore per continent ?Ÿ¦?
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
 @cc.route('/continent/bar',methods=['GET'])
@@ -98,9 +98,9 @@ def similar():
         '18':['Hong Kong'],
   }
   return(dict)
-#ë§¤ê°œë³€ìˆ˜ë¡œ :countryê°€ ë“¤ì–´ì˜¤ë©´ ê·¸ countryê°€ ì†í•œ ê·¸ë£¹ì˜ ë‚˜ë¼ë“¤ì„ ëª¨ë‘ ì¶œë ¥í•´ì£¼ëŠ” ë¡œì§
+#ë§¤ê°œë³??ˆ˜ë¡? :countryê°? ?“¤?–´?˜¤ë©? ê·? countryê°? ?†?•œ ê·¸ë£¹?˜ ?‚˜?¼?“¤?„ ëª¨ë‘ ì¶œë ¥?•´ì£¼ëŠ” ë¡œì§
 
-##ëŒ€ë¥™ë³„ë¡œ TOP10 ë‚´ë³´ë‚´ê¸°##
+##???ë¥™ë³„ë¡? TOP10 ?‚´ë³´ë‚´ê¸?##
 
 @cc.route('/bar/<continent>',methods=['GET'])
 def barplot(continent):
@@ -129,12 +129,12 @@ def radar(country):
           "fill": "#8884d8",
       }
       test2={
-          'name':'ë””ìŠ¤í† í”¼ì•„',
+          'name':'?””?Š¤?† ?”¼?•„',
           'uv':temp['dystopia'].to_list()[0],
           "fill":"#83a6ed",
       }
       test3={
-          'name':'ì‚¬íšŒì ì§€ì§€',
+          'name':'?‚¬?šŒ? ì§?ì§?',
           'uv':temp['socialSupport'].to_list()[0],
           "fill": "#8dd1e1",
       }
@@ -144,17 +144,17 @@ def radar(country):
           "fill": "#82ca9d",
       }
       test5={
-          'name':'ììœ ',
+          'name':'??œ ',
           'uv':temp['freedom'].to_list()[0],
           "fill": "#a4de6c",
       }
       test6={
-          'name':'ê´€ëŒ€í•¨',
+          'name':'ê´?????•¨',
           'uv':temp['generosity'].to_list()[0],
           "fill": "#d0ed57",
       }
       test7={
-          'name':'ë¶€íŒ¨ì¸ì‹',
+          'name':'ë¶??Œ¨?¸?‹',
           'uv':temp['corruptionPerceptions'].to_list()[0],
           "fill": "#ffc658",
       }
@@ -166,14 +166,14 @@ def radar(country):
   return jsonify(dic[0].get(country))
 
 
-##------ê²°ê³¼í˜ì´ì§€-------------##
+##------ê²°ê³¼?˜?´ì§?-------------##
 @cc.route('/text/<country>',methods=['GET'])
 def result(country):
   temp2=df[df['country']==country]
   for i in ['dystopia','gdp','socialSupport','health','freedom','generosity','corruptionPerceptions']:
     temp2['rank_{}'.format(i)] = df[i].rank(method='dense', ascending=False)
     globals()['{}_per'.format(i)]=round(temp2['rank_{}'.format(i)].to_list()[0]/df.shape[0]*100,3)
-    globals()['{}_text'.format(i)]= 'ë†’' if globals()['{}_per'.format(i)]<=50 else 'ë‚®'
+    globals()['{}_text'.format(i)]= '?†’' if globals()['{}_per'.format(i)]<=50 else '?‚®'
   rank=round(temp2['RANK'].values[0]/df.shape[0]*100)
   return jsonify({'rank': rank, "gdpPer":[gdp_per,gdp_text], 'dystopiaPer':[dystopia_per,dystopia_text], 'socialPer':[socialSupport_per,socialSupport_text],'healthPer':[health_per,health_text],'freedomPer':[freedom_per,freedom_text],'generosityPer':[generosity_per,generosity_text],'corruptionPer':[corruptionPerceptions_per,corruptionPerceptions_text]})
 
@@ -181,7 +181,7 @@ def result(country):
 @cc.route('/composed',methods=['GET'])
 def composedBarchart():
   yearAvg=df_merged.groupby('Year')[['Happiness Score','Family (Social Support)','Economy (GDP per Capita)','Health (Life Expectancy)']].mean()
-  #ì •ê·œí™”í•˜ê¸°
+  #? •ê·œí™”?•˜ê¸?
   yearAvg.values
   data=[]
   for i in yearAvg.index:
