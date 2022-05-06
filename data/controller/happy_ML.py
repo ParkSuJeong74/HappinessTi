@@ -49,15 +49,16 @@ def home():
     reHAPPINESS_SCORE = abs(df['happinessScore'] - lin_prob).idxmin()
     reCountry = df.iloc[reHAPPINESS_SCORE,1]
     
-    myCountryScore = df[df['country'] == myCountry]
-    Score = lin_prob * 10
+    myCountryScoreList = df[df['country'] == myCountry]
+    myCountryScore = myCountryScoreList['happinessScore']
+    
 
-    if str(lin_prob) < str(myCountryScore):
-        happyType = "불행"
+    if str(lin_prob) > str(myCountryScore):
+        happyType = "행복"
     elif str(lin_prob) == str(myCountryScore):
         happyType = "동일"
     else:
-        happyType = "행복"
+        happyType = "불행"
    
     reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry.replace(" ", "%20")
     myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry.replace(" ", "%20")
