@@ -2,6 +2,7 @@ import {Box} from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from 'sweetalert2'
 
 import {ROUTES} from '../../Route'
 import logoImg from "../../srcAssets/img/crashingdevlogo-removebg.gif";
@@ -22,7 +23,13 @@ function Password() {
         email,
       });
       console.log(res)
-      alert("비밀번호 리셋이 성공하였습니다!")
+      Swal.fire({
+        position: 'top-center',
+        title: '비밀번호 리셋 성공!',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    })
       /* const user = res.data;
       const jwtToken = user.token;
       console.log(res.data);

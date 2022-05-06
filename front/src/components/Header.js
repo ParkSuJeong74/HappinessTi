@@ -5,6 +5,7 @@ import { DispatchContext } from '../App';
 import logoImg from '../srcAssets/img/crashingdevlogo-removebg.gif'
 import Style from '../srcAssets/style/Header.module.css'
 import {ROUTES} from '../Route'
+import Swal from 'sweetalert2'
 
 function Header() {
   const dispatch = useContext(DispatchContext)
@@ -23,7 +24,13 @@ function Header() {
     dispatch({
       type: 'LOGOUT'      
     })
-    alert("로그아웃됐습니다!")
+    Swal.fire({
+      position: 'top-center',
+      title: '로그아웃 됨!',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1500
+    })
     navigate(ROUTES.MAIN_PAGE.link)
   }
 
