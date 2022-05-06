@@ -1,6 +1,6 @@
 import { Box, Button, Container, Stack } from "@mui/material"
 import { useRecoilState, useRecoilValue } from "recoil";
-import {useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {ROUTES} from '../../Route'
 
 import style from '../../srcAssets/style/Question.module.css'
@@ -85,10 +85,9 @@ function Question(){
             {currentNum === 9 &&
                 <Box className={style.guide}>
                     <h1>재밌으셨나요? 결과를 확인해볼까요?</h1>
-                    <input  
-                        type="checkbox"
-                        onChange={(e) => e.target.checked ? navigate(ROUTES.RESULT.link) : ''}
-                    />
+                    <Link to={ROUTES.RESULT.link}>
+                        <span>결과 페이지 이동!</span>
+                    </Link>
                 </Box>}
             
         </Box>
