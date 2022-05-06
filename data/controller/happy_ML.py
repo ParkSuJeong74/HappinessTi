@@ -63,4 +63,4 @@ def home():
     reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry.replace(" ", "%20")
     myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry.replace(" ", "%20")
     
-    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag,"lin_prob" :lin_prob, "myCountryScore" :myCountryScore })
+    return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag})
