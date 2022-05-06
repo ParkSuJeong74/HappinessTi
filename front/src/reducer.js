@@ -1,12 +1,15 @@
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGOUT = 'LOGOUT'
+
 export function loginReducer(userState, action) {
     switch (action.type) {
-        case "LOGIN_SUCCESS":
+        case LOGIN_SUCCESS:
             console.log("%c로그인!", "color: #d93d1a;");
             return {
                 ...userState,
                 user: action.payload,
             };
-        case "LOGOUT":
+        case LOGOUT:
             console.log("%c로그아웃!", "color: #d93d1a;");
             return {
                 ...userState,

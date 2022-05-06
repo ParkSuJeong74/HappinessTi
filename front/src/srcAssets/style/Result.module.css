@@ -28,11 +28,32 @@
 }
 
 
-.analysisInfo {
+.infoRank {
     padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-size: larger;
+    margin: 20px;
+    font-size: 30px;
     border-bottom: 2px solid #FC8694;
+}
+
+.info {
+    background-color: #fff;
+    padding: 25px;
+    font-size: 20px;
+}
+
+.infoBox {
+    margin-top: 40px;
+    background-color: #FFCECE;
+    padding: 30px;
+    position: relative;
+    border: 1px solid rgb(212, 162, 162);
+}
+
+.pinset {
+    width: 150px;
+    position: absolute;
+    left: 150px;
+    top: -60px;
 }
 
 

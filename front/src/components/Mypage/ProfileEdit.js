@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import axios from "axios";
-import styled from 'styled-components'
+import errorHandler from "../../errorHandler";
 
 const CssTextField = withStyles({
   root: {
@@ -75,7 +75,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
         toggleEditForm()
       })
       .catch((error) => {
-        alert("회원 정보 수정이 실패하였습니다.");
+        errorHandler("회원 정보 수정 오류", error.response.data)
         console.log("error", error.response.data);
       });
   };
@@ -110,7 +110,6 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
           }))}  
           />
 
-          {/* div로 바꾸고 onDrop 속성 사용하기 */}
           <Stack direction="column" spacing={1} sx={UploadBox}>
             <UploadFileIcon sx={{ alignItems: "center", color: "gray" }} />
             <Typography sx={{ opacity: 1 }}>Image Upload Here!</Typography>

@@ -10,6 +10,7 @@ import * as Api from '../../api'
 import { DispatchContext } from "../../App";
 import CssTextField from "./CssTextField";
 import errorHandler from "../../errorHandler";
+import { LOGIN_SUCCESS } from "../../reducer";
 
 function Login() {
     const navigate = useNavigate()
@@ -35,7 +36,7 @@ function Login() {
             navigate(ROUTES.MAIN_PAGE.link)
 
             dispatch({
-                type: "LOGIN_SUCCESS",
+                type: LOGIN_SUCCESS,
                 payload: user,
             });
 

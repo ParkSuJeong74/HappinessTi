@@ -1,5 +1,4 @@
 import { Box, Container } from "@mui/material"
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import {ROUTES} from '../../Route'
 import style from '../../srcAssets/style/Mainpage.module.css'
@@ -7,31 +6,9 @@ import ChartComposed from "./chart/ChartComposed";
 import ChartMap from "./chart/ChartMap";
 import ChartTreemap from "./chart/ChartTreemap";
 import Ranking from "./ranking/Ranking";
-import * as Api from '../../api'
 
 function Intro({ activeBtn }) {
     const navigate = useNavigate();
-    const [isFetchCompleted, setIsFetchCompleted] = useState(false);
-
-    const fetchData = async () => {
-        try {
-            
-            
-        } catch {
-
-        }
-        setIsFetchCompleted(true)
-    }
-
-    // 초기에 한번만 실행, 데이터 불러와서 차트 3개랑 랭킹에 data 넘겨주기
-    useEffect(() => {
-        fetchData()
-    }, [])
-
-    // 로딩될 동안에 기다리는 중 gif 띄워놓기?
-    if (!isFetchCompleted) {
-        return "데이터 불러오는 중입니다..."
-    }
 
     return (
         <Container sx={{py:10}}>

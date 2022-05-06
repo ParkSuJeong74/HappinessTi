@@ -76,9 +76,13 @@
 }
 
 .situation {
-    margin-top: 30px;
-    font-size: 25px;
+    margin-top: 10px;
+    font-size: 23px;
     font-weight: 400;
+    white-space: pre-line; /* 자동으로 줄바꿈 */
+    line-height: 45px;
+    border: 1px solid #9f53e63d;
+    padding: 20px;
 }
 
 

@@ -3,6 +3,7 @@ import countries from "./world_countries.json";
 import * as Api from '../../../api'
 import React, {useEffect, useState} from "react"
 import { DATA_GRID_DEFAULT_SLOTS_COMPONENTS } from '@mui/x-data-grid';
+import errorHandler from '../../../errorHandler';
 
 function ChartMap() {
   const [data, setData] = useState(null)
@@ -12,6 +13,7 @@ function ChartMap() {
         setData(res.data)
       })
     } catch(err){
+      errorHandler("map chart 오류", err.response.data)
       console.log(err);
     }
   },[])

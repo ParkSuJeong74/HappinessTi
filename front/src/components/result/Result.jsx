@@ -4,44 +4,69 @@ import { useRecoilValue } from "recoil";
 import { questState } from "../../atom";
 import * as Api from '../../api'
 import { useEffect, useState } from "react";
+import {useNavigate } from "react-router-dom"
+import {ROUTES} from '../../Route'
+
 import RadialChart from "../chart/RadialChart";
 import calcQuestion from "./calcQuestion";
+import pinImg from '../../srcAssets/img/pin1-removebg.png'
+import errorHandler from "../../errorHandler";
 
+// 로그인한 user만 결과 페이지 볼 수 있음!
 function Result({ activeBtn }){
+    const navigate = useNavigate();
+    const isLoggedin = sessionStorage.getItem("userToken");
 
     const quest = useRecoilValue(questState);
-    const [similarCountries, setSimilarCountries] = useState([])
+    
     const [predict, setPredict] = useState([])
+    const [radialData, setRadialData] = useState([])
+    const [infoText, setInfoText] = useState({
+        'corruptionPer': [0, '높'],
+        'dystopiaPer':  [0, '높'],
+        'freedomPer': [0, '높'],
+        'gdpPer': [0, '높'],
+        'generosityPer': [0, '높'],
+        'healthPer':  [0, '높'],
+        'rank': 0,
+        'socialPer': [0, '높'],
+    })
+    const [similarCountries, setSimilarCountries] = useState([])
     
     console.log(quest)
     const calculated = calcQuestion(quest)
     console.log(calculated)
 
-    async function getPredictData() {
-        try{
-            const res = await Api.post("result/predict", calculated);
-            console.log(res.data)
-            setPredict(res.data)
-        }
-        catch(err){
-            console.log(err.response.data)
+    async function getResultData() {
+        try {
+            const res1 = await Api.post("result/predict", calculated);
+            const predictData = res1.data
+            console.log(res1.data)
+            setPredict(res1.data)
+
+            const res2 = await Api.get(`result/${predictData?.reCountry}`);
+            setRadialData(res2.data)
+
+            const res3 = await Api.get(`result/${predictData?.reCountry}/text`)
+            console.log(res3.data)
+            setInfoText(res3.data)
+
+            const res4 = await Api.get(`result/${predictData?.reCountry}/similar`);
+            console.log(res4.data.similarCounrtries)
+            setSimilarCountries(res4.data.similarCounrtries)
+        } catch (err) {
+            errorHandler("결과 페이지 오류", err.response.data)
+            console.log(err.response.data);
         }
     }
-
-    async function getSimilarData() {
-        try {
-          const res = await Api.get(`result/${predict?.reCountry}/similar`);
-          console.log(res.data.similarCounrtries)
-        //   setSimilarCountries(res.data.similarCounrtries)
-        } catch (err) {
-          console.log(err);
-        }
-      }
     
 
     useEffect(() => {
-        getSimilarData()
-        getPredictData()
+        getResultData()
+
+        if (!isLoggedin) {
+            navigate(ROUTES.LOGIN.link, { replace: true });
+        }
     }, [])
 
     return (
@@ -67,18 +92,36 @@ function Result({ activeBtn }){
 
             {/* 추천한 나라의 분석 결과 */}
             <h1 className={Style.title}>
-                <span className={Style.coloring}>노르웨이</span>형 분석 결과
+                <span className={Style.coloring}>{predict?.reCountry}</span>형 분석 결과
             </h1>
 
             <div className={Style.analysisBox}>
-                <RadialChart nation={'Norway'} active={activeBtn === 1}></RadialChart>
+                <RadialChart data={radialData}></RadialChart>
+                <p className={Style.infoRank}>
+                    {predict?.reCountry}의 행복도는 상위 <span className={Style.coloring}>{infoText['rank']}%</span>입니다.
+                </p>
 
-                <p className={Style.analysisInfo}>
-                    상위 <span className={Style.coloring}>20%</span>의 자유 점수를 갖고 있습니다.
-                </p>
-                <p className={Style.analysisInfo}>
-                    상위 <span className={Style.coloring}>20%</span>의 경제 점수를 갖고 있습니다.
-                </p>
+                <div className={Style.infoBox}>
+                    <img src={pinImg} alt="핀 이미지" className={Style.pinset}/>
+                    <p className={Style.info}>
+                        평균보다 {infoText['freedomPer'][1]}은 상위 <span className={Style.coloring}>{infoText['freedomPer'][0]}%</span>의 자유 점수를 갖고 있습니다.
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['gdpPer'][1]}은 상위 <span className={Style.coloring}>{infoText['gdpPer'][0]}%</span>의 경제 점수를 갖고 있습니다. 
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['socialPer'][1]}은 상위 <span className={Style.coloring}>{infoText['socialPer'][0]}%</span>의 사회적 지지도를 갖고 있습니다. 
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['healthPer'][1]}은 상위 <span className={Style.coloring}>{infoText['healthPer'][0]}%</span>의 건강 점수를 갖고 있습니다. 
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['corruptionPer'][1]}은 상위 <span className={Style.coloring}>{infoText['corruptionPer'][0]}%</span>의 부패 인식도를 갖고 있습니다. 
+                    </p>
+                    <p className={Style.info}>
+                        평균보다 {infoText['dystopiaPer'][1]}은 상위 <span className={Style.coloring}>{infoText['dystopiaPer'][0]}%</span>의 디스토피아 점수를 갖고 있습니다. 
+                    </p>
+                </div>
             </div>
 
             <div className={Style.divider}/>
@@ -92,10 +135,11 @@ function Result({ activeBtn }){
                 <div className={Style.nationBox}>
                     {similarCountries.map((item) => (
                         <div className={Style.nations}>
+                            
                             <img className={Style.flag} src={`https://countryflagsapi.com/png/${item}`} alt="나라별 국기"/>
                             <h1 className={Style.nation}>{item}</h1>
                         </div>
-                    ))} 
+                    ))}
                 </div>
             </div>
 
