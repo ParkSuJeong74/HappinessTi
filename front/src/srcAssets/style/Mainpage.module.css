@@ -141,6 +141,11 @@
     align-items: center; 
     justify-content: center;
     margin-bottom: 20px;
+    font-weight: bolder;
+}
+
+.guideText {
+    font-size: 1.3rem;
 }
 
 .guide a{

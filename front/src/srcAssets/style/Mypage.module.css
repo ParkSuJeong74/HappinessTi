@@ -50,3 +50,6 @@
 .loadingImg{
     width: 500px;
 }
+.loadingText{
+    text-align: center;
+}
