@@ -106,7 +106,7 @@ function MainPage() {
                 onClose={handle4Close}
                 anchorOrigin={{vertical:'bottom' , horizontal:'right' }}
                 action={<React.Fragment>
-                    <a href="https://aitrack.lms.elice.io/"> <img src="3team_ad.png" style={{ height: "200px" }} /></a>
+                    <a href="http://elice-kdt-ai-4th-team03.elicecoding.com/"> <img src="3team_ad.png" style={{ height: "200px" }} /></a>
                     <IconButton
                   aria-label="close"
                   color="inherit"
@@ -132,7 +132,7 @@ export default MainPage
     // onClose={handle4Close}
     anchorOrigin={{vertical:'bottom' , horizontal:'left' }}
     action={<React.Fragment>
-      <a href="https://aitrack.lms.elice.io/"> <img src="3team_ad.png" style={{ height: "200px" }} /></a>
+      <a href="http://elice-kdt-ai-4th-team03.elicecoding.com/"> <img src="3team_ad.png" style={{ height: "200px" }} /></a>
       <IconButton
     aria-label="close"
     color="inherit"
