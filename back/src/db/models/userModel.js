@@ -7,7 +7,7 @@ export const userModel = {
   },
 
   isNicknameExist: async ({ nickname }) => {
-    const isNicknameExist = await User.findOne({ nickname });
+    const isNicknameExist = await User.exists({ nickname });
     if (isNicknameExist) {
       return false;
     }
@@ -15,7 +15,7 @@ export const userModel = {
   },
 
   isEmailExist: async ({ email }) => {
-    const isEmailExist = await User.findOne({ email });
+    const isEmailExist = await User.exists({ email });
     if (isEmailExist) {
       return false;
     }
@@ -24,7 +24,6 @@ export const userModel = {
 
   findByEmail: async ({ email }) => {
     const user = await User.findOne({ email });
-    console.log(user);
     return user;
   },
 
@@ -32,22 +31,16 @@ export const userModel = {
     const user = await User.findOne({ _id: userId });
     return user;
   },
-  findByNickname: async ({ nickname }) => {
-    const user = await User.findOne({ nickname });
-    return user;
-  },
-
-  findAll: async () => {
-    const users = await User.find({});
-    return users;
-  },
 
   update: async ({ userId, data }) => {
     const update = { $set: data };
     const option = { returnOriginal: false };
-
     const updatedUser = await User.findByIdAndUpdate(userId, update, option);
     return updatedUser;
+  },
+  findByNickname: async ({ nickname }) => {
+    const user = await User.findOne({ nickname });
+    return user;
   },
 
   delete: async ({ userId }) => {
@@ -72,7 +65,7 @@ export const userModel = {
    * 해당 user_id에 맞는 객체를 찾고 암호화 처리된 패스워드를 넘겨준다.
    */
   findPasswordById: async ({ user_id }) => {
-    const user = await User.findOne({ id: user_id });
+    const user = await User.findOne({ _id: user_id });
     return user.password;
   },
 

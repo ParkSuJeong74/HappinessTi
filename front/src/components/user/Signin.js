@@ -1,61 +1,46 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import {withStyles} from "@material-ui/core/styles";
-
+import {Box} from '@mui/material';
+import { useState } from "react"
 import { Link, useNavigate } from 'react-router-dom'
-import styled from 'styled-components';
-import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.png';
-import signin from '../../srcAssets/style/Signin.module.css';
 import Swal from 'sweetalert2'
 
-import { useState } from "react"
+import {ROUTES} from '../../Route'
+import styled from 'styled-components';
+import logoImg from '../../srcAssets/img/crashingdevlogo-removebg.gif';
+import style from '../../srcAssets/style/Signin.module.css';
 import * as Api from '../../api'
-
-const CssTextField = withStyles({
-    root: {
-      '& label.Mui-focused': {
-        color: 'pink',
-      },
-      '& .MuiInput-underline:after': {
-        borderBottomColor: 'pink',
-      }, 
-      width: '300px'
-    },
-})(TextField);
+import CssTextField from './CssTextField'
+import errorHandler from '../../errorHandler';
 
 function Signin() {
     const navigate = useNavigate()
     
-    const [email, setEmail] = useState("")
-    const [nickname, setNickname] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmpassword] = useState("")
+    const [form, setForm] = useState({
+        email: '',
+        nickname: '',
+        password: '',
+    })
 
-    function errorHandler(message){
-        Swal.fire({
-            title: '회원가입 오류',
-            text: message,
-            icon: 'warning',
-            showCloseButton: true,
-        })
-    }
+    const [confirmPassword, setConfirmpassword] = useState("")
+    
+    const isPasswordSame = form.password === confirmPassword
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
-            //TODO: user 회원가입 api 호출
-            await Api.post("users/register", {
-                email,
-                password,
-                nickname,
+            //user 회원가입 api 호출
+            await Api.post("users/register", form)
+            Swal.fire({
+                position: 'top-center',
+                title: '회원가입 성공!<br>로그인 해주세요!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
             })
-            alert("회원가입이 성공하였습니다!")
-            navigate("/login")
+            navigate(ROUTES.LOGIN.link)
 
         } catch (error) {
-            errorHandler(error.response.data)
+            errorHandler('회원가입 오류', error.response.data)
         }
     }
 
@@ -64,7 +49,7 @@ function Signin() {
         <SigninBody onSubmit={handleSubmit}>
             <SigninBodyUpper>
                 <Box>
-                    <LogoImg src={logoImg} onClick={() => navigate("/")}/>
+                    <LogoImg src={logoImg} onClick={() => navigate(ROUTES.MAIN_PAGE.link)}/>
                 </Box>
                 <Box>
                     <SigninTitle>Sign In</SigninTitle>
@@ -72,10 +57,11 @@ function Signin() {
                 </Box>
             </SigninBodyUpper>
             
-            <Box class={signin.inputEmail}>
+            <Box class={style.inputEmail}>
                 <CssTextField
                     style = {{width: '30%'}}
                     id="email" 
+                    name="email"
                     label="Email" 
                     placeholder='Email'
                     variant="standard"
@@ -83,14 +69,17 @@ function Signin() {
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setForm((prev) => ({
+                        ...prev, [e.target.name]: e.target.value
+                    }))}  
                 />
             </Box>
-            <Box class={signin.inputNickname}>
+
+            <Box class={style.inputNickname}>
                 <CssTextField
                     style = {{width: '30%'}}
                     id="nickname" 
+                    name="nickname"
                     label="Nickname" 
                     placeholder='Nickname'
                     variant="standard"
@@ -98,14 +87,17 @@ function Signin() {
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
+                    onChange={(e) => setForm((prev) => ({
+                        ...prev, [e.target.name]: e.target.value
+                    }))}  
                 />
             </Box>
-            <Box class={signin.inputPassword}>
+
+            <Box class={style.inputPassword}>
                 <CssTextField
                     style = {{width: '30%'}}
                     id="password" 
+                    name="password"
                     label="Password"
                     type = "password"
                     placeholder='Password'
@@ -114,14 +106,17 @@ function Signin() {
                     InputLabelProps={{
                         style: {color: '#FFB7C0'}
                     }}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setForm((prev) => ({
+                        ...prev, [e.target.name]: e.target.value
+                    }))}  
                 />
             </Box>
-            <Box class={signin.inputPasswordconfirm}>
+
+            <Box class={style.inputPasswordconfirm}>
                 <CssTextField
                     style = {{width: '30%'}}
-                    id="onfirmPassword" 
+                    id="confirmPassword" 
+                    name="confirmPassword"
                     label="Confirm Password"
                     type = "Password"
                     placeholder='Confirm Password'
@@ -131,16 +126,21 @@ function Signin() {
                         style: {color: '#FFB7C0'}
                     }}
                     value={confirmPassword}
-                    onChange={(e) => setConfirmpassword(e.target.value)}
+                    onChange={(e) => setConfirmpassword(e.target.value) }
                 />
+                {!isPasswordSame && (
+                    <h1 className={style.warning}>
+                        비밀번호가 일치하지 않습니다.
+                    </h1>
+                )}
             </Box>
 
-            <div class={signin.signinButtonbox}>
-                <button type='submit' class={signin.signinButton}>SIGN IN</button>
+            <div class={style.signinButtonbox}>
+                <button type='submit' class={style.signinButton}>SIGN IN</button>
 
-                <Box class={signin.otherButtonbox}>
-                    <Link to="/login" class={signin.loginButton}>Already have account?</Link>
-                    <Link to="/password" class={signin.forgotpasswordButton}>Forgot password?</Link>
+                <Box class={style.otherButtonbox}>
+                    <Link to={ROUTES.LOGIN.link} class={style.loginButton}>Already have account?</Link>
+                    <Link to={ROUTES.PASSWORD.link} class={style.forgotpasswordButton}>Forgot password?</Link>
                 </Box>
             </div>
             
@@ -169,7 +169,7 @@ const SigninTitle2 = styled.div`
 `;
 
 const LogoImg = styled.img`
-    width: 100px;
+    width: 60px;
     cursor: pointer;
 
 `;
