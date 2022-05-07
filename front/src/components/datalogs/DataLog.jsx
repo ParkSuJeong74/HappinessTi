@@ -54,7 +54,8 @@ const columns = [
 function DataLog(){
     const [datas, setDatas] = useState(null)
     const navigate = useNavigate()
-    const [fetchComplete, setFetchComplete] = useState(false)
+    
+    const [IsfetchCompleted, setIsfetchCompleted] = useState(false)
 
     async function getLists() {
       try{
@@ -64,14 +65,14 @@ function DataLog(){
       } catch(err){
         console.log(err);
       }
-      setFetchComplete(true)
+      setIsfetchCompleted(true)
     }
 
     useEffect(()=>{
       getLists()
     },[])
 
-    if(!fetchComplete){
+    if(!IsfetchCompleted){
       return (
         <div className={data.loading}>
           <img src={loading} alt="로딩중.." className={data.loadingImg} />
@@ -124,10 +125,10 @@ function DataLog(){
           </div> */}
 
           <TableContainer component={Paper}>
-            <Table sx={{ minwidth: 500 }} aria-label="customized table">
-              <TableHead>
+            <Table >
+              <TableHead >
                 <TableRow>
-                  <StyledTableCell>rank</StyledTableCell>
+                  <StyledTableCell align="right" sx={{}}>rank</StyledTableCell>
                   <StyledTableCell align="right">country</StyledTableCell>
                   <StyledTableCell align="right">happinessScore</StyledTableCell>
                   <StyledTableCell align="right">corruptRecog</StyledTableCell>
@@ -142,7 +143,7 @@ function DataLog(){
               </TableHead>
               <TableBody >
                 {datas.map((data) => (
-                  <TableRow key={data?.id} onClick={() => navigate(`/analysis/${data?.country}`)}>
+                  <TableRow key={data?.id} onClick={() => navigate(`/analysis/${data?.country}`)} sx={{margin: '50px'}}>
                     <StyledTableCell component="th" scope="row"> 
                       {data?.rank}
                     </StyledTableCell>

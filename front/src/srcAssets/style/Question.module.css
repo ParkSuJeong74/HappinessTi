@@ -185,6 +185,10 @@
     margin-top: 30px;
 }
 
+.guideText {
+    font-size: 1.3rem;
+}
+
 .guide input{
     width: 0;
     height: 0;

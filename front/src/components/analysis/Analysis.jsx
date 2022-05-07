@@ -1,6 +1,6 @@
 import { Container } from "@mui/material"
 import { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, useLocation } from "react-router-dom"
 import {ROUTES} from '../../Route'
 
 import Style from '../../srcAssets/style/Analysis.module.css'
@@ -32,7 +32,6 @@ function Analysis(){
     async function getRadialData() {
         try {
             const res = await Api.get(`result/${nation}`);
-            console.log(res.data)
             setRadialData(res.data)
         } catch (err) {
             errorHandler("분석 페이지 오류", err.response.data)
@@ -43,7 +42,6 @@ function Analysis(){
     async function getInfoText() {
         try {
             const res = await Api.get(`result/${nation}/text`)
-            console.log(res.data)
             setInfoText(res.data)
         } catch (err) {
             errorHandler("분석 페이지 오류", err.response.data)
@@ -54,7 +52,6 @@ function Analysis(){
     async function getSimilarData() {
         try {
             const res = await Api.get(`result/${nation}/similar`);
-            console.log(res.data.similarCounrtries)
             setSimilarCountries(res.data.similarCounrtries)
         } catch (err) {
             errorHandler("분석 페이지 오류", err.response.data)
@@ -71,8 +68,6 @@ function Analysis(){
             navigate(ROUTES.LOGIN.link, { replace: true });
         }
     }, [])
-
-    console.log(nation)
 
     return (
         <Container sx={analysisPage}>

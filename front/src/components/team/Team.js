@@ -35,6 +35,7 @@ function Tilt({ options, ...rest }) {
   return <div ref={tilt} {...rest} />;
 }
 
+
 function Team() {
   const options = {
     scale: 1.1,

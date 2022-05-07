@@ -84,7 +84,7 @@ function Question(){
             {/* 마지막 페이지에서 결과 페이지로 이동 버튼 */}
             {currentNum === 25 &&
                 <Box className={style.guide}>
-                    <h1>재밌으셨나요? 결과를 확인해볼까요?</h1>
+                    <h1 className={style.guideText}>재밌으셨나요? 결과를 확인해볼까요?</h1>
                     <input  
                         type="checkbox"
                         onChange={(e) => e.target.checked ? navigate(ROUTES.RESULT.link) : ''}
