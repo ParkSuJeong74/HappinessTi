@@ -104,7 +104,7 @@ function MainPage() {
                 open={open}
                 autoHideDuration={10000}
                 onClose={handle4Close}
-                anchorOrigin={{vertical:'top' , horizontal:'right' }}
+                anchorOrigin={{vertical:'bottom' , horizontal:'right' }}
                 action={<React.Fragment>
                     <a href="https://aitrack.lms.elice.io/"> <img src="3team_ad.png" style={{ height: "200px" }} /></a>
                     <IconButton
