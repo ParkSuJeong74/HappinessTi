@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 import joblib
 
-LinModel = joblib.load('../file/Linhappy99x7.pkl')
+LinModel = joblib.load('./file/Linhappy99x7.pkl')
 
-df = pd.read_csv("../file/happy_data2.csv")
+df = pd.read_csv("./file/happy_data2.csv")
 
 ml = Blueprint('ml',__name__)
 
@@ -49,7 +49,9 @@ def home():
     reHAPPINESS_SCORE = abs(df['happinessScore'] - lin_prob).idxmin()
     reCountry = df.iloc[reHAPPINESS_SCORE,1]
     
+    
     myCountryScoreSeries = df[df['country'] == myCountry].index[0]
+    print(myCountryScoreSeries)
     myCountryScore = df.iloc[myCountryScoreSeries,2]
     
 
