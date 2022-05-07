@@ -17,8 +17,13 @@ def man():
 def home():
     params = request.get_json()
     
-    myCountry = params["myCountry"]
+    name = params["myCountry"]
 
+    if name == "The Republic of Korea":
+        myCountry =  "South Korea"
+    else:
+        myCountry = name
+        
     kw = params["kw"]
     gdp = kw * 8
     
@@ -61,6 +66,6 @@ def home():
         happyType = "불행"
    
     reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry.replace(" ", "%20")
-    myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry.replace(" ", "%20")
+    myCountryFlag = 'https://countryflagsapi.com/png/' + name.replace(" ", "%20")
     
     return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag})
