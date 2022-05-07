@@ -1,14 +1,30 @@
 import {  ResponsiveChoropleth, ResponsiveChoroplethCanvas  } from '@nivo/geo'
-import data from "./dataMap"
 import countries from "./world_countries.json";
+import * as Api from '../../../api'
+import React, {useEffect, useState} from "react"
+import { DATA_GRID_DEFAULT_SLOTS_COMPONENTS } from '@mui/x-data-grid';
+import errorHandler from '../../../errorHandler';
 
-const MyResponsiveChoropleth = ({ data }) => (
+function ChartMap() {
+  const [data, setData] = useState(null)
+  useEffect(()=>{
+    try{
+      Api.get("graph/mapplot").then(res =>{
+        setData(res.data)
+      })
+    } catch(err){
+      errorHandler("map chart 오류", err.response.data)
+      console.log(err);
+    }
+  },[])
+
+  const MyResponsiveChoropleth = () => (
     <ResponsiveChoroplethCanvas
       data={data}
       features={countries.features}
       colors="RdBu" /* RdBu */
       domain={[ 3, 8 ]}
-      unknownColor="rgba(36, 34, 34, 0.045)"
+      unknownColor="rgba(53, 44, 48, 0.063)"
       label="properties.name"
       valueFormat=".2s"
       projectionTranslation={[0.5, 0.5]}
@@ -39,17 +55,14 @@ const MyResponsiveChoropleth = ({ data }) => (
                 itemOpacity: 1
               }
             },
-
           ]
         }
       ]}
     />
   );
-
-function ChartMap() {
   return (
-    <div style={{ height: "400px", width: "750px" }}>
-      <MyResponsiveChoropleth data={data} />
+    <div style={{ height: "30em", width: "60em" }}>
+      {data&&<MyResponsiveChoropleth />}
     </div>
   )
 }

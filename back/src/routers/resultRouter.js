@@ -16,7 +16,7 @@ export const resultRouter = Router();
  * /result/predict:
  *   post:
  *     tags: [Result]
- *     description: 머신러닝 행복도 예측
+ *     description: 머신러닝 행복도 예측, 로그 저장, 랭킹 카운트
  *     produces:
  *     - "application/json"
  *     security:
@@ -45,17 +45,22 @@ export const resultRouter = Router();
  *                 type: number
  *     responses:
  *       '200':
- *         description: "머신러닝 행복도 예측 완료"
+ *         description: "머신러닝 행복도 예측, 로그 저장, 랭킹 카운트 완료"
  */
 resultRouter.post("/predict", login_required, async function (req, res, next) {
   try {
     const response = await axios.post(
-      "http://localhost:8000/predict",
+      `${process.env.FLASK_BASE_URL}/predict`,
       req.body
     );
+
+    if (!response) {
+      throw "데이터를 받아오지 못했습니다.";
+    }
     const userId = req.currentUserId;
     const { data } = response;
-    await resultService.saveCounting({ data }); // count
+
+    await resultService.saveCounting({ data }); // Ranking count
     await resultService.saveLog({ userId, data }); // log 저장
     res.status(200).send(data);
   } catch (error) {
@@ -86,13 +91,14 @@ resultRouter.get(
   login_required,
   async function (req, res, next) {
     try {
-      const response = await axios.get("http://localhost:8000/similar");
+      const response = await axios.get(`${process.env.FLASK_BASE_URL}/similar`);
       if (!response) {
         throw "데이터를 받아오지 못했습니다.";
       }
       const { countryName } = req.params;
       const { data } = response;
       const keys = Object.keys(data);
+
       let similarCounrtries;
       for (const key of keys) {
         const index = data[key].findIndex(
@@ -104,7 +110,6 @@ resultRouter.get(
         similarCounrtries = result;
         break;
       }
-      // if (!similarCounrtries) throw "군집 없음";
       res.status(200).json({ similarCounrtries });
     } catch (error) {
       next(error);
@@ -128,15 +133,48 @@ resultRouter.get(
  *      - Authorization: []
  *     responses:
  *       '200':
- *         description: "설문조사 결과 페이지 완료"
+ *         description: "설문조사 결과 페이지 시각화 완료"
  */
 resultRouter.get("/:country", login_required, async function (req, res, next) {
   try {
     const response = await axios.get(
-      `http://localhost:8000/result/${req.params.country}`
+      `${process.env.FLASK_BASE_URL}/result/${req.params.country}`
     );
     res.status(200).send(response.data);
   } catch (error) {
     next(error);
   }
 });
+
+/**
+ * @swagger
+ * /result/{country}/text:
+ *   get:
+ *     tags: [Result]
+ *     description: 설문조사 결과 페이지 상위 퍼센트 표시
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "country"
+ *       in: "path"
+ *       required: true
+ *     security:
+ *      - Authorization: []
+ *     responses:
+ *       '200':
+ *         description: "설문조사 결과 페이지 상위 퍼센트 표시 완료"
+ */
+resultRouter.get(
+  "/:country/text",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const response = await axios.get(
+        `${process.env.FLASK_BASE_URL}/text/${req.params.country}`
+      );
+      res.status(200).send(response.data);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
