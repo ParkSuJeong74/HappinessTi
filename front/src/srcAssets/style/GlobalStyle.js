@@ -25,4 +25,36 @@ export const GlobalStyles = createGlobalStyle`
         background-color: #FE8F8F;
         border-radius: 10px;
     }
+    video::-webkit-media-controls-fullscreen-button {
+        display: none !important;
+    }
+    video::-webkit-media-controls-play-button {
+        display: none !important;
+    }
+    video::-webkit-media-controls-timeline {
+        display: none !important;
+    }
+
+    video::-webkit-media-controls-current-time-display{
+        display: none !important;
+    }
+
+    video::-webkit-media-controls-mute-button {
+        display: none !important;
+    }
+
+    video::-webkit-media-controls-volume-slider {
+        display: none !important;
+    }
+
+    
+
+    video::-webkit-media-controls-fullscreen-button { 
+        display: none !important; 
+    }
+
+
+
+
+
 `;

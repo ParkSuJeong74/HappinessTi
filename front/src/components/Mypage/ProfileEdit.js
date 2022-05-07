@@ -162,7 +162,7 @@ export default ProfileEdit;
 
 const UploadBox = {
   border: "1px dashed gray",
-  bgcolor: "rgba(0, 0, 0, 0.05)",
+  bgcolor: "rgba(0, 0, 0, 0.03)",
   width: "280px",
   alignItems: "center",
   justifyContent: "center",
