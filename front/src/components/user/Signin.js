@@ -1,6 +1,7 @@
 import {Box} from '@mui/material';
 import { useState } from "react"
 import { Link, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import {ROUTES} from '../../Route'
 import styled from 'styled-components';
@@ -29,7 +30,13 @@ function Signin() {
         try {
             //user 회원가입 api 호출
             await Api.post("users/register", form)
-            alert("회원가입이 성공하였습니다!")
+            Swal.fire({
+                position: 'top-center',
+                title: '회원가입 성공!<br>로그인 해주세요!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            })
             navigate(ROUTES.LOGIN.link)
 
         } catch (error) {

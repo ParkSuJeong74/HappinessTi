@@ -4,7 +4,7 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import { gcsBucket } from "../config/gcs.js";
 import { format } from "util";
-// import generatePassword from "password-generator";
+import generatePassword from "password-generator";
 
 export const userAuthService = {
   addUser: async ({ nickname, email, password }) => {

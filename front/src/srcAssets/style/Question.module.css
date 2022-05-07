@@ -185,23 +185,18 @@
     margin-top: 30px;
 }
 
-.guideText {
-    font-size: 1.3rem;
-}
-
-.guide input{
+.guide a{
     width: 0;
     height: 0;
 }
 
-.guide input::before {
-    content: '결과 페이지 이동!';
+.guide a{
+    position: relative;
+    display: flex;
     margin-top: 10px;
     font-size: 40px;
-    width: 800px;
-    transform: translateX(-400px);
+    width: 900px;
     height: 70px;
-    display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 40px;
@@ -211,4 +206,30 @@
                 inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
                 -0.5px 0.5px 0px rgba(0,0,0, 0.15),
                 0px 12px 10px -10px rgba(0,0,0, 0.05);
+    color: black;
+    font-weight: 200;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.guide a:hover {
+    animation: changeButtonColor 0.3s ease forwards;
+}
+
+@keyframes changeButtonColor {
+    0% {
+        background: #dbcaf9;
+        box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                    inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                    -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                    0px 12px 10px -10px rgba(0,0,0, 0.05);
+    }
+    100% {
+        background: #a07fd9;
+        box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                    inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                    inset -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                    inset 0px 12px 10px -10px rgba(0,0,0, 0.05);
+        font-size: 39px;
+    }
 }
