@@ -24,7 +24,7 @@ function ChartMap() {
       features={countries.features}
       colors="RdBu" /* RdBu */
       domain={[ 3, 8 ]}
-      unknownColor="rgba(36, 34, 34, 0.045)"
+      unknownColor="rgba(53, 44, 48, 0.063)"
       label="properties.name"
       valueFormat=".2s"
       projectionTranslation={[0.5, 0.5]}
@@ -61,7 +61,7 @@ function ChartMap() {
     />
   );
   return (
-    <div style={{ height: "400px", width: "750px" }}>
+    <div style={{ height: "30em", width: "60em" }}>
       {data&&<MyResponsiveChoropleth />}
     </div>
   )

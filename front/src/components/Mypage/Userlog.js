@@ -1,8 +1,26 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {withStyles} from "@material-ui/core/styles";
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
+
+const StyleDataGrid = withStyles({
+    '@global': {
+        '*::-webkit-scrollbar': {
+          width: '12px',
+          height: '12px'
+        },
+        '*::-webkit-scrollbar-track': {
+          backgroundColor: '#F6E7D8',
+          borderRadius: '10px'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: '#FE8F8F',
+          borderRadius: '10px'
+        }
+      },
+})(DataGrid);
 
 const columns = [
     { field: 'rank', headerName: '행복도 순위', width: 130 },
@@ -35,11 +53,10 @@ function Userlog({surveyLog}){
             <AccordionDetails>
                 {surveyLog?.length !== 0
                 ? 
-                <div style={{ height: 300, width: '85%', margin: '0 auto', cursor: 'pointer'}}>
-                    <DataGrid
+                <div style={{ height: 400, width: '85%', margin: '0 auto', cursor: 'pointer'}}>
+                    <StyleDataGrid
                         onRowClick={(e) => {
-                            const country = e.row.type.split(" ")[0]
-                            console.log(country)
+                            const country = e.row.country
                             navigate(`/analysis/${country}`)
                         }}
                         rows={surveyLog}

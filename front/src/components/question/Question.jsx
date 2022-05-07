@@ -1,4 +1,4 @@
-import { Box, Button, Container, Stack } from "@mui/material"
+import {  Box, Button, Container, Stack } from "@mui/material"
 import { useRecoilState, useRecoilValue } from "recoil";
 import {useNavigate } from 'react-router-dom';
 import {ROUTES} from '../../Route'
@@ -36,7 +36,6 @@ function Question(){
         )
     } 
 
-
     const movePrevNumber = () => {
         setCurrentNum((prev) => prev - 1)
     }
@@ -61,6 +60,7 @@ function Question(){
     <>
         {modalOpen && 
             <AlertDialog modalOpen={modalOpen} setModalOpen={setModalOpen} />}
+        
 
         <Container sx={{py: 7, mt: 12}}>
 
@@ -77,14 +77,14 @@ function Question(){
             <Stack sx={prevNextButtons}>
                 {currentNum !== 0 && 
                     <Button variant="contained" startIcon={<ArrowBackIosIcon />} sx={prevNextBtn} onClick={() => movePrevNumber()}>이전</Button>}
-                {currentNum !== 34 &&
+                {currentNum !== 25 &&
                     <Button variant="contained" endIcon={<ArrowForwardIosIcon />} sx={prevNextBtn} onClick={() => moveNextNumber()}>다음</Button>}
             </Stack>
 
             {/* 마지막 페이지에서 결과 페이지로 이동 버튼 */}
             {currentNum === 25 &&
                 <Box className={style.guide}>
-                    <h1>재밌으셨나요? 결과를 확인해볼까요?</h1>
+                    <h1 className={style.guideText}>재밌으셨나요? 결과를 확인해볼까요?</h1>
                     <input  
                         type="checkbox"
                         onChange={(e) => e.target.checked ? navigate(ROUTES.RESULT.link) : ''}

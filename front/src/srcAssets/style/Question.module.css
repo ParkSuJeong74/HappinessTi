@@ -26,8 +26,8 @@
 .agreeText {
     font-size: 30px;
     position: absolute;
-    bottom: 260px;
-    left: 450px;
+    top: 28%;
+    left: 50%;
 }
 
 /* QuestContent 컴포넌트 */
@@ -183,6 +183,10 @@
     justify-content: center;
     margin-bottom: 50px;
     margin-top: 30px;
+}
+
+.guideText {
+    font-size: 1.3rem;
 }
 
 .guide input{

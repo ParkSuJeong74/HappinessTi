@@ -32,7 +32,7 @@ function InputText({updateQuestProcess}) {
 
         const miliMark = million <= 0 ? '' : `${million}억`
         const thousMark = thousand <= 0 ? '' : `${thousand}천`
-        const hundMark = hundred <= 0 ? '' : `${hundred}만`
+        const hundMark = hundred <= 0 ? '' : `${hundred}백`
 
         return miliMark + ' ' + thousMark + ' ' + hundMark
     }
@@ -61,6 +61,7 @@ function InputText({updateQuestProcess}) {
 
             {currentNum === 3 && <span className={style.suffix}>만원</span>}
             {currentNum === 2 && <span className={style.suffix}>세</span>}
+            {currentNum === 1 && <span className={style.suffix}>%</span>}
             
         </Stack>
 

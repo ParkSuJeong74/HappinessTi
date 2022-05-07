@@ -28,6 +28,7 @@ function Header() {
   }
 
   return (
+  <>
     <HeaderNavBar>
 
       <Link to={ROUTES.MAIN_PAGE.link} className={Style.headerTitle}>
@@ -50,8 +51,10 @@ function Header() {
           <LogoutButton onClick={() => logoutHandler()} className={Style.headerLink}>Logout</LogoutButton>}
         
       </div>
-
+      
     </HeaderNavBar>
+
+  </>
   )
 
 }
@@ -67,7 +70,7 @@ const HeaderNavBar = styled.div`
   justify-content: space-between;
   position: fixed;
   z-index: 1;
-  background-color: rgba(0,0,0, 0.7);
+  background-color: rgba(0,0,0, 0.6);
   backdrop-filter: blur(8px)
 `;
 

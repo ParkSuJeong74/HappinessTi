@@ -2,9 +2,11 @@ import Style from 'styled-components'
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { useLocation } from 'react-router-dom';
 
 function Footer(){
     const [showButton, setShowButton] = useState(false);
+    const {pathname} = useLocation()
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -15,6 +17,11 @@ function Footer(){
             }
         });
     }, []);
+
+    //location의 pathname을 이용해 페이지 이동이 감지가 되면 페이지를 맨 위로 이동시킴
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname])
 
     // window창을 제일 위로 가게 하는 함수
     const scrollToTop = () => {

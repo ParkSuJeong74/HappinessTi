@@ -60,7 +60,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
       try {
         return await Promise.all([UserInfoEdit, ImageEdit]);
       } catch (error) {
-        errorHandler("회원 정보 수정 오류", error.response.data);
+        // errorHandler("회원 정보 수정 오류", error.response.data)
         throw error;
       }
     };
@@ -162,7 +162,7 @@ export default ProfileEdit;
 
 const UploadBox = {
   border: "1px dashed gray",
-  bgcolor: "rgba(0, 0, 0, 0.05)",
+  bgcolor: "rgba(0, 0, 0, 0.03)",
   width: "280px",
   alignItems: "center",
   justifyContent: "center",

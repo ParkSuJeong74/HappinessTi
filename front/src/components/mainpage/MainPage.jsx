@@ -1,11 +1,16 @@
-import style from '../../srcAssets/style/Mainpage.module.css'
 import Typed from 'typed.js'
 import React, { useEffect, useRef, useState } from 'react'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Intro from './Intro.jsx'
+
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import ReactFullpage from '@fullpage/react-fullpage';
+
+import Greeting from './Greeting';
+import Introduction from './Introduction';
+import Continent from './Continent';
+import Country from './Country';
+import GotoSurvey from './GotoSurvey';
 
 function MainPage() {
   const el = useRef(null)
@@ -38,11 +43,11 @@ function MainPage() {
     setOpen20(false);
   };
 
-  //section 세팅
+  /* //section 세팅
   useEffect(() => {
     const s = sectionRef.current.getElementsByTagName("section");
     setSection(s)
-  }, [])
+  }, []) */
 
   useEffect (() => {
     const options = {
@@ -62,52 +67,66 @@ function MainPage() {
     }
   }, [])
 
-  window.addEventListener("scroll", function (event) {
-    let yOffset = this.scrollY;
-    let height = window.innerHeight / 1.5;
-
-    for (let i = 0; i < section.length; i++) {
-      if (
-        yOffset > section[i].offsetTop - height &&
-        yOffset <= section[i].offsetTop - height + section[i].offsetHeight
-      ) {
-        setActiveBtn(i);
-        break;
-      }
-    }
-  });
+  const anchors = ["Home", "Greeting", "Continent", "Country", "GoSurvey"];
 
   return (  
-    <>
-    <div ref={sectionRef}>
-      {/* <MainVideo & greeting /> */}
-      <section>
-        <video autoPlay loop muted className={style.bgVideo}>
-          <source src={`https://storage.googleapis.com/crashingdevstorage14/video/titlevideo.mp4`} type="video/mp4" />
-        </video>
+  <>
+    <ReactFullpage
+        anchors={anchors}
+        navigation
+        navigationTooltips={anchors}
+        sectionsColor={["#fff", "#fff", "#fff", "#fff", "#000"]}
+        onLeave={(origin, destination, direction) => {
+            console.log("onLeave event", { origin, destination, direction });
+            setActiveBtn(destination.index)
+        }}
+        render={({ state, fullpageApi }) => {
+            console.log("render prop change", state, fullpageApi); // eslint-disable-line no-console
 
-        <div className={style.greetingContainer}>
-          <span className={style.greetingWord1}>Are you </span>
-          <p className = {style.greetingWord2} ref={el}></p>
-        </div>
+            return (
+            <>
+              {/* <MainVideo & greeting /> */}
+              <Greeting activeBtn={activeBtn} el={el}/>
+              
+              {/* happy-ti 간단소개 */}
+              <Introduction activeBtn={activeBtn}/>
 
-        <div className={style.decoration}></div>
+              {/* 대륙별 행복도 트리맵 차트 */}
+              <Continent activeBtn={activeBtn} />
 
-        <div className={style.mainText}>
-          <h1>매일 행복하진 않지만, 행복한 일은 매일 있어요 :)</h1>
-        </div>
+              {/* 나라별 행복도 지도맵 차트 & 랭킹 */}
+              <Country activeBtn={activeBtn} />
 
-        <div style={{fontSize: '110px'}}>
-          <KeyboardArrowDownIcon fontSize="inherit" className={style.scrollIcon1}/>
-          <KeyboardArrowDownIcon fontSize="inherit" className={style.scrollIcon2}/>
-        </div>
-      </section>
+              {/* 설문조사로 이동 버튼 */}
+              <GotoSurvey />
 
-      {/* mainpage의 intro 부분 */}
-      <Intro activeBtn={activeBtn}></Intro>
-    </div>
-    // 광고
-    <Snackbar
+              <Snackbar
+                open={open}
+                autoHideDuration={10000}
+                onClose={handle4Close}
+                anchorOrigin={{vertical:'top' , horizontal:'right' }}
+                action={<React.Fragment>
+                    <a href="https://aitrack.lms.elice.io/"> <img src="3team_ad.png" style={{ height: "200px" }} /></a>
+                    <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  sx={{ p: 0.5 }}
+                  onClick={handle4Close}>
+                  <CloseIcon />
+                </IconButton>
+                </React.Fragment>}
+              />
+            </>
+          );
+        }}
+    />
+  </>
+  )
+}
+export default MainPage
+
+    {/* 광고 */}
+   {/*  <Snackbar
     open={open}
     autoHideDuration={6000}
     // onClose={handle4Close}
@@ -123,7 +142,7 @@ function MainPage() {
   </IconButton>
   </React.Fragment>}
     
-  />
+  /> */}
   {/* <Snackbar
     open={open20}
     autoHideDuration={6000}
@@ -157,7 +176,3 @@ function MainPage() {
   </IconButton>
   </React.Fragment>}
   /> */}
-  </>
-  )
-}
-export default MainPage

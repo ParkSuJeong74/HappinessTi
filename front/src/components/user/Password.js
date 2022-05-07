@@ -23,11 +23,7 @@ function Password() {
       });
       console.log(res)
       alert("비밀번호 리셋이 성공하였습니다!")
-      /* const user = res.data;
-      const jwtToken = user.token;
-      console.log(res.data);
-      sessionStorage.setItem("userToken", jwtToken); */
-      // navigate("/");
+
     } catch (error) {
       errorHandler('비밀번호 리셋 오류', error.response.data)
     }

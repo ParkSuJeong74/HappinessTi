@@ -70,11 +70,11 @@ function Mypage() {
   }, []);
 
   // 로딩될 동안에 기다리는 중 gif 띄워놓기?
-  if (!isFetchCompleted) {
+  if(!isFetchCompleted){
     return (
       <div className={Style.loading}>
         <img src={loading} alt="로딩중.." className={Style.loadingImg} />
-        <h1>데이터 불러오는 중입니다...</h1>
+        <h1 className={Style.loadingText}>데이터 불러오는 중입니다...</h1>
       </div>
     );
   }
