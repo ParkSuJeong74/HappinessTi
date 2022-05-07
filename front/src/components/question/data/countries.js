@@ -23,7 +23,7 @@ export const countryCategory = {
         "Kuwait",
         "Uzbekistan",
         "Japan",
-        "South Korea",
+        "The Republic Of Korea",
         "Philippines",
         "Thailand",
         "Mongolia",
