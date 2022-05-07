@@ -5,23 +5,13 @@ services:
     restart: "on-failure"
     ports:
       - 80:3000
-    networks:
-      - default
   backend_server:
     image: sujeong7474/node-crashingdev:latest
     restart: "on-failure"
     ports:
       - 5005:5005
-    networks:
-      - default
-      - crashingdev
   data_server:
     image: sujeong7474/flask-crashingdev:latest
     restart: "on-failure"
     ports:
       - 5000:8000
-    networks:
-      - crashingdev
-networks:
-  crashingdev:
-    driver: bridge
