@@ -77,7 +77,7 @@ function Question(){
             <Stack sx={prevNextButtons}>
                 {currentNum !== 0 && 
                     <Button variant="contained" startIcon={<ArrowBackIosIcon />} sx={prevNextBtn} onClick={() => movePrevNumber()}>이전</Button>}
-                {currentNum !== 34 &&
+                {currentNum !== 25 &&
                     <Button variant="contained" endIcon={<ArrowForwardIosIcon />} sx={prevNextBtn} onClick={() => moveNextNumber()}>다음</Button>}
             </Stack>
 
