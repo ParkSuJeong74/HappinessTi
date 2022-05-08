@@ -88,11 +88,18 @@
 }
 
 .subtitle {
-    margin-top: 3em;
+    margin-top: 2.5em;
     margin-left: 6em;
     font-size: 3em;
     margin-bottom: 1.5em;
     font-weight: bold;
+}
+
+.resource {
+    display: flex;
+    justify-content: end;
+    margin: 10px 0;
+    color: gray;
 }
 
 .introContent1, .introContent2, .introContent3{
@@ -174,7 +181,8 @@
 }
 
 .tomato {
-    width: 150px;
+    width: 100px;
+    margin-bottom: 8px;
 }
 
 .guideText {

@@ -12,6 +12,7 @@ function Continent({activeBtn}) {
                 </h2>
             
                 <div className={Style.treemap}>
+                    <div className={Style.resource}>(대륙별 행복도)</div>
                     <ChartTreemap active={activeBtn === 2}></ChartTreemap>
                 </div>
 

@@ -10,6 +10,8 @@ import Profile from "./Profile";
 import errorHandler from "../../errorHandler";
 import Style from "../../srcAssets/style/Mypage.module.css";
 import loading from "../../srcAssets/img/loading.gif";
+import {TimeUtil} from '../../common/timeUtil'
+
 
 function Mypage() {
   const navigate = useNavigate();
@@ -45,11 +47,14 @@ function Mypage() {
     try {
       const res = await Api.get("users/survey/logs");
       const listData = res.data;
+      console.log(res.data)
 
       for (let i = 0; i < listData.length; i++) {
         listData[i]["id"] = i + 1;
-        let time = listData[i]["updatedAt"].split("T")[0];
-        listData[i]["updatedAt"] = time;
+        console.log(listData[i]["updatedAt"])
+        console.log(TimeUtil.getTime(listData[i]["updatedAt"]))
+        /* let time = TimeUtil.getTime(listData[i]["updatedAt"]).toISOString().split("T")[0]
+        listData[i]["updatedAt"] = time;  */
       }
 
       setSurveyLog(listData);

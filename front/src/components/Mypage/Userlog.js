@@ -39,7 +39,7 @@ const columns = [
 
 function Userlog({surveyLog}){
     const navigate = useNavigate()
-
+console.log(surveyLog)
     return(
         <Accordion sx={{p: 2}}>
             <AccordionSummary

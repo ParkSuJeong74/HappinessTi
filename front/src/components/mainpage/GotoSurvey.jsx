@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import Style from '../../srcAssets/style/Mainpage.module.css'
 import { ROUTES } from '../../Route';
 import { Link } from 'react-router-dom';

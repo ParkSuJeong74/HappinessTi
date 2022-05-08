@@ -19,6 +19,7 @@ function ChartMap() {
   },[])
 
   const MyResponsiveChoropleth = () => (
+    
     <ResponsiveChoroplethCanvas
       data={data}
       features={countries.features}
@@ -61,9 +62,12 @@ function ChartMap() {
     />
   );
   return (
+    
     <div style={{ height: "30em", width: "60em" }}>
+      
       {data&&<MyResponsiveChoropleth />}
     </div>
+
   )
 }
 

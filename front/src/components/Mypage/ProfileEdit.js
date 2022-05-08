@@ -35,51 +35,52 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // user 수정 api 호출
-    const UserInfoEdit = await Api.put(`users`, form);
+    try{
+      // user 수정 api 호출
+      const UserInfoEdit = await Api.put(`users`, form);
 
-    let formData = new FormData();
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
-      },
-    };
-    formData.append("profileImgUrl", imageInfo);
+      let formData = new FormData();
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        },
+      };
+      formData.append("profileImgUrl", imageInfo);
 
-    // 이미지를 넣었을 경우에만 업로드 api 호출
-    const ImageEdit =
-      imageInfo &&
-      (await axios.post(
+      // 이미지를 넣었을 경우에만 업로드 api 호출
+      const ImageEdit = await axios.post(
         `http://${window.location.hostname}:5005/users/profile/image`,
         formData,
         config
-      ));
+      );
 
-    const Edit = async () => {
-      try {
-        return await Promise.all([UserInfoEdit, ImageEdit]);
-      } catch (error) {
-        // errorHandler("회원 정보 수정 오류", error.response.data)
-        throw error;
-      }
-    };
+      const res = await Promise.all([
+        UserInfoEdit.catch((err) => {
+          console.log("err", err);
+          return err;
+        }),
+        ImageEdit.catch((err) => {
+          console.log("err", err);
+          return err;
+        }),
+      ]);
 
-    Edit()
-      .then((res) => {
-        const InfoData = res[0].data;
-        const ImageData = res[1]?.data?.updatedUser; // 이미지 안넣었을 땐 res[1]이 null 값.
+      console.log("res", res);
+      const InfoData = res[0].data;
+      const ImageData = res[1]?.data?.updatedUser; // 이미지 안넣었을 땐 res[1]이 null 값.
 
-        ImageData ? updateUser(ImageData) : updateUser(InfoData);
-        alert("회원정보가 정상적으로 변경되었습니다!");
+      ImageData ? updateUser(ImageData) : updateUser(InfoData);
+      alert("회원정보가 정상적으로 변경되었습니다!");
 
-        toggleEditForm();
-      })
-      .catch((error) => {
-        errorHandler("회원 정보 수정 오류", error.response.data);
-        console.log("error", error.response.data);
-      });
+      toggleEditForm();
+    } catch(error){
+      console.log("error", error);
+      errorHandler("회원 정보 수정 오류", error.response.data);
+    }
   };
+
+
 
   return (
     <Grid item xs={5}>

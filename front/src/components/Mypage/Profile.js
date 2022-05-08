@@ -69,14 +69,15 @@ function Profile({ editOpen, toggleEditForm, user, updateUser, surveyLog }) {
             </Typography>
 
             <Stack direction="row" sx={{ mt: 9, justifyContent: "center" }}>
-              <NationFlag src={`https://countryflagsapi.com/png/${latestCountry?.country}`} />
-
+              {latestCountry ? <NationFlag src={`https://countryflagsapi.com/png/${latestCountry?.country}`} />
+                : ''}
+              
               <Typography
                 variant="h2"
                 sx={{ color: "#FC8694" }}
                 component="span"
               >
-                {latestCountry?.country} 형
+                {latestCountry ? `${latestCountry?.country} 형` : '설문조사를 해주세요'}
               </Typography>
             </Stack>
           </Grid>

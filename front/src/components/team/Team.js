@@ -184,7 +184,7 @@ function Team() {
                       <Typography component="h1" sx={introduceMyself}>안녕하세요, 이주안입니다!</Typography>
                       <Typography component="div" sx={contactMe}>
                         <GitHubIcon onClick={() => 
-                          window.open("")}/>
+                          window.open("https://github.com/leejooan")}/>
                       </Typography>
                     </>
                   }
