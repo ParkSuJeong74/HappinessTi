@@ -1,0 +1,63 @@
+{
+  "name": "crashing-dev-front",
+  "version": "0.1.0",
+  "private": true,
+  "description": "개발뽀개기 팀 front",
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@fullpage/react-fullpage": "^0.1.23",
+    "@material-ui/core": "^4.12.4",
+    "@mui/core": "^5.0.0-alpha.54",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.6.2",
+    "@mui/x-data-grid": "^5.9.0",
+    "@nivo/core": "^0.79.0",
+    "@nivo/geo": "^0.79.1",
+    "@react-navigation/native": "^6.0.10",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.1.1",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.26.1",
+    "global": "^4.4.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-navigation": "^4.4.4",
+    "react-player": "^2.10.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "recharts": "^2.1.9",
+    "recoil": "^0.7.2",
+    "styled-components": "^5.3.5",
+    "styled-reset": "^4.3.4",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.4.9",
+    "typed.js": "^2.0.12",
+    "vanilla-tilt": "^1.7.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

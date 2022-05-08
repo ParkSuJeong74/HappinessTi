@@ -1,0 +1,235 @@
+
+/* 헤더 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.questionHeaderImg{
+    width: 100px;
+    height: 100px;
+}
+
+/* 설문조사 안내문구 */
+.dialogTitle {
+    font-weight: bolder;
+    font-size: 35px;
+}
+
+.dialogText {
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+.agreeText {
+    font-size: 30px;
+    position: absolute;
+    top: 28%;
+    left: 50%;
+}
+
+/* QuestContent 컴포넌트 */
+.questBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.quiz {
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    white-space: pre-line; /* 자동으로 줄바꿈 */
+    line-height: 45px;
+}
+
+.quiz::after{
+    color: #9f53e63d;
+    border-bottom: 4px solid #9f53e63d;
+}
+
+.progressBar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 35px;;
+}
+
+.progressRate{
+    color: rgb(156, 153, 153);
+}
+
+
+.highlight {
+    background: linear-gradient(to top, #9f53e63d 30%, transparent 40%);
+    border-bottom: 4px solid #9f53e63d;
+}
+
+.nationFlag{
+    margin-left: 20px;
+    box-shadow: 1px 1px 3px rgb(180, 177, 177);
+}
+
+.situation {
+    margin-top: 10px;
+    font-size: 23px;
+    font-weight: 400;
+    white-space: pre-line; /* 자동으로 줄바꿈 */
+    line-height: 45px;
+    border: 1px solid #9f53e63d;
+    padding: 20px;
+}
+
+
+/* input이 textfield인 페이지 */
+.suffix {
+    color:#141415;
+    font-size: 30px;
+    vertical-align: center;
+}
+
+.calcSalary {
+    font-size: 20px;
+    margin: 10px 0 0 10px;
+}
+
+.limitSalary {
+    color: red;
+    margin: 10px 0 0 10px;
+}
+
+.increases {
+    margin: 20px 0;
+}
+
+.incThousand, .incHundred{
+    background-color: #f1f1f2;
+    border: 1px solid black;
+    padding: 6px;
+    display: inline;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* 5지선다 라디오 버튼 */
+.radioButtons {
+    display: flex;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.customRadio input {
+    display: none;
+}
+
+.radioBtn {
+    margin: 10px;
+    width: 250px;
+    height: 100px;
+    border: 3px solid transparent;
+    display: inline-block;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 0 20px #c3c3c367;
+    cursor: pointer;
+}
+
+.radioBtn > .icon {
+    color: #fff;
+    background-color: #8353e6;
+    font-size: 20px;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%) scale(4);
+    border-radius: 50px;
+    padding: 2px;
+    transition: 0.2s;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.radioBtn > h3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.customRadio input:checked + .radioBtn {
+    border: 3px solid #8373e6;
+}
+
+.customRadio input:checked + .radioBtn > .icon {
+    opacity: 1;
+    transform: translateX(-50%) scale(1)
+}
+
+.customRadio input:checked + .radioBtn > h3 {
+    color: #8373e6;
+}
+
+/* 마지막 페이지 결과 페이지 이동 버튼 */
+.guide{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
+.guide a{
+    width: 0;
+    height: 0;
+}
+
+.guide a{
+    position: relative;
+    display: flex;
+    margin-top: 10px;
+    font-size: 40px;
+    width: 900px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    cursor: pointer;
+    background: #dbcaf9;
+    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                0px 12px 10px -10px rgba(0,0,0, 0.05);
+    color: black;
+    font-weight: 200;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.guide a:hover {
+    animation: changeButtonColor 0.3s ease forwards;
+}
+
+@keyframes changeButtonColor {
+    0% {
+        background: #dbcaf9;
+        box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                    inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                    -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                    0px 12px 10px -10px rgba(0,0,0, 0.05);
+    }
+    100% {
+        background: #a07fd9;
+        box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                    inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                    inset -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                    inset 0px 12px 10px -10px rgba(0,0,0, 0.05);
+        font-size: 39px;
+    }
+}

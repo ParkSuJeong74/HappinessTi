@@ -1,0 +1,46 @@
+.dataTitle1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 0px 10px 0;
+}
+.dataTitle3
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0px 20px 0;
+}
+
+.dataTitle2
+{
+    font-size: 2.5rem;
+    font-weight: bolder;
+}
+.dataTitle4 {
+    font-size: larger;
+    font-weight: bolder;
+
+}
+
+
+
+.dataHappyTi {
+    border: 4px solid #ffd7db;
+    border-radius: 5px;
+}
+
+.dataContainer {
+    padding: 50px 200px;
+    margin-top: 100px;
+}
+
+.loading{
+    margin: 100px auto;
+}
+.loadingImg{
+    width: 500px;
+}
+.loadingText{
+    text-align: center;
+}

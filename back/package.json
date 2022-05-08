@@ -1,0 +1,57 @@
+{
+  "name": "crashing-dev-back",
+  "version": "1.0.0",
+  "description": "개발뽀개기 팀 back",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest --setupFiles dotenv/config",
+    "start": "nodemon index.js env-cmd -f .env --exec babel-node",
+    "start:build": "nodemon index.js env-cmd -f .env.server --exec babel-node"
+  },
+  "keywords": [],
+  "author": "김다현, 박수정, 박지수",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^5.19.3",
+    "@sindresorhus/is": "^4.2.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "env-cmd": "^10.1.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "fs": "^0.0.1-security",
+    "jest": "^27.3.1",
+    "jimp": "^0.16.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.1",
+    "multer": "^1.4.4",
+    "multer-google-storage": "^1.3.0",
+    "nodemailer": "^6.7.4",
+    "password-generator": "^2.3.2",
+    "path": "^0.12.7",
+    "supertest": "^6.1.6",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.3.0",
+    "uuid": "^8.3.2",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.0",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.4",
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "modulePathIgnorePatterns": [
+      "__config__"
+    ]
+  }
+}

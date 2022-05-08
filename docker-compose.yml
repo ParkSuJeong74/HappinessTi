@@ -1,0 +1,17 @@
+version: '3'
+services:
+  frontend_server:
+    image: sujeong7474/react-crashingdev:latest
+    restart: "on-failure"
+    ports:
+      - 80:3000
+  backend_server:
+    image: sujeong7474/node-crashingdev:latest
+    restart: "on-failure"
+    ports:
+      - 5005:5005
+  data_server:
+    image: sujeong7474/flask-crashingdev:latest
+    restart: "on-failure"
+    ports:
+      - 5000:8000
