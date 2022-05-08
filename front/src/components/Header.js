@@ -26,7 +26,7 @@ function Header() {
     })
     Swal.fire({
       position: 'top-center',
-      title: '�α׾ƿ� ��!',
+      title: '로그아웃 됨!',
       icon: 'success',
       showConfirmButton: false,
       timer: 1500
