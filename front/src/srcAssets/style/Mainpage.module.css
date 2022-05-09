@@ -1,0 +1,247 @@
+
+.bgVideo {
+    position: relative;
+    width: 100%;
+}
+
+.greetingContainer {
+    position: absolute;
+    left: 45%;
+    bottom: 35%;
+}
+
+.greetingWord1, .greetingWord2 {
+    color: #fff;
+    font-size: 6em;
+    font-weight: 900;
+}
+
+.greetingWord2 {
+    color: #F4C3CD;
+    display: inline;
+}
+
+.decoration {
+    height: 10px;
+    width: 46%;
+    background-color: #F4C3CD;
+    position: absolute;
+    left: 54%;
+    bottom: 25%;
+}
+
+.mainText{
+    position: absolute;
+    left: 54%;
+    bottom: 25%;
+    color: #ddd;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+}
+
+.scrollIcon1, .scrollIcon2, .scrollIcon3 {
+    animation: scrollBlink 2s linear forwards;
+    animation-iteration-count: infinite;
+    color: #fff;
+}
+
+@keyframes scrollBlink{
+    0%{
+        opacity: 0;
+    }
+    25%{
+        opcaity: 0.3;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    75%{
+        opacity: 0.8;
+    }
+    100% {
+        opcaity: 1;
+        color:#F4C3CD;
+    }
+}
+
+.scrollIcon1 {
+    position: absolute;
+    left: 50%;
+    bottom: 2%;
+}
+
+.scrollIcon2 {
+    position: absolute;
+    left: 50%;
+    bottom: -1%;
+}
+
+.title{
+    margin-top: 9rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+}
+.coloring {
+    color: #F4C3CD;
+}
+
+.subtitle {
+    margin-top: 3em;
+    margin-left: 6em;
+    font-size: 3em;
+    margin-bottom: 1.5em;
+    font-weight: bold;
+}
+
+.introContent1, .introContent2, .introContent3{
+    font-size: 1.1em;
+    /* width: 70%; */
+    text-align: center;
+}
+
+.introContent2{
+    margin-top: 1em;
+}
+.introContent3{
+    line-height: 2rem;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.treemap {
+    width: 90%;
+    height: 500px;
+    margin : 50px auto;
+}
+
+.chartComposed{
+    margin: 0 auto;
+}
+
+.chartComposed {
+    width: 750px;
+    height: 250px;
+    margin-bottom: 50px;
+}
+
+.ranking {
+    margin-bottom: 50px;
+}
+
+.country{
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.chartMap {
+    width: 60em;
+    height: 30em;
+    border: 1px solid lightgray;
+    background-color: rgba(53, 44, 48, 0.063);
+    margin-bottom: 80px;
+}
+
+.rankInfo{
+    display: flex;
+    justify-content: end;
+    color: lightslategray;
+}
+
+.goButtonContainer {
+    position: relative;
+}
+
+.lighting {
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 3%;
+    right: 10.5%;
+}
+
+.guide{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    margin-bottom: 20px;
+    font-weight: bolder;
+}
+
+.tomato {
+    width: 150px;
+}
+
+.guideText {
+    font-size: 1.3rem;
+    color: #ddd;
+}
+
+.guide a{
+    width: 0;
+    height: 0;
+}
+
+.guide a{
+    position: relative;
+    display: flex;
+    margin-top: 10px;
+    font-size: 40px;
+    width: 900px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    cursor: pointer;
+    background: #f4c3cd;
+    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                0px 12px 10px -10px rgba(0,0,0, 0.05);
+    color: black;
+    font-weight: 200;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.guide a:hover {
+    animation: changeButtonColor 0.3s ease forwards;
+}
+
+@keyframes changeButtonColor {
+    0% {
+        background: #F4C3CD;
+        box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                    inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                    -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                    0px 12px 10px -10px rgba(0,0,0, 0.05);
+    }
+    100% {
+        background: #ef9bac;
+        box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.1),
+                    inset -4px -4px 6px -1px rgba(255,255,255, 0.7),
+                    inset -0.5px 0.5px 0px rgba(0,0,0, 0.15),
+                    inset 0px 12px 10px -10px rgba(0,0,0, 0.05);
+        font-size: 39px;
+    }
+}
+
+@keyframes changeMovement {
+    0% {
+        opacity: 0.3;
+        transform: translateX(-2rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.active{
+    animation: changeMovement 1s ease-in-out;
+}
