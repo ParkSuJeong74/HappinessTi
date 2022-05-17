@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest --setupFiles dotenv/config",
-    "start": "nodemon index.js env-cmd -f .env --exec babel-node",
+    "start": "node index.js env-cmd -f .env --exec babel-node",
     "start:build": "nodemon index.js env-cmd -f .env.server --exec babel-node"
   },
   "keywords": [],

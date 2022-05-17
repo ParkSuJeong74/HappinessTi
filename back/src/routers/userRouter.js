@@ -240,7 +240,7 @@ userAuthRouter.post(
 
       let error = new Error("본인이 아니면 사용자 정보를 편집할 수 없습니다.");
       error.status = 401;
-      if (userId != req.currentUserId) {
+      if (userId !== req.currentUserId) {
         throw error;
       }
 

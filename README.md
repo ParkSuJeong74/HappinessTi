@@ -1,5 +1,11 @@
 # 행복 Ti
 
+배포 : https://happiness-ti.netlify.app/signin
+
+react : netlify(https://app.netlify.com/sites/happiness-ti/deploys/6283a907d48fd10008948807)
+backend : heroku(https://happiness-ti-back.herokuapp.com/)
+data : heroku(https://happiness-ti-data.herokuapp.com/)
+
 당신의 성격을 MBTI로 확인하듯이, 당신의 행복을 행복 Ti로 확인해보세요!
 
 ## 프로젝트 구성 안내
