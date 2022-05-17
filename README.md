@@ -1,6 +1,6 @@
 # 행복 Ti
 
-배포 : https://happiness-ti.netlify.app/signin
+배포 : https://happiness-ti.netlify.app/
 
 react : netlify(https://app.netlify.com/sites/happiness-ti/deploys/6283a907d48fd10008948807)
 backend : heroku(https://happiness-ti-back.herokuapp.com/)
