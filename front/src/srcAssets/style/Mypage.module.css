@@ -59,7 +59,6 @@
     border-radius: 50%;
     background: white;
     cursor: pointer;
-    vertical-align:bottom;
 }
 
 .uploadButton:hover {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as Api from "../../api";
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
@@ -28,6 +28,9 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
 
   const [imageInfo, setImageInfo] = useState(null);
 
+  const currentImage = `https://storage.googleapis.com/crashingdevstorage14/ProfileImg/${user?.profileImgUrl}`;
+  const [previewImage, setPreviewImage] = useState(currentImage);
+
   const [form, setForm] = useState({
     nickname: user?.nickname,
     description: currentDescription,
@@ -37,8 +40,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
     e.preventDefault();
 
     try {
-      // user 수정 api 호출
-      const UserInfoEdit = await Api.put(`users`, form);
+      const UserInfoEdit = await Api.put("users", form);
 
       let formData = new FormData();
       const config = {
@@ -71,23 +73,35 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
     }
   };
 
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setPreviewImage(reader.result);
+        resolve();
+      };
+    });
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <Stack className={Style.imageBox}>
         <img
-          src={`https://storage.googleapis.com/crashingdevstorage14/ProfileImg/${user?.profileImgUrl}`}
+          src={previewImage}
           className={Style.EditImg}
-          alt="프로필 이미지"
+          alt="미리보기 이미지"
         />
 
-        <label for="uploadFile">
-          <span className={Style.uploadButton}>
+        <label htmlFor="uploadFile">
+          <div className={Style.uploadButton}>
             <CameraAltIcon
               sx={{
                 color: "gray",
+                margin: "10px 0",
               }}
             />
-          </span>
+          </div>
         </label>
         <input
           id="uploadFile"
@@ -95,12 +109,14 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
           type="file"
           name="attachment"
           accept="image/*"
-          onChange={(e) => setImageInfo(e.target.files[0])}
+          onChange={(e) => {
+            encodeFileToBase64(e.target.files[0]);
+            setImageInfo(e.target.files[0]);
+          }}
         />
       </Stack>
-      <Stack>
-        <span>👉 파일이름: {imageInfo?.name}👈</span>
-      </Stack>
+
+      <span>👉 파일이름: {imageInfo?.name}👈</span>
 
       <Stack
         direction="column"

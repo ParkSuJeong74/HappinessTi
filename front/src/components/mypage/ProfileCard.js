@@ -13,12 +13,11 @@ function ProfileCard({ user, toggleEditForm }) {
         <span className={Style.editButton}>편집하기</span>
       </Stack>
 
-      <Typography variant="h2" component="div">
+      <Typography variant="h2" component="div" sx={{ marginTop: "2rem" }}>
         {user?.nickname}
       </Typography>
 
-      <Typography variant="h6" sx={{ marginTop: "20px" }} component="div">
-        {console.log(user?.description)}
+      <Typography variant="h6" sx={{ marginTop: "1.5rem" }} component="div">
         {user?.description === "None"
           ? "설명이 아직 없습니다. 추가해 주세요."
           : user?.description}

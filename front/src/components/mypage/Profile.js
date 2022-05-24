@@ -1,7 +1,6 @@
-import { Grid, Stack, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import styled from "styled-components";
 import ProfileEdit from "./ProfileEdit.js";
-import Style from "../../srcAssets/style/Mypage.module.css";
 import ProfileLog from "./ProfileLog.js";
 import ProfileCard from "./ProfileCard.js";
 
