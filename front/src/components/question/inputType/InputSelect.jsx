@@ -9,7 +9,7 @@ import {continents, countryCategory} from '../data/countries'
 function InputSelect({updateQuestProcess}) {
     const setQuest = useSetRecoilState(questState);
     const [continent, setContinent] = useState('아시아')
-    const [country, setCountry] = useState('The Republic Of Korea')
+    const [country, setCountry] = useState('The Republic of Korea')
     const [checked, setChecked] = useState(false) // 대륙이 체크되면 나라 input을 자동으로  focus함
 
     return (

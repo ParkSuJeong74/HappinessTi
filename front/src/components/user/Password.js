@@ -1,9 +1,10 @@
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
-import {ROUTES} from '../../Route'
+import { ROUTES } from "../../Route";
 import logoImg from "../../srcAssets/img/crashingdevlogo-removebg.gif";
 import style from "../../srcAssets/style/Password.module.css";
 import * as Api from "../../api";
@@ -21,11 +22,21 @@ function Password() {
       const res = await Api.put("users/password/reset", {
         email,
       });
-      console.log(res)
-      alert("비밀번호 리셋이 성공하였습니다!")
-
+      console.log(res);
+      Swal.fire({
+        position: "top-center",
+        title: "비밀번호 리셋 성공!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      /* const user = res.data;
+      const jwtToken = user.token;
+      console.log(res.data);
+      sessionStorage.setItem("userToken", jwtToken); */
+      // navigate("/");
     } catch (error) {
-      errorHandler('비밀번호 리셋 오류', error.response.data)
+      errorHandler("비밀번호 리셋 오류", error.response.data);
     }
   };
 
@@ -33,7 +44,10 @@ function Password() {
     <PasswordBody onSubmit={handleSubmit}>
       <PasswordBodyUpper>
         <Box>
-          <LogoImg src={logoImg} onClick={() => navigate(ROUTES.MAIN_PAGE.link)} />
+          <LogoImg
+            src={logoImg}
+            onClick={() => navigate(ROUTES.MAIN_PAGE.link)}
+          />
         </Box>
 
         <Box>
@@ -101,3 +115,4 @@ const LogoImg = styled.img`
   width: 60px;
   cursor: pointer;
 `;
+

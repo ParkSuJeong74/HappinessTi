@@ -5,8 +5,8 @@ const questState = atom({
   default: [
     {
         id: 0,
-        quiz: '당신의 나라를 입력해주세요! (ex. The Republic Of Korea)',
-        value: 'The Republic Of Korea'
+        quiz: '당신의 나라를 입력해주세요! (ex. The Republic of Korea)',
+        value: 'The Republic of Korea'
     },
     {
         id: 1,

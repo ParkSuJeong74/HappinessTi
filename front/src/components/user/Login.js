@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import {Box} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import {ROUTES} from '../../Route'
 import styled from 'styled-components';
@@ -32,7 +33,14 @@ function Login() {
             const jwtToken = user.token
             sessionStorage.setItem("userToken", jwtToken)
 
-            alert("로그인이 성공하였습니다!")
+            Swal.fire({
+                position: 'top-center',
+                title: '로그인 성공!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            })
+
             navigate(ROUTES.MAIN_PAGE.link)
 
             dispatch({

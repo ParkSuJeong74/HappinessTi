@@ -17,8 +17,13 @@ def man():
 def home():
     params = request.get_json()
     
-    myCountry = params["myCountry"]
+    name = params["myCountry"]
 
+    if name == "The Republic of Korea":
+        myCountry =  "South Korea"
+    else:
+        myCountry = name
+        
     kw = params["kw"]
     gdp = kw * 8
     
@@ -48,15 +53,19 @@ def home():
     
     reHAPPINESS_SCORE = abs(df['happinessScore'] - lin_prob).idxmin()
     reCountry = df.iloc[reHAPPINESS_SCORE,1]
-   
-    if reHAPPINESS_SCORE<5:
-        happyType = "불행"
-    elif 5<=reHAPPINESS_SCORE<=6:
-        happyType = "보통"
-    else:
+    
+    myCountryScoreSeries = df[df['country'] == myCountry].index[0]
+    myCountryScore = df.iloc[myCountryScoreSeries,2]
+    
+
+    if lin_prob > myCountryScore:
         happyType = "행복"
+    elif lin_prob == myCountryScore:
+        happyType = "동일"
+    else:
+        happyType = "불행"
    
     reCountry_flag = 'https://countryflagsapi.com/png/' + reCountry.replace(" ", "%20")
-    myCountryFlag = 'https://countryflagsapi.com/png/' + myCountry.replace(" ", "%20")
+    myCountryFlag = 'https://countryflagsapi.com/png/' + name.replace(" ", "%20")
     
     return jsonify({"myCountry" : myCountry, "myCountryFlag" : myCountryFlag,  "happyType" : happyType, "reCountry" : reCountry, "reCountryFlag" : reCountry_flag})

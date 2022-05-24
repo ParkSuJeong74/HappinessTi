@@ -35,7 +35,7 @@ def treemap():
     tree_data.append(result2)
   return jsonify(tree_data)
 
-##----맵차트 ------##
+##----맵차?�� ------##
 @cc.route('/mapplot',methods=['GET'])
 def mapplot():
   map_data=[]
@@ -49,9 +49,9 @@ def mapplot():
   return jsonify(map_data)
 
 ##---score per continent.png----#
-# Grouping data on basis of continents 🐾
+# Grouping data on basis of continents ?��?
 contData = df.groupby("continent")
-# Average happinessScore per continent 🦨
+# Average happinessScore per continent ?��?
 happAvg = contData["happinessScore"].mean()
 pd.DataFrame(happAvg)
 @cc.route('/continent/bar',methods=['GET'])
@@ -98,9 +98,9 @@ def similar():
         '18':['Hong Kong'],
   }
   return(dict)
-#매개변수로 :country가 들어오면 그 country가 속한 그룹의 나라들을 모두 출력해주는 로직
+#매개�??���? :country�? ?��?��?���? �? country�? ?��?�� 그룹?�� ?��?��?��?�� 모두 출력?��주는 로직
 
-##대륙별로 TOP10 내보내기##
+##???륙별�? TOP10 ?��보내�?##
 
 @cc.route('/bar/<continent>',methods=['GET'])
 def barplot(continent):
@@ -149,7 +149,7 @@ def radar(country):
           "fill": "#a4de6c",
       }
       test6={
-          'name':'관대함',
+          'name':'관용',
           'uv':temp['generosity'].to_list()[0],
           "fill": "#d0ed57",
       }
@@ -166,7 +166,7 @@ def radar(country):
   return jsonify(dic[0].get(country))
 
 
-##------결과페이지-------------##
+##------결과?��?���?-------------##
 @cc.route('/text/<country>',methods=['GET'])
 def result(country):
   temp2=df[df['country']==country]
@@ -181,7 +181,7 @@ def result(country):
 @cc.route('/composed',methods=['GET'])
 def composedBarchart():
   yearAvg=df_merged.groupby('Year')[['Happiness Score','Family (Social Support)','Economy (GDP per Capita)','Health (Life Expectancy)']].mean()
-  #정규화하기
+  #?��규화?���?
   yearAvg.values
   data=[]
   for i in yearAvg.index:
