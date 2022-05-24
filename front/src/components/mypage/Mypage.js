@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 import * as Api from "../../api";
 import { ROUTES } from "../../Route";
-import ProfileInfo from "./ProfileInfo";
+import UserInfo from "./UserInfo";
 import Profile from "./Profile";
 import errorHandler from "../../errorHandler";
 import Style from "../../srcAssets/style/Mypage.module.css";
 import loading from "../../srcAssets/img/loading.gif";
 import { TimeUtil } from "../../common/timeUtil";
+import ProfileEdit from "./ProfileEdit";
 
 function Mypage() {
   const navigate = useNavigate();
@@ -85,7 +86,6 @@ function Mypage() {
 
   return (
     <Container sx={{ py: 7, mt: 12 }}>
-      {console.log("updateUser하면 자동 새로고침?")}
       {/* 회원 프로필 내용 */}
       <Profile
         user={user}
@@ -105,7 +105,7 @@ function Mypage() {
         회원 정보
       </Typography>
 
-      <ProfileInfo updateUser={updateUser} surveyLog={surveyLog} />
+      <UserInfo updateUser={updateUser} surveyLog={surveyLog} />
     </Container>
   );
 }
