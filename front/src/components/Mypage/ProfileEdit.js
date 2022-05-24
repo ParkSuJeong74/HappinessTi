@@ -32,10 +32,10 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
     description: currentDescription,
   });
 
-  const handleSubmit = async (e) => {
+  /* const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
+    try {
       // user 수정 api 호출
       const UserInfoEdit = await Api.put(`users`, form);
 
@@ -47,7 +47,7 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
         },
       };
       formData.append("profileImgUrl", imageInfo);
-
+      console.log(formData);
       // 이미지를 넣었을 경우에만 업로드 api 호출
       const ImageEdit = await axios.post(
         `http://${window.location.hostname}:5005/users/profile/image`,
@@ -74,13 +74,38 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
       alert("회원정보가 정상적으로 변경되었습니다!");
 
       toggleEditForm();
-    } catch(error){
+    } catch (error) {
       console.log("error", error);
-      errorHandler("회원 정보 수정 오류", error.response.data);
+      errorHandler("회원 정보 수정 오류", error);
+    }
+  }; */
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let formData = new FormData();
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      },
+    };
+
+    formData.append("profileImgUrl", imageInfo);
+
+    try {
+      const res = await axios.post(
+        `http://localhost:5005/users/profile/image`,
+        formData,
+        config
+      );
+      console.log(res.data.updatedUser);
+      updateUser(res.data.updatedUser);
+      toggleEditForm();
+    } catch (error) {
+      console.log(error);
     }
   };
-
-
 
   return (
     <Grid item xs={5}>
