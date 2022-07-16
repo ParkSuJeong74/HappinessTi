@@ -11,7 +11,6 @@ import errorHandler from "../../errorHandler";
 import Style from "../../srcAssets/style/Mypage.module.css";
 import loading from "../../srcAssets/img/loading.gif";
 import { TimeUtil } from "../../common/timeUtil";
-import ProfileEdit from "./ProfileEdit";
 
 function Mypage() {
   const navigate = useNavigate();

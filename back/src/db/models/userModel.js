@@ -38,6 +38,7 @@ export const userModel = {
     const updatedUser = await User.findByIdAndUpdate(userId, update, option);
     return updatedUser;
   },
+  
   findByNickname: async ({ nickname }) => {
     const user = await User.findOne({ nickname });
     return user;

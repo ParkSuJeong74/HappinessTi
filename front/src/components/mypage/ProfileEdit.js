@@ -40,7 +40,8 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
     e.preventDefault();
 
     try {
-      const UserInfoEdit = await Api.put("users", form);
+      // 유저의 닉네임, description 수정에 대한 쿼리
+      const userEditQuery = await Api.put("users", form);
 
       let formData = new FormData();
       const config = {
@@ -49,26 +50,34 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
           Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
         },
       };
+
       formData.append("profileImgUrl", imageInfo);
 
-      const ImageEdit = await axios.post(
-        `http://${window.location.hostname}:5005/users/profile/image`,
-        formData,
-        config
-      );
+      // 프로필 이미지 변경에 대한 쿼리
+      // 이미지 변경을 안한다면 catch문으로 들어가지 않도록 Promise.reject가 나오게 함
+      const imageEditQuery = !imageInfo
+        ? Promise.reject("no image")
+        : await axios.post(
+            `http://${window.location.hostname}:5005/users/profile/image`,
+            formData,
+            config
+          );
 
-      const result = await Promise.allSettled([UserInfoEdit, ImageEdit]);
+      const result = await Promise.allSettled([userEditQuery, imageEditQuery]);
 
-      console.log("result", result);
-      const InfoData = result[0].value.data;
-      const ImageData = result[1].value.data.updatedUser;
+      // 이미지 변경을 안하고 유저 정보만 변경할 경우
+      const onlyUserModified = result[0].value.data;
 
-      ImageData ? updateUser(ImageData) : updateUser(InfoData);
+      // 이미지 변경을 한 경우
+      const imgModified = result[1]?.value?.data?.updatedUser;
+
+      const modified = imgModified ?? onlyUserModified;
+
+      updateUser(modified);
       alert("회원정보가 정상적으로 변경되었습니다!");
 
       toggleEditForm();
     } catch (error) {
-      console.log("error", error);
       errorHandler("회원 정보 수정 오류", error.response.data);
     }
   };
