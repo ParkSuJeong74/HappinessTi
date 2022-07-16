@@ -1,6 +1,5 @@
 import { Avatar, Divider, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import {ROUTES} from '../../../Route'
 
 let grade=0
 function Item({ data }){

@@ -25,7 +25,7 @@ function Ranking() {
   return (
     <>
     <Paper elevation={12} sx={{ width: "320px", bgcolor: "#FFB3A3", p: 1, }}>
-    <div className={Style.rankInfo}>(설문결과 랭킹)</div>
+      <div className={Style.resource}>(설문 결과 랭킹)</div>
       <Box sx={{ margin: "1.3em", textAlign: "center" }}>
           <EmojiEventsSharpIcon sx={{ fontSize: "3.5rem", color: "#FFFA82" }} />
             <p style={{ color: "#fff" }}>

@@ -54,8 +54,6 @@ function Question(){
         return <InputCheck updateQuestProcess={updateQuestProcess}></InputCheck>
     }
 
-    console.log(quest)
-
     return (
     <>
         {modalOpen && 

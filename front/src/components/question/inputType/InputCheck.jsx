@@ -4,8 +4,7 @@ import style from '../../../srcAssets/style/Question.module.css'
 import CheckIcon from '@mui/icons-material/Check';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {questState, currentNumState } from '../../../atom';
-import { useEffect, useState } from 'react';
-import { Alert, AlertTitle } from '@mui/material';
+
 
 // 자유, 관용, 부패, 지지 -> check(5지선다)로 입력받음
 function InputCheck({updateQuestProcess}) {

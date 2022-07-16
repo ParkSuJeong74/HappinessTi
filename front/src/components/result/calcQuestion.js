@@ -4,7 +4,7 @@ function calcQuestion(original){
         if(id >= 0 && id < 4){
             if(id === 0)
                 calculated['myCountry'] = original[id]['value'] /* 나라는 값 그대로 */
-            
+
             if(id === 1) 
                 calculated['NorDystopia'] = original[id]['value'] /* 디스토피아는 100-값 */
             

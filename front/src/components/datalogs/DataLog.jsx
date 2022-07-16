@@ -97,7 +97,7 @@ function DataLog(){
                       </Typography>
                   }
                 >
-                  <HelpOutlineIcon />
+                  <HelpOutlineIcon color="info" fontSize= '2em'/>
                 </HtmlTooltip>
               </span>
           </div>

@@ -43,12 +43,6 @@ function MainPage() {
     setOpen20(false);
   };
 
-  /* //section 세팅
-  useEffect(() => {
-    const s = sectionRef.current.getElementsByTagName("section");
-    setSection(s)
-  }, []) */
-
   useEffect (() => {
     const options = {
         strings: [
@@ -67,7 +61,7 @@ function MainPage() {
     }
   }, [])
 
-  const anchors = ["Home", "Greeting", "Continent", "Country", "GoSurvey"];
+  const anchors = ["Home", "Instruction", "Continent", "Country", "GoSurvey"];
 
   return (  
   <>

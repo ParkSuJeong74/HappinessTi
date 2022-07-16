@@ -33,26 +33,21 @@ function Result({ activeBtn }){
     })
     const [similarCountries, setSimilarCountries] = useState([])
     
-    console.log(quest)
     const calculated = calcQuestion(quest)
-    console.log(calculated)
 
     async function getResultData() {
         try {
             const res1 = await Api.post("result/predict", calculated);
             const predictData = res1.data
-            console.log(res1.data)
             setPredict(res1.data)
 
             const res2 = await Api.get(`result/${predictData?.reCountry}`);
             setRadialData(res2.data)
 
             const res3 = await Api.get(`result/${predictData?.reCountry}/text`)
-            console.log(res3.data)
             setInfoText(res3.data)
 
             const res4 = await Api.get(`result/${predictData?.reCountry}/similar`);
-            console.log(res4.data.similarCounrtries)
             setSimilarCountries(res4.data.similarCounrtries)
         } catch (err) {
             errorHandler("결과 페이지 오류", err.response.data)
@@ -74,7 +69,7 @@ function Result({ activeBtn }){
             {/* 결과 예측 */}
             <div className={Style.predictBox}>
                 <div className={Style.predictIntro}>
-                    <img src={predict?.myCountryFlag} alt="내 나라 국기" className={Style.myflag} />
+                    <img src={`https://countryflagsapi.com/png/${quest[0]?.value}`} alt="내 나라 국기" className={Style.myflag} />
                     <div>당신은 <span className={Style.coloring}>{predict?.myCountry}</span> 국민이지만 당신의 <span className={Style.coloring}>행복 Ti</span>는</div>
                 </div>
 

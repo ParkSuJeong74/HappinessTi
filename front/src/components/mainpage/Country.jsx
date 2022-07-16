@@ -10,11 +10,14 @@ function Country({activeBtn}){
                 <h2 className={Style.subtitle}>
                     Total Countries <span class={Style.coloring}>Happiness</span>
                 </h2>
-
+                
                 <div className={Style.country}>
+                
                     <div className={`${activeBtn === 3 ? `${Style.chartMap} ${Style.active}` : Style.chartMap}`}>
                         <ChartMap></ChartMap>
+                        <div className={Style.resource}>(나라별 행복도)</div>
                     </div>
+
                     <div className={Style.ranking}>
                         <Ranking></Ranking>
                     </div>
@@ -23,7 +26,6 @@ function Country({activeBtn}){
                 <br/>
                 <p className={Style.introContent1}>세계행복보고서에서 수립된 지표로 만들어진 kaggle 데이터를 활용하여 총 100여 개의 나라와 당신의 행복도를 비교해줍니다. </p>
                 <br/>
-                <p className={Style.introContent1}>또한 당신이 속해있는 나라의 현재와 비교해 당신이 미래에 행복해질 가능성을 보여줍니다.</p>
             </Box>
         </div>
     )

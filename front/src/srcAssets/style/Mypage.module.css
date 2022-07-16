@@ -1,17 +1,22 @@
 .imageBox {
-    position:absolute;
-    top: 50px;
     width: 200px;
     height: 200px;
     border-radius: 50%;
     padding: 10px;
     background: white;
-    transform: translate(85px, 0px);
+    transform: translate(90px, 0px);
     box-sizing: content-box;
     position: relative;
+    margin-bottom: 15px;
 }
 
 .profileImg {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.EditImg {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -41,6 +46,23 @@
 
 .editButton:hover{
     opacity: 1;
+}
+
+
+.uploadButton {
+    position: absolute;
+    bottom: 2em;
+    right: 0.5em;
+    width: 3em;
+    height: 3em;
+    border: 1px solid lightgray;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+}
+
+.uploadButton:hover {
+    background: rgb(235, 235, 235);
 }
 
 

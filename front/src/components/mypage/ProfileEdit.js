@@ -1,11 +1,12 @@
 import { useState } from "react";
 import * as Api from "../../api";
-import { Button, Grid, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import axios from "axios";
 import errorHandler from "../../errorHandler";
+import Style from "../../srcAssets/style/Mypage.module.css";
 
 const CssTextField = withStyles({
   root: {
@@ -27,6 +28,9 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
 
   const [imageInfo, setImageInfo] = useState(null);
 
+  const currentImage = `https://storage.googleapis.com/crashingdevstorage14/ProfileImg/${user?.profileImgUrl}`;
+  const [previewImage, setPreviewImage] = useState(currentImage);
+
   const [form, setForm] = useState({
     nickname: user?.nickname,
     description: currentDescription,
@@ -35,136 +39,152 @@ function ProfileEdit({ toggleEditForm, updateUser, user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // user 수정 api 호출
-    const UserInfoEdit = await Api.put(`users`, form);
+    try {
+      // 유저의 닉네임, description 수정에 대한 쿼리
+      const userEditQuery = await Api.put("users", form);
 
-    let formData = new FormData();
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
-      },
-    };
-    formData.append("profileImgUrl", imageInfo);
+      let formData = new FormData();
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        },
+      };
 
-    // 이미지를 넣었을 경우에만 업로드 api 호출
-    const ImageEdit =
-      imageInfo &&
-      (await axios.post(
-        `http://${window.location.hostname}:5005/users/profile/image`,
-        formData,
-        config
-      ));
+      formData.append("profileImgUrl", imageInfo);
 
-    const Edit = async () => {
-      try {
-        return await Promise.all([UserInfoEdit, ImageEdit]);
-      } catch (error) {
-        // errorHandler("회원 정보 수정 오류", error.response.data)
-        throw error;
-      }
-    };
+      // 프로필 이미지 변경에 대한 쿼리
+      // 이미지 변경을 안한다면 catch문으로 들어가지 않도록 Promise.reject가 나오게 함
+      const imageEditQuery = !imageInfo
+        ? Promise.reject("no image")
+        : await axios.post(
+            `http://${window.location.hostname}:5005/users/profile/image`,
+            formData,
+            config
+          );
 
-    Edit()
-      .then((res) => {
-        const InfoData = res[0].data;
-        const ImageData = res[1]?.data?.updatedUser; // 이미지 안넣었을 땐 res[1]이 null 값.
+      const result = await Promise.allSettled([userEditQuery, imageEditQuery]);
 
-        ImageData ? updateUser(ImageData) : updateUser(InfoData);
-        alert("회원정보가 정상적으로 변경되었습니다!");
+      // 이미지 변경을 안하고 유저 정보만 변경할 경우
+      const onlyUserModified = result[0].value.data;
 
-        toggleEditForm();
-      })
-      .catch((error) => {
-        errorHandler("회원 정보 수정 오류", error.response.data);
-        console.log("error", error.response.data);
-      });
+      // 이미지 변경을 한 경우
+      const imgModified = result[1]?.value?.data?.updatedUser;
+
+      const modified = imgModified ?? onlyUserModified;
+
+      updateUser(modified);
+      alert("회원정보가 정상적으로 변경되었습니다!");
+
+      toggleEditForm();
+    } catch (error) {
+      errorHandler("회원 정보 수정 오류", error.response.data);
+    }
+  };
+
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setPreviewImage(reader.result);
+        resolve();
+      };
+    });
   };
 
   return (
-    <Grid item xs={5}>
-      <form onSubmit={handleSubmit}>
-        <Stack
-          direction="column"
-          spacing={2}
-          sx={{ mt: 1.3, alignItems: "center", justifyContent: "center" }}
-        >
-          <CssTextField
-            id="Nickname"
-            name="nickname"
-            label="Nickname 수정"
-            placeholder={user?.nickname}
-            onChange={(e) =>
-              setForm((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-          />
+    <form onSubmit={handleSubmit}>
+      <Stack className={Style.imageBox}>
+        <img
+          src={previewImage}
+          className={Style.EditImg}
+          alt="미리보기 이미지"
+        />
 
-          <CssTextField
-            id="Description"
-            name="description"
-            label="Description 수정"
-            placeholder={currentDescription}
-            multiline
-            row={3}
-            onChange={(e) =>
-              setForm((prev) => ({
-                ...prev,
-                [e.target.name]: e.target.value,
-              }))
-            }
-          />
-
-          <Stack direction="column" spacing={1} sx={UploadBox}>
-            <UploadFileIcon sx={{ alignItems: "center", color: "gray" }} />
-            <Typography sx={{ opacity: 1 }}>Image Upload Here!</Typography>
-
-            <input
-              style={{ padding: "10px 0 0 85px" }}
-              type="file"
-              name="attachment"
-              accept="image/*"
-              onChange={(e) => setImageInfo(e.target.files[0])}
+        <label htmlFor="uploadFile">
+          <div className={Style.uploadButton}>
+            <CameraAltIcon
+              sx={{
+                color: "gray",
+                margin: "10px 0",
+              }}
             />
-          </Stack>
-        </Stack>
+          </div>
+        </label>
+        <input
+          id="uploadFile"
+          style={{ display: "none" }}
+          type="file"
+          name="attachment"
+          accept="image/*"
+          onChange={(e) => {
+            encodeFileToBase64(e.target.files[0]);
+            setImageInfo(e.target.files[0]);
+          }}
+        />
+      </Stack>
 
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{ mt: 2, justifyContent: "center" }}
+      <span>👉 파일이름: {imageInfo?.name}👈</span>
+
+      <Stack
+        direction="column"
+        spacing={1.3}
+        sx={{ p: 2, alignItems: "center", justifyContent: "center" }}
+      >
+        <CssTextField
+          id="Nickname"
+          name="nickname"
+          label="Nickname 수정"
+          placeholder={user?.nickname}
+          onChange={(e) =>
+            setForm((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }))
+          }
+        />
+
+        <CssTextField
+          id="Description"
+          name="description"
+          label="Description 수정"
+          placeholder={currentDescription}
+          multiline
+          row={3}
+          onChange={(e) =>
+            setForm((prev) => ({
+              ...prev,
+              [e.target.name]: e.target.value,
+            }))
+          }
+        />
+      </Stack>
+
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{ mt: 2, justifyContent: "center" }}
+      >
+        <Button
+          variant="contained"
+          type="submit"
+          disableElevation
+          disableRipple
         >
-          <Button
-            variant="contained"
-            type="submit"
-            disableElevation
-            disableRipple
-          >
-            {" "}
-            확인{" "}
-          </Button>
-          <Button
-            type="reset"
-            onClick={() => toggleEditForm()}
-            variant="outlined"
-          >
-            {" "}
-            취소{" "}
-          </Button>
-        </Stack>
-      </form>
-    </Grid>
+          {" "}
+          확인{" "}
+        </Button>
+        <Button
+          type="reset"
+          onClick={() => toggleEditForm()}
+          variant="outlined"
+        >
+          {" "}
+          취소{" "}
+        </Button>
+      </Stack>
+    </form>
   );
 }
 export default ProfileEdit;
-
-const UploadBox = {
-  border: "1px dashed gray",
-  bgcolor: "rgba(0, 0, 0, 0.03)",
-  width: "280px",
-  alignItems: "center",
-  justifyContent: "center",
-  p: 1,
-};
