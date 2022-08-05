@@ -2,15 +2,7 @@
 
 배포 : https://happiness-ti.netlify.app/
 
-react : netlify(https://app.netlify.com/sites/happiness-ti/deploys/6283a907d48fd10008948807)
-
-backend : heroku(https://happiness-ti-back.herokuapp.com/)
-
-data : heroku(https://happiness-ti-data.herokuapp.com/)
-
 당신의 성격을 MBTI로 확인하듯이, 당신의 행복을 행복 Ti로 확인해보세요!
-
-현재 배포 : http://elice-kdt-ai-4th-team14.elicecoding.com/
 
 ## 프로젝트 구성 안내
 
@@ -73,6 +65,14 @@ data : heroku(https://happiness-ti-data.herokuapp.com/)
 - 기획 단계: 기획 데이터 분석을 통해 해결하고자 하는 문제를 정의
 - 개발 단계: 웹 서버 사용자가 직접 백엔드에 저장할수 있는 기능 구현, 데이터 베이스 구축 및 API 활용, 데이터 분석 개념 총동원하기
 - 수정 단계: 코치님 피드백 반영해서 분석/ 시각화 방식 수정
+
+4. 현재 배포
+
+react : netlify(https://app.netlify.com/sites/happiness-ti/deploys/6283a907d48fd10008948807)
+
+backend : heroku(https://happiness-ti-back.herokuapp.com/)
+
+data : heroku(https://happiness-ti-data.herokuapp.com/)
 
 ## 6. 버전
   - 프로젝트의 버전 기입
